@@ -12,9 +12,6 @@ import { Outlet, redirect } from 'react-router-dom';
 import { Box, createTheme, ThemeProvider } from '@mui/material';
 import Topbar from './layout/Topbar';
 import { basicTheme } from './theme';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import 'dayjs/locale/he';
 import { hebrew } from './i18n/hebrew';
 import { initReactI18next } from 'react-i18next';
 
@@ -65,42 +62,40 @@ const App = () => {
 
   return (
     <ThemeProvider theme={lightTheme}>
-      <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="he">
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100vw',
+          height: '100vh',
+          background: 'linear-gradient(180deg, rgba(36, 155, 155, 0.015) 0%, rgba(36, 155, 155, 0.105) 100%)}};',
+          overflow: 'hidden',
+        }}
+      >
+        <CssBaseline />
         <Box
           sx={{
+            flex: 25,
             display: 'flex',
-            width: '100vw',
-            height: '100vh',
-            background: 'linear-gradient(180deg, rgba(36, 155, 155, 0.015) 0%, rgba(36, 155, 155, 0.105) 100%)}};',
-            overflow: 'hidden',
+            flexDirection: 'column',
+            paddingRight: 4,
+            paddingLeft: 4,
+            paddingBottom: 2,
           }}
         >
-          <CssBaseline />
+          <Box sx={{ flex: 1, zIndex: 2 }}>
+            <Topbar />
+          </Box>
           <Box
+            component="main"
             sx={{
-              flex: 25,
-              display: 'flex',
-              flexDirection: 'column',
-              paddingRight: 4,
-              paddingLeft: 4,
-              paddingBottom: 2,
+              flex: 15,
+              zIndex: 2,
             }}
           >
-            <Box sx={{ flex: 1, zIndex: 2 }}>
-              <Topbar />
-            </Box>
-            <Box
-              component="main"
-              sx={{
-                flex: 15,
-                zIndex: 2,
-              }}
-            >
-              <Outlet />
-            </Box>
+            <Outlet />
           </Box>
         </Box>
-      </LocalizationProvider>
+      </Box>
     </ThemeProvider>
   );
 };
