@@ -10,7 +10,6 @@ import { AuthService } from './services/authService';
 import { setUser } from './store/reducers/user';
 import { Outlet, redirect } from 'react-router-dom';
 import { Box, createTheme, ThemeProvider } from '@mui/material';
-import Topbar from './layout/Topbar';
 import { basicTheme } from './theme';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -71,7 +70,7 @@ const App = () => {
             display: 'flex',
             width: '100vw',
             height: '100vh',
-            background: 'linear-gradient(180deg, rgba(36, 155, 155, 0.015) 0%, rgba(36, 155, 155, 0.105) 100%)}};',
+            // background: 'linear-gradient(180deg, rgba(36, 155, 155, 0.015) 0%, rgba(36, 155, 155, 0.105) 100%)}};',
             overflow: 'hidden',
           }}
         >
@@ -86,9 +85,7 @@ const App = () => {
               paddingBottom: 2,
             }}
           >
-            <Box sx={{ flex: 1, zIndex: 2 }}>
-              <Topbar />
-            </Box>
+            <Box sx={{ flex: 1, zIndex: 2 }}>{/* <SearchBar value={value} setValue={setValue} /> */}</Box>
             <Box
               component="main"
               sx={{
