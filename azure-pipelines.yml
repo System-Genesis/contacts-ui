@@ -1,0 +1,20 @@
+trigger:
+- main
+
+variables:
+ - name: BRANCH_NAME
+   value: $[replace(variables['Build.SourceBranch'], 'refs/heads/', '')]
+
+pool:
+  vmImage: ubuntu-latest
+
+steps:
+- task: Docker@2
+  inputs:
+    containerRegistry: 'genesis-acr'
+    repository: '$(Build.Repository.Name)'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      $(Build.BuildId)
+      $(BRANCH_NAME)

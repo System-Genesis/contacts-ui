@@ -1,0 +1,22 @@
+name: build and lint
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repository to the runner
+        uses: actions/checkout@v4  
+      - name: Run npm install
+        run: npm install
+      - name: Run build
+        run: npm run build
+      - name: Run lint
+        run: npm run lint
