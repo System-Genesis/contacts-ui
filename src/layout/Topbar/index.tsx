@@ -13,7 +13,7 @@ const Topbar = () => {
     <Box
       sx={{
         width: '100%',
-        height: '100%',
+        height: '70px',
         color: theme.colors.white,
         display: 'flex',
         flexDirection: 'row',

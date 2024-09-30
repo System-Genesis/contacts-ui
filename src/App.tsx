@@ -68,7 +68,7 @@ const App = () => {
           display: 'flex',
           width: '100vw',
           height: '100vh',
-          background: 'linear-gradient(180deg, rgba(36, 155, 155, 0.015) 0%, rgba(36, 155, 155, 0.105) 100%)}};',
+          background: 'white',
           overflow: 'hidden',
         }}
       >
