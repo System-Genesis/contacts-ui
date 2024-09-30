@@ -7,7 +7,6 @@ import { Box, useTheme } from '@mui/material';
 const Home = () => {
   const theme = useTheme();
   // const currentUser = useSelector((state: RootState) => state.user);
-  // TODO: what permissions to show ApproverHome?
 
   return (
     <Box

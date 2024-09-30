@@ -38,6 +38,7 @@ const Topbar = () => {
             columnGap: theme.spacing(1.5),
           }}
         >
+          {/* //TODO: handle Edit entity */}
           <img src={ProfileIcon} />
         </Box>
         <Divider orientation="vertical" flexItem sx={{ height: '30px', margin: 'auto', mr: theme.spacing(1) }} />

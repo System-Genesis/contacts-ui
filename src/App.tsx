@@ -14,6 +14,7 @@ import Topbar from './layout/Topbar';
 import { basicTheme } from './theme';
 import { hebrew } from './i18n/hebrew';
 import { initReactI18next } from 'react-i18next';
+import ChatBot from './layout/ChatBot';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -96,6 +97,7 @@ const App = () => {
           </Box>
         </Box>
       </Box>
+      <ChatBot />
     </ThemeProvider>
   );
 };
