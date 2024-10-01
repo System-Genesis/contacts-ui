@@ -7,9 +7,10 @@ export const hebrew = {
   search: 'חיפוש',
   save: 'שמירה',
   role: 'תפקיד',
+  cancel: 'ביטול',
   personalDetails: 'פרטים אישיים',
   militaryDetails: 'פרטים צבאיים',
-  fields: {
+  field: {
     hierarchy: 'היררכיה',
     uniqueId: 'מזהה',
     mail: 'מייל',
@@ -21,4 +22,6 @@ export const hebrew = {
     redPhone: 'טלפון אדום',
   },
   edit: 'עריכה',
+  noData: 'אין מידע',
+  save: 'שמירת שינויים',
 };

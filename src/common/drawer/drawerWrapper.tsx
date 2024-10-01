@@ -54,6 +54,7 @@ export const DrawerWrapper: React.FC<{
           flexDirection: 'column',
           rowGap: theme.spacing(2),
           p: 3,
+          height: '100%',
           width: width,
         }}
       >
