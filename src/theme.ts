@@ -51,12 +51,14 @@ export const basicTheme: ThemeOptions = {
   },
   colors: {
     white: '#FFFF',
+    gray: '#F7F7F7',
   },
 };
 
 interface ThemeOptions extends ThemeOptionsMui {
   colors?: {
     white?: string;
+    gray?: string;
   };
 }
 
@@ -64,6 +66,7 @@ declare module '@mui/material/styles' {
   interface Theme {
     colors: {
       white: string;
+      gray: string;
     };
   }
 }

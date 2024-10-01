@@ -7,4 +7,11 @@ export const hebrew = {
   search: 'חיפוש',
   save: 'שמירה',
   edit: 'עריכה',
+  description: 'תיאור',
+  hierarchy: 'היררכיה',
+  contactDetails: 'פרטי יצירת קשר',
+  redPhone: 'טלפון אדום',
+  anotherPhone: 'טלפון נוסף',
+  mail: 'דוא"ל',
+  people: 'אנשים',
 };

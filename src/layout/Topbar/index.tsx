@@ -8,11 +8,21 @@ import QuestionMarkIcon from '../../assets/icons/question-mark.svg';
 import { useState } from 'react';
 import { DrawerWrapper } from '../../common/drawer/drawerWrapper';
 import { UserContent } from '../../common/drawer/content/user';
+import { GroupContect } from '../../common/drawer/content/group';
 
 const Topbar = () => {
   const currentUser = useSelector((state: RootState) => state.user);
   const theme = useTheme();
   const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
+  const [selectedObject, setSelectedObject] = useState<any>({
+    name: 'מדור דור',
+    count: 30,
+    tags: [{ id: 1, name: 'תגית' }],
+    hierarchy: 'מערך ספיר/מטה/ענף יסודות/מדור דור',
+    jabberPhone: '000000',
+    mail: 't21398@gmail.com',
+    entities: [],
+  });
 
   const StyledBadge = styled(Badge)<BadgeProps>(() => ({
     '& .MuiBadge-badge': {
@@ -73,7 +83,7 @@ const Topbar = () => {
         width="30vw"
         onClose={() => setIsProfileDrawerOpen(false)}
       >
-        {(props) => <UserContent {...props} />}
+        {(props) => <GroupContect {...props} object={selectedObject} />}
       </DrawerWrapper>
     </Box>
   );
