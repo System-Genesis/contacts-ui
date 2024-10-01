@@ -10,11 +10,11 @@ import { AuthService } from './services/authService';
 import { setUser } from './store/reducers/user';
 import { Outlet, redirect } from 'react-router-dom';
 import { Box, createTheme, ThemeProvider } from '@mui/material';
-import Topbar from './layout/Topbar';
 import { basicTheme } from './theme';
 import { hebrew } from './i18n/hebrew';
 import { initReactI18next } from 'react-i18next';
 import ChatBot from './layout/ChatBot';
+import Topbar from './layout/Topbar';
 
 const App = () => {
   const dispatch = useDispatch();

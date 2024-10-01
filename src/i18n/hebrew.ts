@@ -1,3 +1,5 @@
+import { ResultsTypes } from '../lib/enums';
+
 export const hebrew = {
   systemName: 'LEGO',
   yes: 'כן',
@@ -7,4 +9,9 @@ export const hebrew = {
   search: 'חיפוש',
   save: 'שמירה',
   edit: 'עריכה',
+  resultsType: {
+    [ResultsTypes.ENTITY]: 'אנשי קשר',
+    [ResultsTypes.GROUP]: 'היררכיות',
+    [ResultsTypes.GOAL_USER]: 'חמל"ים',
+  },
 };
