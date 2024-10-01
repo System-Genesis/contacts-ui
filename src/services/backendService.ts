@@ -1,6 +1,7 @@
 import axiosInstance from '../api/axios';
 import { routes } from '../api/routes';
 import { ResultsTypes } from '../lib/enums';
+import { EntitySearchResult, GroupSearchResult } from '../lib/types';
 
 const { backend } = routes;
 
@@ -16,4 +17,16 @@ const getCountsBySearchTerm = async (searchTerm: string) => {
   return counts;
 };
 
-export { getCountsBySearchTerm };
+const search = async (
+  searchTerm: string,
+  type: ResultsTypes,
+  page: number,
+  pageSize: number,
+): Promise<EntitySearchResult[] | GroupSearchResult[]> => {
+  const { data } = await axiosInstance.get(
+    `${backend}/search/${searchTerm}?type=${type}&page=${page}&pageSize=${pageSize}`,
+  );
+  return data;
+};
+
+export { getCountsBySearchTerm, search };

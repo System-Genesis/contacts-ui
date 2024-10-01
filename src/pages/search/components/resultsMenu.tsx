@@ -6,7 +6,7 @@ import HierarchyIcon from '../../../assets/icons/hierarchy.svg';
 import GoalUserIcon from '../../../assets/icons/goal-user.svg';
 import { useEffect, useState } from 'react';
 
-const resultsTypeToIcon = {
+export const resultsTypeToIcon = {
   [ResultsTypes.ENTITY]: EntityIcon,
   [ResultsTypes.GROUP]: HierarchyIcon,
   [ResultsTypes.GOAL_USER]: GoalUserIcon,
@@ -39,7 +39,7 @@ const ResultsMenuItem = ({
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        width: '10vw',
+        // width: '10vw',
         cursor: 'pointer',
         alignItems: 'center',
         paddingX: theme.spacing(1),
@@ -87,7 +87,7 @@ export const ResultsMenu = ({
   }, [counts]);
 
   return (
-    <Stack rowGap={theme.spacing(1.5)}>
+    <Stack sx={{ rowGap: theme.spacing(1.5), paddingX: theme.spacing(3), marginTop: theme.spacing(3) }}>
       <Typography
         sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2) }}
       >{`נמצאו ${totalResults} תוצאות`}</Typography>
