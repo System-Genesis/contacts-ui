@@ -24,4 +24,12 @@ export const hebrew = {
   edit: 'עריכה',
   noData: 'אין מידע',
   save: 'שמירת שינויים',
+  description: 'תיאור',
+  hierarchy: 'היררכיה',
+  contactDetails: 'פרטי יצירת קשר',
+  redPhone: 'טלפון אדום',
+  anotherPhone: 'טלפון נוסף',
+  mail: 'דוא"ל',
+  people: 'אנשים',
+  hierarchyCommander: 'מפקד היררכיה',
 };
