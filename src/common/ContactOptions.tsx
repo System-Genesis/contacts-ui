@@ -9,7 +9,7 @@ export const ContactOptions = ({
   chats,
   jabberPhone,
 }: {
-  jabberPhone?: string[];
+  jabberPhone?: string;
   chats: string[];
   mails: string[];
 }) => {
@@ -25,7 +25,7 @@ export const ContactOptions = ({
     >
       <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />
 
-      {jabberPhone?.length && (
+      {jabberPhone && (
         <IconButton href={`sip:${jabberPhone[0]}`}>
           <img src={jabber} />
         </IconButton>

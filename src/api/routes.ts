@@ -4,5 +4,6 @@ export const routes = {
   backend: {
     favorites: '/api/users/my/favorites',
     pic: '/api/users/pic',
+    search: '/api/users/search',
   },
 };

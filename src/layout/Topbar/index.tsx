@@ -38,7 +38,11 @@ const Topbar = () => {
             columnGap: theme.spacing(1.5),
           }}
         >
-          <ProfileImage type="entity" id={currentUser.id} style={{ width: '2vw' }} />
+          <ProfileImage
+            type={currentUser.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
+            id={currentUser.id}
+            style={{ width: '2vw' }}
+          />
         </Box>
         <Divider orientation="vertical" flexItem sx={{ height: '30px', margin: 'auto', mr: theme.spacing(1) }} />
         <Box sx={{ display: 'flex', flexDirection: 'row', columnGap: theme.spacing(2) }}>

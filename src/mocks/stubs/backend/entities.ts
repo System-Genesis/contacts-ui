@@ -1008,7 +1008,7 @@ const loggedInEntityStubGoalUser = {
 const entitiesBySearch = [
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b196514c',
     displayName: 'city_name/רכב/תעשייתי/כלים/Strategist - אורית שלח',
@@ -1041,7 +1041,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b1965150',
     displayName: 'es_name/es/מרכ 015/עף 168/Consultant - Central Research Producer - דור גינת',
@@ -1075,7 +1075,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b1965158',
     displayName: 'OneTree/יחיד 4/מרח 3/תחם 1/צוות 4/Manager - ענבר דקל',
@@ -1110,7 +1110,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b1965156',
     displayName: 'OneTree/ערך 3/מרח 2/תחם 1/Developer - שיר שריף',
@@ -1144,7 +1144,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b196515a',
     displayName: 'es_name/es/יחיד 071/עף 184/Consultant - Direct Factors Manager - אופירה שמחון',
@@ -1178,7 +1178,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b196515c',
     displayName: 'es_name/es/יחיד 089/עף 181/תחם 213/Designer - Central Creative Administrator - שושנה ברושי',
@@ -1212,7 +1212,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b1965154',
     displayName: 'OneTree/מרכ 5/עף 2/Administrator - שגיא הראבן',
@@ -1246,7 +1246,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b1965152',
     displayName: 'OneTree/מרכ 1/עף 4/מדר 3/קבוצה 2/Analyst - שאול עברון',
@@ -1280,7 +1280,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b1965160',
     displayName: 'es_name/es/מרכ 070/מרח 162/Manager - Direct Brand Coordinator - שלי זק',
@@ -1314,7 +1314,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc68315b2947b196515e',
     displayName: 'OneTree/ערך 2/מרח 1/תחם 5/Associate - רומי אבירם',
@@ -1348,7 +1348,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b196516a',
     displayName: 'es_name/es/מרכ 066/מרח 150/תחם 299/Assistant - Chief Directives Consultant - ליאם אדמון',
@@ -1382,7 +1382,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b1965168',
     displayName: 'city_name/מוסיקה/תעשייתי/יופי/תכשיטים/Associate - קורין בן צבי',
@@ -1416,7 +1416,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b196516c',
     displayName: 'es_name/es/יחיד 081/עף 176/תחם 250/Specialist - Principal Identity Orchestrator - אופל לביא',
@@ -1450,7 +1450,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b196516e',
     displayName: 'OneTree/יחיד 1/מרח 3/Representative - עידו תורן',
@@ -1484,7 +1484,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b1965170',
     displayName: 'es_name/es/מרכ 015/עף 168/Officer - Future Markets Supervisor - שלום בן יהודה',
@@ -1518,7 +1518,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b1965172',
     displayName: 'es_name/es/ערך 018/מרח 138/Producer - Chief Configuration Liaison - אדיר זאבי',
@@ -1552,7 +1552,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b1965176',
     displayName: 'es_name/es/מרכ 030/עף 112/Designer - International Paradigm Engineer - תלמה גושן',
@@ -1586,7 +1586,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b1965178',
     displayName: 'es_name/es/מרכ 064/Strategist - Customer Creative Engineer - עפרה רווה',
@@ -1620,7 +1620,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b196517e',
     displayName: 'es_name/es/מרכ 039/מרח 140/Director - Dynamic Interactions Agent - סיגלית בן יעקב',
@@ -1654,7 +1654,7 @@ const entitiesBySearch = [
   },
   {
     mobilePhone: '0525386123',
-    jubberPhone: '9999',
+    jabberPhone: '9999',
     tags: ['תגית', 'developer', 'tommy', 'gay'],
     _id: '6616dc69315b2947b196517a',
     displayName: 'es_name/es/ערך 056/מרח 198/Designer - International Metrics Associate - עמוס ישי',

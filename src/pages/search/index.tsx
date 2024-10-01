@@ -1,14 +1,14 @@
-import { Box, Stack, useTheme } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { ResultsTypes } from '../../lib/enums';
 import { useQuery } from '@tanstack/react-query';
-import { getCountsBySearchTerm, search } from '../../services/backendService';
+import { getCountsBySearchTermRequest, searchRequest } from '../../services/backendService';
 import { ResultsMenu } from './components/resultsMenu';
 import Results from './components/results';
+import { SearchBar } from '../../common/SearchBar';
 const env = import.meta.env;
 
 const Search = () => {
-  const theme = useTheme();
   const [searchTerm, setSearchTerm] = useState('');
   const [resultsType, setResultsType] = useState<ResultsTypes>(ResultsTypes.ENTITY);
   const [results, setResults] = useState<any[]>([]);
@@ -16,13 +16,18 @@ const Search = () => {
   const scrolledElementRef = useRef<HTMLDivElement | null>(null);
 
   const { data: counts } = useQuery({
-    queryKey: ['getCountsBySearchTerm', searchTerm],
-    queryFn: () => getCountsBySearchTerm(searchTerm),
+    queryKey: ['getCountsBySearchTermRequest', searchTerm],
+    queryFn: () => getCountsBySearchTermRequest(searchTerm),
+    initialData: {
+      entity: 0,
+      goalUser: 0,
+      group: 0,
+    },
   });
 
   const { data: searchResults } = useQuery({
     queryKey: ['search', searchTerm, resultsType, page],
-    queryFn: () => search(searchTerm, resultsType, page, +env.VITE_BACKEND_PAGE_SIZE),
+    queryFn: () => searchRequest(searchTerm, resultsType, page, +env.VITE_BACKEND_PAGE_SIZE),
   });
 
   useEffect(() => {
@@ -41,31 +46,27 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Stack
-      sx={{
-        width: '100%',
-        height: '100%',
-        rowGap: theme.spacing(5),
-        paddingX: theme.spacing(20),
-      }}
-    >
-      <Box sx={{ flex: 1 }}>{/* <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} /> */}</Box>
-
-      <Box sx={{ flex: 6, display: 'flex', overflowY: 'hidden' }}>
-        <Box sx={{ flex: 1 }}>
-          {counts && <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />}
-        </Box>
-        <Box sx={{ flex: 5 }}>
-          <Results
-            type={resultsType}
-            results={results}
-            count={counts?.[resultsType] ?? 0}
-            setPage={setPage}
-            scrolledElementRef={scrolledElementRef}
-          />
-        </Box>
-      </Box>
-    </Stack>
+    <Grid container width={'100%'} flexDirection={'column'} alignContent={'center'}>
+      <Grid item alignSelf={'center'} marginBottom={'32px'}>
+        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+      </Grid>
+      <Grid item width={'85%'}>
+        <Grid container>
+          <Grid item xs={2.5}>
+            <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />
+          </Grid>
+          <Grid item xs={9.5}>
+            <Results
+              type={resultsType}
+              results={results}
+              count={counts?.[resultsType] ?? 0}
+              setPage={setPage}
+              scrolledElementRef={scrolledElementRef}
+            />
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 

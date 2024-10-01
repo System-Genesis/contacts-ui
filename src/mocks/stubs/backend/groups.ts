@@ -406,7 +406,7 @@ const hierarchyTreeStub = [
 const groupsBySearchStub = [
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616deea315b2947b1971006',
@@ -422,7 +422,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616def1315b2947b19712c6',
@@ -439,7 +439,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616def6315b2947b197145b',
@@ -456,7 +456,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616def7315b2947b1971514',
@@ -472,7 +472,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616def9315b2947b19715e4',
@@ -488,7 +488,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616defa315b2947b197161b',
@@ -504,7 +504,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616defc315b2947b19716e6',
@@ -520,7 +520,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616defd315b2947b1971756',
@@ -536,7 +536,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616defe315b2947b19717c1',
@@ -552,7 +552,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616deff315b2947b19717dc',
@@ -568,7 +568,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616deff315b2947b19717da',
@@ -584,7 +584,7 @@ const groupsBySearchStub = [
   },
   {
     mobilePhone: '0556667778',
-    jubberPhone: '8888',
+    jabberPhone: '8888',
     tags: ['abc', 'def', 'ghi'],
     entitiesCount: 69,
     _id: '6616deed315b2947b197113a',

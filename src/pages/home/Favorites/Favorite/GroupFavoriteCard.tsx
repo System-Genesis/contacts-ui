@@ -8,15 +8,17 @@ import { ProfileImage } from '../../../../common/ProfileImage';
 export const GroupFavoriteCard = ({
   id,
   name,
-  mails = [],
+  mails,
+  chats,
   jabberPhone,
   mobilePhone,
 }: {
   id: string;
   name: string;
   mails: string[];
-  jabberPhone: string[];
-  mobilePhone: string[];
+  chats: string[];
+  jabberPhone: string;
+  mobilePhone: string;
 }) => {
   return (
     <Grid item xs={3}>
@@ -29,7 +31,14 @@ export const GroupFavoriteCard = ({
           flexDirection: 'column',
         }}
       >
-        <FavoriteButton id={id} type={'group'} />
+        <FavoriteButton
+          id={id}
+          type={'entity'}
+          style={{
+            position: 'relative',
+            right: '40%',
+          }}
+        />
 
         <Box
           sx={{
@@ -52,7 +61,7 @@ export const GroupFavoriteCard = ({
           >
             <Typography variant="h6">{name}</Typography>
           </Box>
-          <ContactOptions chats={mails} mails={mails} jabberPhone={jabberPhone} />
+          <ContactOptions chats={chats} mails={mails} jabberPhone={jabberPhone} />
           <Divider sx={{ width: '80%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
           <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
         </Box>

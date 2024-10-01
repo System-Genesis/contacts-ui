@@ -56,9 +56,12 @@ export const Results = ({
       case ResultsTypes.ENTITY:
         return (
           <ContactsCard
+            type="entity"
+            entityType={(result as EntitySearchResult).entityType}
+            id={(result as EntitySearchResult).id}
             hierarchy={(result as EntitySearchResult).hierarchy}
             image={(result as EntitySearchResult).pictures?.profile.url ?? ProfileExampleIcon} // TODO: remove this in the future "?? ProfileExampleIcon"
-            jubberPhone={result.jubberPhone}
+            jabberPhone={result.jabberPhone}
             mobilePhone={result.mobilePhone}
             subTitle={(result as EntitySearchResult).jobTitle}
             tags={result.tags}
@@ -68,9 +71,12 @@ export const Results = ({
       case ResultsTypes.GOAL_USER:
         return (
           <ContactsCard
+            entityType={(result as EntitySearchResult).entityType}
+            type="entity"
+            id={(result as EntitySearchResult).id}
             hierarchy={(result as EntitySearchResult).hierarchy}
             image={GoalUserImage}
-            jubberPhone={result.jubberPhone}
+            jabberPhone={result.jabberPhone}
             mobilePhone={result.mobilePhone}
             subTitle={(result as EntitySearchResult).jobTitle}
             tags={result.tags}
@@ -80,9 +86,12 @@ export const Results = ({
       case ResultsTypes.GROUP:
         return (
           <ContactsCard
+            type="group"
+            entityType={''}
+            id={(result as GroupSearchResult).id}
             hierarchy={(result as GroupSearchResult).hierarchy}
             image={HierarchyImage}
-            jubberPhone={result.jubberPhone}
+            jabberPhone={result.jabberPhone}
             mobilePhone={result.mobilePhone}
             subTitle={(result as GroupSearchResult).entitiesCount}
             tags={result.tags}

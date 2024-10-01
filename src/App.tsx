@@ -83,9 +83,7 @@ const App = () => {
             paddingBottom: 2,
           }}
         >
-          <Box sx={{ flex: 1, zIndex: 2 }}>
-            <Topbar />
-          </Box>
+          <Topbar />
           <Box component="main">
             <Outlet />
           </Box>

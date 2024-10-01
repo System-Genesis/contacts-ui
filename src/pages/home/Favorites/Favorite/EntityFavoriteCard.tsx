@@ -9,16 +9,20 @@ export const EntityFavoriteCard = ({
   id,
   fullName,
   jobTitle,
-  digitalIdentities,
+  mails,
+  chats,
   jabberPhone,
   mobilePhone,
+  entityType,
 }: {
   id: string;
   fullName: string;
+  entityType: string;
   jobTitle: string;
-  digitalIdentities: any[];
-  jabberPhone: string[];
-  mobilePhone: string[];
+  mails: string[];
+  chats: string[];
+  jabberPhone: string;
+  mobilePhone: string;
 }) => {
   return (
     <Grid item xs={3}>
@@ -31,7 +35,14 @@ export const EntityFavoriteCard = ({
           flexDirection: 'column',
         }}
       >
-        <FavoriteButton id={id} type={'entity'} />
+        <FavoriteButton
+          id={id}
+          type={'entity'}
+          style={{
+            position: 'relative',
+            right: '40%',
+          }}
+        />
 
         <Box
           sx={{
@@ -41,7 +52,7 @@ export const EntityFavoriteCard = ({
             padding: ' 0px 12px',
           }}
         >
-          <ProfileImage type="entity" id={id} style={{ width: '4vw' }} />
+          <ProfileImage type={entityType === 'GoalUser' ? 'goalUser' : 'entity'} id={id} style={{ width: '4vw' }} />
           <Box
             sx={{
               display: 'flex',
@@ -66,14 +77,7 @@ export const EntityFavoriteCard = ({
               {jobTitle}
             </Typography>
           </Box>
-          <ContactOptions
-            jabberPhone={jabberPhone}
-            mails={digitalIdentities
-              .filter((di) => di.role)
-              .map((di) => di.mail)
-              .filter(Boolean)}
-            chats={digitalIdentities.filter((di) => di.role).map((di) => di.role.roleId)}
-          />
+          <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
           <Divider sx={{ width: '80%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
           <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
         </Box>

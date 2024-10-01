@@ -3,13 +3,15 @@ import { routes } from '../api/routes';
 import { ResultsTypes } from '../lib/enums';
 import { EntitySearchResult, GroupSearchResult } from '../lib/types';
 
-const { backend } = routes;
+const {
+  backend: { search },
+} = routes;
 
-const getCountsBySearchTerm = async (searchTerm: string) => {
+const getCountsBySearchTermRequest = async (searchTerm: string) => {
   const counts: Record<ResultsTypes, number> = { entity: 0, goalUser: 0, group: 0 };
   await Promise.allSettled(
     Object.values(ResultsTypes).map(async (type: ResultsTypes) => {
-      const { headers } = await axiosInstance.get(`${backend}/search/${searchTerm}?type=${type}&page=1&pageSize=1`);
+      const { headers } = await axiosInstance.get(`${search}?queryString=${searchTerm}&type=${type}&page=1&pageSize=1`);
       counts[type] = +headers['x-total-count'];
     }),
   );
@@ -17,16 +19,16 @@ const getCountsBySearchTerm = async (searchTerm: string) => {
   return counts;
 };
 
-const search = async (
+const searchRequest = async (
   searchTerm: string,
   type: ResultsTypes,
   page: number,
   pageSize: number,
 ): Promise<EntitySearchResult[] | GroupSearchResult[]> => {
   const { data } = await axiosInstance.get(
-    `${backend}/search/${searchTerm}?type=${type}&page=${page}&pageSize=${pageSize}`,
+    `${search}?queryString=${searchTerm}&type=${type}&page=${page}&pageSize=${pageSize}`,
   );
   return data;
 };
 
-export { getCountsBySearchTerm, search };
+export { getCountsBySearchTermRequest, searchRequest };

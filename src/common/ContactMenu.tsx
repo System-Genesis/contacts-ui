@@ -19,7 +19,7 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
 
   if (options.length === 1) {
     return (
-      <IconButton href={`${href}:${options[0]}`}>
+      <IconButton href={`${href}${options[0]}`}>
         <img src={icon} />
       </IconButton>
     );

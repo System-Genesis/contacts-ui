@@ -16,14 +16,14 @@ export interface User {
 
 export interface EntitySearchResult extends Omit<Entity, 'mobilePhone'> {
   mobilePhone: string;
-  jubberPhone: string;
+  jabberPhone: string;
   hiddenFields: string[];
   tags: string[];
 }
 
 export interface GroupSearchResult extends Group {
   mobilePhone: string;
-  jubberPhone: string;
+  jabberPhone: string;
   hiddenFields: string[];
   entitiesCount: string;
   tags: string[];
@@ -31,6 +31,7 @@ export interface GroupSearchResult extends Group {
 
 export interface Entity {
   _id: string;
+  id: string;
   displayName?: string;
   entityType: string;
   personalNumber?: string;
