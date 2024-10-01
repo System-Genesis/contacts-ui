@@ -1,7 +1,8 @@
-import { Box, SwipeableDrawer, styled } from '@mui/material';
+import { Box, IconButton, SwipeableDrawer, styled } from '@mui/material';
 import CloseIcon from '../../assets/icons/close.svg';
+import EditIcon from '../../assets/icons/edit.svg';
 import { useTheme } from '@mui/material';
-import Title from '../divs/Title';
+import { useState } from 'react';
 
 interface StyledDrawerProps {
   openToRight?: boolean;
@@ -32,13 +33,12 @@ export const DrawerWrapper: React.FC<{
   isOpen: boolean;
   setIsOpen: any;
   onClose?: () => void;
-  title: string;
   children: any;
   width: string;
-  subTitle?: string | undefined;
-  openToRight?: boolean;
-}> = ({ children, isOpen, setIsOpen, onClose, title, width, subTitle, openToRight = false }) => {
+}> = ({ children, isOpen, setIsOpen, onClose, width }) => {
   const theme = useTheme();
+  const [isEdit, setIsEdit] = useState(false);
+
   return (
     <StyledDrawerWrapper
       anchor="right"
@@ -47,7 +47,6 @@ export const DrawerWrapper: React.FC<{
       onOpen={() => setIsOpen(true)}
       onClose={onClose ?? (() => setIsOpen(false))}
       PaperProps={{ sx: { borderRadius: '12px 0px 0px 12px' } }}
-      openToRight={openToRight}
     >
       <Box
         sx={{
@@ -58,31 +57,16 @@ export const DrawerWrapper: React.FC<{
           width: width,
         }}
       >
-        <Box>
-          <Title
-            title={title}
-            titleProps={{
-              style: { fontSize: theme.typography.h6.fontSize, color: theme.colors.profile.value, fontWeight: 'bold' },
-            }}
-            buttonProps={{
-              icon: CloseIcon,
-              onClick: () => setIsOpen(false),
-            }}
-          />
-          {subTitle && (
-            <Title
-              title={subTitle}
-              titleProps={{
-                style: {
-                  fontSize: theme.typography.body2.fontSize,
-                  color: theme.colors.profile.property,
-                },
-              }}
-            />
-          )}
+        <Box sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}>
+          <IconButton onClick={() => setIsEdit(true)}>
+            <img src={EditIcon} />
+          </IconButton>
+          <IconButton onClick={onClose}>
+            <img src={CloseIcon} />
+          </IconButton>
         </Box>
 
-        {children}
+        {children({ isEdit, setIsEdit, message: 'niga' })}
       </Box>
     </StyledDrawerWrapper>
   );

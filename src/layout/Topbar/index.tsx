@@ -5,10 +5,14 @@ import i18next from 'i18next';
 import ProfileIcon from '../../assets/icons/profileExample.svg';
 import BellIcon from '../../assets/icons/bell.svg';
 import QuestionMarkIcon from '../../assets/icons/question-mark.svg';
+import { useState } from 'react';
+import { DrawerWrapper } from '../../common/drawer/drawerWrapper';
+import { UserContent } from '../../common/drawer/content/user';
 
 const Topbar = () => {
   const currentUser = useSelector((state: RootState) => state.user);
   const theme = useTheme();
+  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
 
   const StyledBadge = styled(Badge)<BadgeProps>(() => ({
     '& .MuiBadge-badge': {
@@ -40,7 +44,6 @@ const Topbar = () => {
           columnGap: theme.spacing(1.5),
         }}
       >
-        <img src={ProfileIcon} />
         <Box>
           <Typography variant="h6" sx={{ fontWeight: 'bold' }} component="span">
             {i18next.t('hello')}
@@ -60,7 +63,18 @@ const Topbar = () => {
             <img src={BellIcon} />
           </StyledBadge>
         </IconButton>
+        <IconButton onClick={() => setIsProfileDrawerOpen(true)}>
+          <img src={ProfileIcon} />
+        </IconButton>
       </Box>
+      <DrawerWrapper
+        isOpen={isProfileDrawerOpen}
+        setIsOpen={setIsProfileDrawerOpen}
+        width="30vw"
+        onClose={() => setIsProfileDrawerOpen(false)}
+      >
+        {(props) => <UserContent {...props} />}
+      </DrawerWrapper>
     </Box>
   );
 };
