@@ -8,7 +8,6 @@ const routes = {
   },
   search: {
     path: '/search',
-    // element: <Search />,
     element: <></>,
   },
 

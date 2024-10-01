@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "start:be": "export VITE_APP_BE=true && npm start",
+    "start:be": "SET VITE_APP_BE=true && npm start",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
