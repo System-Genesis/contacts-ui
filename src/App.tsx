@@ -14,7 +14,8 @@ import { basicTheme } from './theme';
 import { hebrew } from './i18n/hebrew';
 import { initReactI18next } from 'react-i18next';
 import ChatBot from './layout/ChatBot';
-import Topbar from './layout/Topbar';
+import TopBar from './layout/TopBar';
+import { HeroSection } from './layout/HeroSection';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -78,15 +79,11 @@ const App = () => {
             flex: 25,
             display: 'flex',
             flexDirection: 'column',
-            paddingRight: 4,
-            paddingLeft: 4,
-            paddingBottom: 2,
           }}
         >
-          <Topbar />
-          <Box component="main">
-            <Outlet />
-          </Box>
+          <TopBar />
+          <HeroSection />
+          <Outlet />
         </Box>
       </Box>
       <ChatBot />
