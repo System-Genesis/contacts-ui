@@ -1,9 +1,10 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import EmptyFavorites from '../../assets/icons/emptyFavorites.svg';
 import { EntityFavoriteCard } from './Favorites/Favorite/EntityFavoriteCard';
 import { useQuery } from '@tanstack/react-query';
 import { getMyFavoritesRequest } from '../../services/my';
 import { GroupFavoriteCard } from './Favorites/Favorite/GroupFavoriteCard';
+import favStar from '../../assets/icons/favStar.svg';
 
 const Home = () => {
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
@@ -11,16 +12,22 @@ const Home = () => {
   return (
     <Box
       sx={{
-        width: '100%',
+        width: '73%',
         height: '100%',
         display: 'flex',
-        justifyContent: 'center',
+        marginTop: '4rem',
+        alignSelf: 'center',
         flexDirection: 'column',
         maxHeight: '100vh',
       }}
     >
+      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center' }}>
+        <img src={favStar} style={{ width: 21 }} />
+        <Typography fontSize={16}>מועדפים</Typography>
+      </Box>
+
       {data.length === 0 && (
-        <Grid display={'flex'} justifyContent={'center'} paddingY={'80px'}>
+        <Grid display={'flex'} marginTop={15} justifyContent={'center'} paddingY={'80px'}>
           <img src={EmptyFavorites} />
         </Grid>
       )}

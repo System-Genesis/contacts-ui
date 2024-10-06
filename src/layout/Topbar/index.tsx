@@ -13,13 +13,11 @@ const TopBar = () => {
     <Box
       sx={{
         width: '100%',
-        height: '70px !important',
         color: theme.colors.white,
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '0.8rem 1.5rem  0 1.5rem',
       }}
     >
       <img src={Sapir} style={{ width: '2.5rem', alignSelf: 'center' }} />

@@ -47,9 +47,7 @@ const App = () => {
   useEffect(() => {
     const getUser = async () => {
       const user = await AuthService.getUser();
-      if (user) {
-        dispatch(setUser(user));
-      }
+      if (user) dispatch(setUser(user));
     };
 
     void getUser();
@@ -79,6 +77,10 @@ const App = () => {
             flex: 25,
             display: 'flex',
             flexDirection: 'column',
+            paddingRight: 3,
+            paddingLeft: 3,
+            paddingTop: 2,
+            width: '73% !important',
           }}
         >
           <TopBar />
