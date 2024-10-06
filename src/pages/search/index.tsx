@@ -47,9 +47,6 @@ const Search = () => {
 
   return (
     <Grid container width={'100%'} flexDirection={'column'} alignContent={'center'}>
-      <Grid item alignSelf={'center'} marginBottom={'32px'}>
-        <SearchBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      </Grid>
       <Grid item width={'85%'}>
         <Grid container>
           <Grid item xs={2.5}>

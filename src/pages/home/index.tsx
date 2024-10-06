@@ -1,7 +1,5 @@
 import { Box, Grid } from '@mui/material';
-import contactsHomeImg from '../../assets/icons/contactsHomeImg.svg';
 import EmptyFavorites from '../../assets/icons/emptyFavorites.svg';
-import { SearchBar } from '../../common/SearchBar';
 import { EntityFavoriteCard } from './Favorites/Favorite/EntityFavoriteCard';
 import { useQuery } from '@tanstack/react-query';
 import { getMyFavoritesRequest } from '../../services/my';
@@ -21,24 +19,6 @@ const Home = () => {
         maxHeight: '100vh',
       }}
     >
-      <img
-        src={contactsHomeImg}
-        style={{
-          width: '90%',
-          alignSelf: 'center',
-        }}
-      />
-      <Box
-        sx={{
-          position: 'relative',
-          top: '-3%',
-          display: 'flex',
-          justifyContent: 'center',
-        }}
-      >
-        <SearchBar />
-      </Box>
-
       {data.length === 0 && (
         <Grid display={'flex'} justifyContent={'center'} paddingY={'80px'}>
           <img src={EmptyFavorites} />
