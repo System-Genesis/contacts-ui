@@ -2,14 +2,16 @@ import { Grid } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { ResultsTypes } from '../../lib/enums';
 import { useQuery } from '@tanstack/react-query';
-import { getCountsBySearchTermRequest, searchRequest } from '../../services/backendService';
+import { getCountsBySearchTermRequest, searchRequest } from '../../services/searchService';
 import { ResultsMenu } from './components/resultsMenu';
 import Results from './components/results';
-import { SearchBar } from '../../common/SearchBar';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
 const env = import.meta.env;
 
 const Search = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+
   const [resultsType, setResultsType] = useState<ResultsTypes>(ResultsTypes.ENTITY);
   const [results, setResults] = useState<any[]>([]);
   const [page, setPage] = useState(1);
@@ -32,11 +34,8 @@ const Search = () => {
 
   useEffect(() => {
     if (searchResults) {
-      if (page === 1) {
-        setResults(searchResults);
-      } else {
-        setResults((prevResults) => [...prevResults, ...searchResults]);
-      }
+      if (page === 1) setResults(searchResults);
+      else setResults((prevResults) => [...prevResults, ...searchResults]);
     }
   }, [searchResults, page]);
 
@@ -46,7 +45,7 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Grid container width={'100%'} flexDirection={'column'} alignContent={'center'}>
+    <Grid container width={'85%'} flexDirection={'column'} alignContent={'center'} alignSelf={'center'}>
       <Grid item width={'85%'}>
         <Grid container>
           <Grid item xs={2.5}>
