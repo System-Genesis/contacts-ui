@@ -1,4 +1,4 @@
-import {  Fade, Grid } from '@mui/material';
+import { Fade, Grid } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { ResultsTypes } from '../../lib/enums';
 import { useQuery } from '@tanstack/react-query';
@@ -48,7 +48,7 @@ const Search = () => {
   return (
     <Grid
       container
-      width={'74%'}
+      width={'74.7%'}
       flexDirection={'column'}
       alignContent={'center'}
       alignSelf={'center'}
@@ -56,28 +56,21 @@ const Search = () => {
       position="relative"
     >
       <Grid container>
-        <Fade in={searchTerm === ''} timeout={500}>
-          <Grid container position="absolute" style={{ top: 0 }}>
-            <HistoryResults></HistoryResults>
+        <Fade in={true} timeout={800}>
+          {/* {(searchResults?.length ?? 0) > 0} */}
+          <Grid item xs={2}>
+            <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />
           </Grid>
         </Fade>
-
-        <Fade in={searchTerm !== ''} timeout={500}>
-          <Grid container position="absolute" style={{ top: 0 }}>
-            <Grid item xs={2}>
-              <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />
-            </Grid>
-            <Grid item xs={10} height={'79vh'}>
-              <Results
-                type={resultsType}
-                results={results}
-                count={counts?.[resultsType] ?? 0}
-                setPage={setPage}
-                scrolledElementRef={scrolledElementRef}
-              />
-            </Grid>
-          </Grid>
-        </Fade>
+        <Grid item xs={10} height={'79vh'} sx={{ justifyContent: 'center' }}>
+          <Results
+            type={resultsType}
+            results={results}
+            count={counts?.[resultsType] ?? 0}
+            setPage={setPage}
+            scrolledElementRef={scrolledElementRef}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

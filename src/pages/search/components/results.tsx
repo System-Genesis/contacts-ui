@@ -4,9 +4,6 @@ import i18next from 'i18next';
 import { resultsTypeToIcon } from './resultsMenu';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
 import { ContactsCard } from '../card/contactsCard';
-import GoalUserImage from '../../../assets/icons/goal-user-image.svg';
-import HierarchyImage from '../../../assets/icons/hierarchy-image.svg';
-import ProfileExampleIcon from '../../../assets/icons/profileExample.svg';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 
 export const Results = ({
@@ -16,10 +13,10 @@ export const Results = ({
   setPage,
   scrolledElementRef,
 }: {
-  type: ResultsTypes;
-  results: EntitySearchResult[] | GroupSearchResult[];
-  count: number;
-  setPage: Dispatch<SetStateAction<number>>;
+  type?: ResultsTypes;
+  results: EntitySearchResult[] | GroupSearchResult[] | (EntitySearchResult | GroupSearchResult)[];
+  count?: number;
+  setPage?: Dispatch<SetStateAction<number>>;
   scrolledElementRef: MutableRefObject<HTMLDivElement | null>;
 }) => {
   const theme = useTheme();
@@ -34,73 +31,48 @@ export const Results = ({
 
         if (heightRemainToScroll <= treshold) {
           gridElement.removeEventListener('scroll', handleScroll);
-          setPage((prevPage: number) => prevPage + 1);
+          setPage?.((prevPage: number) => prevPage + 1);
         }
       }
     };
 
     const gridElement = scrolledElementRef.current!;
-    if (gridElement) {
-      gridElement.addEventListener('scroll', handleScroll);
-    }
+    if (gridElement) gridElement.addEventListener('scroll', handleScroll);
 
     return () => {
-      if (gridElement) {
-        gridElement.removeEventListener('scroll', handleScroll);
-      }
+      if (gridElement) gridElement.removeEventListener('scroll', handleScroll);
     };
   }, [results, setPage, scrolledElementRef]);
 
   const generateResultCard = (result: EntitySearchResult | GroupSearchResult) => {
+    const contactsCardProps: any = {
+      id: result.id,
+      hierarchy: result.hierarchy,
+      jabberPhone: result.jabberPhone,
+      mobilePhone: result.mobilePhone,
+      tags: result.tags,
+    };
+
     switch (type) {
       case ResultsTypes.ENTITY:
-        return (
-          <ContactsCard
-            type="entity"
-            entityType={(result as EntitySearchResult).entityType}
-            id={(result as EntitySearchResult).id}
-            hierarchy={(result as EntitySearchResult).hierarchy}
-            image={(result as EntitySearchResult).pictures?.profile.url ?? ProfileExampleIcon} // TODO: remove this in the future "?? ProfileExampleIcon"
-            jabberPhone={result.jabberPhone}
-            mobilePhone={result.mobilePhone}
-            subTitle={(result as EntitySearchResult).jobTitle}
-            tags={result.tags}
-            title={(result as EntitySearchResult).fullName}
-          />
-        );
       case ResultsTypes.GOAL_USER:
-        return (
-          <ContactsCard
-            entityType={(result as EntitySearchResult).entityType}
-            type="entity"
-            id={(result as EntitySearchResult).id}
-            hierarchy={(result as EntitySearchResult).hierarchy}
-            image={GoalUserImage}
-            jabberPhone={result.jabberPhone}
-            mobilePhone={result.mobilePhone}
-            subTitle={(result as EntitySearchResult).jobTitle}
-            tags={result.tags}
-            title={(result as EntitySearchResult).fullName}
-          />
-        );
+        contactsCardProps.type = 'entity';
+        contactsCardProps.entityType = (result as EntitySearchResult).entityType;
+        contactsCardProps.title = (result as EntitySearchResult).fullName;
+        contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
+        contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
+        break;
+
       case ResultsTypes.GROUP:
-        return (
-          <ContactsCard
-            type="group"
-            entityType={''}
-            id={(result as GroupSearchResult).id}
-            hierarchy={(result as GroupSearchResult).hierarchy}
-            image={HierarchyImage}
-            jabberPhone={result.jabberPhone}
-            mobilePhone={result.mobilePhone}
-            subTitle={(result as GroupSearchResult).entitiesCount}
-            tags={result.tags}
-            title={(result as GroupSearchResult).name}
-          />
-        );
+        contactsCardProps.type = 'group';
+        contactsCardProps.entityType = '';
+        contactsCardProps.title = (result as GroupSearchResult).name;
+        contactsCardProps.subTitle = (result as GroupSearchResult).entitiesCount;
+        break;
       default:
         return;
     }
+    return <ContactsCard {...contactsCardProps} />;
   };
 
   return (

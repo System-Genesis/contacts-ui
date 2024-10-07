@@ -25,9 +25,11 @@ const searchRequest = async (
   page: number,
   pageSize: number,
 ): Promise<EntitySearchResult[] | GroupSearchResult[]> => {
+  console.log(':::');
   const { data } = await axiosInstance.get(
     `${search}?queryString=${searchTerm}&type=${type}&page=${page}&pageSize=${pageSize}`,
   );
+  console.log(data);
   return data;
 };
 

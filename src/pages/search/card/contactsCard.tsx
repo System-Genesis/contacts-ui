@@ -1,4 +1,4 @@
-import {  Grid,  Typography, useTheme } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import { FavoriteButton } from '../../../common/FavoriteButton';
 import { PhoneNumbers } from '../../../common/PhoneNumbers';
 import { ContactOptions } from '../../../common/ContactOptions';
@@ -7,7 +7,6 @@ import { ProfileImage } from '../../../common/ProfileImage';
 export const ContactsCard: React.FC<{
   id: string;
   type: string;
-  image: any;
   title: string;
   subTitle: string | undefined;
   hierarchy: string | undefined;
