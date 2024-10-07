@@ -3,13 +3,20 @@ import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import homeSvg from '../assets/icons/searchHome.svg';
 import searchSvg from '../assets/icons/search.svg';
+import closeSvg from '../assets/icons/close.svg';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useTheme } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../store';
+import { setSearchTerm } from '../store/reducers/search';
 
-export const SearchBar = ({ searchTerm, setSearchTerm }) => {
+export const SearchBar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const theme = useTheme();
+
+  const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
+  const dispatch = useDispatch();
 
   return (
     <Paper
@@ -27,7 +34,14 @@ export const SearchBar = ({ searchTerm, setSearchTerm }) => {
       onFocus={() => navigate('/search')}
     >
       {location.pathname !== '/' && (
-        <IconButton sx={{ p: '1rem' }} aria-label="menu" onClick={() => navigate('/')}>
+        <IconButton
+          sx={{ p: '1rem' }}
+          aria-label="menu"
+          onClick={() => {
+            dispatch(setSearchTerm(''));
+            navigate('/');
+          }}
+        >
           <img src={homeSvg} style={{ width: '1rem' }} />
         </IconButton>
       )}
@@ -41,9 +55,15 @@ export const SearchBar = ({ searchTerm, setSearchTerm }) => {
         }}
         placeholder="ניתן לחפש לפי -שם, היררכיה, תפקידן ותגיות"
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={(e) => dispatch(setSearchTerm(e.target.value))}
         onFocus={() => navigate('/search')}
       />
+      {location.pathname !== '/' && searchTerm !== '' && (
+        <IconButton sx={{ p: '1rem' }} aria-label="menu" onClick={() => dispatch(setSearchTerm(''))}>
+          <img src={closeSvg} style={{ width: '1rem' }} />
+        </IconButton>
+      )}
+
       <IconButton
         type="button"
         sx={{

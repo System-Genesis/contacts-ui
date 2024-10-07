@@ -1,6 +1,5 @@
 import Home from './pages/home';
 import Search from './pages/search';
-// import Search from './pages/search';
 
 const routes = {
   main: {

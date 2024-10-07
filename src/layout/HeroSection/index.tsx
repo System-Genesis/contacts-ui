@@ -39,7 +39,7 @@ export const HeroSection = () => {
           transition: 'bottom 1s',
         }}
       >
-        <SearchBar searchTerm={''} setSearchTerm={() => console.log('mdmd')} />
+        <SearchBar  />
       </Box>
     </Box>
   );

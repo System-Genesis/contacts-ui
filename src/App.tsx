@@ -39,9 +39,8 @@ const App = () => {
       chrome: `>=${environment.minimumSupportedChromeVersion}`,
     });
 
-    if (!isValidBrowser) {
+    if (!isValidBrowser)
       toast.error(i18next.t('error.unsupportedChromeVersion'), { autoClose: false, theme: 'colored' });
-    }
   }, []);
 
   useEffect(() => {
