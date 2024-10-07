@@ -34,15 +34,16 @@ const Home = () => {
 
       {data.length !== 0 && (
         <Grid
+          marginTop={5}
           container
-          spacing={3}
           overflow={'auto'}
           maxHeight={'100vh'}
-          width={'88vw'}
+          width={'103%'}
           justifyContent={'flex-start'}
-          alignSelf={'center'}
           sx={{
-            scrollbarWidth: 'none',
+            height: '30rem',
+            overflowY: 'scroll',
+            '&::-webkit-scrollbar': { display: 'none' },
           }}
         >
           {data.map((favorite) =>

@@ -20,7 +20,7 @@ export const ContactOptions = ({
         justifyContent: 'row',
         gap: 1,
         alignItems: 'center',
-        padding: '12px',
+        padding: 1,
       }}
     >
       <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />

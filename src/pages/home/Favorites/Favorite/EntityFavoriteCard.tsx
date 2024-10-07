@@ -25,7 +25,16 @@ export const EntityFavoriteCard = ({
   mobilePhone: string;
 }) => {
   return (
-    <Grid item xs={3}>
+    <Grid item xs={2.4}>
+      <FavoriteButton
+        id={id}
+        type={'entity'}
+        style={{
+          position: 'relative',
+          right: '-30px',
+          bottom: '-20px',
+        }}
+      />
       <Grid
         container
         sx={{
@@ -33,36 +42,41 @@ export const EntityFavoriteCard = ({
           borderColor: '#EFEFEF',
           borderRadius: '1rem',
           flexDirection: 'column',
+          width: '13.8vw',
+          height: '23vh',
+          padding: '1rem 1rem 0.2rem 1rem',
         }}
       >
-        <FavoriteButton
-          id={id}
-          type={'entity'}
-          style={{
-            position: 'relative',
-            right: '40%',
-          }}
-        />
-
         <Box
           sx={{
+            flex: 1,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
-            padding: ' 0px 12px',
+            justifyContent: 'space-between',
           }}
         >
-          <ProfileImage type={entityType === 'GoalUser' ? 'goalUser' : 'entity'} id={id} style={{ width: '4vw' }} />
+          <ProfileImage type={entityType === 'GoalUser' ? 'goalUser' : 'entity'} id={id} style={{ width: '3.5rem' }} />
           <Box
             sx={{
               display: 'flex',
               justifyContent: 'row',
               gap: 1,
               alignItems: 'center',
-              paddingY: '12px',
+              padding: '1rem 0 0 0 ',
             }}
           >
-            <Typography variant="h6">{fullName}</Typography>
+            <Typography
+              sx={{
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '100px',
+              }}
+              variant="h6"
+            >
+              {fullName}
+            </Typography>
             <Typography
               variant="h6"
               sx={{
@@ -72,13 +86,17 @@ export const EntityFavoriteCard = ({
                 paddingX: '8px',
                 paddingY: '4px',
                 fontSize: '0.75rem',
+                whiteSpace: 'nowrap',
+                overflow: 'hidden',
+                textOverflow: 'ellipsis',
+                maxWidth: '100px',
               }}
             >
               {jobTitle}
             </Typography>
           </Box>
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
-          <Divider sx={{ width: '80%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
+          <Divider sx={{ width: '90%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
           <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
         </Box>
       </Grid>
