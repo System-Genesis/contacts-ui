@@ -2,7 +2,7 @@ import { Box, Grid, Typography } from '@mui/material';
 import EmptyFavorites from '../../assets/icons/emptyFavorites.svg';
 import { EntityFavoriteCard } from './Favorites/Favorite/EntityFavoriteCard';
 import { useQuery } from '@tanstack/react-query';
-import { getMyFavoritesRequest } from '../../services/my';
+import { getMyFavoritesRequest } from '../../services/favoriteService';
 import { GroupFavoriteCard } from './Favorites/Favorite/GroupFavoriteCard';
 import favStar from '../../assets/icons/favStar.svg';
 

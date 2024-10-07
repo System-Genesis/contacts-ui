@@ -2,7 +2,7 @@ import { IconButton } from '@mui/material';
 import favStar from '../assets/icons/favStar.svg';
 import unFavStar from '../assets/icons/unFavStar.svg';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { addFavoriteRequest, getMyFavoritesRequest, removeFavoriteRequest } from '../services/my';
+import { addFavoriteRequest, getMyFavoritesRequest, removeFavoriteRequest } from '../services/favoriteService';
 
 export const FavoriteButton = ({ id, type, style }) => {
   const queryClient = useQueryClient();

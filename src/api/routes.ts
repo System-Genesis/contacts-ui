@@ -5,5 +5,6 @@ export const routes = {
     favorites: '/api/users/my/favorites',
     pic: '/api/users/pic',
     search: '/api/users/search',
+    history: 'api/users/my/history',
   },
 };
