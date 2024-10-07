@@ -24,8 +24,8 @@ export const HeroSection = () => {
           width: '100%',
           objectFit: 'cover',
           objectPosition: 'top',
-          borderRadius: `${location.pathname === '/' ? '2rem' : '1rem'}`,
-          transition: 'borderRadius 1s',
+          borderRadius: `${location.pathname === '/' ? '2rem' : '1.2rem'}`,
+          transition: 'border-radius 1s',
         }}
       />
 
