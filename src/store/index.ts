@@ -10,6 +10,6 @@ export const store = configureStore({
 });
 
 export interface RootState {
-  user: UserState; // Import and use the UserState type if necessary
-  search: SearchState; // Import and use the SearchState type
+  user: UserState;
+  search: SearchState;
 }

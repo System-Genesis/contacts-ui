@@ -87,12 +87,13 @@ export const ResultsMenu = ({
   }, [counts]);
 
   return (
-    <Stack sx={{ rowGap: theme.spacing(1.5), paddingX: theme.spacing(3), marginTop: theme.spacing(3) }}>
+    <Stack sx={{ rowGap: theme.spacing(1.5), paddingRight: theme.spacing(3), marginTop: theme.spacing(3) }}>
       <Typography
         sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2) }}
       >{`נמצאו ${totalResults} תוצאות`}</Typography>
       {Object.values(ResultsTypes).map((type) => (
         <ResultsMenuItem
+          key={type}
           type={type}
           icon={resultsTypeToIcon[type]}
           count={counts[type]}

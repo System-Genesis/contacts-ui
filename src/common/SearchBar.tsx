@@ -59,7 +59,7 @@ export const SearchBar = () => {
         onFocus={() => navigate('/search')}
       />
       {location.pathname !== '/' && searchTerm !== '' && (
-        <IconButton sx={{ p: '1rem' }} aria-label="menu" onClick={() => dispatch(setSearchTerm(''))}>
+        <IconButton sx={{ m: 0.2 }} onClick={() => dispatch(setSearchTerm(''))}>
           <img src={closeSvg} style={{ width: '1rem' }} />
         </IconButton>
       )}

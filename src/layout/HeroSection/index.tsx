@@ -12,6 +12,7 @@ export const HeroSection = () => {
         display: 'flex',
         justifyContent: 'center',
         height: `${location.pathname === '/' ? '32%' : '6%'}`,
+        width: '75%',
         margin: '2rem',
         position: 'relative',
         alignSelf: 'center',
@@ -24,7 +25,7 @@ export const HeroSection = () => {
           width: '100%',
           objectFit: 'cover',
           objectPosition: 'top',
-          borderRadius: `${location.pathname === '/' ? '2rem' : '1.2rem'}`,
+          borderRadius: `${location.pathname === '/' ? '2rem' : '1rem'}`,
           transition: 'border-radius 1s',
         }}
       />
@@ -39,7 +40,7 @@ export const HeroSection = () => {
           transition: 'bottom 1s',
         }}
       >
-        <SearchBar  />
+        <SearchBar />
       </Box>
     </Box>
   );

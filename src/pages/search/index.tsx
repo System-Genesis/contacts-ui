@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import {  Fade, Grid } from '@mui/material';
 import { useEffect, useRef, useState } from 'react';
 import { ResultsTypes } from '../../lib/enums';
 import { useQuery } from '@tanstack/react-query';
@@ -7,6 +7,7 @@ import { ResultsMenu } from './components/resultsMenu';
 import Results from './components/results';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import HistoryResults from './pages/historyResults';
 const env = import.meta.env;
 
 const Search = () => {
@@ -45,22 +46,38 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Grid container width={'85%'} flexDirection={'column'} alignContent={'center'} alignSelf={'center'}>
-      <Grid item width={'85%'}>
-        <Grid container>
-          <Grid item xs={2.5}>
-            <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />
+    <Grid
+      container
+      width={'74%'}
+      flexDirection={'column'}
+      alignContent={'center'}
+      alignSelf={'center'}
+      mt={3}
+      position="relative"
+    >
+      <Grid container>
+        <Fade in={searchTerm === ''} timeout={500}>
+          <Grid container position="absolute" style={{ top: 0 }}>
+            <HistoryResults></HistoryResults>
           </Grid>
-          <Grid item xs={9.5}>
-            <Results
-              type={resultsType}
-              results={results}
-              count={counts?.[resultsType] ?? 0}
-              setPage={setPage}
-              scrolledElementRef={scrolledElementRef}
-            />
+        </Fade>
+
+        <Fade in={searchTerm !== ''} timeout={500}>
+          <Grid container position="absolute" style={{ top: 0 }}>
+            <Grid item xs={2}>
+              <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />
+            </Grid>
+            <Grid item xs={10} height={'79vh'}>
+              <Results
+                type={resultsType}
+                results={results}
+                count={counts?.[resultsType] ?? 0}
+                setPage={setPage}
+                scrolledElementRef={scrolledElementRef}
+              />
+            </Grid>
           </Grid>
-        </Grid>
+        </Fade>
       </Grid>
     </Grid>
   );
