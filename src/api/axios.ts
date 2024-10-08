@@ -32,18 +32,19 @@ axiosInstance.interceptors.response.use(
 if (env.DEV && !env.VITE_APP_BE) {
   console.log('Development Environment, using axios mock');
 
-  const [{ mockEntities }, { mockGroups }, { mockMe }] =
-    await Promise.all([
-      import('../mocks/backend/entities'),
-      import('../mocks/backend/groups'),
-      import('../mocks/me'),
-    ]);
+  const [{ mockEntities }, { mockGroups }, { mockMe }, { mockSearch }] = await Promise.all([
+    import('../mocks/backend/entities'),
+    import('../mocks/backend/groups'),
+    import('../mocks/me'),
+    import('../mocks/backend/search'),
+  ]);
 
   const mock = new MockAdapter(axiosInstance, { delayResponse: 500 });
 
   mockGroups(mock);
   mockEntities(mock);
   mockMe(mock);
+  mockSearch(mock);
 }
 
 export default axiosInstance;
