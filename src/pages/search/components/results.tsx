@@ -10,7 +10,7 @@ export const Results = ({
   type,
   results,
   count,
-  setPage,
+  // setPage,
   scrolledElementRef,
 }: {
   type?: ResultsTypes;
@@ -21,28 +21,28 @@ export const Results = ({
 }) => {
   const theme = useTheme();
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const gridElement = scrolledElementRef.current!;
-      if (gridElement) {
-        const { scrollTop, scrollHeight, clientHeight } = gridElement;
-        const heightRemainToScroll = scrollHeight - scrollTop - clientHeight;
-        const treshold = (scrollHeight - scrollTop) * 0.1;
+  // useEffect(() => {
+  //   const handleScroll = () => {
+  //     const gridElement = scrolledElementRef.current!;
+  //     if (gridElement) {
+  //       const { scrollTop, scrollHeight, clientHeight } = gridElement;
+  //       const heightRemainToScroll = scrollHeight - scrollTop - clientHeight;
+  //       const treshold = (scrollHeight - scrollTop) * 0.1;
 
-        if (heightRemainToScroll <= treshold) {
-          gridElement.removeEventListener('scroll', handleScroll);
-          setPage?.((prevPage: number) => prevPage + 1);
-        }
-      }
-    };
+  //       if (heightRemainToScroll <= treshold) {
+  //         gridElement.removeEventListener('scroll', handleScroll);
+  //         setPage?.((prevPage: number) => prevPage + 1);
+  //       }
+  //     }
+  //   };
 
-    const gridElement = scrolledElementRef.current!;
-    if (gridElement) gridElement.addEventListener('scroll', handleScroll);
+  //   const gridElement = scrolledElementRef.current!;
+  //   if (gridElement) gridElement.addEventListener('scroll', handleScroll);
 
-    return () => {
-      if (gridElement) gridElement.removeEventListener('scroll', handleScroll);
-    };
-  }, [results, setPage, scrolledElementRef]);
+  //   return () => {
+  //     if (gridElement) gridElement.removeEventListener('scroll', handleScroll);
+  //   };
+  // }, [results, setPage, scrolledElementRef]);
 
   const generateResultCard = (result: EntitySearchResult | GroupSearchResult) => {
     const contactsCardProps: any = {
