@@ -57,6 +57,7 @@ export const EntityFavoriteCard = ({
           }}
         >
           <ProfileImage type={entityType === 'GoalUser' ? 'goalUser' : 'entity'} id={id} style={{ width: '3.5rem' }} />
+
           <Box
             sx={{
               display: 'flex',
