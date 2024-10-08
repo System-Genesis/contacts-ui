@@ -13,7 +13,7 @@ const Home = () => {
     <Box
       sx={{
         width: '73%',
-        height: '100%',
+        height: '50%',
         display: 'flex',
         marginTop: '4rem',
         alignSelf: 'center',

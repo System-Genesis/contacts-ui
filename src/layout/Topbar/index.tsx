@@ -1,13 +1,16 @@
-import { Box, Divider, useTheme } from '@mui/material';
+import { Box, Divider, useTheme, IconButton } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import Yesodot from '../../assets/icons/yesodot.svg';
 import Sapir from '../../assets/icons/sapir.svg';
+import icon from '../../assets/icons/icon.svg';
 import { ProfileImage } from '../../common/ProfileImage';
+import { useNavigate } from 'react-router-dom';
 
 const TopBar = () => {
   const currentUser = useSelector((state: RootState) => state.user);
   const theme = useTheme();
+  const navigate = useNavigate();
 
   return (
     <Box
@@ -20,7 +23,9 @@ const TopBar = () => {
         alignItems: 'center',
       }}
     >
-      <img src={Sapir} style={{ width: '2.5rem', alignSelf: 'center' }} />
+      <IconButton onClick={() => navigate('/')} sx={{ p: 0 }}>
+        <img src={icon} style={{ width: '2.5rem', alignSelf: 'center' }} />
+      </IconButton>
       <Box
         sx={{
           display: 'flex',
