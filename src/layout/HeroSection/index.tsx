@@ -12,7 +12,7 @@ export const HeroSection = () => {
         display: 'flex',
         justifyContent: 'center',
         height: `${location.pathname === '/' ? '45%' : '8%'}`,
-        width: '85%',
+        width: '80%',
         margin: '2rem',
         position: 'relative',
         alignSelf: 'center',

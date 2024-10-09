@@ -5,8 +5,8 @@
 5. what instead of 'לא הוזן'
 6. contact options when empty
 7. finish the cards
-8. tags - everything
-9. in the cards -> star-> make it fixed
+8. tags -> everything about it
+9. all the colors and sizes to the theme
 10. name and icons
 11. hero image 
 12. chatbot?
@@ -17,4 +17,3 @@
       3. pages in the search
       4. search menu open and close
       5. favorites <-> search
-15. all the colors and sizes to the theme

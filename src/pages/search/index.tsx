@@ -69,7 +69,7 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Grid container width={'78%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
+    <Grid container width={'75%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
