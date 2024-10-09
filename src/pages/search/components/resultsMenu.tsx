@@ -1,12 +1,12 @@
 import { Box, Stack, Typography, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import i18next from 'i18next';
+import { useEffect, useState } from 'react';
 import EntityIcon from '../../../assets/icons/entity.svg';
 import HierarchyIcon from '../../../assets/icons/hierarchy.svg';
 import GoalUserIcon from '../../../assets/icons/goal-user.svg';
-import { useEffect, useState } from 'react';
 
-export const resultsTypeToIcon = {
+const resultsTypeToIcon = {
   [ResultsTypes.ENTITY]: EntityIcon,
   [ResultsTypes.GROUP]: HierarchyIcon,
   [ResultsTypes.GOAL_USER]: GoalUserIcon,

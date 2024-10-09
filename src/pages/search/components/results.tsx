@@ -1,11 +1,10 @@
-import { Box, Stack, Typography, useTheme } from '@mui/material';
+import { Box, Stack, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
-import i18next from 'i18next';
-import { resultsTypeToIcon } from './resultsMenu';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
 import { ContactsCard } from './ContactCard';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 import SearchHeader from './SearchHeader';
+import { EntityContactsCard } from './EntityContactCard';
 
 export const Results = ({
   type,
@@ -62,7 +61,7 @@ export const Results = ({
         contactsCardProps.title = (result as EntitySearchResult).fullName;
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
-        break;
+        return <EntityContactsCard {...contactsCardProps} />;
 
       case ResultsTypes.GROUP:
         contactsCardProps.type = 'group';
@@ -77,14 +76,12 @@ export const Results = ({
   };
 
   return (
-    <Box sx={{ height: '100%' }}>
+    <Box sx={{ height: '100%', p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <SearchHeader count={count} type={type} />
       <Stack
         ref={scrolledElementRef}
         sx={{
-          rowGap: theme.spacing(1.5),
-          paddingX: theme.spacing(3),
-          maxHeight: '65vh',
+          maxHeight: '100%',
           overflowY: 'scroll',
           '&::-webkit-scrollbar': {
             display: 'none',

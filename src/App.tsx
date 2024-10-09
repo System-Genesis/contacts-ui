@@ -79,7 +79,6 @@ const App = () => {
             paddingRight: 3,
             paddingLeft: 3,
             paddingTop: 2,
-            width: '73% !important',
           }}
         >
           <TopBar />

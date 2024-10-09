@@ -1,17 +1,17 @@
 import { Box, Grid, styled } from '@mui/material';
-import { useRef } from 'react';
+// import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import Results from '../components/results';
+// import Results from '../components/results';
 import { mySearchHistory } from '../../../services/historySearvice';
 import EmptyHistory from '../../../assets/icons/emptyHistory.svg';
 
 const FadeBox = styled(Box)({
   position: 'absolute',
   width: '85%',
-  height: '100%',
 });
+
 const HistoryResults = () => {
-  const scrolledElementRef = useRef<HTMLDivElement | null>(null);
+  // const scrolledElementRef = useRef<HTMLDivElement | null>(null);
 
   const { data: searchHistoryResults } = useQuery({
     queryKey: ['history'],
@@ -26,7 +26,7 @@ const HistoryResults = () => {
   ) : (
     <Grid item>
       {/* TODO: history results */}
-      <Results results={searchHistoryResults} scrolledElementRef={scrolledElementRef} />
+      {/* <Results results={searchHistoryResults} scrolledElementRef={scrolledElementRef} /> */}
     </Grid>
   );
 };

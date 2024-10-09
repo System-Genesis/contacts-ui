@@ -69,11 +69,11 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Grid container width={'74.7%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
+    <Grid container width={'78%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
-          xs={Object.values(counts).some((val) => val) ? 2.5 : 0}
+          xs={Object.values(counts).some((val) => val) ? 2 : 0}
           sx={{
             overflow: 'hidden',
             opacity: Object.values(counts).some((val) => val) ? 1 : 0,
@@ -107,8 +107,8 @@ const Search = () => {
               </Fade>
 
               <Fade in={Object.values(counts).some((val) => val)} timeout={500}>
-                <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none', width: '94.5%' }}>
-                  <Grid item xs={10} height={'79vh'} sx={{ justifyContent: 'center' }}>
+                <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none', width: '96%' }}>
+                  <Grid item xs={10.5} height={'75vh'} sx={{ justifyContent: 'center' }}>
                     <Results
                       type={resultsType}
                       results={searchResults}

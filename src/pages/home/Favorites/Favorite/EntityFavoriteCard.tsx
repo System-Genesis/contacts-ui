@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 
 import { PhoneNumbers } from '../../../../common/PhoneNumbers';
 import { ContactOptions } from '../../../../common/ContactOptions';
@@ -24,6 +24,8 @@ export const EntityFavoriteCard = ({
   jabberPhone: string;
   mobilePhone: string;
 }) => {
+  const theme = useTheme();
+
   return (
     <Grid item>
       <FavoriteButton
@@ -42,10 +44,10 @@ export const EntityFavoriteCard = ({
           borderColor: '#EFEFEF',
           borderRadius: '1rem',
           flexDirection: 'column',
-          minWidth: '16rem',
-          width: '16rem',
-          height: '16rem',
-          minHeight: '16rem',
+          minWidth: '17.5rem',
+          width: '17.5rem',
+          height: '17.5rem',
+          minHeight: '17.5rem',
           padding: '1rem 1rem 0.2rem 1rem',
           margin: '0.25rem 0.5rem',
         }}
@@ -84,8 +86,8 @@ export const EntityFavoriteCard = ({
             <Typography
               variant="h6"
               sx={{
-                backgroundColor: '#F3FAF8',
-                color: '#2A5B5B',
+                backgroundColor: theme.colors.subTitleBack,
+                color: theme.colors.subTitle,
                 borderRadius: '4px',
                 paddingX: '8px',
                 paddingY: '4px',

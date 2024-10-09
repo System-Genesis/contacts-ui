@@ -25,7 +25,7 @@ const Home = () => {
   return (
     <Box
       sx={{
-        width: '73%',
+        width: '80%',
         height: '50%',
         display: 'flex',
         marginTop: '3rem',
