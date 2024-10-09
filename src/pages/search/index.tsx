@@ -73,12 +73,12 @@ const Search = () => {
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
-          xs={searchResults?.length !== 0 ? 2.5 : 0}
+          xs={Object.values(counts).some((val) => val) ? 2.5 : 0}
           sx={{
             overflow: 'hidden',
-            opacity: searchResults?.length !== 0 ? 1 : 0,
-            transform: searchResults?.length !== 0 ? 'translateX(0)' : 'translateX(-20px)',
-            display: searchResults?.length === 0 ? 'none' : 'unset',
+            opacity: Object.values(counts).some((val) => val) ? 1 : 0,
+            transform: Object.values(counts).some((val) => val) ? 'translateX(0)' : 'translateX(-20px)',
+            display: Object.values(counts).some((val) => val) ? 'unset' : 'none',
             transition: 'opacity 50s ease, transform 50s ease',
             minWidth: '200px',
           }}
@@ -100,13 +100,13 @@ const Search = () => {
             <HistoryResults />
           ) : (
             <>
-              <Fade in={searchResults?.length === 0} timeout={500}>
+              <Fade in={Object.values(counts).every((val) => !val)} timeout={500}>
                 <FadeBox sx={{ display: searchResults?.length === 0 ? 'block' : 'none' }}>
                   <img src={EmptyResults} style={{ width: '100%' }} />
                 </FadeBox>
               </Fade>
 
-              <Fade in={searchResults?.length !== 0} timeout={500}>
+              <Fade in={Object.values(counts).some((val) => val)} timeout={500}>
                 <FadeBox sx={{ display: searchResults?.length !== 0 ? 'block' : 'none', width: '94.5%' }}>
                   <Grid item xs={10} height={'79vh'} sx={{ justifyContent: 'center' }}>
                     <Results
