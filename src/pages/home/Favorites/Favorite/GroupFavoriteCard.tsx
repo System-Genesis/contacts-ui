@@ -21,7 +21,7 @@ export const GroupFavoriteCard = ({
   mobilePhone: string;
 }) => {
   return (
-    <Grid item xs={2.4}>
+    <Grid item>
       <FavoriteButton
         id={id}
         type={'entity'}
@@ -38,9 +38,12 @@ export const GroupFavoriteCard = ({
           borderColor: '#EFEFEF',
           borderRadius: '1rem',
           flexDirection: 'column',
-          width: '13.8vw',
-          height: '23vh',
+          minWidth: '16rem',
+          width: '16rem',
+          height: '16rem',
+          minHeight: '16rem',
           padding: '1rem 1rem 0.2rem 1rem',
+          margin: '0.25rem 0.5rem',
         }}
       >
         <Box

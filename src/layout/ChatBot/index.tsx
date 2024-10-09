@@ -10,8 +10,8 @@ export default function ChatBot() {
       size="large"
       sx={{
         position: 'absolute',
-        bottom: '16px',
-        left: '16px',
+        bottom: '2.5rem',
+        left: '2.56rem',
         background: theme.colors.aqua,
         ':hover': {
           background: theme.colors.aquaDark,

@@ -15,7 +15,7 @@ const Home = () => {
         width: '73%',
         height: '50%',
         display: 'flex',
-        marginTop: '4rem',
+        marginTop: '3rem',
         alignSelf: 'center',
         flexDirection: 'column',
         maxHeight: '100vh',
@@ -34,7 +34,7 @@ const Home = () => {
 
       {data.length !== 0 && (
         <Grid
-          marginTop={5}
+          marginTop={2}
           container
           overflow={'auto'}
           maxHeight={'100vh'}

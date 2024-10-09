@@ -3,7 +3,7 @@ import { ResultsTypes } from '../../../lib/enums';
 import i18next from 'i18next';
 import { resultsTypeToIcon } from './resultsMenu';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
-import { ContactsCard } from '../card/contactsCard';
+import { ContactsCard } from '../../../common/ContactCard';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 
 export const Results = ({
