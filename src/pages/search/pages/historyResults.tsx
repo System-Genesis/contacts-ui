@@ -7,10 +7,9 @@ import EmptyHistory from '../../../assets/icons/emptyHistory.svg';
 
 const FadeBox = styled(Box)({
   position: 'absolute',
-  width: '100%',
+  width: '85%',
   height: '100%',
 });
-
 const HistoryResults = () => {
   const scrolledElementRef = useRef<HTMLDivElement | null>(null);
 
@@ -20,30 +19,14 @@ const HistoryResults = () => {
     initialData: [],
   });
 
-  return (
-    <Grid container alignContent={'center'} alignSelf={'center'} justifyContent={'center'}>
-      <Grid item width={'85%'}>
-        {searchHistoryResults.length === 0 ? (
-          <Grid display={'flex'} alignContent={'center'} justifyContent={'center'}>
-            <img
-              src={EmptyHistory}
-              style={{
-                background: '#F7F7F7',
-                width: '100%',
-                borderRadius: 12,
-                height: '100%',
-                opacity: '0px',
-                marginBottom: 15,
-              }}
-            />
-          </Grid>
-        ) : (
-          <Grid item xs={9.5}>
-            {/* TODO: history results */}
-            <Results results={searchHistoryResults} scrolledElementRef={scrolledElementRef} />
-          </Grid>
-        )}
-      </Grid>
+  return searchHistoryResults.length === 0 ? (
+    <FadeBox>
+      <img src={EmptyHistory} style={{ width: '100%' }} />
+    </FadeBox>
+  ) : (
+    <Grid item>
+      {/* TODO: history results */}
+      <Results results={searchHistoryResults} scrolledElementRef={scrolledElementRef} />
     </Grid>
   );
 };

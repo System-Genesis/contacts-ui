@@ -76,7 +76,7 @@ export const Results = ({
   };
 
   return (
-    <Box sx={{ backgroundColor: theme.colors.grey, borderRadius: 6, height: '100%' }}>
+    <Box sx={{ height: '100%' }}>
       <Box sx={{ display: 'flex', padding: theme.spacing(4) }}>
         <Typography
           sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2), marginRight: theme.spacing(1) }}

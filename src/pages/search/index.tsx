@@ -31,7 +31,7 @@ const SlideBox = styled(Box)({
 
 const FadeBox = styled(Box)({
   position: 'absolute',
-  width: '100%',
+  width: '85%',
   height: '100%',
 });
 
@@ -69,16 +69,8 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Grid
-      container
-      width={'74.7%'}
-      alignContent={'center'}
-      alignSelf={'center'}
-      mt={2}
-      position="relative"
-      justifyContent={'center'}
-    >
-      <Grid container>
+    <Grid container width={'74.7%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
+      <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
           xs={searchResults?.length !== 0 ? 2.5 : 0}
@@ -96,22 +88,21 @@ const Search = () => {
           </SlideBox>
         </Grid>
 
-        <Grid item>
+        <Grid
+          item
+          display={'flex'}
+          width={'85%'}
+          height={'75vh'}
+          borderRadius={6}
+          sx={{ backgroundColor: theme.colors.gray }}
+        >
           {searchTerm.length < 2 && !searchResults.length ? (
             <HistoryResults />
           ) : (
             <>
               <Fade in={searchResults?.length === 0} timeout={500}>
-                <FadeBox sx={{ display: searchResults?.length === 0 ? 'block' : 'none', textAlign: 'center' }}>
-                  <img
-                    src={EmptyResults}
-                    style={{
-                      background: '#F7F7F7',
-                      borderRadius: 12,
-                      marginBottom: 15,
-                      width: '85%',
-                    }}
-                  />
+                <FadeBox sx={{ display: searchResults?.length === 0 ? 'block' : 'none' }}>
+                  <img src={EmptyResults} style={{ width: '100%' }} />
                 </FadeBox>
               </Fade>
 
