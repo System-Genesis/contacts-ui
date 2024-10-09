@@ -68,6 +68,7 @@ export const SearchBar = () => {
         type="button"
         sx={{
           p: 'auto',
+          m: 0.65,
           background: theme.colors.darkAqua,
           width: location.pathname === '/' ? 50 : 40,
           height: location.pathname === '/' ? 50 : 40,
