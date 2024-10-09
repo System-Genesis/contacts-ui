@@ -31,7 +31,7 @@ export const EntityContactsCard: React.FC<{
       }}
     >
       <Grid item>
-        <Grid container gap={2}>
+        <Grid container gap={2} height={'5rem'}>
           <FavoriteButton
             id={id}
             type={type}
@@ -41,6 +41,7 @@ export const EntityContactsCard: React.FC<{
               top: '-30px',
             }}
           />
+
           <Grid item alignContent={'center'} textAlign={'center'}>
             <ProfileImage
               type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
