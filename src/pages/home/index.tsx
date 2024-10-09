@@ -5,9 +5,22 @@ import { useQuery } from '@tanstack/react-query';
 import { getMyFavoritesRequest } from '../../services/favoriteService';
 import { GroupFavoriteCard } from './Favorites/Favorite/GroupFavoriteCard';
 import favStar from '../../assets/icons/favStar.svg';
+import { ResultsTypes } from '../../lib/enums';
 
 const Home = () => {
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
+
+  const generateFavorite = (favorite) => {
+    switch (favorite.type) {
+      case ResultsTypes.ENTITY:
+      case ResultsTypes.GOAL_USER:
+        return <EntityFavoriteCard key={favorite.id} {...favorite} />;
+
+      case ResultsTypes.GROUP:
+        <GroupFavoriteCard key={favorite.id} {...favorite} />;
+        break;
+    }
+  };
 
   return (
     <Box
@@ -35,24 +48,34 @@ const Home = () => {
       {data.length !== 0 && (
         <Grid
           marginTop={2}
+          marginBottom={15}
           container
           overflow={'auto'}
           maxHeight={'100vh'}
           width={'103%'}
           justifyContent={'flex-start'}
           sx={{
-            height: '30rem',
+            height: '25rem',
             overflowY: 'scroll',
-            '&::-webkit-scrollbar': { display: 'none' },
+            '&::-webkit-scrollbar': {
+              width: '0.6rem',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: '#FFF', // Light gray background track
+              borderRadius: '100px', // Rounded track to match iPhone look
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: '#bad1ca', // Dark Aqua for thumb
+              borderRadius: '10px', // Fully rounded thumb
+              border: '2px solid #F7F7F7', // Light gray padding around thumb for sleek look
+              maxWidth: '10px',
+            },
+            '&::-webkit-scrollbar-thumb:hover': {
+              backgroundColor: '#9aafa9', // Aqua on hover for slight interaction feedback
+            },
           }}
         >
-          {data.map((favorite) =>
-            favorite.type === 'entity' ? (
-              <EntityFavoriteCard key={favorite.id} {...favorite} />
-            ) : (
-              <GroupFavoriteCard key={favorite.id} {...favorite} />
-            ),
-          )}
+          {data.map(generateFavorite)}
         </Grid>
       )}
     </Box>

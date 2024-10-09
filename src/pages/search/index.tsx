@@ -101,13 +101,13 @@ const Search = () => {
           ) : (
             <>
               <Fade in={Object.values(counts).every((val) => !val)} timeout={500}>
-                <FadeBox sx={{ display: searchResults?.length === 0 ? 'block' : 'none' }}>
+                <FadeBox sx={{ display: Object.values(counts).every((val) => !val) ? 'block' : 'none' }}>
                   <img src={EmptyResults} style={{ width: '100%' }} />
                 </FadeBox>
               </Fade>
 
               <Fade in={Object.values(counts).some((val) => val)} timeout={500}>
-                <FadeBox sx={{ display: searchResults?.length !== 0 ? 'block' : 'none', width: '94.5%' }}>
+                <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none', width: '94.5%' }}>
                   <Grid item xs={10} height={'79vh'} sx={{ justifyContent: 'center' }}>
                     <Results
                       type={resultsType}

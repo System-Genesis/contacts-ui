@@ -1,8 +1,8 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { FavoriteButton } from './FavoriteButton';
-import { PhoneNumbers } from './PhoneNumbers';
-import { ContactOptions } from './ContactOptions';
-import { ProfileImage } from './ProfileImage';
+import { FavoriteButton } from '../../../common/FavoriteButton';
+import { PhoneNumbers } from '../../../common/PhoneNumbers';
+import { ContactOptions } from '../../../common/ContactOptions';
+import { ProfileImage } from '../../../common/ProfileImage';
 
 export const ContactsCard: React.FC<{
   id: string;

@@ -14,32 +14,23 @@ export const resultsTypeToIcon = {
 
 const ResultsMenuItem = ({
   type,
-  icon,
   count,
   selected,
   setSelected,
 }: {
   type: ResultsTypes;
-  icon: string;
   count: number;
   selected: ResultsTypes;
   setSelected: (selected: ResultsTypes) => void;
 }) => {
   const theme = useTheme();
 
-  const handleSelect = () => {
-    if (selected === type) return;
-
-    setSelected(type);
-  };
-
   return (
     <Box
-      onClick={handleSelect}
+      onClick={() => selected !== type && setSelected(type)}
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
-        // width: '10vw',
         cursor: 'pointer',
         alignItems: 'center',
         paddingX: theme.spacing(1),
@@ -49,7 +40,7 @@ const ResultsMenuItem = ({
       }}
     >
       <Box sx={{ display: 'flex', columnGap: theme.spacing(1) }}>
-        <img width={18} height={18} src={icon} />
+        <img width={18} height={18} src={resultsTypeToIcon[type]} />
         <Typography sx={{ fontSize: 14 }}>{i18next.t(`resultsType.${type}`)}</Typography>
       </Box>
       <Typography
@@ -82,9 +73,7 @@ export const ResultsMenu = ({
   const theme = useTheme();
   const [totalResults, setTotalResults] = useState(0);
 
-  useEffect(() => {
-    setTotalResults(Object.values(counts).reduce((accumulator, currentValue) => accumulator + currentValue, 0));
-  }, [counts]);
+  useEffect(() => setTotalResults(Object.values(counts).reduce((sum, curr) => sum + curr, 0)), [counts]);
 
   return (
     <Stack sx={{ rowGap: theme.spacing(1.5), paddingRight: theme.spacing(3), marginTop: theme.spacing(3) }}>
@@ -95,7 +84,6 @@ export const ResultsMenu = ({
         <ResultsMenuItem
           key={type}
           type={type}
-          icon={resultsTypeToIcon[type]}
           count={counts[type]}
           selected={resultsType}
           setSelected={setResultsType}

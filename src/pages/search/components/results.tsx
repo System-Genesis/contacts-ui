@@ -3,19 +3,20 @@ import { ResultsTypes } from '../../../lib/enums';
 import i18next from 'i18next';
 import { resultsTypeToIcon } from './resultsMenu';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
-import { ContactsCard } from '../../../common/ContactCard';
+import { ContactsCard } from './ContactCard';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
+import SearchHeader from './SearchHeader';
 
 export const Results = ({
   type,
   results,
   count,
-  // setPage,
+  setPage,
   scrolledElementRef,
 }: {
-  type?: ResultsTypes;
+  type: ResultsTypes;
   results: EntitySearchResult[] | GroupSearchResult[] | (EntitySearchResult | GroupSearchResult)[];
-  count?: number;
+  count: number;
   setPage?: Dispatch<SetStateAction<number>>;
   scrolledElementRef: MutableRefObject<HTMLDivElement | null>;
 }) => {
@@ -42,7 +43,7 @@ export const Results = ({
   //   return () => {
   //     if (gridElement) gridElement.removeEventListener('scroll', handleScroll);
   //   };
-  // }, [results, setPage, scrolledElementRef]);
+  // }, [setPage, scrolledElementRef]);
 
   const generateResultCard = (result: EntitySearchResult | GroupSearchResult) => {
     const contactsCardProps: any = {
@@ -77,17 +78,7 @@ export const Results = ({
 
   return (
     <Box sx={{ height: '100%' }}>
-      <Box sx={{ display: 'flex', padding: theme.spacing(4) }}>
-        <Typography
-          sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2), marginRight: theme.spacing(1) }}
-        >{`נמצאו ${count} תוצאות בסינון `}</Typography>
-        <img width={18} height={18} src={resultsTypeToIcon[type]} />
-        <Typography
-          sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2), marginLeft: theme.spacing(1) }}
-        >
-          {i18next.t(`resultsType.${type}`)}
-        </Typography>
-      </Box>
+      <SearchHeader count={count} type={type} />
       <Stack
         ref={scrolledElementRef}
         sx={{
@@ -100,7 +91,7 @@ export const Results = ({
           },
         }}
       >
-        {(results ?? []).map((result: EntitySearchResult | GroupSearchResult) => generateResultCard(result))}
+        {results.map(generateResultCard)}
       </Stack>
     </Box>
   );
