@@ -1,9 +1,8 @@
 1. infinite scroll 
-2. the 0 results pictures -> center horizontally
 3. history results page
 4. drawers
 5. what instead of 'לא הוזן'
-6. contact options when empty
+6. contact menu options when empty
 8. tags -> everything about it
 7. name + icon + hero image 
 9. all the colors and sizes to the theme
@@ -16,3 +15,5 @@
       3. pages in the search
       4. search menu open and close
       5. favorites <-> search
+14. entities count not exists from backend ( LIRAZ ADD COUNT HERE)
+15.
