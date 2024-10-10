@@ -12,12 +12,14 @@ export const Results = ({
   count,
   setPage,
   scrolledElementRef,
+  withHeader = true,
 }: {
-  type: ResultsTypes;
+  type?: ResultsTypes;
   results: EntitySearchResult[] | GroupSearchResult[] | (EntitySearchResult | GroupSearchResult)[];
   count: number;
   setPage?: Dispatch<SetStateAction<number>>;
   scrolledElementRef: MutableRefObject<HTMLDivElement | null>;
+  withHeader: boolean;
 }) => {
   const theme = useTheme();
 
@@ -74,7 +76,7 @@ export const Results = ({
 
   return (
     <Box sx={{ height: '100%', width: '100%', p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-      <SearchHeader count={count} type={type} />
+      {withHeader && <SearchHeader count={count} type={type} />}
       <Stack
         ref={scrolledElementRef}
         sx={{
