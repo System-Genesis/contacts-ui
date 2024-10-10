@@ -4,14 +4,13 @@
 4. drawers
 5. what instead of 'לא הוזן'
 6. contact options when empty
-7. finish the cards
 8. tags -> everything about it
+7. name + icon + hero image 
 9. all the colors and sizes to the theme
-10. name and icons
-11. hero image 
-12. chatbot?
-13. *** the value of numbers in the backend -> how to overwrite entity vs group (search: "LIRAZ BUG HERE" )
-14. animations -> 
+10. chatbot?
+11. *** the value of numbers in the backend -> how to overwrite entity vs group (search: "LIRAZ BUG HERE" )
+12. update the contact info by DB!!!
+13. animations -> 
       1. unfav<-> fav btn
       2. remove unfav cards
       3. pages in the search

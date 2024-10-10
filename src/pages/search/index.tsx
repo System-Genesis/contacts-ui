@@ -93,6 +93,7 @@ const Search = () => {
           display={'flex'}
           width={'85%'}
           height={'75vh'}
+          minWidth={'600px'}
           borderRadius={6}
           sx={{ backgroundColor: theme.colors.gray }}
         >
@@ -107,8 +108,8 @@ const Search = () => {
               </Fade>
 
               <Fade in={Object.values(counts).some((val) => val)} timeout={500}>
-                <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none', width: '96%' }}>
-                  <Grid item xs={10.5} height={'75vh'} sx={{ justifyContent: 'center' }}>
+                <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none' }}>
+                  <Grid item xs={10.5} height={'75vh'} sx={{ justifyContent: 'center' }} width={'90vw'}>
                     <Results
                       type={resultsType}
                       results={searchResults}

@@ -1,4 +1,4 @@
-import { Box, IconButton } from '@mui/material';
+import { Box } from '@mui/material';
 import outlook from '../assets/icons/outlook.svg';
 import jabber from '../assets/icons/jabber.svg';
 import hiChat from '../assets/icons/hiChat.svg';
@@ -8,29 +8,25 @@ export const ContactOptions = ({
   mails,
   chats,
   jabberPhone,
+  withHi = true,
 }: {
-  jabberPhone?: string;
+  jabberPhone: string;
   chats: string[];
   mails: string[];
+  withHi?: boolean;
 }) => {
   return (
     <Box
       sx={{
         display: 'flex',
-        justifyContent: 'row',
-        gap: 1,
+        flexDirection: 'row',
+        justifyContent: 'right',
         alignItems: 'center',
-        padding: 1,
+        gap: 0.5,
       }}
     >
-      <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />
-
-      {jabberPhone && (
-        <IconButton href={`sip:${jabberPhone[0]}`}>
-          <img src={jabber} />
-        </IconButton>
-      )}
-
+      {withHi && <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />}
+      <ContactMenu icon={jabber} options={jabberPhone ? [jabberPhone] : []} href="sip:" />
       <ContactMenu icon={outlook} options={mails} href="mailto:" />
     </Box>
   );

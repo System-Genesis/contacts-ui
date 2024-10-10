@@ -38,11 +38,11 @@ export const GroupFavoriteCard = ({
           borderColor: '#EFEFEF',
           borderRadius: '1rem',
           flexDirection: 'column',
-          minWidth: '16rem',
-          width: '16rem',
-          height: '16rem',
-          minHeight: '16rem',
-          padding: '1rem 1rem 0.2rem 1rem',
+          minWidth: '16.5rem',
+          width: '16.5rem',
+          height: '16.5rem',
+          minHeight: '16.5rem',
+          padding: '1rem',
           margin: '0.25rem 0.5rem',
         }}
       >

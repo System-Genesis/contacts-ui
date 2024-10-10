@@ -4,7 +4,7 @@ import { PhoneNumbers } from '../../../common/PhoneNumbers';
 import { ContactOptions } from '../../../common/ContactOptions';
 import { ProfileImage } from '../../../common/ProfileImage';
 
-export const ContactsCard: React.FC<{
+export const GroupContactsCard: React.FC<{
   id: string;
   type: string;
   title: string;
@@ -13,60 +13,83 @@ export const ContactsCard: React.FC<{
   tags: string[];
   mobilePhone: string;
   jabberPhone: string;
-  entityType: string;
-}> = ({ type, id, title, subTitle, hierarchy, entityType, mobilePhone, jabberPhone, tags }) => {
+}> = ({ type, id, title, subTitle, hierarchy, mobilePhone, jabberPhone, tags }) => {
   const theme = useTheme();
 
   return (
     <Grid
       container
       sx={{
-        width: '100%',
         bgcolor: theme.colors.white,
         display: 'flex',
-        borderRadius: 2,
+        borderRadius: 4,
         justifyContent: 'space-between',
         alignItems: 'center',
+        mb: 2,
+        p: 2,
+        width: '58.5vw',
       }}
     >
       <Grid item>
-        <Grid container gap={'16px'}>
+        <Grid container gap={1} height={'6.5rem'}>
           <FavoriteButton
             id={id}
             type={type}
             style={{
-              bottom: '30px',
-              left: '15px',
+              position: 'relative',
+              right: 4,
+              top: -25,
             }}
           />
-          <Grid item>
-            <ProfileImage type={entityType === 'GoalUser' ? 'goalUser' : 'entity'} id={id} style={{ width: '4vw' }} />
-          </Grid>
-          <Grid item>
-            <Grid container gap={'8px'}>
-              <Typography variant="h6">{title}</Typography>
-              {subTitle && (
-                <Typography
-                  variant="h6"
-                  sx={{
-                    backgroundColor: theme.colors.subTitleBack,
-                    color: theme.colors.subTitle,
-                    borderRadius: '4px',
-                    paddingX: '8px',
-                    paddingY: '4px',
-                    fontSize: '0.75rem',
-                  }}
-                >
-                  {subTitle}
+
+          <ProfileImage type="group" id={id} style={{ width: '2.75vw', background: '#c1ccc4', borderRadius: 300 }} />
+          <Grid item p={1} alignContent={'center'} textAlign={'left'}>
+            <Grid
+              container
+              gap={1}
+              display={'flex'}
+              flexDirection={'column'}
+              justifyContent={'space-between'}
+              height={'90%'}
+              wrap="nowrap"
+            >
+              <Grid item>
+                <Grid container gap={1} alignItems={'center'}>
+                  <Typography fontSize={14}>{title}</Typography>
+                  {subTitle && (
+                    <Typography
+                      fontSize={14}
+                      sx={{
+                        backgroundColor: theme.colors.subTitleBack,
+                        color: theme.colors.subTitle,
+                        borderRadius: '1000px',
+                        p: '4px',
+                      }}
+                    >
+                      {subTitle}
+                      {/* TODO: LIRAZ ADD COUNT HERE */}
+                    </Typography>
+                  )}
+                </Grid>
+              </Grid>
+
+              <Grid item gap={1} alignItems={'center'}>
+                <Typography fontSize={14}>{hierarchy}</Typography>
+              </Grid>
+
+              <Grid item gap={1} alignItems={'center'}>
+                <Typography fontSize={14}>
+                  tags
+                  {tags}
                 </Typography>
-              )}
+              </Grid>
             </Grid>
-            <Typography variant="h6">{hierarchy}</Typography>
           </Grid>
         </Grid>
       </Grid>
-      <Grid item>
-        <ContactOptions chats={[]} mails={[]} jabberPhone={jabberPhone} />
+
+      <Grid item gap={4} pr={1} display={'flex'} flexDirection={'column'}>
+        <ContactOptions chats={[]} mails={[]} jabberPhone={jabberPhone} withHi={false} />
         <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
       </Grid>
     </Grid>

@@ -44,11 +44,11 @@ export const EntityFavoriteCard = ({
           borderColor: '#EFEFEF',
           borderRadius: '1rem',
           flexDirection: 'column',
-          minWidth: '17.5rem',
-          width: '17.5rem',
-          height: '17.5rem',
-          minHeight: '17.5rem',
-          padding: '1rem 1rem 0.2rem 1rem',
+          minWidth: '16.5rem',
+          width: '16.5rem',
+          height: '16.5rem',
+          minHeight: '16.5rem',
+          padding: '1rem',
           margin: '0.25rem 0.5rem',
         }}
       >
@@ -79,28 +79,29 @@ export const EntityFavoriteCard = ({
                 textOverflow: 'ellipsis',
                 maxWidth: '100px',
               }}
-              variant="h6"
             >
               {fullName}
             </Typography>
-            <Typography
-              variant="h6"
-              sx={{
-                backgroundColor: theme.colors.subTitleBack,
-                color: theme.colors.subTitle,
-                borderRadius: '4px',
-                paddingX: '8px',
-                paddingY: '4px',
-                fontSize: '0.75rem',
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                maxWidth: '100px',
-              }}
-            >
-              {jobTitle}
-            </Typography>
+            {jobTitle && (
+              <Typography
+                sx={{
+                  backgroundColor: theme.colors.subTitleBack,
+                  color: theme.colors.subTitle,
+                  borderRadius: '4px',
+                  paddingX: '8px',
+                  paddingY: '4px',
+                  fontSize: 14,
+                  whiteSpace: 'nowrap',
+                  overflow: 'hidden',
+                  textOverflow: 'ellipsis',
+                  maxWidth: '100px',
+                }}
+              >
+                {jobTitle}
+              </Typography>
+            )}
           </Box>
+
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
           <Divider sx={{ width: '90%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
           <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />

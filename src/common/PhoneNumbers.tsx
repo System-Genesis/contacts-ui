@@ -4,16 +4,15 @@ import jabberPhoneIcon from '../assets/icons/jabberPhoneIcon.svg';
 
 export const PhoneNumbers = ({ jabberPhone, mobilePhone }: { jabberPhone?: string; mobilePhone?: string }) => {
   return (
-    <Box display={'flex'} gap="12px">
+    <Box display={'flex'} gap={2}>
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
-          paddingY: '16px',
           gap: '4px',
         }}
       >
-        <Typography variant="h6">{mobilePhone ?? 'לא הוזן'}</Typography>
+        <Typography fontSize={14}>{mobilePhone ?? '050-0000000'}</Typography>
         <img src={mobilePhoneIcon} />
       </Box>
 
@@ -24,7 +23,7 @@ export const PhoneNumbers = ({ jabberPhone, mobilePhone }: { jabberPhone?: strin
           gap: '4px',
         }}
       >
-        <Typography variant="h6">{jabberPhone ?? 'לא הוזן'}</Typography>
+        <Typography fontSize={14}>{jabberPhone ?? '6000000'}</Typography>
         <img src={jabberPhoneIcon} />
       </Box>
     </Box>

@@ -17,8 +17,7 @@ const Home = () => {
         return <EntityFavoriteCard key={favorite.id} {...favorite} />;
 
       case ResultsTypes.GROUP:
-        <GroupFavoriteCard key={favorite.id} {...favorite} />;
-        break;
+        return <GroupFavoriteCard key={favorite.id} {...favorite} />;
     }
   };
 

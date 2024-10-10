@@ -1,10 +1,10 @@
 import { Box, Stack, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
-import { ContactsCard } from './ContactCard';
 import { Dispatch, MutableRefObject, SetStateAction, useEffect } from 'react';
 import SearchHeader from './SearchHeader';
 import { EntityContactsCard } from './EntityContactCard';
+import { GroupContactsCard } from './GroupContactCard';
 
 export const Results = ({
   type,
@@ -64,28 +64,25 @@ export const Results = ({
         return <EntityContactsCard {...contactsCardProps} />;
 
       case ResultsTypes.GROUP:
+        console.log({ result });
         contactsCardProps.type = 'group';
-        contactsCardProps.entityType = '';
         contactsCardProps.title = (result as GroupSearchResult).name;
         contactsCardProps.subTitle = (result as GroupSearchResult).entitiesCount;
-        break;
-      default:
-        return;
+        return <GroupContactsCard {...contactsCardProps} />;
     }
-    return <ContactsCard {...contactsCardProps} />;
   };
 
   return (
-    <Box sx={{ height: '100%', p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+    <Box sx={{ height: '100%', width: '100%', p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       <SearchHeader count={count} type={type} />
       <Stack
         ref={scrolledElementRef}
         sx={{
           maxHeight: '100%',
           overflowY: 'scroll',
-          '&::-webkit-scrollbar': {
-            display: 'none',
-          },
+          width: '59vw',
+          minWidth: '500px',
+          '&::-webkit-scrollbar': { display: 'none' },
         }}
       >
         {results.map(generateResultCard)}

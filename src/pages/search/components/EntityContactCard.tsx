@@ -21,43 +21,48 @@ export const EntityContactsCard: React.FC<{
     <Grid
       container
       sx={{
-        // width: 'auto',
         bgcolor: theme.colors.white,
         display: 'flex',
         borderRadius: 4,
         justifyContent: 'space-between',
         alignItems: 'center',
         mb: 2,
+        p: 2,
+        width: '58.5vw',
       }}
     >
       <Grid item>
-        <Grid container gap={2} height={'5rem'}>
+        <Grid container gap={1} height={'6.5rem'}>
           <FavoriteButton
             id={id}
             type={type}
             style={{
               position: 'relative',
-              right: '-15px',
-              top: '-30px',
+              right: 4,
+              top: -25,
             }}
           />
 
-          <Grid item alignContent={'center'} textAlign={'center'}>
-            <ProfileImage
-              type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
-              id={id}
-              style={{ width: '3vw', background: 'red', borderRadius: 100 }}
-            />
-          </Grid>
-          <Grid item>
-            <Grid container gap={2} display={'flex'} flexDirection={'column'} justifyContent={'space-between'}>
-              <Grid container gap={1} alignItems={'center'}>
-                <Grid item>
+          <ProfileImage
+            type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
+            id={id}
+            style={{ width: '2.75vw', background: '#c1ccc4', borderRadius: 300 }}
+          />
+          <Grid item p={1} alignContent={'center'} textAlign={'left'}>
+            <Grid
+              container
+              gap={1}
+              display={'flex'}
+              flexDirection={'column'}
+              justifyContent={'space-between'}
+              height={'90%'}
+              wrap="nowrap"
+            >
+              <Grid item>
+                <Grid container gap={1} alignItems={'center'}>
                   <Typography fontSize={14} variant="h6">
                     {title}
                   </Typography>
-                </Grid>
-                <Grid item>
                   <Typography
                     variant="h6"
                     fontSize={14}
@@ -81,6 +86,7 @@ export const EntityContactsCard: React.FC<{
               <Grid item gap={1} alignItems={'center'}>
                 <Typography fontSize={14} variant="h6">
                   tags
+                  {tags}
                 </Typography>
               </Grid>
             </Grid>
@@ -88,7 +94,7 @@ export const EntityContactsCard: React.FC<{
         </Grid>
       </Grid>
 
-      <Grid item>
+      <Grid item gap={4} pr={1} display={'flex'} flexDirection={'column'}>
         <ContactOptions chats={[]} mails={[]} jabberPhone={jabberPhone} />
         <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
       </Grid>

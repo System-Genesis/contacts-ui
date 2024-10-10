@@ -14,7 +14,6 @@ const resultsTypeToIcon = {
 
 export const SearchHeader = ({ type, count }: { type: ResultsTypes; count: number }) => {
   const theme = useTheme();
-  console.log('12314');
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginRight: theme.spacing(1), color: '#223F3B' }}>
