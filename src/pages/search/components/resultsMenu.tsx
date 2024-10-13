@@ -41,16 +41,17 @@ const ResultsMenuItem = ({
     >
       <Box sx={{ display: 'flex', columnGap: theme.spacing(1) }}>
         <img width={18} height={18} src={resultsTypeToIcon[type]} />
-        <Typography sx={{ fontSize: 14 }}>{i18next.t(`resultsType.${type}`)}</Typography>
+        <Typography sx={{ fontSize: 14, lineHeight: 2 }}>{i18next.t(`resultsType.${type}`)}</Typography>
       </Box>
       <Typography
         sx={{
-          fontSize: 12,
-          borderRadius: 100,
+          display: 'inline-block',
+          lineHeight: 2,
+          fontSize: 13,
+          borderRadius: '50%',
           backgroundColor: theme.colors.lightAqua,
           padding: theme.spacing(0.5),
-          width: '25px',
-          height: '25px',
+          width: '14%',
           textAlign: 'center',
           justifyContent: 'center',
         }}
@@ -76,7 +77,7 @@ export const ResultsMenu = ({
   useEffect(() => setTotalResults(Object.values(counts).reduce((sum, curr) => sum + curr, 0)), [counts]);
 
   return (
-    <Stack sx={{ rowGap: theme.spacing(1.5), paddingRight: theme.spacing(3), marginTop: theme.spacing(3) }}>
+    <Stack sx={{ rowGap: theme.spacing(1.5), paddingRight: theme.spacing(4), marginTop: theme.spacing(3) }}>
       <Typography
         sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2) }}
       >{`נמצאו ${totalResults} תוצאות`}</Typography>
