@@ -69,11 +69,11 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Grid container width={'75%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
+    <Grid container width={'78%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
-          xs={Object.values(counts).some((val) => val) ? 2 : 0}
+          xs={Object.values(counts).some((val) => val) ? 2.5 : 0}
           sx={{
             overflow: 'hidden',
             opacity: Object.values(counts).some((val) => val) ? 1 : 0,
