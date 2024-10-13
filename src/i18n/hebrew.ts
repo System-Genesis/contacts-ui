@@ -14,4 +14,5 @@ export const hebrew = {
     [ResultsTypes.GROUP]: 'היררכיות',
     [ResultsTypes.GOAL_USER]: 'חמל"ים',
   },
+  historyHeader: 'חיפושים אחרונים',
 };

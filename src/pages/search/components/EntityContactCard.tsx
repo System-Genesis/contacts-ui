@@ -14,7 +14,8 @@ export const EntityContactsCard: React.FC<{
   mobilePhone: string;
   jabberPhone: string;
   entityType: string;
-}> = ({ type, id, title, subTitle, hierarchy, entityType, mobilePhone, jabberPhone, tags }) => {
+  isHistory?: boolean;
+}> = ({ type, id, title, subTitle, hierarchy, entityType, mobilePhone, jabberPhone, tags, isHistory = false }) => {
   const theme = useTheme();
 
   return (
@@ -28,7 +29,7 @@ export const EntityContactsCard: React.FC<{
         alignItems: 'center',
         mb: 2,
         p: 2,
-        width: '58.5vw',
+        width: !isHistory ? '58.5vw' : '62vw',
       }}
     >
       <Grid item>

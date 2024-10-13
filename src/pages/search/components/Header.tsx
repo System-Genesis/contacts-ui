@@ -12,6 +12,17 @@ const resultsTypeToIcon = {
   [ResultsTypes.GOAL_USER]: GoalUserIcon,
 };
 
+export const HistoryHeader = () => {
+  const theme = useTheme();
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginRight: theme.spacing(1), color: '#223F3B' }}>
+        {i18next.t('historyHeader')}
+      </Typography>
+    </Box>
+  );
+};
+
 export const SearchHeader = ({ type, count }: { type: ResultsTypes; count: number }) => {
   const theme = useTheme();
   return (
@@ -26,4 +37,3 @@ export const SearchHeader = ({ type, count }: { type: ResultsTypes; count: numbe
     </Box>
   );
 };
-export default SearchHeader;

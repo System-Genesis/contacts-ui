@@ -13,7 +13,8 @@ export const GroupContactsCard: React.FC<{
   tags: string[];
   mobilePhone: string;
   jabberPhone: string;
-}> = ({ type, id, title, subTitle, hierarchy, mobilePhone, jabberPhone, tags }) => {
+  isHistory?: boolean;
+}> = ({ type, id, title, subTitle, hierarchy, mobilePhone, jabberPhone, tags, isHistory = false }) => {
   const theme = useTheme();
 
   return (
@@ -27,7 +28,7 @@ export const GroupContactsCard: React.FC<{
         alignItems: 'center',
         mb: 2,
         p: 2,
-        width: '58.5vw',
+        width: !isHistory ? '58.5vw' : '62vw',
       }}
     >
       <Grid item>

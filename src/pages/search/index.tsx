@@ -116,6 +116,7 @@ const Search = () => {
                       count={counts?.[resultsType] ?? 0}
                       setPage={setPage}
                       scrolledElementRef={scrolledElementRef}
+                      searchHeader
                     />
                   </Grid>
                 </FadeBox>
