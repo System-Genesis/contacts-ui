@@ -78,9 +78,9 @@ export const GroupFavoriteCard = ({
               {name}
             </Typography>
           </Box>
-          <ContactOptions chats={chats} mails={mails} jabberPhone={jabberPhone} />
+          <ContactOptions chats={chats} mails={mails} jabberPhone={jabberPhone} isGroup />
           <Divider sx={{ width: '90%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
-          <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
+          <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
         </Box>
       </Grid>
     </Grid>

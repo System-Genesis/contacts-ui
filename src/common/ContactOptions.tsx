@@ -8,12 +8,12 @@ export const ContactOptions = ({
   mails,
   chats,
   jabberPhone,
-  withHi = true,
+  isGroup = false,
 }: {
   jabberPhone: string;
   chats: string[];
   mails: string[];
-  withHi?: boolean;
+  isGroup?: boolean;
 }) => {
   return (
     <Box
@@ -25,7 +25,7 @@ export const ContactOptions = ({
         gap: 0.5,
       }}
     >
-      {withHi && <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />}
+      {!isGroup && <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />}
       <ContactMenu icon={jabber} options={jabberPhone ? [jabberPhone] : []} href="sip:" />
       <ContactMenu icon={outlook} options={mails} href="mailto:" />
     </Box>

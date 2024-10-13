@@ -89,8 +89,8 @@ export const GroupContactsCard: React.FC<{
       </Grid>
 
       <Grid item gap={4} pr={1} display={'flex'} flexDirection={'column'}>
-        <ContactOptions chats={[]} mails={[]} jabberPhone={jabberPhone} withHi={false} />
-        <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
+        <ContactOptions chats={[]} mails={[]} jabberPhone={jabberPhone} isGroup />
+        <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
       </Grid>
     </Grid>
   );
