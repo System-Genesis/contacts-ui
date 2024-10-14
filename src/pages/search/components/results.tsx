@@ -55,6 +55,8 @@ export const Results = ({
       jabberPhone: result.jabberPhone,
       mobilePhone: result.mobilePhone,
       tags: result.tags,
+      mails: result.mails,
+      chats: result.chats,
     };
 
     switch (type ?? result.type) {

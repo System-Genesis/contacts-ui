@@ -30,7 +30,6 @@ export const SearchBar = () => {
   const query = searchParams.get('query');
 
   useEffect(() => {
-    console.log({ query });
     if (query) dispatch(setSearchTerm(query));
   }, [query, dispatch]);
 

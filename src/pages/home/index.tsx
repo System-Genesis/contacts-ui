@@ -47,13 +47,14 @@ const Home = () => {
       {data.length !== 0 && (
         <Grid
           marginBottom={15}
-          paddingBottom={3}
+          paddingBottom={2}
           container
           overflow={'auto'}
           maxHeight={'100vh'}
           width={'100%'}
           justifyContent={'flex-start'}
-          gap={1.75}
+          rowGap={0}
+          columnGap={2}
           sx={{
             height: '30rem',
             overflowY: 'auto',

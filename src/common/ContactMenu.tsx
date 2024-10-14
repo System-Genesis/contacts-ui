@@ -7,7 +7,7 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  if (options.length === 0) return;
+  if (options?.length === 0) return;
   // return (
   //   <Tooltip title="לא הוזן" placement="top" arrow>
   //     <IconButton p={0}>
@@ -16,12 +16,12 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
   //   </Tooltip>
   // );
 
-  if (options.length === 1)
-    return (
-      <IconButton p={0} href={`${href}${options[0]}`}>
-        <img src={icon} width={'20rem'} />
-      </IconButton>
-    );
+  // if (options?.length === 1)
+  //   return (
+  //     <IconButton p={0} href={`${href}${options[0]}`}>
+  //       <img src={icon} width={'20rem'} />
+  //     </IconButton>
+  //   );
 
   return (
     <>
@@ -29,7 +29,7 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
         <img src={icon} width={'20rem'} />
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
-        {options.map((option) => (
+        {options?.map((option) => (
           <MenuItem key={option} onClick={handleClose} component="a" href={`${href}${option}`}>
             {option}
           </MenuItem>

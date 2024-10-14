@@ -15,7 +15,22 @@ export const EntityContactsCard: React.FC<{
   jabberPhone: string;
   entityType: string;
   isHistory?: boolean;
-}> = ({ type, id, title, subTitle, hierarchy, entityType, mobilePhone, jabberPhone, tags, isHistory = false }) => {
+  mails: string[];
+  chats: string[];
+}> = ({
+  type,
+  id,
+  title,
+  subTitle,
+  hierarchy,
+  entityType,
+  mobilePhone,
+  jabberPhone,
+  tags,
+  isHistory = false,
+  mails,
+  chats,
+}) => {
   const theme = useTheme();
 
   return (
@@ -92,8 +107,8 @@ export const EntityContactsCard: React.FC<{
       </Grid>
 
       <Grid item gap={4} pr={1} display={'flex'} flexDirection={'column'}>
-        <ContactOptions chats={[]} mails={[]} jabberPhone={jabberPhone} />
-        <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
+        <ContactOptions chats={chats} mails={mails} jabberPhone={jabberPhone} />
+        <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
       </Grid>
     </Grid>
   );

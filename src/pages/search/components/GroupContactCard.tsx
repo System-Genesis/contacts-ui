@@ -14,7 +14,9 @@ export const GroupContactsCard: React.FC<{
   mobilePhone: string;
   jabberPhone: string;
   isHistory?: boolean;
-}> = ({ type, id, title, subTitle, hierarchy, mobilePhone, jabberPhone, tags, isHistory = false }) => {
+  mails: string[];
+  chats: string[];
+}> = ({ type, id, title, subTitle, hierarchy, mobilePhone, jabberPhone, tags, isHistory = false, mails, chats }) => {
   const theme = useTheme();
 
   return (
@@ -90,8 +92,8 @@ export const GroupContactsCard: React.FC<{
       </Grid>
 
       <Grid item gap={4} pr={1} display={'flex'} flexDirection={'column'}>
-        <ContactOptions chats={[]} mails={[]} jabberPhone={jabberPhone} isGroup />
-        <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
+        <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup />
+        <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
       </Grid>
     </Grid>
   );
