@@ -4,11 +4,12 @@ import IconButton from '@mui/material/IconButton';
 import homeSvg from '../assets/icons/searchHome.svg';
 import searchSvg from '../assets/icons/search.svg';
 import closeSvg from '../assets/icons/close.svg';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { useTheme } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { setSearchTerm } from '../store/reducers/search';
+import { useEffect } from 'react';
 
 export const SearchBar = () => {
   const navigate = useNavigate();
@@ -17,6 +18,21 @@ export const SearchBar = () => {
 
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const dispatch = useDispatch();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = e.target.value;
+    dispatch(setSearchTerm(newSearchTerm));
+    if (newSearchTerm) setSearchParams({ query: newSearchTerm });
+    else setSearchParams({});
+  };
+
+  const query = searchParams.get('query');
+
+  useEffect(() => {
+    console.log({ query });
+    if (query) dispatch(setSearchTerm(query));
+  }, [query, dispatch]);
 
   return (
     <Paper
@@ -53,9 +69,9 @@ export const SearchBar = () => {
           transition: 'margin-left 1s',
           fontSize: location.pathname === '/' ? '16px' : '14px',
         }}
-        placeholder="ניתן לחפש לפי -שם, היררכיה, תפקידן ותגיות"
+        placeholder='ניתן לחפש לפי -שם, היררכיה, חמ"ל, תפקידן ותגיות'
         value={searchTerm}
-        onChange={(e) => dispatch(setSearchTerm(e.target.value))}
+        onChange={handleSearchChange}
         onFocus={() => navigate('/search')}
       />
       {location.pathname !== '/' && searchTerm !== '' && (
