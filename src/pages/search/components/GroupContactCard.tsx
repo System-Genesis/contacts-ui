@@ -45,7 +45,7 @@ export const GroupContactsCard: React.FC<{
             }}
           />
 
-          <ProfileImage type="group" id={id} style={{ width: '2.75vw', background: '#c1ccc4', borderRadius: 300 }} />
+          <ProfileImage type="group" id={id} style={{ width: '2.75vw' }} />
           <Grid item p={1} alignContent={'center'} textAlign={'left'}>
             <Grid
               container

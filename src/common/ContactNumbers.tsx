@@ -11,12 +11,9 @@ export const ContactNumbers = ({
   isGroup?: boolean;
 }) => {
   return (
-    <Box display={'flex'} gap={2} justifyContent={isGroup ? 'right' : 'center'}>
-      {!isGroup && <ContactNumber type="mobile" value={mobilePhone} isHidden={true} />}
-      <ContactNumber type="jabber" value={jabberPhone} isHidden={false} />
-
-      {/* {!isGroup && mobilePhone && <ContactNumber type="mobile" value={mobilePhone} isHidden={true} />} */}
-      {/* {jabberPhone && <ContactNumber type="jabber" value={jabberPhone} isHidden={false} />} */}
+    <Box display={'flex'} gap={2} minHeight="1rem" justifyContent={isGroup ? 'right' : 'center'}>
+      {!isGroup && mobilePhone && <ContactNumber type="mobile" value={mobilePhone} isHidden={true} />}
+      {jabberPhone && <ContactNumber type="jabber" value={jabberPhone} isHidden={false} />}
     </Box>
   );
 };
