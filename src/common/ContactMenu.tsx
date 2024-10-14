@@ -7,14 +7,14 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
   const handleClick = (event) => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  if (options.length === 0)
-    return (
-      <Tooltip title="לא הוזן" placement="top" arrow>
-        <IconButton p={0}>
-          <img src={icon} width={'22rem'} />
-        </IconButton>
-      </Tooltip>
-    );
+  if (options.length === 0) return;
+  // return (
+  //   <Tooltip title="לא הוזן" placement="top" arrow>
+  //     <IconButton p={0}>
+  //       <img src={icon} width={'22rem'} />
+  //     </IconButton>
+  //   </Tooltip>
+  // );
 
   if (options.length === 1)
     return (

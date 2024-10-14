@@ -1,19 +1,14 @@
 1. infinite scroll 
-3. history results page
-4. drawers
-5. what instead of 'לא הוזן'
-6. contact menu options when empty
-8. tags -> everything about it
+2. history results page ** check if return ok from back
+3. drawers
+6. tags -> everything about it
 7. name + icon + hero image 
-9. all the colors and sizes to the theme
-10. chatbot?
-11. *** the value of numbers in the backend -> how to overwrite entity vs group (search: "LIRAZ BUG HERE" )
-12. update the contact info by DB!!!
-13. animations -> 
+8. all the colors and sizes to the theme
+9. *** the value of numbers in the backend -> how to overwrite entity vs group (search: "LIRAZ BUG HERE" ) update the contact info by DB!!!
+11. animations -> 
       1. unfav<-> fav btn
       2. remove unfav cards
       3. pages in the search
       4. search menu open and close
       5. favorites <-> search
-14. entities count not exists from backend ( LIRAZ ADD COUNT HERE)
-15.
+12. group contactCard entitiesCount not exists from backend (LIRAZ ADD COUNT HERE)

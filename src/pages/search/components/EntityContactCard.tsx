@@ -1,6 +1,6 @@
 import { Grid, Typography, useTheme } from '@mui/material';
 import { FavoriteButton } from '../../../common/FavoriteButton';
-import { PhoneNumbers } from '../../../common/PhoneNumbers';
+import { ContactNumbers } from '../../../common/ContactNumbers';
 import { ContactOptions } from '../../../common/ContactOptions';
 import { ProfileImage } from '../../../common/ProfileImage';
 

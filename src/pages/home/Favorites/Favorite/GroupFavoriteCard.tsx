@@ -1,6 +1,6 @@
 import { Box, Divider, Grid, Typography } from '@mui/material';
 
-import { PhoneNumbers } from '../../../../common/PhoneNumbers';
+import { ContactNumbers } from '../../../../common/ContactNumbers';
 import { ContactOptions } from '../../../../common/ContactOptions';
 import { FavoriteButton } from '../../../../common/FavoriteButton';
 import { ProfileImage } from '../../../../common/ProfileImage';
@@ -40,8 +40,8 @@ export const GroupFavoriteCard = ({
           flexDirection: 'column',
           minWidth: '16.5rem',
           width: '16.5rem',
-          height: '16.5rem',
-          minHeight: '16.5rem',
+          height: '15rem',
+          minHeight: '15rem',
           padding: '1rem',
           margin: '0.25rem 0.5rem',
         }}
@@ -80,7 +80,7 @@ export const GroupFavoriteCard = ({
           </Box>
           <ContactOptions chats={chats} mails={mails} jabberPhone={jabberPhone} isGroup />
           <Divider sx={{ width: '90%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
-          <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
+          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
         </Box>
       </Grid>
     </Grid>

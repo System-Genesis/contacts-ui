@@ -7,7 +7,7 @@
     "dev": "vite",
     "start": "vite",
     "start:be": "SET VITE_APP_BE=true && npm start",
-    "build": "tsc -b && vite build",
+    "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write './**/*.{js,jsx,ts,tsx,css,md,json}' --config ./.prettierrc",

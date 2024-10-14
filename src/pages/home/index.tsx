@@ -33,29 +33,30 @@ const Home = () => {
         maxHeight: '100vh',
       }}
     >
-      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center' }}>
+      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center', mb: 2 }}>
         <img src={favStar} style={{ width: 21 }} />
         <Typography fontSize={16}>מועדפים</Typography>
       </Box>
 
       {data.length === 0 && (
-        <Grid display={'flex'} marginTop={15} justifyContent={'center'} paddingY={'80px'}>
+        <Grid display="flex" justifyContent="center" paddingY="80px">
           <img src={EmptyFavorites} />
         </Grid>
       )}
 
       {data.length !== 0 && (
         <Grid
-          marginTop={2}
           marginBottom={15}
+          paddingBottom={3}
           container
           overflow={'auto'}
           maxHeight={'100vh'}
-          width={'103%'}
+          width={'100%'}
           justifyContent={'flex-start'}
+          gap={1.75}
           sx={{
-            height: '25rem',
-            overflowY: 'scroll',
+            height: '30rem',
+            overflowY: 'auto',
             '&::-webkit-scrollbar': {
               width: '0.6rem',
             },

@@ -16,6 +16,7 @@ export default function ChatBot() {
         ':hover': {
           background: theme.colors.aquaDark,
         },
+        display: 'none',
       }}
     >
       <img src={chatBotSrc} alt="Chatbot Icon" />

@@ -1,6 +1,6 @@
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 
-import { PhoneNumbers } from '../../../../common/PhoneNumbers';
+import { ContactNumbers } from '../../../../common/ContactNumbers';
 import { ContactOptions } from '../../../../common/ContactOptions';
 import { FavoriteButton } from '../../../../common/FavoriteButton';
 import { ProfileImage } from '../../../../common/ProfileImage';
@@ -46,8 +46,8 @@ export const EntityFavoriteCard = ({
           flexDirection: 'column',
           minWidth: '16.5rem',
           width: '16.5rem',
-          height: '16.5rem',
-          minHeight: '16.5rem',
+          height: '15rem',
+          minHeight: '15rem',
           padding: '1rem',
           margin: '0.25rem 0.5rem',
         }}
@@ -104,7 +104,7 @@ export const EntityFavoriteCard = ({
 
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
           <Divider sx={{ width: '90%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
-          <PhoneNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
+          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
         </Box>
       </Grid>
     </Grid>

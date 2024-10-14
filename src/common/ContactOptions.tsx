@@ -26,7 +26,7 @@ export const ContactOptions = ({
       }}
     >
       {!isGroup && <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />}
-      <ContactMenu icon={jabber} options={jabberPhone ? [jabberPhone] : []} href="sip:" />
+      <ContactMenu icon={jabber} options={[jabberPhone]} href="sip:" />
       <ContactMenu icon={outlook} options={mails} href="mailto:" />
     </Box>
   );
