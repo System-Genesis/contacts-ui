@@ -2,7 +2,7 @@ import { Box, Divider, Grid, Typography } from '@mui/material';
 
 import { ContactNumbers } from '../../../../common/ContactNumbers';
 import { ContactOptions } from '../../../../common/ContactOptions';
-import { FavoriteButton } from '../../../../common/FavoriteButton';
+import { FavoriteButton } from '../../../../common/buttons/FavoriteButton';
 import { ProfileImage } from '../../../../common/ProfileImage';
 
 export const GroupFavoriteCard = ({

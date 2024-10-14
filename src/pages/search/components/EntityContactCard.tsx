@@ -1,8 +1,9 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { FavoriteButton } from '../../../common/FavoriteButton';
+import { FavoriteButton } from '../../../common/buttons/FavoriteButton';
 import { ContactNumbers } from '../../../common/ContactNumbers';
 import { ContactOptions } from '../../../common/ContactOptions';
 import { ProfileImage } from '../../../common/ProfileImage';
+import { ContactTags } from '../../../common/tag/ContactTags';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -75,17 +76,20 @@ export const EntityContactsCard: React.FC<{
                   <Typography fontSize={14} variant="h6">
                     {title}
                   </Typography>
-                  <Typography
-                    variant="h6"
-                    fontSize={14}
-                    sx={{
-                      backgroundColor: theme.colors.subTitleBack,
-                      color: theme.colors.subTitle,
-                      borderRadius: '4px',
-                    }}
-                  >
-                    {subTitle}
-                  </Typography>
+                  {subTitle && (
+                    <Typography
+                      variant="h6"
+                      fontSize={14}
+                      sx={{
+                        backgroundColor: theme.colors.subTitleBack,
+                        color: theme.colors.subTitle,
+                        borderRadius: '4px',
+                        padding: '0.25rem 0.5rem ',
+                      }}
+                    >
+                      {subTitle}
+                    </Typography>
+                  )}
                 </Grid>
               </Grid>
 
@@ -97,8 +101,8 @@ export const EntityContactsCard: React.FC<{
 
               <Grid item gap={1} alignItems={'center'}>
                 <Typography fontSize={14} variant="h6">
-                  tags
                   {tags}
+                  <ContactTags tags={['תגית', 'Developer', 'Microsoft Office']} />
                 </Typography>
               </Grid>
             </Grid>
