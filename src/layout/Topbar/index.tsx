@@ -30,9 +30,9 @@ const TopBar = () => {
           navigate('/');
           dispatch(setSearchTerm(''));
         }}
-        sx={{ p: 0 }}
+        sx={{ p: 0, '&:hover': { background: 'none' } }}
       >
-        <img src={icon} style={{ width: '2.5rem', alignSelf: 'center' }} />
+        <img src={icon} style={{ width: '4rem', alignSelf: 'center' }} />
       </IconButton>
       <Box
         sx={{
