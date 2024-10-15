@@ -11,7 +11,7 @@ export const EntityContactsCard: React.FC<{
   title: string;
   subTitle: string | undefined;
   hierarchy: string | undefined;
-  tags: string[];
+  tags: { name: string; _id: string }[];
   mobilePhone: string;
   jabberPhone: string;
   entityType: string;
@@ -100,10 +100,7 @@ export const EntityContactsCard: React.FC<{
               </Grid>
 
               <Grid item gap={1} alignItems={'center'}>
-                <Typography fontSize={14} variant="h6">
-                  {tags}
-                  <ContactTags tags={['תגית', 'Developer', 'Microsoft Office']} />
-                </Typography>
+                <ContactTags tags={tags} />
               </Grid>
             </Grid>
           </Grid>

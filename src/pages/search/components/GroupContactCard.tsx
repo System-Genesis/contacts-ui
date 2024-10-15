@@ -3,6 +3,7 @@ import { FavoriteButton } from '../../../common/buttons/FavoriteButton';
 import { ContactNumbers } from '../../../common/ContactNumbers';
 import { ContactOptions } from '../../../common/ContactOptions';
 import { ProfileImage } from '../../../common/ProfileImage';
+import { ContactTags } from '../../../common/tag/ContactTags';
 
 export const GroupContactsCard: React.FC<{
   id: string;
@@ -10,7 +11,7 @@ export const GroupContactsCard: React.FC<{
   title: string;
   subTitle: string | undefined;
   hierarchy: string | undefined;
-  tags: string[];
+  tags: { name: string; _id: string }[];
   mobilePhone: string;
   jabberPhone: string;
   isHistory?: boolean;
@@ -81,10 +82,7 @@ export const GroupContactsCard: React.FC<{
               </Grid>
 
               <Grid item gap={1} alignItems={'center'}>
-                <Typography fontSize={14}>
-                  tags
-                  {tags}
-                </Typography>
+                <ContactTags tags={tags} />
               </Grid>
             </Grid>
           </Grid>

@@ -21,7 +21,7 @@ export const FavoriteButton = ({ id, type, style }) => {
   });
 
   return (
-    <IconButton sx={style} disableRipple onClick={mutation.mutate}>
+    <IconButton sx={style} disableRipple onClick={() => mutation.mutate}>
       <Fade in={isFavorite} timeout={200}>
         <img
           style={{

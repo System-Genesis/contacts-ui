@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { TagChip } from './Chip';
 
-export const ContactTags = ({ tags, isEdit = false }: { tags: string[]; isEdit?: boolean }) => {
+export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _id: string }[]; isEdit?: boolean }) => {
   return (
     <Box
       sx={{
@@ -9,8 +9,8 @@ export const ContactTags = ({ tags, isEdit = false }: { tags: string[]; isEdit?:
         gap: 1,
       }}
     >
-      {tags.map((tag) => (
-        <TagChip value={tag} isEdit={isEdit} />
+      {tags.map(({ name, _id }) => (
+        <TagChip value={name} id={_id} isEdit={isEdit} />
       ))}
     </Box>
   );

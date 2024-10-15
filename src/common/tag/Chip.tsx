@@ -9,14 +9,14 @@ export const ChipStyled = styled(Chip)({
   fontSize: 13,
 });
 
-export const TagChip = ({ value, isEdit }: { value: string; isEdit: boolean }) => {
+export const TagChip = ({ id, value, isEdit }: { id: string; value: string; isEdit: boolean }) => {
   const handleDelete = () => {
     console.log('deleted {', value, '} chip');
   };
 
   return isEdit ? (
-    <ChipStyled label={value} deleteIcon={<CloseRoundedIcon />} onDelete={handleDelete} size="small" />
+    <ChipStyled key={id} label={value} deleteIcon={<CloseRoundedIcon />} onDelete={handleDelete} size="small" />
   ) : (
-    <ChipStyled label={value} size="small" />
+    <ChipStyled key={id} label={value} size="small" />
   );
 };

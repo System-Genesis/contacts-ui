@@ -76,13 +76,13 @@ export const Results = ({
         return <GroupContactsCard {...contactsCardProps} isHistory={historyHeader} />;
 
       default:
-        return <h1>no type</h1>;
+        return <h1>no type!!!!</h1>;
     }
   };
 
   return (
     <Box sx={{ height: '100%', width: '100%', p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
-      {searchHeader && <SearchHeader count={count} type={type} />}
+      {searchHeader && <SearchHeader count={count!} type={type!} />}
       {historyHeader && <HistoryHeader />}
 
       <Stack
