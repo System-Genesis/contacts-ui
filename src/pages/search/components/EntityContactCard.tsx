@@ -61,7 +61,7 @@ export const EntityContactsCard: React.FC<{
           />
 
           <ProfileImage type={entityType === 'GoalUser' ? 'goalUser' : 'entity'} id={id} style={{ width: '2.75vw' }} />
-          <Grid item p={1} alignContent={'center'} textAlign={'left'}>
+          <Grid item alignContent={'center'} textAlign={'left'}>
             <Grid
               container
               gap={1}

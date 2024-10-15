@@ -22,8 +22,7 @@ export const ContactOptions = ({
         flexDirection: 'row',
         justifyContent: 'right',
         alignItems: 'center',
-        gap: 0.5,
-        minHeight: '2.25rem',
+        minHeight: '2.5rem',
       }}
     >
       {!isGroup && <ContactMenu icon={hiChat} options={chats} href="https://hi.prod.services.idf/direct/" />}

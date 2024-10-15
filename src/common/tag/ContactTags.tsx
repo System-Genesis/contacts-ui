@@ -7,6 +7,7 @@ export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _i
       sx={{
         display: 'flex',
         gap: 1,
+        mt: 0.5,
       }}
     >
       {tags.map(({ name, _id }) => (

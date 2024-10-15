@@ -4,7 +4,6 @@ import { useQuery } from '@tanstack/react-query';
 import Results from '../components/results';
 import { mySearchHistory } from '../../../services/historySearvice';
 import EmptyHistory from '../../../assets/icons/emptyHistory.svg';
-import { searchHistoryResultsMock } from './historyResMock';
 
 const FadeBox = styled(Box)({
   position: 'absolute',

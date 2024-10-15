@@ -1,20 +1,11 @@
-import { IconButton, Menu, MenuItem, Tooltip } from '@mui/material';
+import { IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 
 export const ContactMenu = ({ icon, options, href }: { icon: string; options: string[]; href: string }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => setAnchorEl(event.currentTarget);
-  const handleClose = () => setAnchorEl(null);
 
   if (options?.length === 0) return;
-  // return (
-  //   <Tooltip title="לא הוזן" placement="top" arrow>
-  //     <IconButton p={0}>
-  //       <img src={icon} width={'22rem'} />
-  //     </IconButton>
-  //   </Tooltip>
-  // );
 
   // if (options?.length === 1)
   //   return (
@@ -25,12 +16,12 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
 
   return (
     <>
-      <IconButton p={0} onClick={handleClick}>
-        <img src={icon} width={'20rem'} />
+      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ p: '0   0  0 0.8rem' }}>
+        <img src={icon} width={'24rem'} style={{ padding: 0 }} />
       </IconButton>
-      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+      <Menu anchorEl={anchorEl} open={open} onClose={() => setAnchorEl(null)}>
         {options?.map((option) => (
-          <MenuItem key={option} onClick={handleClose} component="a" href={`${href}${option}`}>
+          <MenuItem key={option} onClick={() => setAnchorEl(null)} component="a" href={`${href}${option}`}>
             {option}
           </MenuItem>
         ))}
