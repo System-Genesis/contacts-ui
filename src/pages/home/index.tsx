@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <Box
       sx={{
-        width: '80%',
+        width: '83%',
         height: '50%',
         display: 'flex',
         marginTop: '3rem',
@@ -33,7 +33,7 @@ const Home = () => {
         maxHeight: '100vh',
       }}
     >
-      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center', mb: 2 }}>
+      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center' }}>
         <img src={favStar} style={{ width: 21 }} />
         <Typography fontSize={16}>מועדפים</Typography>
       </Box>
@@ -54,7 +54,7 @@ const Home = () => {
           width={'100%'}
           justifyContent={'flex-start'}
           rowGap={0}
-          columnGap={2}
+          columnGap={1}
           sx={{
             height: '30rem',
             overflowY: 'auto',

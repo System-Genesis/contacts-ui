@@ -31,7 +31,7 @@ export const GroupContactsCard: React.FC<{
         alignItems: 'center',
         mb: 2,
         p: 2,
-        width: !isHistory ? '58.5vw' : '62vw',
+        width: !isHistory ? '63vw' : '67vw',
       }}
     >
       <Grid item>

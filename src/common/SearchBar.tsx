@@ -43,7 +43,7 @@ export const SearchBar = () => {
         width: location.pathname === '/' ? 620 : 500,
         height: location.pathname === '/' ? 70 : 55,
         borderRadius: 50,
-        transition: 'width 1s, height 1s ',
+        transition: 'width 0.7s, height 0.7s ',
         boxShadow: '0px 20px 50px  #DDDDDD',
       }}
       onFocus={() => navigate('/search')}
@@ -65,7 +65,7 @@ export const SearchBar = () => {
         sx={{
           ml: location.pathname === '/' ? 3 : 1,
           flex: 1,
-          transition: 'margin-left 1s',
+          transition: 'margin-left 0.7s',
           fontSize: location.pathname === '/' ? '16px' : '14px',
         }}
         placeholder='ניתן לחפש לפי -שם, היררכיה, חמ"ל, תפקידן ותגיות'
@@ -87,8 +87,8 @@ export const SearchBar = () => {
           background: theme.colors.darkAqua,
           width: location.pathname === '/' ? 50 : 40,
           height: location.pathname === '/' ? 50 : 40,
-          transition: 'width 1s, height 1s ',
-          ['::hover']: { background: theme.colors.darkAqua },
+          transition: 'width 0.7s, height 0.7s',
+          [':hover']: { background: theme.colors.darkAqua },
         }}
         aria-label="search"
       >

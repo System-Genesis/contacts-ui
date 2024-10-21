@@ -32,7 +32,7 @@ const TopBar = () => {
         }}
         sx={{ p: 0, '&:hover': { background: 'none' } }}
       >
-        <img src={icon} style={{ width: '4rem', alignSelf: 'center' }} />
+        <img src={icon} style={{ width: '5rem', alignSelf: 'center' }} />
       </IconButton>
       <Box
         sx={{

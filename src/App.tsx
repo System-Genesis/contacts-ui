@@ -78,7 +78,8 @@ const App = () => {
             flexDirection: 'column',
             paddingRight: 3,
             paddingLeft: 3,
-            paddingTop: 2,
+            paddingTop: 1,
+            paddingBottom: 2,
           }}
         >
           <TopBar />

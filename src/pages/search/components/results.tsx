@@ -90,7 +90,7 @@ export const Results = ({
         sx={{
           maxHeight: '100%',
           overflowY: 'scroll',
-          width: searchHeader ? '59vw' : '62vw',
+          width: searchHeader ? '63vw' : '64vw',
           minWidth: '500px',
           '&::-webkit-scrollbar': { display: 'none' },
         }}

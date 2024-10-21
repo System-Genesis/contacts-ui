@@ -25,7 +25,7 @@ const growRightToLeft = keyframes`
 
 const SlideBox = styled(Box)({
   width: '100%',
-  animation: `${growRightToLeft} 0.6s ease forwards`,
+  animation: `${growRightToLeft} 0.7s ease forwards`,
   transformOrigin: 'right',
 });
 
@@ -69,7 +69,7 @@ const Search = () => {
   }, [searchTerm, resultsType]);
 
   return (
-    <Grid container width={'78%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
+    <Grid container width={'84%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
