@@ -1,5 +1,5 @@
 import Home from './pages/home';
-// import Search from './pages/search';
+import Search from './pages/search';
 
 const routes = {
   main: {
@@ -8,8 +8,7 @@ const routes = {
   },
   search: {
     path: '/search',
-    // element: <Search />,
-    element: <></>,
+    element: <Search />,
   },
 
   unauthorized: { path: '/unauthorized', element: <div>unauthorized</div>, hidden: true },

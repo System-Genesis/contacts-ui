@@ -35,19 +35,14 @@ const Index: React.FC = () => {
       queries: {
         refetchOnWindowFocus: false,
         retry: (count, error) => {
-          if ((error as AxiosError).response?.status === 403) {
-            return false;
-          }
-
+          if ((error as AxiosError).response?.status === 403) return false;
           return count < 2;
         },
       },
     },
     queryCache: new QueryCache({
       onError: (_error, query) => {
-        if (query.meta?.errorMessage) {
-          toast.error(query.meta.errorMessage as string);
-        }
+        if (query.meta?.errorMessage) toast.error(query.meta.errorMessage as string);
       },
     }),
   });

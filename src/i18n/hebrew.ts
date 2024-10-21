@@ -1,5 +1,7 @@
+import { ResultsTypes } from '../lib/enums';
+
 export const hebrew = {
-  systemName: 'LEGO',
+  systemName: 'Call-Aman',
   yes: 'כן',
   no: 'לא',
   hello: 'שלום',
@@ -23,7 +25,7 @@ export const hebrew = {
   },
   edit: 'עריכה',
   noData: 'אין מידע',
-  save: 'שמירת שינויים',
+  saveChanges: 'שמירת שינויים',
   description: 'תיאור',
   hierarchy: 'היררכיה',
   contactDetails: 'פרטי יצירת קשר',
@@ -32,4 +34,10 @@ export const hebrew = {
   mail: 'דוא"ל',
   people: 'אנשים',
   hierarchyCommander: 'מפקד היררכיה',
+  resultsType: {
+    [ResultsTypes.ENTITY]: 'אנשי קשר',
+    [ResultsTypes.GROUP]: 'היררכיות',
+    [ResultsTypes.GOAL_USER]: 'חמל"ים',
+  },
+  historyHeader: 'חיפושים אחרונים',
 };

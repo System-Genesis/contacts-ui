@@ -50,23 +50,50 @@ export const basicTheme: ThemeOptions = {
     },
   },
   colors: {
+    black: '#0F2423',
     white: '#FFFF',
+    aqua: '#57AA9A',
+    aquaDark: '#56968a',
+    lightAqua: '#EDF7F4',
+    darkAqua: '#81C7B7',
     gray: '#F7F7F7',
+    green: '#295C54',
+    lightGreen: '#EDF7F4',
+    subTitleBack: '#F3FAF8',
+    subTitle: '#2A5B5B',
   },
 };
 
 interface ThemeOptions extends ThemeOptionsMui {
   colors?: {
+    black?: string;
     white?: string;
+    aqua?: string;
+    aquaDark?: string;
+    lightAqua?: string;
+    darkAqua?: string;
     gray?: string;
+    green?: string;
+    lightGreen?: string;
+    subTitleBack?: string;
+    subTitle?: string;
   };
 }
 
 declare module '@mui/material/styles' {
   interface Theme {
     colors: {
+      black: string;
       white: string;
+      aqua: string;
+      aquaDark: string;
+      lightAqua: string;
+      darkAqua: string;
       gray: string;
+      green: string;
+      lightGreen: string;
+      subTitleBack: string;
+      subTitle: string;
     };
   }
 }
