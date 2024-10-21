@@ -51,7 +51,7 @@ const ResultsMenuItem = ({
           borderRadius: '50%',
           backgroundColor: theme.colors.lightAqua,
           padding: theme.spacing(0.5),
-          width: '14%',
+          width: '16%',
           textAlign: 'center',
           justifyContent: 'center',
         }}

@@ -81,7 +81,7 @@ export const Results = ({
   };
 
   return (
-    <Box sx={{ height: '100%', width: '100%', p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
+    <Box sx={{ height: '100%', p: 3, display: 'flex', flexDirection: 'column', gap: 2.5 }}>
       {searchHeader && <SearchHeader count={count!} type={type!} />}
       {historyHeader && <HistoryHeader />}
 
@@ -90,7 +90,7 @@ export const Results = ({
         sx={{
           maxHeight: '100%',
           overflowY: 'scroll',
-          width: searchHeader ? '63vw' : '64vw',
+          width: searchHeader ? '68vw' : '68vw',
           minWidth: '500px',
           '&::-webkit-scrollbar': { display: 'none' },
         }}

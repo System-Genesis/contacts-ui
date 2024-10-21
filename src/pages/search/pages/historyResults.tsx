@@ -2,7 +2,7 @@ import { Box, Grid, styled } from '@mui/material';
 // import { useRef } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Results from '../components/results';
-import { mySearchHistory } from '../../../services/historySearvice';
+import { mySearchHistory } from '../../../services/historyService';
 import EmptyHistory from '../../../assets/icons/emptyHistory.svg';
 
 const FadeBox = styled(Box)({

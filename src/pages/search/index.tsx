@@ -73,7 +73,7 @@ const Search = () => {
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
-          xs={Object.values(counts).some((val) => val) ? 2.5 : 0}
+          xs={Object.values(counts).some((val) => val) ? 2 : 0}
           sx={{
             overflow: 'hidden',
             opacity: Object.values(counts).some((val) => val) ? 1 : 0,
@@ -91,7 +91,7 @@ const Search = () => {
         <Grid
           item
           display={'flex'}
-          width={'85%'}
+          width={'100%'}
           height={'75vh'}
           minWidth={'600px'}
           borderRadius={6}
@@ -109,7 +109,7 @@ const Search = () => {
 
               <Fade in={Object.values(counts).some((val) => val)} timeout={500}>
                 <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none' }}>
-                  <Grid item xs={10.5} height={'75vh'} sx={{ justifyContent: 'center' }} width={'90vw'}>
+                  <Grid item xs={10} height={'75vh'} sx={{ justifyContent: 'center' }}>
                     <Results
                       type={resultsType}
                       results={searchResults}

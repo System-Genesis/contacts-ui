@@ -45,7 +45,7 @@ export const EntityContactsCard: React.FC<{
         alignItems: 'center',
         mb: 2,
         p: 2,
-        width: !isHistory ? '63vw' : '67vw',
+        width: isHistory ? '62vw' : '67.5vw',
       }}
     >
       <Grid item>
