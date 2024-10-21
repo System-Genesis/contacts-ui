@@ -1,7 +1,7 @@
 import { ResultsTypes } from '../lib/enums';
 
 export const hebrew = {
-  systemName: 'LEGO',
+  systemName: 'Call-Aman',
   yes: 'כן',
   no: 'לא',
   hello: 'שלום',
