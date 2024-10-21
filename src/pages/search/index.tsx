@@ -95,6 +95,7 @@ const Search = () => {
           height={'75vh'}
           minWidth={'600px'}
           borderRadius={6}
+          justifyContent={'center'}
           sx={{ backgroundColor: theme.colors.gray }}
         >
           {searchTerm.length < 2 && !searchResults.length ? (
@@ -103,7 +104,7 @@ const Search = () => {
             <>
               <Fade in={Object.values(counts).every((val) => !val)} timeout={500}>
                 <FadeBox sx={{ display: Object.values(counts).every((val) => !val) ? 'block' : 'none' }}>
-                  <img src={EmptyResults} style={{ width: '100%' }} />
+                  <img src={EmptyResults} style={{ width: '100%', alignSelf: 'center' }} />
                 </FadeBox>
               </Fade>
 

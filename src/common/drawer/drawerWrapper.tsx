@@ -1,23 +1,19 @@
-import { Box, SwipeableDrawer, styled } from '@mui/material';
+import { Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
 import CloseIcon from '../../assets/icons/close.svg';
+import EditIcon from '../../assets/icons/edit.svg';
 import { useTheme } from '@mui/material';
-import Title from '../divs/Title';
+import { useState } from 'react';
 
-interface StyledDrawerProps {
-  openToRight?: boolean;
-}
-
-const StyledDrawerWrapper = styled(SwipeableDrawer, {
-  shouldForwardProp: (prop) => prop !== 'openToRight',
-})<StyledDrawerProps>(({ openToRight = false }) => ({
+const StyledDrawerWrapper = styled(SwipeableDrawer)({
   '& .MuiBackdrop-root': {
     backgroundColor: 'rgba(0,0,0,0)',
   },
   '& .MuiDrawer-paper': {
     position: 'absolute',
     top: 0,
-    right: openToRight ? 555 : 0,
+    right: 0,
     height: '100%',
+    width: '480px',
     overflowY: 'auto',
     '&::-webkit-scrollbar': {
       width: 0,
@@ -25,65 +21,57 @@ const StyledDrawerWrapper = styled(SwipeableDrawer, {
     },
     scrollbarWidth: 'none',
     '-ms-overflow-style': 'none',
+    boxShadow: `
+    30px 0px 65px 0px #383F511F,
+    118px 0px 118px 0px #383F511C,
+    266px 0px 159px 0px #383F510F,
+    472px 0px 189px 0px #383F5103,
+    738px 0px 207px 0px #383F5100`,
   },
-}));
+});
 
 export const DrawerWrapper: React.FC<{
   isOpen: boolean;
   setIsOpen: any;
   onClose?: () => void;
-  title: string;
   children: any;
-  width: string;
-  subTitle?: string | undefined;
-  openToRight?: boolean;
-}> = ({ children, isOpen, setIsOpen, onClose, title, width, subTitle, openToRight = false }) => {
+}> = ({ children, isOpen, setIsOpen, onClose }) => {
   const theme = useTheme();
+  const [isEdit, setIsEdit] = useState(false);
+
   return (
     <StyledDrawerWrapper
       anchor="right"
       open={isOpen}
       elevation={2}
       onOpen={() => setIsOpen(true)}
-      onClose={onClose ?? (() => setIsOpen(false))}
-      PaperProps={{ sx: { borderRadius: '12px 0px 0px 12px' } }}
-      openToRight={openToRight}
+      onClose={onClose ?? (() => setIsOpen(true))}
+      PaperProps={{ sx: { borderRadius: '20px 0px 0px 20px', padding: theme.spacing(0) } }}
     >
-      <Box
+      <Grid
+        container
         sx={{
           display: 'flex',
           flexDirection: 'column',
           rowGap: theme.spacing(2),
-          p: 3,
-          width: width,
+          px: 3,
+          py: 2,
+          height: '100%',
         }}
       >
-        <Box>
-          <Title
-            title={title}
-            titleProps={{
-              style: { fontSize: theme.typography.h6.fontSize, color: theme.colors.profile.value, fontWeight: 'bold' },
-            }}
-            buttonProps={{
-              icon: CloseIcon,
-              onClick: () => setIsOpen(false),
-            }}
-          />
-          {subTitle && (
-            <Title
-              title={subTitle}
-              titleProps={{
-                style: {
-                  fontSize: theme.typography.body2.fontSize,
-                  color: theme.colors.profile.property,
-                },
-              }}
-            />
-          )}
-        </Box>
-
-        {children}
-      </Box>
+        <Grid
+          container
+          sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}
+        >
+          <IconButton onClick={() => setIsEdit((prev) => !prev)}>
+            <img src={EditIcon} />
+          </IconButton>
+          <IconButton onClick={onClose}>
+            <img src={CloseIcon} />
+          </IconButton>
+        </Grid>
+        <Grid container>{children({ isEdit, setIsEdit, message: 'niga' })}</Grid>
+      </Grid>
     </StyledDrawerWrapper>
   );
 };

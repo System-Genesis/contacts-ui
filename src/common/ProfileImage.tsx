@@ -7,11 +7,13 @@ import { getPicByID } from '../services/userService';
 export const ProfileImage = ({
   type,
   id,
-  style,
+  style = {},
+  onClick = () => ({}),
 }: {
   id: string;
-  style: object;
+  style?: object;
   type: 'group' | 'goalUser' | 'entity';
+  onClick?: () => void;
 }) => {
   const { data: pic } = useQuery({
     queryKey: ['getPic'],
@@ -23,5 +25,5 @@ export const ProfileImage = ({
   if (type === 'goalUser') return <img src={GoalUserImage} style={style} />;
   if (type === 'entity' && !id) return <img src={ProfileExampleIcon} style={style} />;
 
-  return <img src={pic} style={style} />;
+  return <img src={pic} style={style} onClick={onClick} />;
 };
