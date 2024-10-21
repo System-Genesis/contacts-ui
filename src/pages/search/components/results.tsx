@@ -67,13 +67,13 @@ export const Results = ({
         contactsCardProps.title = (result as EntitySearchResult).fullName;
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
-        return <EntityContactsCard {...contactsCardProps} isHistory={historyHeader} />;
+        return <EntityContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       case ResultsTypes.GROUP:
         contactsCardProps.type = 'group';
         contactsCardProps.title = (result as GroupSearchResult).name;
         contactsCardProps.subTitle = (result as GroupSearchResult).entitiesCount;
-        return <GroupContactsCard {...contactsCardProps} isHistory={historyHeader} />;
+        return <GroupContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       default:
         return <h1>no type!!!!</h1>;
