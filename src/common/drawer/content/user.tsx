@@ -24,13 +24,20 @@ export const UserContent = ({ isEdit, setIsEdit, entity, picture }) => {
           </IconButton>
           <Typography variant="body1">{user.fullName}</Typography>
           {user.jobTitle && (
-            <CustomChip label={user.jobTitle} style={{ backgroundColor: '#EDF7F4', color: '#295C54' }} />
+            <CustomChip
+              label={user.jobTitle}
+              style={{ backgroundColor: theme.colors.lightAqua, color: theme.colors.green }}
+            />
           )}
         </Box>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'row' }}></Box>
       </Box>
       {user.tags?.map((tag, index) => (
-        <CustomChip key={index} label={tag.name} style={{ backgroundColor: '#EDF7F4', color: '#295C54' }} />
+        <CustomChip
+          key={index}
+          label={tag.name}
+          style={{ backgroundColor: theme.colors.lightAqua, color: theme.colors.green }}
+        />
       ))}
 
       <Box sx={{ display: 'flex', flexDirection: 'column', rowGap: theme.spacing(1.5) }}>

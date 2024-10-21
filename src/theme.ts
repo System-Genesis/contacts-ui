@@ -58,7 +58,6 @@ export const basicTheme: ThemeOptions = {
     darkAqua: '#81C7B7',
     gray: '#F7F7F7',
     green: '#295C54',
-    lightGreen: '#EDF7F4',
     subTitleBack: '#F3FAF8',
     subTitle: '#2A5B5B',
   },
@@ -74,7 +73,6 @@ interface ThemeOptions extends ThemeOptionsMui {
     darkAqua?: string;
     gray?: string;
     green?: string;
-    lightGreen?: string;
     subTitleBack?: string;
     subTitle?: string;
   };
@@ -91,7 +89,6 @@ declare module '@mui/material/styles' {
       darkAqua: string;
       gray: string;
       green: string;
-      lightGreen: string;
       subTitleBack: string;
       subTitle: string;
     };

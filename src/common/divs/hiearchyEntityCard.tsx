@@ -1,8 +1,10 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import { CustomChip } from './chip';
 import i18next from 'i18next';
 
 export const HierarchyEntityCard = ({ entity, groupId, onClick }: { entity: any; groupId: string; onClick: any }) => {
+  const theme = useTheme();
+
   return (
     <Box sx={{ display: 'flex', flexDirection: 'row' }}>
       <Box sx={{ borderRadius: '50%', backgroundColor: 'green', flex: 1 }}></Box>
@@ -13,7 +15,12 @@ export const HierarchyEntityCard = ({ entity, groupId, onClick }: { entity: any;
           </Typography>
           <CustomChip
             label={entity.jobTitle}
-            style={{ backgroundColor: '#EDF7F4', color: '#295C54', marginTop: 6, fontSize: '16px' }}
+            style={{
+              backgroundColor: theme.colors.lightAqua,
+              color: theme.colors.green,
+              marginTop: 6,
+              fontSize: '16px',
+            }}
           />
         </Box>
         {entity.commanderOf.includes(groupId) && (

@@ -7,13 +7,13 @@ import { getPicByID } from '../services/userService';
 export const ProfileImage = ({
   type,
   id,
-  style,
-  onClick,
+  style = {},
+  onClick = () => ({}),
 }: {
   id: string;
-  style: object;
+  style?: object;
   type: 'group' | 'goalUser' | 'entity';
-  onClick: () => void;
+  onClick?: () => void;
 }) => {
   const { data: pic } = useQuery({
     queryKey: ['getPic'],

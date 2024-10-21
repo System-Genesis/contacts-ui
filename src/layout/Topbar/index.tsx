@@ -5,7 +5,7 @@ import i18next from 'i18next';
 import { useState } from 'react';
 import { DrawerWrapper } from '../../common/drawer/drawerWrapper';
 import { UserContent } from '../../common/drawer/content/user';
-import { GroupContect } from '../../common/drawer/content/group';
+import { GroupContact } from '../../common/drawer/content/group';
 import { useNavigate } from 'react-router-dom';
 import Yesodot from '../../assets/icons/yesodot.svg';
 import Sapir from '../../assets/icons/sapir.svg';
@@ -108,10 +108,9 @@ const TopBar = () => {
       <DrawerWrapper
         isOpen={isProfileDrawerOpen}
         setIsOpen={setIsProfileDrawerOpen}
-        width="30vw"
         onClose={() => setIsProfileDrawerOpen(false)}
       >
-        {(props) => <GroupContect {...props} object={selectedObject} />}
+        {(props) => <GroupContact {...props} object={selectedObject} />}
       </DrawerWrapper>
     </Box>
   );
