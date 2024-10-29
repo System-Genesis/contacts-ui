@@ -31,10 +31,12 @@ export const EntityFavoriteCard = ({
       <FavoriteButton
         id={id}
         type={'entity'}
-        style={{
-          position: 'relative',
+        iconStyle={{
           right: '-30px',
           bottom: '-20px',
+        }}
+        imageStyle={{
+          top: '20px',
         }}
       />
       <Grid

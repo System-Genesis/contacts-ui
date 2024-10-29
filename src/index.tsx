@@ -53,7 +53,7 @@ const Index: React.FC = () => {
         <RouterProvider router={router} />
         <ToastContainer position="bottom-right" />
       </CacheProvider>
-      <ReactQueryDevtools buttonPosition="bottom-left" />
+      <ReactQueryDevtools buttonPosition="bottom-right" />
     </QueryClientProvider>
   );
 };

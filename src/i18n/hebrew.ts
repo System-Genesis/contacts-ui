@@ -40,4 +40,6 @@ export const hebrew = {
     [ResultsTypes.GOAL_USER]: 'חמל"ים',
   },
   historyHeader: 'חיפושים אחרונים',
+  tagsExplain: 'ניתן להוסיף תגיות לכרטיסייה שיצרתם בהתאם לסוג הכרטיסיה, תחום מקצועי ומערכות קשורות.',
+  tagsTitle: 'התגיות שלי',
 };

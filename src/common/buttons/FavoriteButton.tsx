@@ -4,7 +4,7 @@ import unFavStar from '../../assets/icons/unFavStar.svg';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { addFavoriteRequest, getMyFavoritesRequest, removeFavoriteRequest } from '../../services/favoriteService';
 
-export const FavoriteButton = ({ id, type, style = {}, isDrawer = false }) => {
+export const FavoriteButton = ({ id, type, iconStyle = {}, imageStyle = {} }) => {
   const queryClient = useQueryClient();
 
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
@@ -21,25 +21,20 @@ export const FavoriteButton = ({ id, type, style = {}, isDrawer = false }) => {
   });
 
   return (
-    <IconButton sx={style} disableRipple onClick={mutation.mutate}>
+    <IconButton
+      sx={{
+        position: 'relative',
+        ...iconStyle,
+      }}
+      disableRipple
+      onClick={mutation.mutate}
+    >
       <Fade in={isFavorite} timeout={200}>
-        <img
-          style={{
-            position: 'absolute',
-            top: '20px',
-          }}
-          src={favStar}
-        />
+        <img style={{ position: 'absolute', ...imageStyle }} src={favStar} />
       </Fade>
 
       <Fade in={!isFavorite} timeout={200}>
-        <img
-          style={{
-            position: 'absolute',
-            top: '20px',
-          }}
-          src={unFavStar}
-        />
+        <img style={{ position: 'absolute', ...imageStyle }} src={unFavStar} />
       </Fade>
     </IconButton>
   );

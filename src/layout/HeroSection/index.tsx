@@ -21,7 +21,7 @@ export const HeroSection = () => {
         justifyContent: 'center',
         height: `${isHome ? '45%' : '8%'}`,
         width: '85%',
-        margin: '2rem',
+        margin: '1rem 0rem 2rem',
         position: 'relative',
         alignSelf: 'center',
         transition: 'height 0.7s',

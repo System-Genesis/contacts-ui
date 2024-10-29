@@ -60,6 +60,8 @@ export const basicTheme: ThemeOptions = {
     green: '#295C54',
     subTitleBack: '#F3FAF8',
     subTitle: '#2A5B5B',
+    darkGray: '#525252',
+    lightGray: '#7C7C7C',
   },
 };
 
@@ -75,6 +77,8 @@ interface ThemeOptions extends ThemeOptionsMui {
     green?: string;
     subTitleBack?: string;
     subTitle?: string;
+    darkGray?: string;
+    lightGray?: string;
   };
 }
 
@@ -91,6 +95,8 @@ declare module '@mui/material/styles' {
       green: string;
       subTitleBack: string;
       subTitle: string;
+      darkGray: string;
+      lightGray: string;
     };
   }
 }

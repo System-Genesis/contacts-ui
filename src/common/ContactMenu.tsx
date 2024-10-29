@@ -16,7 +16,7 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
 
   return (
     <>
-      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ p: '0   0  0 0.8rem' }}>
+      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ m: 0 }}>
         <img src={icon} width={'24rem'} style={{ padding: 0 }} />
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={() => setAnchorEl(null)}>

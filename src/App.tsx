@@ -73,13 +73,12 @@ const App = () => {
         <CssBaseline />
         <Box
           sx={{
-            flex: 25,
+            flex: 1,
             display: 'flex',
             flexDirection: 'column',
             paddingRight: 3,
             paddingLeft: 3,
             paddingTop: 1,
-            paddingBottom: 2,
           }}
         >
           <TopBar />

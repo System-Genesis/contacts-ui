@@ -25,8 +25,10 @@ export const GroupFavoriteCard = ({
       <FavoriteButton
         id={id}
         type={'entity'}
-        style={{
-          position: 'relative',
+        imageStyle={{
+          top: '20px',
+        }}
+        iconStyle={{
           right: '-30px',
           bottom: '-20px',
         }}

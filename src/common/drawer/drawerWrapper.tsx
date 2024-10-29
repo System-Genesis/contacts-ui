@@ -1,8 +1,11 @@
-import { Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
+import { Button, Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
 import CloseIcon from '../../assets/icons/close.svg';
 import EditIcon from '../../assets/icons/edit.svg';
 import { useTheme } from '@mui/material';
 import { useState } from 'react';
+import i18next from 'i18next';
+import { StyledDivider } from './content/Divider';
+import { SaveIcon } from '../../assets/icons/save';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer)({
   '& .MuiBackdrop-root': {
@@ -35,7 +38,7 @@ export const DrawerWrapper: React.FC<{
   setIsOpen: any;
   onClose?: () => void;
   children: any;
-}> = ({ children, isOpen, setIsOpen, onClose }) => {
+}> = ({ children, isOpen, setIsOpen, onClose = () => ({}) }) => {
   const theme = useTheme();
   const [isEdit, setIsEdit] = useState(false);
 
@@ -45,8 +48,17 @@ export const DrawerWrapper: React.FC<{
       open={isOpen}
       elevation={2}
       onOpen={() => setIsOpen(true)}
-      onClose={onClose ?? (() => setIsOpen(true))}
-      PaperProps={{ sx: { borderRadius: '20px 0px 0px 20px', padding: theme.spacing(0) } }}
+      onClose={() => {
+        setIsEdit(false);
+        setIsOpen(false);
+        onClose();
+      }}
+      PaperProps={{
+        sx: {
+          borderRadius: '20px 0px 0px 20px',
+          padding: theme.spacing(0),
+        },
+      }}
     >
       <Grid
         container
@@ -57,20 +69,72 @@ export const DrawerWrapper: React.FC<{
           px: 3,
           py: 2,
           height: '100%',
+          justifyContent: isEdit ? 'space-between' : 'start',
         }}
       >
-        <Grid
-          container
-          sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'center' }}
-        >
-          <IconButton onClick={() => setIsEdit((prev) => !prev)}>
-            <img src={EditIcon} />
-          </IconButton>
-          <IconButton onClick={onClose}>
-            <img src={CloseIcon} />
-          </IconButton>
+        <Grid container sx={{}}>
+          <Grid
+            container
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+              alignItems: 'center',
+              height: '3rem',
+            }}
+          >
+            {!isEdit && (
+              <IconButton onClick={() => setIsEdit((prev) => !prev)} sx={{ p: 0 }}>
+                <img src={EditIcon} style={{ padding: 0 }} />
+              </IconButton>
+            )}
+            <IconButton
+              onClick={() => {
+                setIsOpen(false);
+                setIsEdit(false);
+                onClose();
+              }}
+              sx={{ p: 0, m: 1 }}
+            >
+              <img src={CloseIcon} style={{ padding: 0 }} />
+            </IconButton>
+          </Grid>
+          <Grid container>{children({ isEdit, setIsEdit, message: 'niga' })}</Grid>
         </Grid>
-        <Grid container>{children({ isEdit, setIsEdit, message: 'niga' })}</Grid>
+        {isEdit && (
+          <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 2 }}>
+            <StyledDivider theme={theme} />
+            <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', columnGap: 2 }}>
+              <Button
+                variant="outlined"
+                sx={{
+                  color: theme.colors.aqua,
+                  fontSize: 14,
+                  borderRadius: '30px',
+                  borderColor: theme.colors.aqua,
+                  backgroundColor: theme.colors.white,
+                  '&:hover': { borderColor: theme.colors.aqua, backgroundColor: theme.colors.white },
+                }}
+                onClick={() => setIsEdit(false)}
+              >
+                {i18next.t(`cancel`)}
+              </Button>
+              <Button
+                sx={{
+                  color: theme.colors.white,
+                  backgroundColor: theme.colors.aqua,
+                  borderRadius: '30px',
+                  fontSize: 14,
+                  p: '0 1rem',
+                  '&:hover': { backgroundColor: theme.colors.darkAqua },
+                }}
+                endIcon={<SaveIcon />}
+              >
+                {i18next.t(`saveChanges`)}
+              </Button>
+            </Grid>
+          </Grid>
+        )}
       </Grid>
     </StyledDrawerWrapper>
   );
