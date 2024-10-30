@@ -51,12 +51,12 @@ const ResultsMenuItem = ({
           borderRadius: '50%',
           backgroundColor: theme.colors.lightAqua,
           padding: theme.spacing(0.5),
-          width: '18%',
+          width: '17%',
           textAlign: 'center',
           justifyContent: 'center',
         }}
       >
-        {count}
+        {count > 100 ? '99+' : count}
       </Typography>
     </Box>
   );

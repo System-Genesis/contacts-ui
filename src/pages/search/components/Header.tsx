@@ -28,7 +28,7 @@ export const SearchHeader = ({ type, count }: { type: ResultsTypes; count: numbe
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
       <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginRight: theme.spacing(1), color: '#223F3B' }}>
-        {`נמצאו ${count} תוצאות בסינון `}
+        {`נמצאו ${count.toLocaleString()} תוצאות בסינון `}
       </Typography>
       <img width={18} height={18} src={resultsTypeToIcon[type]} color={'#223F3B'} />
       <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginLeft: theme.spacing(1), color: '#223F3B' }}>

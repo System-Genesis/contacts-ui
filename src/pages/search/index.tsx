@@ -85,14 +85,13 @@ const Search = () => {
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
         <Grid
           item
-          xs={Object.values(counts).some((val) => val) ? 2.5 : 0}
+          xs={Object.values(counts).some((val) => val) ? 2 : 0}
           sx={{
             overflow: 'hidden',
             opacity: Object.values(counts).some((val) => val) ? 1 : 0,
             transform: Object.values(counts).some((val) => val) ? 'translateX(0)' : 'translateX(-20px)',
             display: Object.values(counts).some((val) => val) ? 'unset' : 'none',
             transition: 'opacity 50s ease, transform 50s ease',
-            minWidth: '200px',
           }}
         >
           <SlideBox>
@@ -103,6 +102,7 @@ const Search = () => {
         <Grid
           item
           display={'flex'}
+          xs={10}
           width={() => {
             if (searchTerm.length === 0) return '83%';
             if (searchTerm.length < 2) return 'max-content';
