@@ -13,31 +13,10 @@ import { ResultsMenu } from './components/resultsMenu';
 import { mySearchHistory } from '../../services/historyService';
 const env = import.meta.env;
 
-const growRightToLeft = keyframes`
-  from {
-    width: 0;
-    transform-origin: right;
-  }
-  to {
-    width: 100%;
-    transform-origin: right;
-  }
-`;
-
-const SlideBox = styled(Box)({
-  width: '100%',
-  animation: `${growRightToLeft} 0.7s ease forwards`,
-  transformOrigin: 'right',
-});
-
 const FadeBox = styled(Box)({
   position: 'absolute',
   height: '100%',
 });
-// const FadeBox = styled(Box)({
-//   position: 'absolute',
-//   width: '85%',
-// });
 
 const Search = () => {
   const theme = useTheme();
@@ -83,20 +62,20 @@ const Search = () => {
   return (
     <Grid container width={'80%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
       <Grid container display={'flex'} flexDirection={'row'} flexWrap={'nowrap'} justifyContent={'center'}>
-        <Grid
-          item
-          xs={Object.values(counts).some((val) => val) ? 2 : 0}
-          sx={{
-            overflow: 'hidden',
-            opacity: Object.values(counts).some((val) => val) ? 1 : 0,
-            transform: Object.values(counts).some((val) => val) ? 'translateX(0)' : 'translateX(-20px)',
-            display: Object.values(counts).some((val) => val) ? 'unset' : 'none',
-            transition: 'opacity 50s ease, transform 50s ease',
-          }}
-        >
-          <SlideBox>
+        <Grid item xs={Object.values(counts).some((val) => val) ? 2 : 0}>
+          <Grid
+            item
+            sx={{
+              display: 'block',
+              width: '250px',
+              opacity: Object.values(counts).some((val) => val) ? 1 : 0,
+              visibility: Object.values(counts).some((val) => val) ? 'visible' : 'hidden',
+              transform: Object.values(counts).some((val) => val) ? 'translateX(0)' : 'translateX(-50%)',
+              transition: 'opacity 0.5s ease, visibility 0.2s ease, transform 0.5s ease',
+            }}
+          >
             <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />
-          </SlideBox>
+          </Grid>
         </Grid>
 
         <Grid
@@ -109,12 +88,13 @@ const Search = () => {
             if (searchResults.length) return '100%';
             return '83%';
           }}
-          height={'76vh'}
+          height={'77vh'}
           minWidth={'600px'}
           borderRadius={6}
           justifyContent={'center'}
           sx={{
             backgroundColor: theme.colors.gray,
+            pb: 3,
           }}
         >
           {searchTerm.length < 2 && !searchResults.length ? (
@@ -123,14 +103,18 @@ const Search = () => {
                 <img src={EmptyHistory} style={{ width: '100%' }} />
               </FadeBox>
             ) : (
-              <Grid item>
+              <Grid container>
                 <Results results={searchHistoryResults} historyHeader />
               </Grid>
             )
           ) : (
             <>
               <Fade in={Object.values(counts).every((val) => !val)} timeout={500}>
-                <FadeBox sx={{ display: Object.values(counts).every((val) => !val) ? 'block' : 'none' }}>
+                <FadeBox
+                  sx={{
+                    display: Object.values(counts).every((val) => !val) ? 'block' : 'none',
+                  }}
+                >
                   <img src={EmptyResults} style={{ width: '100%', alignSelf: 'center' }} />
                 </FadeBox>
               </Fade>

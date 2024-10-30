@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Typography } from '@mui/material';
+import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 
 import { ContactNumbers } from '../../../../common/ContactNumbers';
 import { ContactOptions } from '../../../../common/ContactOptions';
@@ -20,6 +20,7 @@ export const GroupFavoriteCard = ({
   jabberPhone: string;
   mobilePhone: string;
 }) => {
+  const theme = useTheme();
   return (
     <Grid item>
       <FavoriteButton
@@ -37,7 +38,7 @@ export const GroupFavoriteCard = ({
         container
         sx={{
           border: 1,
-          borderColor: '#EFEFEF',
+          borderColor: theme.colors.lighterGray,
           borderRadius: '1rem',
           flexDirection: 'column',
           minWidth: '17.5rem',
@@ -50,6 +51,7 @@ export const GroupFavoriteCard = ({
       >
         <Box
           sx={{
+            mt: 1,
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
@@ -57,7 +59,7 @@ export const GroupFavoriteCard = ({
             justifyContent: 'space-between',
           }}
         >
-          <ProfileImage type="group" id={id} style={{ width: '3.5rem' }} />
+          <ProfileImage type="group" id={id} style={{ width: '3.5rem', height: '3.5rem' }} />
 
           <Box
             sx={{
@@ -69,7 +71,6 @@ export const GroupFavoriteCard = ({
             }}
           >
             <Typography
-              variant="h6"
               sx={{
                 whiteSpace: 'nowrap',
                 overflow: 'hidden',
@@ -81,7 +82,7 @@ export const GroupFavoriteCard = ({
             </Typography>
           </Box>
           <ContactOptions chats={chats} mails={mails} jabberPhone={jabberPhone} isGroup />
-          <Divider sx={{ width: '90%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
+          <Divider sx={{ width: '90%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }} />
           <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
         </Box>
       </Grid>

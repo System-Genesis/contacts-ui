@@ -1,4 +1,4 @@
-export const SelectedSign = ({ isSelected, theme }) => {
+export const SelectedSign = ({ isSelected, theme, sx = {} }) => {
   return (
     <div
       style={{
@@ -8,8 +8,9 @@ export const SelectedSign = ({ isSelected, theme }) => {
         height: '83%',
         backgroundColor: isSelected ? theme.colors.darkAqua : 'transparent',
         borderRadius: '30px',
-        zIndex: 15,
         placeSelf: 'center',
+        ...sx,
+        transition: 'background-color 0.3s',
       }}
     />
   );

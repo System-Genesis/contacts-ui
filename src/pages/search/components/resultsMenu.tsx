@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import EntityIcon from '../../../assets/icons/entity.svg';
 import HierarchyIcon from '../../../assets/icons/hierarchy.svg';
 import GoalUserIcon from '../../../assets/icons/goal-user.svg';
+import { SelectedSign } from './SelectedSign';
 
 const resultsTypeToIcon = {
   [ResultsTypes.ENTITY]: EntityIcon,
@@ -26,38 +27,40 @@ const ResultsMenuItem = ({
   const theme = useTheme();
 
   return (
-    <Box
-      onClick={() => selected !== type && setSelected(type)}
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-        cursor: 'pointer',
-        alignItems: 'center',
-        paddingX: theme.spacing(1),
-        ...(selected === type && {
-          borderLeft: `3px solid ${theme.colors.darkAqua}`,
-        }),
-      }}
-    >
-      <Box sx={{ display: 'flex', columnGap: theme.spacing(1) }}>
-        <img width={18} height={18} src={resultsTypeToIcon[type]} />
-        <Typography sx={{ fontSize: 14, lineHeight: 2 }}>{i18next.t(`resultsType.${type}`)}</Typography>
-      </Box>
-      <Typography
+    <Box sx={{ display: 'flex' }}>
+      <SelectedSign isSelected={selected === type} theme={theme} sx={{ height: '25px', marginLeft: 0.2 }} />
+      <Box
+        onClick={() => selected !== type && setSelected(type)}
         sx={{
-          display: 'inline-block',
-          lineHeight: 2,
-          fontSize: 13,
-          borderRadius: '50%',
-          backgroundColor: theme.colors.lightAqua,
-          padding: theme.spacing(0.5),
-          width: '17%',
-          textAlign: 'center',
-          justifyContent: 'center',
+          display: 'flex',
+          justifyContent: 'space-between',
+          cursor: 'pointer',
+          alignItems: 'center',
+          paddingX: theme.spacing(1),
+          width: '100%',
         }}
       >
-        {count > 100 ? '99+' : count}
-      </Typography>
+        <Box sx={{ display: 'flex', columnGap: theme.spacing(1), alignItems: 'center' }}>
+          <img width={18} height={18} src={resultsTypeToIcon[type]} />
+          <Typography sx={{ fontSize: 14, lineHeight: 2 }}>{i18next.t(`resultsType.${type}`)}</Typography>
+        </Box>
+        <Typography
+          sx={{
+            display: 'inline-block',
+            lineHeight: 2,
+            fontSize: 13,
+            borderRadius: '50%',
+            backgroundColor: theme.colors.lightAqua,
+            padding: theme.spacing(0.5),
+            width: '33px',
+            textAlign: 'center',
+            justifyContent: 'center',
+            fontWeight: 500,
+          }}
+        >
+          {count > 100 ? '99+' : count}
+        </Typography>
+      </Box>
     </Box>
   );
 };
@@ -80,7 +83,7 @@ export const ResultsMenu = ({
     <Stack sx={{ rowGap: theme.spacing(1.5), paddingRight: theme.spacing(4), marginTop: theme.spacing(3) }}>
       <Typography
         sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2) }}
-      >{`נמצאו ${totalResults} תוצאות`}</Typography>
+      >{`נמצאו ${totalResults.toLocaleString()} תוצאות`}</Typography>
       {Object.values(ResultsTypes).map((type) => (
         <ResultsMenuItem
           key={type}

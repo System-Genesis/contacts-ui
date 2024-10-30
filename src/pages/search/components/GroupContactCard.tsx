@@ -5,6 +5,7 @@ import { ContactOptions } from '../../../common/ContactOptions';
 import { ProfileImage } from '../../../common/ProfileImage';
 import { ContactTags } from '../../../common/tag/ContactTags';
 import { ResultsTypes } from '../../../lib/enums';
+import { SelectedSign } from './SelectedSign';
 
 export const GroupContactsCard: React.FC<{
   id: string;
@@ -37,32 +38,20 @@ export const GroupContactsCard: React.FC<{
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '99%', mb: 2 }}>
-      <div
-        style={{
-          marginLeft: '0.5rem',
-          right: -12,
-          width: '3px',
-          height: '83%',
-          backgroundColor: isSelected ? theme.colors.darkAqua : 'transparent',
-          borderRadius: '30px',
-          zIndex: 15,
-          placeSelf: 'center',
-        }}
-      />
+      <SelectedSign isSelected={isSelected} theme={theme} />
 
       <Grid
         container
-        onClick={() => handleSelect(type)}
+        wrap="nowrap"
         sx={{
           bgcolor: theme.colors.white,
           borderRadius: 4,
-          justifyContent: 'space-between',
           alignItems: 'center',
           p: 2,
         }}
       >
-        <Grid item>
-          <Grid container gap={1} height={'6.5rem'}>
+        <Grid container xs={9.5} display={'flex'} flexDirection={'column'}>
+          <Grid container ml={0.5} mt={0.5}>
             <FavoriteButton
               id={id}
               type={type}
@@ -74,8 +63,19 @@ export const GroupContactsCard: React.FC<{
                 top: -25,
               }}
             />
+          </Grid>
 
-            <ProfileImage type="group" id={id} style={{ width: '3.25vw' }} />
+          <Grid
+            container
+            gap={1}
+            ml={3.5}
+            mb={1}
+            height={'5.5rem'}
+            alignContent={'center'}
+            onClick={() => handleSelect(type)}
+            sx={{ cursor: 'pointer' }}
+          >
+            <ProfileImage type="group" id={id} style={{ width: '4rem', height: '4rem' }} />
             <Grid item p={1} alignContent={'center'} textAlign={'left'}>
               <Grid
                 container
@@ -119,7 +119,7 @@ export const GroupContactsCard: React.FC<{
           </Grid>
         </Grid>
 
-        <Grid item gap={4} pr={1} display={'flex'} flexDirection={'column'}>
+        <Grid container xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup />
           <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
         </Grid>

@@ -56,7 +56,7 @@ const TopBar = () => {
         <ProfileImage
           type={currentUser.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
           id={currentUser.id}
-          style={{ width: '2.5rem' }}
+          style={{ width: '2.5rem', height: '2.5rem' }}
           onClick={() => setIsProfileDrawerOpen(true)}
         />
       </Box>

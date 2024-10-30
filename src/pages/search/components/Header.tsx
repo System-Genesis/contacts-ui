@@ -16,7 +16,7 @@ export const HistoryHeader = () => {
   const theme = useTheme();
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginRight: theme.spacing(1), color: '#223F3B' }}>
+      <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginRight: theme.spacing(1), color: theme.colors.greener }}>
         {i18next.t('historyHeader')}
       </Typography>
     </Box>
@@ -27,11 +27,11 @@ export const SearchHeader = ({ type, count }: { type: ResultsTypes; count: numbe
   const theme = useTheme();
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginRight: theme.spacing(1), color: '#223F3B' }}>
+      <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginRight: theme.spacing(1), color: theme.colors.greener }}>
         {`נמצאו ${count.toLocaleString()} תוצאות בסינון `}
       </Typography>
-      <img width={18} height={18} src={resultsTypeToIcon[type]} color={'#223F3B'} />
-      <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginLeft: theme.spacing(1), color: '#223F3B' }}>
+      <img width={18} height={18} src={resultsTypeToIcon[type]} color={theme.colors.greener} />
+      <Typography sx={{ fontSize: 16, fontWeight: 'bold', marginLeft: theme.spacing(1), color: theme.colors.greener }}>
         {i18next.t(`resultsType.${type}`)}
       </Typography>
     </Box>

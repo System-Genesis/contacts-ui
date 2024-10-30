@@ -52,16 +52,21 @@ export const basicTheme: ThemeOptions = {
   colors: {
     black: '#0F2423',
     white: '#FFFF',
+    gray: '#F7F7F7',
+    darkGray: '#525252',
+    lightGray: '#7C7C7C',
+    lighterGray: '#EFEFEF',
+
     aqua: '#57AA9A',
     aquaDark: '#56968a',
     lightAqua: '#EDF7F4',
     darkAqua: '#81C7B7',
-    gray: '#F7F7F7',
+    aquaLight: '#BAD1CA',
+    aquaLightGray: '#BFC9C6',
     green: '#295C54',
+    greener: '#223F3B',
     subTitleBack: '#F3FAF8',
     subTitle: '#2A5B5B',
-    darkGray: '#525252',
-    lightGray: '#7C7C7C',
   },
 };
 
@@ -69,16 +74,20 @@ interface ThemeOptions extends ThemeOptionsMui {
   colors?: {
     black?: string;
     white?: string;
+    gray?: string;
+    darkGray?: string;
+    lightGray?: string;
+    lighterGray?: string;
     aqua?: string;
     aquaDark?: string;
     lightAqua?: string;
     darkAqua?: string;
-    gray?: string;
-    green?: string;
+    aquaLight?: string;
+    aquaLightGray?: string;
+    green: '#295C54';
+    greener?: string;
     subTitleBack?: string;
     subTitle?: string;
-    darkGray?: string;
-    lightGray?: string;
   };
 }
 
@@ -87,16 +96,20 @@ declare module '@mui/material/styles' {
     colors: {
       black: string;
       white: string;
+      gray: string;
+      darkGray: string;
+      lightGray: string;
+      lighterGray: string;
       aqua: string;
       aquaDark: string;
       lightAqua: string;
       darkAqua: string;
-      gray: string;
+      aquaLight: string;
+      aquaLightGray: string;
       green: string;
+      greener: string;
       subTitleBack: string;
       subTitle: string;
-      darkGray: string;
-      lightGray: string;
     };
   }
 }

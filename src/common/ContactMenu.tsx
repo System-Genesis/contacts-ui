@@ -21,7 +21,13 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: st
       </IconButton>
       <Menu anchorEl={anchorEl} open={open} onClose={() => setAnchorEl(null)}>
         {options?.map((option) => (
-          <MenuItem key={option} onClick={() => setAnchorEl(null)} component="a" href={`${href}${option}`}>
+          <MenuItem
+            key={option}
+            onClick={() => setAnchorEl(null)}
+            component="a"
+            href={`${href}${option}`}
+            target="_blank"
+          >
             {option}
           </MenuItem>
         ))}

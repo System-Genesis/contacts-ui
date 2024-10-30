@@ -43,7 +43,7 @@ export const EntityFavoriteCard = ({
         container
         sx={{
           border: 1,
-          borderColor: '#EFEFEF',
+          borderColor: theme.colors.lighterGray,
           borderRadius: '1rem',
           flexDirection: 'column',
           minWidth: '17.5rem',
@@ -56,6 +56,7 @@ export const EntityFavoriteCard = ({
       >
         <Box
           sx={{
+            mt: 1,
             flex: 1,
             display: 'flex',
             flexDirection: 'column',
@@ -63,7 +64,11 @@ export const EntityFavoriteCard = ({
             justifyContent: 'space-between',
           }}
         >
-          <ProfileImage type={entityType === 'GoalUser' ? 'goalUser' : 'entity'} id={id} style={{ width: '3.5rem' }} />
+          <ProfileImage
+            type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
+            id={id}
+            style={{ width: '3.5rem', height: '3.5rem' }}
+          />
 
           <Box
             sx={{
@@ -96,7 +101,7 @@ export const EntityFavoriteCard = ({
                   whiteSpace: 'nowrap',
                   overflow: 'hidden',
                   textOverflow: 'ellipsis',
-                  maxWidth: '100px',
+                  maxWidth: '130px',
                 }}
               >
                 {jobTitle}
@@ -105,7 +110,7 @@ export const EntityFavoriteCard = ({
           </Box>
 
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
-          <Divider sx={{ width: '90%', backgroundColor: '#EFEFEF', border: 'none', height: '1px' }} />
+          <Divider sx={{ width: '90%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }} />
           <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
         </Box>
       </Grid>

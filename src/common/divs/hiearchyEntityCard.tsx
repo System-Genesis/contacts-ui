@@ -19,12 +19,12 @@ export const HierarchyEntityCard = ({ entity, groupId, onClick }: { entity: any;
               backgroundColor: theme.colors.lightAqua,
               color: theme.colors.green,
               marginTop: 6,
-              fontSize: '16px',
+              fontSize: 16,
             }}
           />
         </Box>
         {entity.commanderOf.includes(groupId) && (
-          <Typography variant="subtitle1" sx={{ fontSize: '12px', flex: 1 }}>
+          <Typography variant="subtitle1" sx={{ fontSize: 12, flex: 1 }}>
             {i18next.t('hierarchyCommander')}
           </Typography>
         )}

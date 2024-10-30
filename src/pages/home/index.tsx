@@ -1,4 +1,4 @@
-import { Box, Grid, Typography } from '@mui/material';
+import { Box, Grid, Typography, useTheme } from '@mui/material';
 import EmptyFavorites from '../../assets/icons/emptyFavorites.svg';
 import { EntityFavoriteCard } from './Favorites/Favorite/EntityFavoriteCard';
 import { useQuery } from '@tanstack/react-query';
@@ -8,6 +8,7 @@ import favStar from '../../assets/icons/favStar.svg';
 import { ResultsTypes } from '../../lib/enums';
 
 const Home = () => {
+  const theme = useTheme();
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
 
   const generateFavorite = (favorite) => {
@@ -33,7 +34,7 @@ const Home = () => {
         maxHeight: '100vh',
       }}
     >
-      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center' }}>
+      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center', mb: 1 }}>
         <img src={favStar} style={{ width: 21 }} />
         <Typography fontSize={16}>מועדפים</Typography>
       </Box>
@@ -62,17 +63,16 @@ const Home = () => {
               width: '0.6rem',
             },
             '&::-webkit-scrollbar-track': {
-              background: '#FFF', // Light gray background track
-              borderRadius: '100px', // Rounded track to match iPhone look
+              background: theme.colors.gray,
+              borderRadius: '100px',
             },
             '&::-webkit-scrollbar-thumb': {
-              backgroundColor: '#bad1ca', // Dark Aqua for thumb
-              borderRadius: '10px', // Fully rounded thumb
-              border: '2px solid #F7F7F7', // Light gray padding around thumb for sleek look
-              maxWidth: '10px',
+              backgroundColor: theme.colors.aquaLight,
+              borderRadius: '10px',
+              border: `2px solid ${theme.colors.gray}`,
             },
             '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: '#9aafa9', // Aqua on hover for slight interaction feedback
+              backgroundColor: theme.colors.aquaLightGray,
             },
           }}
         >

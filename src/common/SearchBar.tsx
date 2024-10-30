@@ -47,6 +47,7 @@ export const SearchBar = () => {
         boxShadow: '0px 20px 50px  #DDDDDD',
       }}
       onFocus={() => navigate('/search')}
+      onSubmit={(e) => e.preventDefault()}
     >
       {location.pathname !== '/' && (
         <IconButton
@@ -66,7 +67,7 @@ export const SearchBar = () => {
           ml: location.pathname === '/' ? 3 : 1,
           flex: 1,
           transition: 'margin-left 0.7s',
-          fontSize: location.pathname === '/' ? '16px' : '14px',
+          fontSize: location.pathname === '/' ? 16 : 14,
         }}
         placeholder='ניתן לחפש לפי -שם, היררכיה, חמ"ל, תפקידן ותגיות'
         value={searchTerm}
@@ -75,7 +76,7 @@ export const SearchBar = () => {
       />
       {location.pathname !== '/' && searchTerm !== '' && (
         <IconButton sx={{ m: 0.2 }} onClick={() => dispatch(setSearchTerm(''))}>
-          <img src={closeSvg} style={{ width: '1rem' }} />
+          <img src={closeSvg} style={{ width: '1.2rem' }} />
         </IconButton>
       )}
 
