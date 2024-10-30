@@ -67,11 +67,12 @@ const Search = () => {
             item
             sx={{
               display: 'block',
-              width: '250px',
+              width: Object.values(counts).some((val) => val) ? '250px' : '0px',
               opacity: Object.values(counts).some((val) => val) ? 1 : 0,
               visibility: Object.values(counts).some((val) => val) ? 'visible' : 'hidden',
               transform: Object.values(counts).some((val) => val) ? 'translateX(0)' : 'translateX(-50%)',
-              transition: 'opacity 0.5s ease, visibility 0.2s ease, transform 0.5s ease',
+              overflow: 'clip',
+              transition: 'opacity 0.5s ease, visibility 0.2s ease, transform 0.5s ease, width 0.8s ease',
             }}
           >
             <ResultsMenu resultsType={resultsType} setResultsType={setResultsType} counts={counts} />

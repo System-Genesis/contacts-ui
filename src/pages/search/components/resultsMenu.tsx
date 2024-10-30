@@ -27,7 +27,7 @@ const ResultsMenuItem = ({
   const theme = useTheme();
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', wrap: 'nowrap', overflow: 'hidden' }}>
       <SelectedSign isSelected={selected === type} theme={theme} sx={{ height: '25px', marginLeft: 0.2 }} />
       <Box
         onClick={() => selected !== type && setSelected(type)}
@@ -38,6 +38,8 @@ const ResultsMenuItem = ({
           alignItems: 'center',
           paddingX: theme.spacing(1),
           width: '100%',
+          wrap: 'nowrap',
+          overflow: 'hidden',
         }}
       >
         <Box sx={{ display: 'flex', columnGap: theme.spacing(1), alignItems: 'center' }}>
@@ -80,7 +82,13 @@ export const ResultsMenu = ({
   useEffect(() => setTotalResults(Object.values(counts).reduce((sum, curr) => sum + curr, 0)), [counts]);
 
   return (
-    <Stack sx={{ rowGap: theme.spacing(1.5), paddingRight: theme.spacing(4), marginTop: theme.spacing(3) }}>
+    <Stack
+      sx={{
+        rowGap: theme.spacing(1.5),
+        paddingRight: theme.spacing(4),
+        marginTop: theme.spacing(3),
+      }}
+    >
       <Typography
         sx={{ fontSize: 16, fontWeight: 'bold', marginBottom: theme.spacing(2) }}
       >{`נמצאו ${totalResults.toLocaleString()} תוצאות`}</Typography>

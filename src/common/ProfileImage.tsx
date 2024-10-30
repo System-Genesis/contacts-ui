@@ -18,7 +18,6 @@ export const ProfileImage = ({
   const { data: pic } = useQuery({
     queryKey: ['getPic', id],
     queryFn: () => getPicByID({ id }),
-    initialData: 'src/assets/icons/profileExample.svg',
     enabled: !!id,
   });
 
