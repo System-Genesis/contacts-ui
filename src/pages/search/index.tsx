@@ -35,7 +35,6 @@ const Search = () => {
     enabled: debouncedSearchTerm.length === 0,
   });
 
-  console.log({ searchHistoryResults });
   const { data: counts } = useQuery({
     queryKey: ['getCountsBySearchTermRequest', debouncedSearchTerm],
     queryFn: () => getCountsBySearchTermRequest(debouncedSearchTerm),

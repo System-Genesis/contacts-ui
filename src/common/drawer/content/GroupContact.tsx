@@ -14,7 +14,7 @@ export const GroupContact: React.FC<{ isEdit: boolean; object: any }> = ({ isEdi
         object={object}
         isEdit={isEdit}
         title={object.name}
-        subTitle={`${object.count ?? 0} ${i18next.t('people')}`}
+        subTitle={object.entitiesCount === 1 ? 'איש 1' : `${object.entitiesCount ?? 0} ${i18next.t('people')}`}
       />
       <StyledGridSection container theme={theme}>
         <Typography variant="body1">{i18next.t('description')}</Typography>

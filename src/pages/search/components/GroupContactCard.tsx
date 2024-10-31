@@ -11,7 +11,7 @@ export const GroupContactsCard: React.FC<{
   id: string;
   type: ResultsTypes;
   title: string;
-  subTitle: string | undefined;
+  subTitle: number;
   hierarchy: string | undefined;
   tags: { name: string; _id: string }[];
   mobilePhone: string;
@@ -90,18 +90,24 @@ export const GroupContactsCard: React.FC<{
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
                     <Typography fontSize={14}>{title}</Typography>
-                    {subTitle && (
+                    {subTitle > 0 && (
                       <Typography
                         fontSize={14}
                         sx={{
+                          borderRadius: '50%',
                           backgroundColor: theme.colors.subTitleBack,
-                          color: theme.colors.subTitle,
-                          borderRadius: '1000px',
-                          p: '4px',
+                          padding: 'auto',
+                          width: 'fix-content',
+                          minWidth: '28px',
+                          height: 'fix-content',
+                          minHeight: '25px',
+                          textAlign: 'center',
+                          justifyContent: 'center',
+                          alignContent: 'center',
+                          color: theme.colors.green,
                         }}
                       >
                         {subTitle}
-                        {/* TODO: LIRAZ ADD COUNT HERE */}
                       </Typography>
                     )}
                   </Grid>

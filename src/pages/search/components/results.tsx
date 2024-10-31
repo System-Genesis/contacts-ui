@@ -33,7 +33,6 @@ export const Results = ({
   const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  console.log({ results });
 
   // useEffect(() => {
   //   const handleScroll = () => {

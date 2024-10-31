@@ -84,7 +84,7 @@ interface ThemeOptions extends ThemeOptionsMui {
     darkAqua?: string;
     aquaLight?: string;
     aquaLightGray?: string;
-    green: '#295C54';
+    green: string;
     greener?: string;
     subTitleBack?: string;
     subTitle?: string;

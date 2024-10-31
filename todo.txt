@@ -1,14 +1,10 @@
 1. infinite scroll 
 3. drawers: edit everything .. (hidden, tags, added value)
- 8. all the colors and sizes to the theme
 9. *** the value of numbers in the backend -> how to overwrite entity vs group (search: "LIRAZ BUG HERE" ) update the contact info by DB!!!
 11. animations -> 
       2. remove unfav cards
-      3. pages in the search
-      4. search menu open and close
+      3. pages in the search // good?
       5. favorites <-> search
-12. group contactCard entitiesCount not exists from backend (LIRAZ ADD COUNT HERE)
-13. hide the root groups from search
 14. options menu line figma
 15. open drawer from fav 
 16
