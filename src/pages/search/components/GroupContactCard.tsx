@@ -11,7 +11,7 @@ export const GroupContactsCard: React.FC<{
   id: string;
   type: ResultsTypes;
   title: string;
-  subTitle: number;
+  subTitle: number | string;
   hierarchy: string | undefined;
   tags: { name: string; _id: string }[];
   mobilePhone: string;
@@ -50,7 +50,7 @@ export const GroupContactsCard: React.FC<{
           p: 2,
         }}
       >
-        <Grid container xs={9.5} display={'flex'} flexDirection={'column'}>
+        <Grid item xs={9.5} display={'flex'} flexDirection={'column'}>
           <Grid container ml={0.5} mt={0.5}>
             <FavoriteButton
               id={id}
@@ -90,7 +90,7 @@ export const GroupContactsCard: React.FC<{
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
                     <Typography fontSize={14}>{title}</Typography>
-                    {subTitle > 0 && (
+                    {(typeof subTitle === 'string' || subTitle > 0) && (
                       <Typography
                         fontSize={14}
                         sx={{
@@ -125,7 +125,7 @@ export const GroupContactsCard: React.FC<{
           </Grid>
         </Grid>
 
-        <Grid container xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
+        <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup />
           <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
         </Grid>

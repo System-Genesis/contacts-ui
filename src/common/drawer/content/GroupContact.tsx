@@ -5,21 +5,21 @@ import { UpperContact } from './UpperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './Divider';
 import { DirectEntities } from './DirectEntities';
 
-export const GroupContact: React.FC<{ isEdit: boolean; object: any }> = ({ isEdit, object }) => {
+export const GroupContactCard: React.FC<{ isEdit: boolean; contact: object }> = ({ isEdit, contact }) => {
   const theme = useTheme();
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 1, width: '100%' }}>
       <UpperContact
-        object={object}
+        contact={contact}
         isEdit={isEdit}
-        title={object.name}
-        subTitle={object.entitiesCount === 1 ? 'איש 1' : `${object.entitiesCount ?? 0} ${i18next.t('people')}`}
+        title={contact.name}
+        subTitle={contact.entitiesCount === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`}
       />
       <StyledGridSection container theme={theme}>
         <Typography variant="body1">{i18next.t('description')}</Typography>
         <StyledGridInfo container theme={theme}>
-          <FieldDiv field={i18next.t('field.hierarchy')} value={object.hierarchy} />
+          <FieldDiv field={i18next.t('field.hierarchy')} value={contact.hierarchy} />
         </StyledGridInfo>
       </StyledGridSection>
 
@@ -28,9 +28,9 @@ export const GroupContact: React.FC<{ isEdit: boolean; object: any }> = ({ isEdi
       <StyledGridSection container theme={theme}>
         <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
         <StyledGridInfo container theme={theme}>
-          <FieldDiv field={i18next.t('redPhone')} value={object.jabberPhone} />
-          <FieldDiv field={i18next.t('anotherPhone')} value={object.anotherPhone} />
-          <FieldDiv field={i18next.t('mail')} value={object.mail} />
+          <FieldDiv field={i18next.t('redPhone')} value={contact.jabberPhone} />
+          <FieldDiv field={i18next.t('anotherPhone')} value={contact.anotherPhone} />
+          <FieldDiv field={i18next.t('mail')} value={contact.mail} />
         </StyledGridInfo>
       </StyledGridSection>
 

@@ -4,8 +4,8 @@ import { ProfileImage } from '../../ProfileImage';
 import { ContactOptions } from '../../ContactOptions';
 import { FavoriteButton } from '../../buttons/FavoriteButton';
 
-export const UpperContact: React.FC<{ object: any; isEdit: boolean; subTitle: string; title: string }> = ({
-  object,
+export const UpperContact: React.FC<{ contact: any; isEdit: boolean; subTitle: string; title: string }> = ({
+  contact,
   isEdit,
   subTitle,
   title,
@@ -16,7 +16,7 @@ export const UpperContact: React.FC<{ object: any; isEdit: boolean; subTitle: st
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>
       <Grid container>
         <Grid item>
-          <ProfileImage type={object.type ?? 'entity'} id={object.id} style={{ width: '5rem', height: '5rem' }} />
+          <ProfileImage type={contact.type ?? 'entity'} id={contact.id} style={{ width: '5rem', height: '5rem' }} />
         </Grid>
 
         <Grid container sx={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'nowrap' }}>
@@ -30,7 +30,7 @@ export const UpperContact: React.FC<{ object: any; isEdit: boolean; subTitle: st
               flexWrap: 'nowrap',
             }}
           >
-            <FavoriteButton id={object.id} type={object.type ?? 'entity'} />
+            <FavoriteButton id={contact.id} type={contact.type ?? 'entity'} />
             <Grid
               container
               sx={{
@@ -65,10 +65,10 @@ export const UpperContact: React.FC<{ object: any; isEdit: boolean; subTitle: st
               )}
             </Grid>
           </Grid>
-          <ContactOptions mails={object.mails} chats={object.chats} jabberPhone={object.jabberPhone} />
+          <ContactOptions mails={contact.mails} chats={contact.chats} jabberPhone={contact.jabberPhone} />
         </Grid>
         <Grid item>
-          <ContactTags tags={object.tags ?? []} isEdit={isEdit} />
+          <ContactTags tags={contact.tags ?? []} isEdit={isEdit} />
         </Grid>
       </Grid>
     </Grid>

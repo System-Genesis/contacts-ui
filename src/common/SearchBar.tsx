@@ -20,15 +20,14 @@ export const SearchBar = () => {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newSearchTerm = e.target.value;
+  const handleSearchChange = (e?: React.ChangeEvent<HTMLInputElement>) => {
+    const newSearchTerm = e?.target.value ?? '';
     dispatch(setSearchTerm(newSearchTerm));
     if (newSearchTerm) setSearchParams({ query: newSearchTerm });
     else setSearchParams({});
   };
 
   const query = searchParams.get('query');
-
   useEffect(() => {
     if (query) dispatch(setSearchTerm(query));
   }, [query, dispatch]);
@@ -69,6 +68,7 @@ export const SearchBar = () => {
           transition: 'margin-left 0.7s',
           fontSize: location.pathname === '/' ? 16 : 14,
         }}
+        readOnly={location.pathname === '/'}
         placeholder='ניתן לחפש לפי -שם, היררכיה, חמ"ל, תפקידן ותגיות'
         value={searchTerm}
         onChange={handleSearchChange}

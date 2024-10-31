@@ -33,7 +33,6 @@ export const Results = ({
   const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
   const queryClient = useQueryClient();
 
-
   // useEffect(() => {
   //   const handleScroll = () => {
   //     const gridElement = scrolledElementRef.current!;
@@ -98,7 +97,10 @@ export const Results = ({
       case ResultsTypes.GROUP:
         contactsCardProps.type = 'group';
         contactsCardProps.title = (result as GroupSearchResult).name;
-        contactsCardProps.subTitle = (result as GroupSearchResult).entitiesCount;
+        contactsCardProps.subTitle =
+          Number((result as GroupSearchResult).entitiesCount) > 99
+            ? '99+'
+            : Number((result as GroupSearchResult).entitiesCount);
         return <GroupContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       default:

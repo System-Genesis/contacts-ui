@@ -6,19 +6,32 @@ import { getMyFavoritesRequest } from '../../services/favoriteService';
 import { GroupFavoriteCard } from './Favorites/Favorite/GroupFavoriteCard';
 import favStar from '../../assets/icons/favStar.svg';
 import { ResultsTypes } from '../../lib/enums';
+import { ContactDrawer } from '../../common/drawer/DrawerWrapper';
+import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
+import { useDispatch } from 'react-redux';
 
 const Home = () => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
+
+  const handleCardClick = (object: object) => {
+    dispatch(setDrawerObject(object));
+    dispatch(setIsDrawerOpen(true));
+  };
 
   const generateFavorite = (favorite) => {
     switch (favorite.type) {
       case ResultsTypes.ENTITY:
       case ResultsTypes.GOAL_USER:
-        return <EntityFavoriteCard key={favorite.id} {...favorite} />;
+        return (
+          <EntityFavoriteCard key={favorite.id} {...favorite} handleSelect={() => handleCardClick({ ...favorite })} />
+        );
 
       case ResultsTypes.GROUP:
-        return <GroupFavoriteCard key={favorite.id} {...favorite} />;
+        return (
+          <GroupFavoriteCard key={favorite.id} {...favorite} handleSelect={() => handleCardClick({ ...favorite })} />
+        );
     }
   };
 
@@ -79,8 +92,8 @@ const Home = () => {
           {data.map(generateFavorite)}
         </Grid>
       )}
+      <ContactDrawer />
     </Box>
-    // </Box>
   );
 };
 

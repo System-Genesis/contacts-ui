@@ -14,6 +14,7 @@ export const EntityFavoriteCard = ({
   jabberPhone,
   mobilePhone,
   entityType,
+  handleSelect,
 }: {
   id: string;
   fullName: string;
@@ -23,6 +24,7 @@ export const EntityFavoriteCard = ({
   chats: string[];
   jabberPhone: string;
   mobilePhone: string;
+  handleSelect: () => void;
 }) => {
   const theme = useTheme();
 
@@ -41,6 +43,7 @@ export const EntityFavoriteCard = ({
       />
       <Grid
         container
+        onClick={handleSelect}
         sx={{
           border: 1,
           borderColor: theme.colors.lighterGray,

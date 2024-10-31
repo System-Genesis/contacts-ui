@@ -9,7 +9,7 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
         <Grid item xs={2} alignContent={'center'}>
           picture
         </Grid>
-        <Grid container xs={7} sx={{ gap: 1 }}>
+        <Grid item xs={7} sx={{ gap: 1 }}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
             <Grid item>{entity.fullName}</Grid>
             <Grid item>{entity.jobTitle}</Grid>
@@ -20,7 +20,7 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
           </Grid>
         </Grid>
 
-        <Grid container xs={2} sx={{ gap: 1 }} alignContent={'center'}>
+        <Grid item xs={2} sx={{ gap: 1 }} alignContent={'center'}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Grid item>tags</Grid>
             <Grid item>click</Grid>

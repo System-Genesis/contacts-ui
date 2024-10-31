@@ -12,6 +12,7 @@ export const GroupFavoriteCard = ({
   chats,
   jabberPhone,
   mobilePhone,
+  handleSelect,
 }: {
   id: string;
   name: string;
@@ -19,6 +20,7 @@ export const GroupFavoriteCard = ({
   chats: string[];
   jabberPhone: string;
   mobilePhone: string;
+  handleSelect: () => void;
 }) => {
   const theme = useTheme();
   return (
@@ -36,6 +38,7 @@ export const GroupFavoriteCard = ({
       />
       <Grid
         container
+        onClick={handleSelect}
         sx={{
           border: 1,
           borderColor: theme.colors.lighterGray,

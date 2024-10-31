@@ -52,7 +52,7 @@ export const EntityContactsCard: React.FC<{
           p: 2,
         }}
       >
-        <Grid container xs={9.5} display={'flex'} flexDirection={'column'}>
+        <Grid item xs={9.5} display={'flex'} flexDirection={'column'}>
           <Grid container ml={0.5} mt={0.5}>
             <FavoriteButton
               id={id}
@@ -124,7 +124,7 @@ export const EntityContactsCard: React.FC<{
           </Grid>
         </Grid>
 
-        <Grid container xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
+        <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} chats={chats} mails={mails} />
           <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
         </Grid>

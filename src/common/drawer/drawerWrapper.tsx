@@ -6,6 +6,12 @@ import { useState } from 'react';
 import i18next from 'i18next';
 import { StyledDivider } from './content/Divider';
 import { SaveIcon } from '../../assets/icons/save';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { setIsDrawerOpen } from '../../store/reducers/drawer';
+import { EntityContentCard } from './content/UserContent';
+import { GroupContactCard } from './content/GroupContact';
+import { ResultsTypes } from '../../lib/enums';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer)({
   '& .MuiBackdrop-root': {
@@ -33,24 +39,26 @@ const StyledDrawerWrapper = styled(SwipeableDrawer)({
   },
 });
 
-export const DrawerWrapper: React.FC<{
-  isOpen: boolean;
-  setIsOpen: any;
+export const ContactDrawer: React.FC<{
+  onOpen?: () => void;
   onClose?: () => void;
-  children: any;
-}> = ({ children, isOpen, setIsOpen, onClose = () => ({}) }) => {
+}> = ({ onClose = () => ({}) }) => {
+  const dispatch = useDispatch();
   const theme = useTheme();
   const [isEdit, setIsEdit] = useState(false);
+
+  const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
+  const contact = useSelector((state: RootState) => state.drawer.contact);
 
   return (
     <StyledDrawerWrapper
       anchor="right"
       open={isOpen}
       elevation={2}
-      onOpen={() => setIsOpen(true)}
+      onOpen={() => dispatch(setIsDrawerOpen(true))}
       onClose={() => {
         setIsEdit(false);
-        setIsOpen(false);
+        dispatch(setIsDrawerOpen(false));
         onClose();
       }}
       PaperProps={{
@@ -90,7 +98,7 @@ export const DrawerWrapper: React.FC<{
             )}
             <IconButton
               onClick={() => {
-                setIsOpen(false);
+                dispatch(setIsDrawerOpen(false));
                 setIsEdit(false);
                 onClose();
               }}
@@ -99,8 +107,13 @@ export const DrawerWrapper: React.FC<{
               <img src={CloseIcon} style={{ padding: 0 }} />
             </IconButton>
           </Grid>
-          <Grid container>{children({ isEdit, setIsEdit, message: 'niga' })}</Grid>
+          <Grid container>
+            {contact?.type === ResultsTypes.GROUP
+              ? contact && <GroupContactCard isEdit={isEdit} contact={contact} />
+              : contact && <EntityContentCard isEdit={isEdit} contact={contact} />}
+          </Grid>
         </Grid>
+
         {isEdit && (
           <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 2 }}>
             <StyledDivider theme={theme} />

@@ -1,20 +1,18 @@
 import { Box, Divider, useTheme, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { useState } from 'react';
-import { DrawerWrapper } from '../../common/drawer/DrawerWrapper';
-import { UserContent } from '../../common/drawer/content/UserContent';
+import { ContactDrawer } from '../../common/drawer/DrawerWrapper';
 import { useNavigate } from 'react-router-dom';
 import Yesodot from '../../assets/icons/yesodot.svg';
 import Sapir from '../../assets/icons/sapir.svg';
 import icon from '../../assets/icons/icon.svg';
 import { ProfileImage } from '../../common/ProfileImage';
 import { setSearchTerm } from '../../store/reducers/search';
+import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 
 const TopBar = () => {
   const currentUser = useSelector((state: RootState) => state.user);
   const theme = useTheme();
-  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -57,12 +55,13 @@ const TopBar = () => {
           type={currentUser.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
           id={currentUser.id}
           style={{ width: '2.5rem', height: '2.5rem', cursor: 'pointer' }}
-          onClick={() => setIsProfileDrawerOpen(true)}
+          onClick={() => {
+            dispatch(setIsDrawerOpen(true));
+            dispatch(setDrawerObject(currentUser));
+          }}
         />
       </Box>
-      <DrawerWrapper isOpen={isProfileDrawerOpen} setIsOpen={setIsProfileDrawerOpen}>
-        {(props) => <UserContent {...props} object={currentUser} />}
-      </DrawerWrapper>
+      <ContactDrawer />
     </Box>
   );
 };
