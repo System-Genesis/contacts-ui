@@ -1,15 +1,16 @@
 import { Box, Stack, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
-import { Dispatch, MutableRefObject, SetStateAction, useState } from 'react';
+import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { HistoryHeader, SearchHeader } from './Header';
 import { EntityContactsCard } from './EntityContactCard';
 import { GroupContactsCard } from './GroupContactCard';
-import { DrawerWrapper } from '../../../common/drawer/DrawerWrapper';
-import { UserContent } from '../../../common/drawer/content/UserContent';
-import { GroupContact } from '../../../common/drawer/content/GroupContact';
+import { ContactDrawer } from '../../../common/drawer/DrawerWrapper';
 import { addSearchHistory } from '../../../services/historyService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../store';
+import { setDrawerObject, setIsDrawerOpen } from '../../../store/reducers/drawer';
 
 export const Results = ({
   type,
@@ -29,9 +30,10 @@ export const Results = ({
   historyHeader?: boolean;
 }) => {
   const theme = useTheme();
-  const [selected, setSelected] = useState(null);
-  const [isProfileDrawerOpen, setIsProfileDrawerOpen] = useState(false);
+  const dispatch = useDispatch();
   const queryClient = useQueryClient();
+
+  const contact = useSelector((state: RootState) => state.drawer.contact);
 
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -58,16 +60,18 @@ export const Results = ({
 
   const mutation = useMutation({
     mutationFn: () => {
-      return addSearchHistory({ type: selected?.type, id: selected?.id });
+      return addSearchHistory({ type: contact?.type, id: contact?.id });
     },
+
     onSuccess: () => {
+      queryClient.setQueryData('myHistory');
       void queryClient.invalidateQueries({ queryKey: ['myHistory'] });
     },
   });
 
-  const handleCardClick = (object) => {
-    setSelected((prevSelected) => (prevSelected?.id === object.id ? null : object));
-    setIsProfileDrawerOpen(true);
+  const handleCardClick = (object: object) => {
+    dispatch(setDrawerObject(object));
+    dispatch(setIsDrawerOpen(true));
     mutation.mutate();
   };
 
@@ -80,8 +84,8 @@ export const Results = ({
       tags: result.tags,
       mails: result.mails,
       chats: result.chats,
-      handleSelect: (resType: ResultsTypes) => handleCardClick({ ...result, type: resType }),
-      isSelected: selected?.id === result.id,
+      handleSelect: (resType: ResultsTypes) => handleCardClick({ ...result, type: resType } as object),
+      isSelected: contact?.id === result.id,
     };
 
     switch (type ?? result.type) {
@@ -130,13 +134,7 @@ export const Results = ({
           {results.map(generateResultCard)}
         </Stack>
       </Box>
-      <DrawerWrapper isOpen={isProfileDrawerOpen} setIsOpen={setIsProfileDrawerOpen} onClose={() => setSelected(null)}>
-        {(props) =>
-          type === ResultsTypes.GROUP
-            ? selected && <GroupContact {...props} object={selected} />
-            : selected && <UserContent {...props} object={selected} />
-        }
-      </DrawerWrapper>
+      <ContactDrawer />
     </>
   );
 };

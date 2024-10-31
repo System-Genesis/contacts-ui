@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './store';
 import { AuthService } from './services/authService';
 import { setUser } from './store/reducers/user';
-import { Outlet, redirect } from 'react-router-dom';
+import { Outlet, redirect, useNavigate } from 'react-router-dom';
 import { Box, createTheme, ThemeProvider } from '@mui/material';
 import { basicTheme } from './theme';
 import { hebrew } from './i18n/hebrew';
@@ -16,9 +16,11 @@ import { initReactI18next } from 'react-i18next';
 import ChatBot from './layout/ChatBot';
 import TopBar from './layout/TopBar';
 import { HeroSection } from './layout/HeroSection';
+import { setSearchTerm } from './store/reducers/search';
 
 const App = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const resources = {
@@ -53,12 +55,41 @@ const App = () => {
   }, [dispatch]);
 
   const currentUser = useSelector((state: RootState) => state.user);
-
   if (!currentUser) redirect(`/unauthorized`);
 
   const theme = { ...basicTheme };
   const lightTheme = createTheme({ ...theme });
 
+  useEffect(() => {
+    let inactivityTimeout;
+
+    // Function to start the inactivity timer
+    const startInactivityTimer = () => {
+      inactivityTimeout = setTimeout(() => {
+        console.log('Inactivity timeout triggered');
+        dispatch(setSearchTerm(''));
+        navigate('/');
+      }, environment.resetTimeout);
+    };
+
+    const resetTimeout = () => {
+      console.log('User activity detected, resetting timeout');
+      clearTimeout(inactivityTimeout);
+      startInactivityTimer();
+    };
+
+    // Start the timer initially
+    startInactivityTimer();
+
+    // Attach event listeners for user activity using `environment.resetTimeoutActions`
+    environment.resetTimeoutActions.forEach((action) => window.addEventListener(action, resetTimeout));
+
+    // Cleanup function
+    return () => {
+      clearTimeout(inactivityTimeout);
+      environment.resetTimeoutActions.forEach((action) => window.removeEventListener(action, resetTimeout));
+    };
+  }, [dispatch, navigate]);
   return (
     <ThemeProvider theme={lightTheme}>
       <Box
