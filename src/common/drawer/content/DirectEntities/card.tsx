@@ -1,13 +1,34 @@
-import { Grid, useTheme } from '@mui/material';
+import { Grid, Typography, useTheme } from '@mui/material';
 import { Entity } from '../../../../lib/kartoffel.types';
+import { ProfileImage } from '../../../ProfileImage';
+import openSub from '../../../../assets/icons/openSub.svg';
 
 export const EntityCard = ({ entity }: { entity: Entity }) => {
   const theme = useTheme();
   return (
-    <Grid item sx={{ borderBottom: `1px solid ${theme.colors.gray}`, p: 1, width: '100%' }}>
+    <Grid
+      item
+      onClick={() => console.log('open entity')}
+      sx={{
+        borderBottom: `1px solid ${theme.colors.gray}`,
+        p: 1,
+        width: '100%',
+        borderRadius: 4,
+        ['&:hover']: {
+          backgroundColor: theme.colors.lightAqua,
+          transition: 'background-color  0.8s',
+          cursor: 'pointer',
+        },
+      }}
+    >
       <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Grid item xs={2} alignContent={'center'}>
-          picture
+          <ProfileImage
+            id={entity.id}
+            type={entity.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
+            style={{ width: '2.5rem', height: '2.5rem' }}
+            onClick={() => ({})}
+          />
         </Grid>
         <Grid item xs={7} sx={{ gap: 1 }}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 1 }}>
@@ -15,15 +36,19 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
             <Grid item>{entity.jobTitle}</Grid>
 
             <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-              <Grid item>מפקד היררכיה</Grid>
+              <Typography fontSize={12}>מפקד היררכיה ?</Typography>
             </Grid>
           </Grid>
         </Grid>
 
-        <Grid item xs={2} sx={{ gap: 1 }} alignContent={'center'}>
+        <Grid item xs={3} sx={{ gap: 1 }} alignContent={'center'}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Grid item>tags</Grid>
-            <Grid item>click</Grid>
+            <Grid item alignContent={'center'}>
+              tags
+            </Grid>
+            <Grid item>
+              <img src={openSub} style={{ padding: 0 }} />
+            </Grid>
           </Grid>
         </Grid>
       </Grid>

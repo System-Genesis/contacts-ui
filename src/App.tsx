@@ -55,16 +55,17 @@ const App = () => {
   }, [dispatch]);
 
   const currentUser = useSelector((state: RootState) => state.user);
+  const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
   if (!currentUser) redirect(`/unauthorized`);
 
   const theme = { ...basicTheme };
   const lightTheme = createTheme({ ...theme });
 
   useEffect(() => {
-    let inactivityTimeout;
-
-    // Function to start the inactivity timer
+    let inactivityTimeout: () => void;
     const startInactivityTimer = () => {
+      if (isOpen) return clearTimeout(inactivityTimeout);
+
       inactivityTimeout = setTimeout(() => {
         console.log('Inactivity timeout triggered');
         dispatch(setSearchTerm(''));
@@ -78,18 +79,16 @@ const App = () => {
       startInactivityTimer();
     };
 
-    // Start the timer initially
     startInactivityTimer();
 
-    // Attach event listeners for user activity using `environment.resetTimeoutActions`
     environment.resetTimeoutActions.forEach((action) => window.addEventListener(action, resetTimeout));
 
-    // Cleanup function
     return () => {
       clearTimeout(inactivityTimeout);
       environment.resetTimeoutActions.forEach((action) => window.removeEventListener(action, resetTimeout));
     };
-  }, [dispatch, navigate]);
+  }, [dispatch, navigate, isOpen]);
+
   return (
     <ThemeProvider theme={lightTheme}>
       <Box

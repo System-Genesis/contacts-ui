@@ -3,7 +3,8 @@ import i18next from 'i18next';
 import { FieldDiv } from '../../divs/field';
 import { UpperContact } from './UpperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './Divider';
-import { DirectEntities } from './DirectEntities';
+import { DirectEntities } from './directEntities';
+import { DirectGroups } from './directGroups';
 
 export const GroupContactCard: React.FC<{ isEdit: boolean; contact: object }> = ({ isEdit, contact }) => {
   const theme = useTheme();
@@ -52,9 +53,17 @@ export const GroupContactCard: React.FC<{ isEdit: boolean; contact: object }> = 
 
       <StyledDivider theme={theme} />
 
-      <StyledGridSection container theme={theme} minHeight={'120px'} maxHeight={'120px'}>
+      <StyledGridSection container theme={theme} margin={0}>
         <Typography variant="body1">תתי היררכיות</Typography>
-        <StyledGridInfo container theme={theme}></StyledGridInfo>
+        <StyledGridInfo container theme={theme}>
+          <DirectGroups
+            groups={[
+              { name: 'name', entitiesCount: '20' } as any,
+              { name: 'name', entitiesCount: '20' } as any,
+              { name: 'name', entitiesCount: '20' } as any,
+            ]}
+          />
+        </StyledGridInfo>
       </StyledGridSection>
     </Grid>
   );

@@ -96,6 +96,7 @@ export const Results = ({
         contactsCardProps.title = (result as EntitySearchResult).fullName;
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
+        contactsCardProps.serviceType = (result as EntitySearchResult).serviceType;
         return <EntityContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       case ResultsTypes.GROUP:

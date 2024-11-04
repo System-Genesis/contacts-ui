@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import outlook from '../assets/icons/outlook.svg';
 import jabber from '../assets/icons/jabber.svg';
 import hiChat from '../assets/icons/hiChat.svg';
-import { ContactMenu } from './ContactMenu';
+import { ContactMenu, Option } from './ContactMenu';
 
 export const ContactOptions = ({
   mails,
@@ -10,9 +10,9 @@ export const ContactOptions = ({
   jabberPhone,
   isGroup = false,
 }: {
-  jabberPhone: string;
-  chats: string[];
-  mails: string[];
+  jabberPhone: string; //TODO: fix to git the contact menu
+  chats: Option[];
+  mails: Option[];
   isGroup?: boolean;
 }) => {
   return (

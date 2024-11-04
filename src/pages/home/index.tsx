@@ -8,12 +8,14 @@ import favStar from '../../assets/icons/favStar.svg';
 import { ResultsTypes } from '../../lib/enums';
 import { ContactDrawer } from '../../common/drawer/DrawerWrapper';
 import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 const Home = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
+  const contact = useSelector((state: RootState) => state.drawer.contact);
 
   const handleCardClick = (object: object) => {
     dispatch(setDrawerObject(object));
@@ -25,12 +27,22 @@ const Home = () => {
       case ResultsTypes.ENTITY:
       case ResultsTypes.GOAL_USER:
         return (
-          <EntityFavoriteCard key={favorite.id} {...favorite} handleSelect={() => handleCardClick({ ...favorite })} />
+          <EntityFavoriteCard
+            key={favorite.id}
+            {...favorite}
+            handleSelect={() => handleCardClick({ ...favorite } as object)}
+            isSelected={contact?.id === favorite.id}
+          />
         );
 
       case ResultsTypes.GROUP:
         return (
-          <GroupFavoriteCard key={favorite.id} {...favorite} handleSelect={() => handleCardClick({ ...favorite })} />
+          <GroupFavoriteCard
+            key={favorite.id}
+            {...favorite}
+            handleSelect={() => handleCardClick({ ...favorite } as object)}
+            isSelected={contact?.id === favorite.id}
+          />
         );
     }
   };

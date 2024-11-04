@@ -13,6 +13,7 @@ export const GroupFavoriteCard = ({
   jabberPhone,
   mobilePhone,
   handleSelect,
+  isSelected,
 }: {
   id: string;
   name: string;
@@ -21,6 +22,7 @@ export const GroupFavoriteCard = ({
   jabberPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
+  isSelected: boolean;
 }) => {
   const theme = useTheme();
   return (
@@ -41,7 +43,8 @@ export const GroupFavoriteCard = ({
         onClick={handleSelect}
         sx={{
           border: 1,
-          borderColor: theme.colors.lighterGray,
+          borderColor: isSelected ? theme.colors.darkAqua : theme.colors.lighterGray,
+          boxShadow: isSelected ? '0 4px 8px rgba(0, 0, 0, 0.2)' : 'none',
           borderRadius: '1rem',
           flexDirection: 'column',
           minWidth: '17.5rem',

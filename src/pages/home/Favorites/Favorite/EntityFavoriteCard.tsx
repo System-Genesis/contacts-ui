@@ -15,6 +15,7 @@ export const EntityFavoriteCard = ({
   mobilePhone,
   entityType,
   handleSelect,
+  isSelected,
 }: {
   id: string;
   fullName: string;
@@ -25,6 +26,7 @@ export const EntityFavoriteCard = ({
   jabberPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
+  isSelected: boolean;
 }) => {
   const theme = useTheme();
 
@@ -46,7 +48,8 @@ export const EntityFavoriteCard = ({
         onClick={handleSelect}
         sx={{
           border: 1,
-          borderColor: theme.colors.lighterGray,
+          borderColor: isSelected ? theme.colors.darkAqua : theme.colors.lighterGray,
+          boxShadow: isSelected ? '0 4px 8px rgba(0, 0, 0, 0.2)' : 'none',
           borderRadius: '1rem',
           flexDirection: 'column',
           minWidth: '17.5rem',

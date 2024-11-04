@@ -42,7 +42,7 @@ export const UpperContact: React.FC<{ contact: any; isEdit: boolean; subTitle: s
                 gap: 1,
               }}
             >
-              <Typography variant="h5" sx={{ fontWeight: 'bold' }}>
+              <Typography variant="h5" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>
                 {title}
               </Typography>
               {subTitle && (
@@ -56,7 +56,8 @@ export const UpperContact: React.FC<{ contact: any; isEdit: boolean; subTitle: s
                     whiteSpace: 'nowrap',
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
-                    maxWidth: '210px',
+                    minWidth: '50px',
+                    maxWidth: '140px',
                     m: 0,
                   }}
                 >
