@@ -3,7 +3,8 @@ import { useState } from 'react';
 
 export interface Option {
   option: string;
-  network: string;
+  source: string;
+  displayText: string;
 }
 
 export const ContactMenu = ({ icon, options, href }: { icon: string; options: Option[]; href: string }) => {
@@ -37,7 +38,7 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: Op
           },
         }}
       >
-        {options?.map(({ option, network }) => (
+        {options?.map(({ option, displayText }) => (
           <MenuItem
             key={option}
             onClick={() => setAnchorEl(null)}
@@ -61,7 +62,7 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: Op
                 width: '100%',
               }}
             >
-              <Typography color={theme.colors.lightGray}>{network}</Typography>
+              <Typography color={theme.colors.lightGray}>{displayText}</Typography>
               <Typography
                 sx={{
                   textOverflow: 'ellipsis',
