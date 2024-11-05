@@ -1,12 +1,12 @@
 import { Box, Grid, Typography, useTheme } from '@mui/material';
 import EmptyFavorites from '../../assets/icons/emptyFavorites.svg';
-import { EntityFavoriteCard } from './Favorites/Favorite/EntityFavoriteCard';
+import { EntityFavoriteCard } from './favorite/entityFavoriteCard';
 import { useQuery } from '@tanstack/react-query';
 import { getMyFavoritesRequest } from '../../services/favoriteService';
-import { GroupFavoriteCard } from './Favorites/Favorite/GroupFavoriteCard';
+import { GroupFavoriteCard } from './favorite/groupFavoriteCard';
 import favStar from '../../assets/icons/favStar.svg';
 import { ResultsTypes } from '../../lib/enums';
-import { ContactDrawer } from '../../common/drawer/DrawerWrapper';
+import { ContactDrawer } from '../../common/drawer/drawerWrapper';
 import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';

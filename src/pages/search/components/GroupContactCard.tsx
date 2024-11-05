@@ -1,11 +1,11 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { FavoriteButton } from '../../../common/buttons/FavoriteButton';
-import { ContactNumbers } from '../../../common/ContactNumbers';
-import { ContactOptions } from '../../../common/ContactOptions';
-import { ProfileImage } from '../../../common/ProfileImage';
-import { ContactTags } from '../../../common/tag/ContactTags';
+import { FavoriteButton } from '../../../common/buttons/favoriteButton';
+import { ContactNumbers } from '../../../common/contactNumbers';
+import { ContactOptions } from '../../../common/contactOptions';
+import { ProfileImage } from '../../../common/profileImage';
+import { ContactTags } from '../../../common/tag/contactTags';
 import { ResultsTypes } from '../../../lib/enums';
-import { SelectedSign } from './SelectedSign';
+import { SelectedSign } from './selectedSign';
 
 export const GroupContactsCard: React.FC<{
   id: string;

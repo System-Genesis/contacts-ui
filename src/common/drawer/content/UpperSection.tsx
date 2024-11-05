@@ -1,8 +1,8 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { ContactTags } from '../../tag/ContactTags';
-import { ProfileImage } from '../../ProfileImage';
-import { ContactOptions } from '../../ContactOptions';
-import { FavoriteButton } from '../../buttons/FavoriteButton';
+import { ContactTags } from '../../tag/contactTags';
+import { ProfileImage } from '../../profileImage';
+import { ContactOptions } from '../../contactOptions';
+import { FavoriteButton } from '../../buttons/favoriteButton';
 
 export const UpperContact: React.FC<{ contact: any; isEdit: boolean; subTitle: string; title: string }> = ({
   contact,

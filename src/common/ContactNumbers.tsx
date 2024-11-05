@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { ContactNumber } from './ContactNumber';
+import { ContactNumber } from './contactNumber';
 
 export const ContactNumbers = ({
   mobilePhone = '050-000000',

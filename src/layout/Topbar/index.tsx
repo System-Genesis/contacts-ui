@@ -1,12 +1,12 @@
 import { Box, Divider, useTheme, IconButton } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { ContactDrawer } from '../../common/drawer/DrawerWrapper';
+import { ContactDrawer } from '../../common/drawer/drawerWrapper';
 import { useNavigate } from 'react-router-dom';
 import Yesodot from '../../assets/icons/yesodot.svg';
 import Sapir from '../../assets/icons/sapir.svg';
 import icon from '../../assets/icons/icon.svg';
-import { ProfileImage } from '../../common/ProfileImage';
+import { ProfileImage } from '../../common/profileImage';
 import { setSearchTerm } from '../../store/reducers/search';
 import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 

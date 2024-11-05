@@ -1,8 +1,8 @@
 import { Grid, Typography, useTheme } from '@mui/material';
 import i18next from 'i18next';
 import { FieldDiv } from '../../divs/field';
-import { UpperContact } from './UpperSection';
-import { StyledDivider, StyledGridInfo, StyledGridSection } from './Divider';
+import { UpperContact } from './upperSection';
+import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
 import { DirectEntities } from './directEntities';
 import { DirectGroups } from './directGroups';
 

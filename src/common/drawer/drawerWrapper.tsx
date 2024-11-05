@@ -4,13 +4,13 @@ import EditIcon from '../../assets/icons/edit.svg';
 import { useTheme } from '@mui/material';
 import { useState } from 'react';
 import i18next from 'i18next';
-import { StyledDivider } from './content/Divider';
+import { StyledDivider } from './content/divider';
 import { SaveIcon } from '../../assets/icons/save';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { setIsDrawerOpen } from '../../store/reducers/drawer';
-import { EntityContentCard } from './content/UserContent';
-import { GroupContactCard } from './content/GroupContact';
+import { EntityContentCard } from './content/userContent';
+import { GroupContactCard } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer)({

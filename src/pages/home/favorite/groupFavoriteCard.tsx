@@ -1,9 +1,9 @@
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 
-import { ContactNumbers } from '../../../../common/ContactNumbers';
-import { ContactOptions } from '../../../../common/ContactOptions';
-import { FavoriteButton } from '../../../../common/buttons/FavoriteButton';
-import { ProfileImage } from '../../../../common/ProfileImage';
+import { ContactNumbers } from '../../../common/contactNumbers';
+import { ContactOptions } from '../../../common/contactOptions';
+import { FavoriteButton } from '../../../common/buttons/favoriteButton';
+import { ProfileImage } from '../../../common/profileImage';
 
 export const GroupFavoriteCard = ({
   id,

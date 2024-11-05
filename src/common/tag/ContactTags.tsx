@@ -1,7 +1,7 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { TagChip } from './Chip';
+import { TagChip } from './chip';
 import i18next from 'i18next';
-import { AddTag } from './AddTagChip';
+import { AddTag } from './addTagChip';
 
 export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _id: string }[]; isEdit?: boolean }) => {
   const theme = useTheme();

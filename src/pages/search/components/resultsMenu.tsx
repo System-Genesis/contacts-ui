@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 import EntityIcon from '../../../assets/icons/entity.svg';
 import HierarchyIcon from '../../../assets/icons/hierarchy.svg';
 import GoalUserIcon from '../../../assets/icons/goal-user.svg';
-import { SelectedSign } from './SelectedSign';
+import { SelectedSign } from './selectedSign';
 
 const resultsTypeToIcon = {
   [ResultsTypes.ENTITY]: EntityIcon,

@@ -1,6 +1,6 @@
 import { Grid, Typography, useTheme } from '@mui/material';
 import { Entity } from '../../../../lib/kartoffel.types';
-import { ProfileImage } from '../../../ProfileImage';
+import { ProfileImage } from '../../../profileImage';
 import openSub from '../../../../assets/icons/openSub.svg';
 
 export const EntityCard = ({ entity }: { entity: Entity }) => {
