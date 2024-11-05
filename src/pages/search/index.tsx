@@ -1,13 +1,13 @@
-import { useTheme, Grid, Fade, styled, Box, keyframes } from '@mui/material';
+import { useTheme, Grid, Fade, styled, Box } from '@mui/material';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import Results from './components/results';
 import EmptyResults from '../../assets/icons/emptyResults.svg';
 import EmptyHistory from '../../assets/icons/emptyHistory.svg';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useMemo, useRef, useState } from 'react';
 import { ResultsTypes } from '../../lib/enums';
 import { useDebounce } from '@uidotdev/usehooks';
-import { useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getCountsBySearchTermRequest, searchRequest } from '../../services/searchService';
 import { ResultsMenu } from './components/resultsMenu';
 import { mySearchHistory } from '../../services/historyService';
@@ -20,10 +20,9 @@ const FadeBox = styled(Box)({
 
 const Search = () => {
   const theme = useTheme();
+  const observer = useRef<IntersectionObserver>();
 
-  const [page, setPage] = useState(1);
   const [resultsType, setResultsType] = useState<ResultsTypes>(ResultsTypes.ENTITY);
-  const scrolledElementRef = useRef<HTMLDivElement | null>(null);
 
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -46,17 +45,41 @@ const Search = () => {
     enabled: !!debouncedSearchTerm,
   });
 
-  const { data: searchResults } = useQuery({
-    queryKey: ['search', debouncedSearchTerm, resultsType, page],
-    queryFn: () => searchRequest(debouncedSearchTerm, resultsType, page, +env.VITE_BACKEND_PAGE_SIZE),
-    initialData: [],
-    enabled: !!debouncedSearchTerm,
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
+    queryKey: ['search', debouncedSearchTerm, resultsType],
+    queryFn: ({ pageParam }) => searchRequest(debouncedSearchTerm, resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
+    getNextPageParam: (lastPage, allPages) => {
+      return lastPage.length ? allPages.length + 1 : undefined;
+    },
+    initialPageParam: 1,
   });
 
-  useEffect(() => {
-    setPage(1);
-    // scrolledElementRef.current!.scrollTop = 0;
-  }, [searchTerm, resultsType]);
+  const searchResults = useMemo(() => {
+    return (
+      data?.pages.reduce((acc, page) => {
+        return [...acc, ...page];
+      }, []) ?? []
+    );
+  }, [data]);
+
+  const lastElementRef = useCallback(
+    (node: HTMLDivElement) => {
+      if (isLoading) return;
+
+      if (observer.current) observer.current.disconnect();
+
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
+          fetchNextPage();
+        }
+      });
+
+      if (node) observer.current.observe(node);
+    },
+    [fetchNextPage, hasNextPage, isFetching, isLoading],
+  );
+
+  console.log(searchResults);
 
   return (
     <Grid container width={'80%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>
@@ -126,8 +149,7 @@ const Search = () => {
                       type={resultsType}
                       results={searchResults}
                       count={counts?.[resultsType] ?? 0}
-                      setPage={setPage}
-                      scrolledElementRef={scrolledElementRef}
+                      scrolledElementRef={lastElementRef}
                       searchHeader
                     />
                   </Grid>

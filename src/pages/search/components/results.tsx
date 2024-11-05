@@ -1,22 +1,21 @@
 import { Box, Stack, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
-import { Dispatch, MutableRefObject, SetStateAction } from 'react';
 import { HistoryHeader, SearchHeader } from './Header';
 import { EntityContactsCard } from './EntityContactCard';
 import { GroupContactsCard } from './GroupContactCard';
-import { ContactDrawer } from '../../../common/drawer/DrawerWrapper';
+// import { ContactDrawer } from '../../../common/drawer/DrawerWrapper';
 import { addSearchHistory } from '../../../services/historyService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { setDrawerObject, setIsDrawerOpen } from '../../../store/reducers/drawer';
+import { ContactDrawer } from '../../../common/drawer/drawerWrapper';
 
 export const Results = ({
   type,
   results,
   count,
-  setPage,
   scrolledElementRef,
   searchHeader = false,
   historyHeader = false,
@@ -24,8 +23,7 @@ export const Results = ({
   type?: ResultsTypes;
   results: EntitySearchResult[] | GroupSearchResult[] | (EntitySearchResult | GroupSearchResult)[];
   count?: number;
-  setPage?: Dispatch<SetStateAction<number>>;
-  scrolledElementRef?: MutableRefObject<HTMLDivElement | null>;
+  scrolledElementRef?: (node: HTMLDivElement) => void;
   searchHeader?: boolean;
   historyHeader?: boolean;
 }) => {
@@ -34,29 +32,6 @@ export const Results = ({
   const queryClient = useQueryClient();
 
   const contact = useSelector((state: RootState) => state.drawer.contact);
-
-  // useEffect(() => {
-  //   const handleScroll = () => {
-  //     const gridElement = scrolledElementRef.current!;
-  //     if (gridElement) {
-  //       const { scrollTop, scrollHeight, clientHeight } = gridElement;
-  //       const heightRemainToScroll = scrollHeight - scrollTop - clientHeight;
-  //       const treshold = (scrollHeight - scrollTop) * 0.1;
-
-  //       if (heightRemainToScroll <= treshold) {
-  //         gridElement.removeEventListener('scroll', handleScroll);
-  //         setPage?.((prevPage: number) => prevPage + 1);
-  //       }
-  //     }
-  //   };
-
-  //   const gridElement = scrolledElementRef.current!;
-  //   if (gridElement) gridElement.addEventListener('scroll', handleScroll);
-
-  //   return () => {
-  //     if (gridElement) gridElement.removeEventListener('scroll', handleScroll);
-  //   };
-  // }, [setPage, scrolledElementRef]);
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -122,7 +97,6 @@ export const Results = ({
         </Box>
 
         <Stack
-          ref={scrolledElementRef}
           sx={{
             maxHeight: '100%',
             overflowY: 'scroll',
@@ -132,7 +106,12 @@ export const Results = ({
             gap: 0.4,
           }}
         >
-          {results.map(generateResultCard)}
+          {[
+            ...results.map(generateResultCard),
+            <div ref={scrolledElementRef} style={{ opacity: 0 }}>
+              infinite scroll div
+            </div>,
+          ]}
         </Stack>
       </Box>
       <ContactDrawer />
