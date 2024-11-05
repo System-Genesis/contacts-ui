@@ -26,7 +26,7 @@ export const DirectEntities = ({ entities }: { entities: Entity[] }) => {
       }}
     >
       {entities.map((entity) => (
-        <EntityCard entity={entity} />
+        <EntityCard key={entity.id} entity={entity} />
       ))}
     </Grid>
   );

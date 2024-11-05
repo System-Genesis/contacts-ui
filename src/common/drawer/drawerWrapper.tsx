@@ -1,14 +1,15 @@
 import { Button, Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
 import CloseIcon from '../../assets/icons/close.svg';
+import BackIcon from '../../assets/icons/back.svg';
 import EditIcon from '../../assets/icons/edit.svg';
 import { useTheme } from '@mui/material';
-import { useState } from 'react';
+import {  useState } from 'react';
 import i18next from 'i18next';
 import { StyledDivider } from './content/divider';
 import { SaveIcon } from '../../assets/icons/save';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { setIsDrawerOpen } from '../../store/reducers/drawer';
+import { closeSubGroup, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { EntityContentDrawer } from './content/entityContent';
 import { GroupContactDrawer } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
@@ -49,6 +50,7 @@ export const ContactDrawer: React.FC<{
 
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
   const contact = useSelector((state: RootState) => state.drawer.contact);
+  const subGroups = useSelector((state: RootState) => state.drawer.subGroups);
 
   return (
     <StyledDrawerWrapper
@@ -86,31 +88,50 @@ export const ContactDrawer: React.FC<{
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              justifyContent: 'flex-end',
+              justifyContent: 'space-between',
               alignItems: 'center',
               height: '3rem',
             }}
           >
-            {!isEdit && (
-              <IconButton onClick={() => setIsEdit((prev) => !prev)} sx={{ p: 0 }}>
-                <img src={EditIcon} style={{ padding: 0 }} />
+            <Grid>
+              {subGroups.length ? (
+                <IconButton
+                  onClick={() => {
+                    dispatch(closeSubGroup());
+                    setIsEdit(false);
+                    onClose();
+                  }}
+                  sx={{ p: 0, m: 0, ['&:hover']: { backgroundColor: 'transparent' } }}
+                >
+                  <img src={BackIcon} style={{ padding: 0 }} />
+                </IconButton>
+              ) : (
+                <></>
+              )}
+            </Grid>
+            <Grid>
+              {!isEdit && (
+                <IconButton onClick={() => setIsEdit((prev) => !prev)} sx={{ p: 0 }}>
+                  <img src={EditIcon} style={{ padding: 0 }} />
+                </IconButton>
+              )}
+              <IconButton
+                onClick={() => {
+                  dispatch(setIsDrawerOpen(false));
+                  setIsEdit(false);
+                  onClose();
+                }}
+                sx={{ p: 0, m: 1 }}
+              >
+                <img src={CloseIcon} style={{ padding: 0 }} />
               </IconButton>
-            )}
-            <IconButton
-              onClick={() => {
-                dispatch(setIsDrawerOpen(false));
-                setIsEdit(false);
-                onClose();
-              }}
-              sx={{ p: 0, m: 1 }}
-            >
-              <img src={CloseIcon} style={{ padding: 0 }} />
-            </IconButton>
+            </Grid>
           </Grid>
+
           <Grid container>
             {contact?.type === ResultsTypes.GROUP
               ? contact && <GroupContactDrawer isEdit={isEdit} />
-              : contact && <EntityContentDrawer isEdit={isEdit}  />}
+              : contact && <EntityContentDrawer isEdit={isEdit} />}
           </Grid>
         </Grid>
 

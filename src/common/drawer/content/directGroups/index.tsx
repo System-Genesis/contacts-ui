@@ -26,7 +26,7 @@ export const DirectGroups = ({ groups }: { groups: GroupSearchResult[] }) => {
       }}
     >
       {groups.map((group) => (
-        <GroupCard group={group} />
+        <GroupCard key={group.id} group={group} />
       ))}
     </Grid>
   );

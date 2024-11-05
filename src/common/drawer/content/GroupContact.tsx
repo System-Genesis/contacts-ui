@@ -9,18 +9,25 @@ import { useQuery } from '@tanstack/react-query';
 import { getSubsOfGroup } from '../../../services/searchService';
 import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
 
 export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const theme = useTheme();
-  const contact = useSelector((state: RootState) => state.drawer.contact);
+  const { contact } = useSelector((state: RootState) => state.drawer);
 
-  const {
-    data: { entities, groups },
-  } = useQuery({
+  const subs = useQuery({
     queryKey: ['subs'],
     queryFn: () => getSubsOfGroup({ groupId: contact.id }),
     initialData: { entities: [], groups: [] },
   });
+
+  useEffect(() => {
+    if (contact?.id) {
+      void subs.refetch();
+    }
+  }, [contact]);
+
+  const { entities, groups } = subs.data;
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 1, width: '100%' }}>
@@ -29,6 +36,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
         isEdit={isEdit}
         title={contact.name}
         subTitle={contact.entitiesCount === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`}
+        imageSize="3rem"
       />
       <StyledGridSection container theme={theme}>
         <Typography variant="body1">{i18next.t('description')}</Typography>
@@ -48,7 +56,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
         </StyledGridInfo>
       </StyledGridSection>
 
-      {entities.length && (
+      {entities.length ? (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
@@ -67,9 +75,11 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
             </StyledGridInfo>
           </StyledGridSection>
         </>
+      ) : (
+        <></>
       )}
 
-      {groups.length && (
+      {groups.length ? (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
@@ -79,6 +89,8 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
             </StyledGridInfo>
           </StyledGridSection>
         </>
+      ) : (
+        <></>
       )}
     </Grid>
   );

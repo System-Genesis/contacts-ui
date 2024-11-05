@@ -2,13 +2,17 @@ import { Grid, Typography, useTheme } from '@mui/material';
 import { GroupSearchResult } from '../../../../lib/types';
 import { ProfileImage } from '../../../profileImage';
 import openSub from '../../../../assets/icons/openSub.svg';
+import { openSubGroup } from '../../../../store/reducers/drawer';
+import { useDispatch } from 'react-redux';
 
 export const GroupCard = ({ group }: { group: GroupSearchResult }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
+
   return (
     <Grid
       item
-      onClick={() => console.log('open entity')}
+      onClick={() => dispatch(openSubGroup(group))}
       sx={{
         borderBottom: `1px solid ${theme.colors.gray}`,
         p: 1,

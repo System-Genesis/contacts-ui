@@ -4,19 +4,24 @@ import { ProfileImage } from '../../profileImage';
 import { ContactOptions } from '../../contactOptions';
 import { FavoriteButton } from '../../buttons/favoriteButton';
 
-export const UpperContact: React.FC<{ contact: any; isEdit: boolean; subTitle: string; title: string }> = ({
-  contact,
-  isEdit,
-  subTitle,
-  title,
-}) => {
+export const UpperContact: React.FC<{
+  contact: any;
+  isEdit: boolean;
+  subTitle: string;
+  title: string;
+  imageSize: string;
+}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem' }) => {
   const theme = useTheme();
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>
       <Grid container>
-        <Grid item>
-          <ProfileImage type={contact.type ?? 'entity'} id={contact.id} style={{ width: '5rem', height: '5rem' }} />
+        <Grid item sx={{ height: '5rem', display: 'flex', alignItems: 'flex-end' }}>
+          <ProfileImage
+            type={contact.type ?? 'entity'}
+            id={contact.id}
+            style={{ width: imageSize, height: imageSize }}
+          />
         </Grid>
 
         <Grid container sx={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'nowrap' }}>
