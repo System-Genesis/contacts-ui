@@ -69,7 +69,7 @@ export const Results = ({
         contactsCardProps.title = (result as EntitySearchResult).fullName;
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
-        contactsCardProps.serviceType = (result as EntitySearchResult).serviceType;
+        contactsCardProps.rank = (result as EntitySearchResult).rank;
         contactsCardProps.handleSelect = (resType: ResultsTypes) =>
           handleCardClick({ ...result, type: resType } as EntitySearchResult);
 

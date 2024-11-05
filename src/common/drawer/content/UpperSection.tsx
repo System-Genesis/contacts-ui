@@ -57,7 +57,7 @@ export const UpperContact: React.FC<{ contact: any; isEdit: boolean; subTitle: s
                     overflow: 'hidden',
                     textOverflow: 'ellipsis',
                     minWidth: '50px',
-                    maxWidth: '140px',
+                    maxWidth: '180px',
                     m: 0,
                   }}
                 >

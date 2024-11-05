@@ -21,7 +21,7 @@ export const EntityContactsCard: React.FC<{
   chats: string[];
   handleSelect: (type: ResultsTypes) => void;
   isSelected: boolean;
-  serviceType: string;
+  rank: string;
 }> = ({
   type,
   id,
@@ -36,7 +36,7 @@ export const EntityContactsCard: React.FC<{
   chats,
   isSelected,
   handleSelect,
-  serviceType,
+  rank,
 }) => {
   const theme = useTheme();
 
@@ -97,8 +97,7 @@ export const EntityContactsCard: React.FC<{
               >
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
-                    {/* TODO: add the rank here!!! */}
-                    {/* {serviceType && <Typography fontSize={14}>{serviceType}</Typography>}  */}
+                    {rank && <Typography fontSize={12}>{rank}</Typography>}
                     <Typography fontSize={14}>{title}</Typography>
                     {subTitle && (
                       <Typography
