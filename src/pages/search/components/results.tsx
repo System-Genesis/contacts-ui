@@ -43,8 +43,8 @@ export const Results = ({
     },
   });
 
-  const handleCardClick = (object: object) => {
-    dispatch(setDrawerObject(object));
+  const handleCardClick = (result: GroupSearchResult | EntitySearchResult) => {
+    dispatch(setDrawerObject(result));
     dispatch(setIsDrawerOpen(true));
     mutation.mutate();
   };
@@ -58,7 +58,6 @@ export const Results = ({
       tags: result.tags,
       mails: result.mails,
       chats: result.chats,
-      handleSelect: (resType: ResultsTypes) => handleCardClick({ ...result, type: resType } as object),
       isSelected: contact?.id === result.id,
     };
 
@@ -71,11 +70,17 @@ export const Results = ({
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
         contactsCardProps.serviceType = (result as EntitySearchResult).serviceType;
+        contactsCardProps.handleSelect = (resType: ResultsTypes) =>
+          handleCardClick({ ...result, type: resType } as EntitySearchResult);
+
         return <EntityContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       case ResultsTypes.GROUP:
         contactsCardProps.type = 'group';
         contactsCardProps.title = (result as GroupSearchResult).name;
+        contactsCardProps.handleSelect = (resType: ResultsTypes) =>
+          handleCardClick({ ...result, type: resType } as GroupSearchResult);
+
         contactsCardProps.subTitle =
           Number((result as GroupSearchResult).entitiesCount) > 99
             ? '99+'

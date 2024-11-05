@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 
 export interface DrawerState {
   isOpen: boolean;
-  contact: object;
+  contact: GroupSearchResult | EntitySearchResult | null;
 }
 
 const initialState: DrawerState = {
   isOpen: false,
-  contact: {},
+  contact: null,
 };
 
 export const drawerSlice = createSlice({
@@ -18,7 +19,7 @@ export const drawerSlice = createSlice({
       state.isOpen = action.payload;
       if (!action.payload) state.contact = null;
     },
-    setDrawerObject: (state, action: PayloadAction<object>) => {
+    setDrawerObject: (state, action: PayloadAction<GroupSearchResult | EntitySearchResult>) => {
       state.contact = action.payload;
     },
   },

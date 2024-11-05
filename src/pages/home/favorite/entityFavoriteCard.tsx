@@ -4,6 +4,7 @@ import { ContactNumbers } from '../../../common/contactNumbers';
 import { ContactOptions } from '../../../common/contactOptions';
 import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
+import { Option } from '../../../common/contactMenu';
 
 export const EntityFavoriteCard = ({
   id,
@@ -21,8 +22,8 @@ export const EntityFavoriteCard = ({
   fullName: string;
   entityType: string;
   jobTitle: string;
-  mails: string[];
-  chats: string[];
+  mails: Option[];
+  chats: Option[];
   jabberPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
@@ -114,7 +115,6 @@ export const EntityFavoriteCard = ({
               </Typography>
             )}
           </Box>
-
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
           <Divider sx={{ width: '90%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }} />
           <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />

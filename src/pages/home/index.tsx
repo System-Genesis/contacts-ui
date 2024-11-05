@@ -10,6 +10,7 @@ import { ContactDrawer } from '../../common/drawer/drawerWrapper';
 import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 
 const Home = () => {
   const theme = useTheme();
@@ -17,12 +18,12 @@ const Home = () => {
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
   const contact = useSelector((state: RootState) => state.drawer.contact);
 
-  const handleCardClick = (object: object) => {
-    dispatch(setDrawerObject(object));
+  const handleCardClick = (fav: GroupSearchResult | EntitySearchResult) => {
+    dispatch(setDrawerObject(fav));
     dispatch(setIsDrawerOpen(true));
   };
 
-  const generateFavorite = (favorite) => {
+  const generateFavorite = (favorite: GroupSearchResult | EntitySearchResult) => {
     switch (favorite.type) {
       case ResultsTypes.ENTITY:
       case ResultsTypes.GOAL_USER:
@@ -30,7 +31,7 @@ const Home = () => {
           <EntityFavoriteCard
             key={favorite.id}
             {...favorite}
-            handleSelect={() => handleCardClick({ ...favorite } as object)}
+            handleSelect={() => handleCardClick({ ...favorite } as EntitySearchResult)}
             isSelected={contact?.id === favorite.id}
           />
         );
@@ -40,10 +41,12 @@ const Home = () => {
           <GroupFavoriteCard
             key={favorite.id}
             {...favorite}
-            handleSelect={() => handleCardClick({ ...favorite } as object)}
+            handleSelect={() => handleCardClick({ ...favorite } as GroupSearchResult)}
             isSelected={contact?.id === favorite.id}
           />
         );
+      default:
+        return <>No type!!!</>;
     }
   };
 

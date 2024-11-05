@@ -4,6 +4,7 @@ import { ContactNumbers } from '../../../common/contactNumbers';
 import { ContactOptions } from '../../../common/contactOptions';
 import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
+import { Option } from '../../../common/contactMenu';
 
 export const GroupFavoriteCard = ({
   id,
@@ -17,8 +18,8 @@ export const GroupFavoriteCard = ({
 }: {
   id: string;
   name: string;
-  mails: string[];
-  chats: string[];
+  mails: Option[];
+  chats: Option[];
   jabberPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
