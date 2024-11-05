@@ -65,7 +65,6 @@ const Search = () => {
   const lastElementRef = useCallback(
     (node: HTMLDivElement) => {
       if (isLoading) return;
-
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
@@ -78,8 +77,6 @@ const Search = () => {
     },
     [fetchNextPage, hasNextPage, isFetching, isLoading],
   );
-
-  console.log(searchResults);
 
   return (
     <Grid container width={'80%'} alignSelf={'center'} mt={2} mb={2} position="relative" justifyContent={'center'}>

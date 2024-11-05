@@ -5,9 +5,22 @@ import { UpperContact } from './upperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
 import { DirectEntities } from './directEntities';
 import { DirectGroups } from './directGroups';
+import { useQuery } from '@tanstack/react-query';
+import { getSubsOfGroup } from '../../../services/searchService';
+import { RootState } from '../../../store';
+import { useSelector } from 'react-redux';
 
-export const GroupContactCard: React.FC<{ isEdit: boolean; contact: object }> = ({ isEdit, contact }) => {
+export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const theme = useTheme();
+  const contact = useSelector((state: RootState) => state.drawer.contact);
+
+  const {
+    data: { entities, groups },
+  } = useQuery({
+    queryKey: ['subs'],
+    queryFn: () => getSubsOfGroup({ groupId: contact.id }),
+    initialData: { entities: [], groups: [] },
+  });
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 1, width: '100%' }}>
@@ -35,36 +48,38 @@ export const GroupContactCard: React.FC<{ isEdit: boolean; contact: object }> = 
         </StyledGridInfo>
       </StyledGridSection>
 
-      <StyledDivider theme={theme} />
+      {entities.length && (
+        <>
+          <StyledDivider theme={theme} />
+          <StyledGridSection container theme={theme} margin={0}>
+            <Typography variant="body1">משרתים</Typography>
+            <StyledGridInfo container theme={theme}>
+              <DirectEntities
+                entities={[
+                  ...entities.sort((a, b) => {
+                    const aIncludes = a.commanderOf?.includes(contact.id) ? 1 : 0;
+                    const bIncludes = b.commanderOf?.includes(contact.id) ? 1 : 0;
+                    if (bIncludes - aIncludes !== 0) return bIncludes - aIncludes;
+                    return a.fullName.localeCompare(b.fullName);
+                  }),
+                ]}
+              />
+            </StyledGridInfo>
+          </StyledGridSection>
+        </>
+      )}
 
-      <StyledGridSection container theme={theme} margin={0}>
-        <Typography variant="body1">משרתים</Typography>
-        <StyledGridInfo container theme={theme}>
-          <DirectEntities
-            entities={[
-              { fullName: 'name', jobTitle: 'job' } as any,
-              { fullName: 'name', jobTitle: 'job' } as any,
-              { fullName: 'name', jobTitle: 'job' } as any,
-              { fullName: 'name', jobTitle: 'job' } as any,
-            ]}
-          />
-        </StyledGridInfo>
-      </StyledGridSection>
-
-      <StyledDivider theme={theme} />
-
-      <StyledGridSection container theme={theme} margin={0}>
-        <Typography variant="body1">תתי היררכיות</Typography>
-        <StyledGridInfo container theme={theme}>
-          <DirectGroups
-            groups={[
-              { name: 'name', entitiesCount: '20' } as any,
-              { name: 'name', entitiesCount: '20' } as any,
-              { name: 'name', entitiesCount: '20' } as any,
-            ]}
-          />
-        </StyledGridInfo>
-      </StyledGridSection>
+      {groups.length && (
+        <>
+          <StyledDivider theme={theme} />
+          <StyledGridSection container theme={theme} margin={0}>
+            <Typography variant="body1">תתי היררכיות</Typography>
+            <StyledGridInfo container theme={theme}>
+              <DirectGroups groups={[...groups.sort((a, b) => a.name.localeCompare(b.name))]} />
+            </StyledGridInfo>
+          </StyledGridSection>
+        </>
+      )}
     </Grid>
   );
 };

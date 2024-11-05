@@ -9,8 +9,8 @@ import { SaveIcon } from '../../assets/icons/save';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { setIsDrawerOpen } from '../../store/reducers/drawer';
-import { EntityContentCard } from './content/userContent';
-import { GroupContactCard } from './content/groupContact';
+import { EntityContentDrawer } from './content/entityContent';
+import { GroupContactDrawer } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer)({
@@ -109,8 +109,8 @@ export const ContactDrawer: React.FC<{
           </Grid>
           <Grid container>
             {contact?.type === ResultsTypes.GROUP
-              ? contact && <GroupContactCard isEdit={isEdit} contact={contact} />
-              : contact && <EntityContentCard isEdit={isEdit} contact={contact} />}
+              ? contact && <GroupContactDrawer isEdit={isEdit} />
+              : contact && <EntityContentDrawer isEdit={isEdit}  />}
           </Grid>
         </Grid>
 

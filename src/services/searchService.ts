@@ -1,10 +1,11 @@
 import axiosInstance from '../api/axios';
 import { routes } from '../api/routes';
 import { ResultsTypes } from '../lib/enums';
+import { Entity, Group } from '../lib/types';
 import { EntitySearchResult, GroupSearchResult } from '../lib/types';
 
 const {
-  backend: { search },
+  backend: { search, subs },
 } = routes;
 
 const getCountsBySearchTermRequest = async (searchTerm: string) => {
@@ -31,4 +32,11 @@ const searchRequest = async (
   return data;
 };
 
-export { getCountsBySearchTermRequest, searchRequest };
+const getSubsOfGroup = async ({ groupId }: { groupId: string }): Promise<{ entities: Entity[]; groups: Group[] }> => {
+  const updateSubs = subs.replace(':id', groupId);
+
+  const { data } = await axiosInstance.get(updateSubs);
+  return data;
+};
+
+export { getCountsBySearchTermRequest, searchRequest, getSubsOfGroup };

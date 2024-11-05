@@ -1,5 +1,5 @@
 import { Grid } from '@mui/material';
-import { Entity } from '../../../../lib/kartoffel.types';
+import { Entity } from '../../../../lib/types';
 import { EntityCard } from './card';
 
 export const DirectEntities = ({ entities }: { entities: Entity[] }) => {

@@ -3,9 +3,12 @@ import i18next from 'i18next';
 import { FieldDiv } from '../../divs/field';
 import { UpperContact } from './upperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
-export const EntityContentCard: React.FC<{ isEdit: boolean; contact: object }> = ({ isEdit, contact }) => {
+export const EntityContentDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const theme = useTheme();
+  const contact = useSelector((state: RootState) => state.drawer.contact);
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>

@@ -74,7 +74,6 @@ const App = () => {
     };
 
     const resetTimeout = () => {
-      console.log('User activity detected, resetting timeout');
       clearTimeout(inactivityTimeout);
       startInactivityTimer();
     };

@@ -1,4 +1,4 @@
-import { Entity, Group } from '../lib/kartoffel.types';
+import { Entity, Group } from '../lib/types';
 
 export const getHierarchyBySource = (entity, source: string) => {
   const di = entity.digitalIdentities.find((currentDI) => currentDI.source === source);

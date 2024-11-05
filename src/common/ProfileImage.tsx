@@ -16,7 +16,7 @@ export const ProfileImage = ({
   onClick?: () => void;
 }) => {
   const { data: pic } = useQuery({
-    queryKey: ['getPic', id],
+    queryKey: ['getPicByID', id],
     queryFn: () => getPicByID({ id }),
     enabled: !!id,
   });
