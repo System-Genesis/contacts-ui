@@ -9,23 +9,17 @@ import { useQuery } from '@tanstack/react-query';
 import { getSubsOfGroup } from '../../../services/searchService';
 import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
-import { useEffect } from 'react';
 
 export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const theme = useTheme();
   const { contact } = useSelector((state: RootState) => state.drawer);
 
   const subs = useQuery({
-    queryKey: ['subs'],
+    queryKey: ['subs', contact?.id],
     queryFn: () => getSubsOfGroup({ groupId: contact.id }),
     initialData: { entities: [], groups: [] },
+    enabled: !!contact?.id,
   });
-
-  useEffect(() => {
-    if (contact?.id) {
-      void subs.refetch();
-    }
-  }, [contact]);
 
   const { entities, groups } = subs.data;
 
