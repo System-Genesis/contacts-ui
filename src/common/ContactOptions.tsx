@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import outlook from '../assets/icons/outlook.svg';
 import jabber from '../assets/icons/jabber.svg';
 import hiChat from '../assets/icons/hiChat.svg';
-import { ContactMenu, Option } from './ContactMenu';
+import { ContactMenu, Option } from './contactMenu';
 
 export const ContactOptions = ({
   mails,

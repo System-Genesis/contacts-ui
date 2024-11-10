@@ -8,9 +8,9 @@ export const FieldDiv = ({
   field,
   value,
   isEdit = false,
-  onChange = (event: ChangeEvent) => {},
+  onChange = (event: ChangeEvent) => ({}),
+  onHide = (isHidden: boolean) => ({}),
   isHidden = false,
-  onHide = (isHidden: boolean) => {},
 }) => {
   const theme = useTheme();
 

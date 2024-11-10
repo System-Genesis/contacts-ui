@@ -1,9 +1,9 @@
 import { Box, Stack, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
-import { HistoryHeader, SearchHeader } from './Header';
-import { EntityContactsCard } from './EntityContactCard';
-import { GroupContactsCard } from './GroupContactCard';
+import { HistoryHeader, SearchHeader } from './header';
+import { EntityContactsCard } from './entityContactCard';
+import { GroupContactsCard } from './groupContactCard';
 import { addSearchHistory } from '../../../services/historyService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';

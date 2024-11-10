@@ -1,8 +1,8 @@
 import { Typography, useTheme, Grid } from '@mui/material';
 import i18next from 'i18next';
 import { FieldDiv } from '../../divs/field';
-import { UpperContact } from './UpperSection';
-import { StyledDivider, StyledGridInfo, StyledGridSection } from './Divider';
+import { UpperContact } from './upperSection';
+import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 

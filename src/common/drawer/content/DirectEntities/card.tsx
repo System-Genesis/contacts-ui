@@ -1,10 +1,10 @@
 import { Grid, Typography, useTheme } from '@mui/material';
 import { Entity } from '../../../../lib/types';
-import { ProfileImage } from '../../../ProfileImage';
+import { ProfileImage } from '../../../profileImage';
 import openSub from '../../../../assets/icons/openSub.svg';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../../store';
-import { ContactTags } from '../../../tag/ContactTags';
+import { ContactTags } from '../../../tag/contactTags';
 import { openSubEntity } from '../../../../store/reducers/drawer';
 
 export const EntityCard = ({ entity }: { entity: Entity }) => {

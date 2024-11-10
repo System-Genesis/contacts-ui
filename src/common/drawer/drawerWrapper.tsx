@@ -5,13 +5,13 @@ import EditIcon from '../../assets/icons/edit.svg';
 import { useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import i18next from 'i18next';
-import { StyledDivider } from './content/Divider';
+import { StyledDivider } from './content/divider';
 import { SaveIcon } from '../../assets/icons/save';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { closeSubGroup, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { EntityContentDrawer } from './content/entityContent';
-import { GroupContactDrawer } from './content/GroupContact';
+import { GroupContactDrawer } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
 import { useMutation } from '@tanstack/react-query';
 import { editUser } from '../../services/userService';
@@ -55,8 +55,6 @@ export const ContactDrawer: React.FC<{
   const subGroups = useSelector((state: RootState) => state.drawer.subGroups);
 
   const [formData, setFormData] = useState({});
-
-  console.log({ hiddenFields: formData.hiddenFields });
 
   const mutation = useMutation({
     mutationFn: () => {

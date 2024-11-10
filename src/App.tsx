@@ -13,9 +13,9 @@ import { Box, createTheme, ThemeProvider } from '@mui/material';
 import { basicTheme } from './theme';
 import { hebrew } from './i18n/hebrew';
 import { initReactI18next } from 'react-i18next';
-import ChatBot from './layout/ChatBot';
-import TopBar from './layout/Topbar';
-import { HeroSection } from './layout/HeroSection';
+import ChatBot from './layout/chatBot';
+import TopBar from './layout/topbar';
+import { HeroSection } from './layout/heroSection';
 import { setSearchTerm } from './store/reducers/search';
 
 const App = () => {
@@ -67,7 +67,6 @@ const App = () => {
       if (isOpen) return clearTimeout(inactivityTimeout);
 
       inactivityTimeout = setTimeout(() => {
-        console.log('Inactivity timeout triggered');
         dispatch(setSearchTerm(''));
         navigate('/');
       }, environment.resetTimeout);

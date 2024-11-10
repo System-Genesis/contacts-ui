@@ -1,5 +1,5 @@
 import { Autocomplete, Chip, Grid, TextField, Typography, useTheme } from '@mui/material';
-import { TagChip } from './Chip';
+import { TagChip } from './chip';
 import i18next from 'i18next';
 
 export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _id: string }[]; isEdit?: boolean }) => {

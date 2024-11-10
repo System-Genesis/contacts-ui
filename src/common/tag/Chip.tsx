@@ -9,7 +9,7 @@ export const ChipStyled = styled(Chip)(({ theme }) => ({
   fontSize: 13,
 }));
 
-export const TagChip = ({ value, isEdit }: { value: string; isEdit: boolean }) => {
+export const TagChip = ({ id, value, isEdit }: { id: string; value: string; isEdit: boolean }) => {
   const theme = useTheme();
   const handleDelete = () => {
     console.log('deleted {', value, '} chip');

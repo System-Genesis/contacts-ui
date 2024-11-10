@@ -11,6 +11,7 @@ export const FavoriteButton = ({ id, type, iconStyle = {}, imageStyle = {} }) =>
 
   const isFavorite = data.map((f) => f.id).includes(id);
 
+  console.log(isFavorite);
   const mutation = useMutation({
     mutationFn: () => {
       return isFavorite ? removeFavoriteRequest({ id }) : addFavoriteRequest({ id, type });

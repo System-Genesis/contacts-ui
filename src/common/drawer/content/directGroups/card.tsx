@@ -1,6 +1,6 @@
 import { Grid, Typography, useTheme } from '@mui/material';
 import { GroupSearchResult } from '../../../../lib/types';
-import { ProfileImage } from '../../../ProfileImage';
+import { ProfileImage } from '../../../profileImage';
 import openSub from '../../../../assets/icons/openSub.svg';
 import { openSubGroup } from '../../../../store/reducers/drawer';
 import { useDispatch } from 'react-redux';

@@ -1,5 +1,5 @@
 import { Box } from '@mui/material';
-import { ContactNumber } from './ContactNumber';
+import { ContactNumber } from './contactNumber';
 
 export const ContactNumbers = ({
   mobilePhone = undefined,
@@ -15,7 +15,11 @@ export const ContactNumbers = ({
   return (
     <Box display={'flex'} gap={2} minHeight="1rem" justifyContent={isGroup ? 'right' : 'center'}>
       {!isGroup && mobilePhone && (
-        <ContactNumber type="mobile" value={mobilePhone} isHidden={hiddenFields.includes('mobilePhone')} />
+        <ContactNumber
+          type="mobile"
+          value={mobilePhone.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')}
+          isHidden={hiddenFields.includes('mobilePhone')}
+        />
       )}
       {jabberPhone && (
         <ContactNumber type="jabber" value={jabberPhone} isHidden={hiddenFields.includes('jabberPhone')} />
