@@ -29,8 +29,6 @@ export const drawerSlice = createSlice({
       }
     },
     setDrawerObject: (state, action: PayloadAction<GroupSearchResult | EntitySearchResult>) => {
-      console.log({ action });
-
       state.contact = action.payload;
     },
     openSubEntity: (state, action: PayloadAction<Entity>) => {
