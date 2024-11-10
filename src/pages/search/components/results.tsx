@@ -1,9 +1,9 @@
 import { Box, Stack, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
-import { HistoryHeader, SearchHeader } from './header';
-import { EntityContactsCard } from './entityContactCard';
-import { GroupContactsCard } from './groupContactCard';
+import { HistoryHeader, SearchHeader } from './Header';
+import { EntityContactsCard } from './EntityContactCard';
+import { GroupContactsCard } from './GroupContactCard';
 import { addSearchHistory } from '../../../services/historyService';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
@@ -70,6 +70,7 @@ export const Results = ({
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
         contactsCardProps.rank = (result as EntitySearchResult).rank;
+        contactsCardProps.hiddenFields = (result as EntitySearchResult).hiddenFields;
         contactsCardProps.handleSelect = (resType: ResultsTypes) =>
           handleCardClick({ ...result, type: resType } as EntitySearchResult);
 

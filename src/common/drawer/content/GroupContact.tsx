@@ -1,9 +1,9 @@
 import { Grid, Typography, useTheme } from '@mui/material';
 import i18next from 'i18next';
 import { FieldDiv } from '../../divs/field';
-import { UpperContact } from './upperSection';
-import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
-import { DirectEntities } from './directEntities';
+import { UpperContact } from './UpperSection';
+import { StyledDivider, StyledGridInfo, StyledGridSection } from './Divider';
+import { DirectEntities } from './DirectEntities';
 import { DirectGroups } from './directGroups';
 import { useQuery } from '@tanstack/react-query';
 import { getSubsOfGroup } from '../../../services/searchService';

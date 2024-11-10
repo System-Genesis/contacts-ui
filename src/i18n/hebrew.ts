@@ -10,7 +10,6 @@ export const hebrew = {
   save: 'שמירה',
   role: 'תפקיד',
   cancel: 'ביטול',
-  personalDetails: 'פרטים אישיים',
   militaryDetails: 'פרטים צבאיים',
   field: {
     hierarchy: 'היררכיה',
@@ -22,6 +21,7 @@ export const hebrew = {
     identityCard: 'תעודת זהות',
     rank: 'דרגה',
     redPhone: 'טלפון אדום',
+    jabberPhone: "טלפון ג'אבר",
   },
   edit: 'עריכה',
   noData: 'אין מידע',

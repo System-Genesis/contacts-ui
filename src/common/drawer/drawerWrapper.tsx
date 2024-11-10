@@ -3,16 +3,18 @@ import CloseIcon from '../../assets/icons/close.svg';
 import BackIcon from '../../assets/icons/back.svg';
 import EditIcon from '../../assets/icons/edit.svg';
 import { useTheme } from '@mui/material';
-import {  useState } from 'react';
+import { useEffect, useState } from 'react';
 import i18next from 'i18next';
-import { StyledDivider } from './content/divider';
+import { StyledDivider } from './content/Divider';
 import { SaveIcon } from '../../assets/icons/save';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { closeSubGroup, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { EntityContentDrawer } from './content/entityContent';
-import { GroupContactDrawer } from './content/groupContact';
+import { GroupContactDrawer } from './content/GroupContact';
 import { ResultsTypes } from '../../lib/enums';
+import { useMutation } from '@tanstack/react-query';
+import { editUser } from '../../services/userService';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer)({
   '& .MuiBackdrop-root': {
@@ -51,6 +53,27 @@ export const ContactDrawer: React.FC<{
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
   const contact = useSelector((state: RootState) => state.drawer.contact);
   const subGroups = useSelector((state: RootState) => state.drawer.subGroups);
+
+  const [formData, setFormData] = useState({});
+
+  console.log({ hiddenFields: formData.hiddenFields });
+
+  const mutation = useMutation({
+    mutationFn: () => {
+      return editUser(contact.id, formData);
+    },
+  });
+
+  useEffect(() => {
+    if (contact) {
+      setFormData({
+        hiddenFields: contact.hiddenFields,
+        mobilePhone: contact.mobilePhone,
+        jabberPhone: contact.jabberPhone,
+        redPhone: contact.redPhone,
+      });
+    }
+  }, [contact]);
 
   return (
     <StyledDrawerWrapper
@@ -131,7 +154,7 @@ export const ContactDrawer: React.FC<{
           <Grid container>
             {contact?.type === ResultsTypes.GROUP
               ? contact && <GroupContactDrawer isEdit={isEdit} />
-              : contact && <EntityContentDrawer isEdit={isEdit} />}
+              : contact && <EntityContentDrawer formData={formData} setFormData={setFormData} isEdit={isEdit} />}
           </Grid>
         </Grid>
 
@@ -163,6 +186,10 @@ export const ContactDrawer: React.FC<{
                   '&:hover': { backgroundColor: theme.colors.darkAqua },
                 }}
                 endIcon={<SaveIcon />}
+                onClick={() => {
+                  mutation.mutate();
+                  setIsEdit(false);
+                }}
               >
                 {i18next.t(`saveChanges`)}
               </Button>

@@ -1,11 +1,11 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { FavoriteButton } from '../../../common/buttons/favoriteButton';
-import { ContactNumbers } from '../../../common/contactNumbers';
-import { ContactOptions } from '../../../common/contactOptions';
-import { ProfileImage } from '../../../common/profileImage';
-import { ContactTags } from '../../../common/tag/contactTags';
+import { FavoriteButton } from '../../../common/buttons/FavoriteButton';
+import { ContactNumbers } from '../../../common/ContactNumbers';
+import { ContactOptions } from '../../../common/ContactOptions';
+import { ProfileImage } from '../../../common/ProfileImage';
+import { ContactTags } from '../../../common/tag/ContactTags';
 import { ResultsTypes } from '../../../lib/enums';
-import { SelectedSign } from './selectedSign';
+import { SelectedSign } from './SelectedSign';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -21,6 +21,7 @@ export const EntityContactsCard: React.FC<{
   chats: string[];
   handleSelect: (type: ResultsTypes) => void;
   isSelected: boolean;
+  hiddenFields: string[];
   rank: string;
 }> = ({
   type,
@@ -36,6 +37,7 @@ export const EntityContactsCard: React.FC<{
   chats,
   isSelected,
   handleSelect,
+  hiddenFields,
   rank,
 }) => {
   const theme = useTheme();
@@ -129,7 +131,7 @@ export const EntityContactsCard: React.FC<{
 
         <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} chats={chats} mails={mails} />
-          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
+          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
         </Grid>
       </Grid>
     </Grid>

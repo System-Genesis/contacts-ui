@@ -1,7 +1,7 @@
 import heroBackground from '../../assets/images/heroBackground.svg';
 import heroLayer from '../../assets/images/heroLayer.svg';
 import { Box } from '@mui/material';
-import { SearchBar } from '../../common/searchBar';
+import { SearchBar } from '../../common/SearchBar';
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 

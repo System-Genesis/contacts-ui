@@ -1,19 +1,25 @@
 import { Box } from '@mui/material';
-import { ContactNumber } from './contactNumber';
+import { ContactNumber } from './ContactNumber';
 
 export const ContactNumbers = ({
-  mobilePhone = '050-000000',
-  jabberPhone = '6000000',
+  mobilePhone = undefined,
+  jabberPhone = undefined,
   isGroup = false,
+  hiddenFields = [],
 }: {
   jabberPhone?: string;
   mobilePhone?: string;
   isGroup?: boolean;
+  hiddenFields?: string[];
 }) => {
   return (
     <Box display={'flex'} gap={2} minHeight="1rem" justifyContent={isGroup ? 'right' : 'center'}>
-      {!isGroup && mobilePhone && <ContactNumber type="mobile" value={mobilePhone} isHidden={Math.random() > 0.5} />}
-      {jabberPhone && <ContactNumber type="jabber" value={jabberPhone} isHidden={false} />}
+      {!isGroup && mobilePhone && (
+        <ContactNumber type="mobile" value={mobilePhone} isHidden={hiddenFields.includes('mobilePhone')} />
+      )}
+      {jabberPhone && (
+        <ContactNumber type="jabber" value={jabberPhone} isHidden={hiddenFields.includes('jabberPhone')} />
+      )}
     </Box>
   );
 };
