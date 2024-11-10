@@ -6,7 +6,11 @@ import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 
-export const EntityContentDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
+export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; isEdit: boolean }> = ({
+  setFormData,
+  formData,
+  isEdit,
+}) => {
   const theme = useTheme();
   const contact = useSelector((state: RootState) => state.drawer.contact);
 
@@ -18,20 +22,59 @@ export const EntityContentDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =
         <Typography variant="body1">{i18next.t(`role`)}</Typography>
         <StyledGridInfo container theme={theme}>
           <FieldDiv field={i18next.t('field.hierarchy')} value={contact.hierarchy} />
-          <FieldDiv field={i18next.t('field.uniqueId')} value={contact.adfsId?.split('@')[0]} />
-          <FieldDiv field={i18next.t('field.mail')} value={contact.mail?.split('@')[0]} />
+          <FieldDiv field={i18next.t('field.mail')} value={contact.mail} />
         </StyledGridInfo>
       </StyledGridSection>
 
       <StyledDivider theme={theme} />
 
       <StyledGridSection container theme={theme}>
-        <Typography variant="body1">{i18next.t(`personalDetails`)}</Typography>
+        <Typography variant="body1">{i18next.t(`contactDetails`)}</Typography>
         <StyledGridInfo container theme={theme}>
-          <FieldDiv field={i18next.t('field.mobilePhone')} value={contact.mobilePhone?.toString()} />
           <FieldDiv
-            field={i18next.t('field.birthDate')}
-            value={contact.birthDate ? new Date(contact.birthDate?.toString()).toLocaleDateString('en-GB') : undefined}
+            field={i18next.t('field.mobilePhone')}
+            value={contact.mobilePhone?.toString()}
+            isEdit={isEdit}
+            onChange={(event) => setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }))}
+            isHidden={formData.hiddenFields?.includes('mobilePhone')}
+            onHide={(isHidden) =>
+              setFormData((prev) => ({
+                ...prev,
+                hiddenFields: !isHidden
+                  ? prev.hiddenFields.concat('mobilePhone')
+                  : prev.hiddenFields.filter((field) => field !== 'mobilePhone'),
+              }))
+            }
+          />
+          <FieldDiv
+            field={i18next.t('field.jabberPhone')}
+            value={contact.jabberPhone?.toString()}
+            isEdit={isEdit}
+            onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
+            isHidden={formData.hiddenFields?.includes('jabberPhone')}
+            onHide={(isHidden) =>
+              setFormData((prev) => ({
+                ...prev,
+                hiddenFields: !isHidden
+                  ? prev.hiddenFields.concat('jabberPhone')
+                  : prev.hiddenFields.filter((field) => field !== 'jabberPhone'),
+              }))
+            }
+          />
+          <FieldDiv
+            field={i18next.t('field.redPhone')}
+            value={contact.redPhone?.toString()}
+            isEdit={isEdit}
+            onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+            isHidden={formData.hiddenFields?.includes('redPhone')}
+            onHide={(isHidden) =>
+              setFormData((prev) => ({
+                ...prev,
+                hiddenFields: !isHidden
+                  ? prev.hiddenFields.concat('redPhone')
+                  : prev.hiddenFields.filter((field) => field !== 'redPhone'),
+              }))
+            }
           />
         </StyledGridInfo>
       </StyledGridSection>
@@ -44,7 +87,10 @@ export const EntityContentDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =
           <FieldDiv field={i18next.t('field.personalNumber')} value={contact.personalNumber} />
           <FieldDiv field={i18next.t('field.identityCard')} value={contact.identityCard} />
           <FieldDiv field={i18next.t('field.rank')} value={contact.rank} />
-          <FieldDiv field={i18next.t('field.redPhone')} value={contact.redPhone?.toString()} />
+          <FieldDiv
+            field={i18next.t('field.birthDate')}
+            value={contact.birthDate ? new Date(contact.birthDate?.toString()).toLocaleDateString('en-GB') : undefined}
+          />
         </StyledGridInfo>
       </StyledGridSection>
     </Grid>

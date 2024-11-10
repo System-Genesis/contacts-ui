@@ -67,7 +67,6 @@ const App = () => {
       if (isOpen) return clearTimeout(inactivityTimeout);
 
       inactivityTimeout = setTimeout(() => {
-        console.log('Inactivity timeout triggered');
         dispatch(setSearchTerm(''));
         navigate('/');
       }, environment.resetTimeout);

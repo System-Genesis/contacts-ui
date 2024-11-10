@@ -70,6 +70,7 @@ export const Results = ({
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
         contactsCardProps.rank = (result as EntitySearchResult).rank;
+        contactsCardProps.hiddenFields = (result as EntitySearchResult).hiddenFields;
         contactsCardProps.handleSelect = (resType: ResultsTypes) =>
           handleCardClick({ ...result, type: resType } as EntitySearchResult);
 

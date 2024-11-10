@@ -4,6 +4,7 @@ export const routes = {
   me: '/api/users/my',
   backend: {
     favorites: '/api/users/my/favorites',
+    users: '/api/users',
     pic: '/api/users/pic',
     search: '/api/users/search',
     history: 'api/users/my/history',

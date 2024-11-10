@@ -1,10 +1,10 @@
 import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
 
-import { ContactNumbers } from '../../../common/contactNumbers';
 import { ContactOptions } from '../../../common/contactOptions';
 import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
 import { Option } from '../../../common/contactMenu';
+import { ContactNumbers } from '../../../common/contactNumbers';
 
 export const GroupFavoriteCard = ({
   id,

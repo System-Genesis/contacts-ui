@@ -1,10 +1,14 @@
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Autocomplete, Chip, Grid, TextField, Typography, useTheme } from '@mui/material';
 import { TagChip } from './chip';
 import i18next from 'i18next';
-import { AddTag } from './addTagChip';
 
 export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _id: string }[]; isEdit?: boolean }) => {
   const theme = useTheme();
+  const tagsList = [
+    { name: 'asdasd1', _id: '1' },
+    { name: 'asdasd2', _id: '2' },
+    { name: 'asdasd3', _id: '3' },
+  ];
 
   return (
     <Grid container>
@@ -38,11 +42,26 @@ export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _i
           mt: 0.5,
         }}
       >
-        {tags.map(({ name, _id }) => (
-          <TagChip value={name} id={_id} key={_id} isEdit={isEdit} />
-        ))}
-
-        {isEdit && <AddTag />}
+        {isEdit ? (
+          <Autocomplete<string, true, true, true>
+            multiple
+            id="tags-filled"
+            options={tagsList.map((t) => t.name)}
+            sx={{ width: '100%' }}
+            defaultValue={tagsList.map((t) => t.name)}
+            freeSolo
+            getOptionLabel={(option) => option}
+            renderTags={(value: readonly string[], getTagProps) =>
+              value.map((option: string, index: number) => {
+                const { key, ...tagProps } = getTagProps({ index });
+                return <Chip variant="outlined" label={option} key={key} {...tagProps} />;
+              })
+            }
+            renderInput={(params) => <TextField {...params} variant="standard" />}
+          />
+        ) : (
+          tags.map(({ name, _id }) => <TagChip value={name} id={_id} key={_id} isEdit={isEdit} />)
+        )}
       </Grid>
     </Grid>
   );

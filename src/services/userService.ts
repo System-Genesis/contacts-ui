@@ -2,7 +2,7 @@ import axiosInstance from '../api/axios';
 import { routes } from '../api/routes';
 
 const {
-  backend: { pic },
+  backend: { pic, users },
 } = routes;
 
 const getPicByID = async ({ id }: { id: string }): Promise<string> => {
@@ -13,4 +13,9 @@ const getPicByID = async ({ id }: { id: string }): Promise<string> => {
   return `data:image/jpeg;base64,${getFormattedPicture(data)}`;
 };
 
-export { getPicByID };
+const editUser = async (id: string, data: any) => {
+  const { data: resData } = await axiosInstance.patch(`${users}/${id}`, data);
+  return resData;
+};
+
+export { getPicByID, editUser };

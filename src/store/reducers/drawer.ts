@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EntitySearchResult, GroupSearchResult, Entity } from '../../lib/types';
 import { ResultsTypes } from '../../lib/enums';
+import { UserState } from './user';
 
 export interface DrawerState {
   isOpen: boolean;
-  contact: GroupSearchResult | EntitySearchResult | undefined;
+  contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
   subEntity: Entity | undefined;
   subGroups: GroupSearchResult[];
 }
@@ -28,7 +29,7 @@ export const drawerSlice = createSlice({
         state.subGroups = [] as GroupSearchResult[];
       }
     },
-    setDrawerObject: (state, action: PayloadAction<GroupSearchResult | EntitySearchResult>) => {
+    setDrawerObject: (state, action: PayloadAction<GroupSearchResult | EntitySearchResult | UserState>) => {
       state.contact = action.payload;
     },
     openSubEntity: (state, action: PayloadAction<Entity>) => {
@@ -37,7 +38,6 @@ export const drawerSlice = createSlice({
     openSubGroup: (state, action: PayloadAction<GroupSearchResult>) => {
       state.subGroups.push(state.contact);
       state.contact = { ...action.payload, type: ResultsTypes.GROUP };
-      console.log({ subGroup: action.payload, subGroups: state.subGroups });
     },
     closeSubGroup: (state) => {
       state.contact = state.subGroups.pop();
