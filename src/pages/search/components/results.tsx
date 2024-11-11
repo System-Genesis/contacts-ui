@@ -26,11 +26,10 @@ export const Results = ({
   searchHeader?: boolean;
   historyHeader?: boolean;
 }) => {
-  const theme = useTheme();
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
-  const contact = useSelector((state: RootState) => state.drawer.contact);
+  const contact = useSelector((state: RootState) => state.drawer.contact!);
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -38,8 +37,7 @@ export const Results = ({
     },
 
     onSuccess: () => {
-      queryClient.setQueryData('myHistory');
-      void queryClient.invalidateQueries({ queryKey: ['myHistory'] });
+      queryClient.setQueryData(['history'], () => [contact, ...results.filter((c) => c.id !== contact.id)]);
     },
   });
 

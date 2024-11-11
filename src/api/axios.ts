@@ -5,7 +5,7 @@ import { AuthService } from '../services/authService';
 
 const env = import.meta.env;
 
-console.log(env);
+console.info(env);
 
 const axiosInstance = axios.create({
   withCredentials: true,
@@ -29,7 +29,7 @@ axiosInstance.interceptors.response.use(
 );
 
 if (env.DEV && !env.VITE_APP_BE) {
-  console.log('Development Environment, using axios mock');
+  console.info('Development Environment, using axios mock');
 
   const [{ mockEntities }, { mockGroups }, { mockMe }, { mockSearch }] = await Promise.all([
     import('../mocks/backend/entities'),

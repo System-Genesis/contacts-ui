@@ -48,9 +48,7 @@ const Search = () => {
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
     queryKey: ['search', debouncedSearchTerm, resultsType],
     queryFn: ({ pageParam }) => searchRequest(debouncedSearchTerm, resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
-    getNextPageParam: (lastPage, allPages) => {
-      return lastPage.length ? allPages.length + 1 : undefined;
-    },
+    getNextPageParam: (lastPage, allPages) => (lastPage.length ? allPages.length + 1 : undefined),
     initialPageParam: 1,
   });
 

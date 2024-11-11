@@ -11,12 +11,12 @@ export const UpperContact: React.FC<{
   isEdit: boolean;
   subTitle: string;
   title: string;
-  imageSize: string;
+  imageSize?: string;
 }> = ({ contact, isEdit, subTitle, title, imageSize = '5rem' }) => {
   const theme = useTheme();
 
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>
+    <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container>
         <Grid item sx={{ height: '5rem', display: 'flex', alignItems: 'flex-end' }}>
           <ProfileImage
@@ -38,30 +38,20 @@ export const UpperContact: React.FC<{
             }}
           >
             <FavoriteButton id={contact.id} type={contact.type ?? 'entity'} />
-            <Grid
-              container
+
+            <Title value={title} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 20 }} />
+            <SubTitle
+              value={subTitle}
               sx={{
-                display: 'flex',
-                flexDirection: 'row',
-                width: '100%',
-                flexWrap: 'nowrap',
-                alignItems: 'center',
-                gap: 1,
+                fontSize: 16,
+                borderRadius: '30px',
+                maxWidth: '200px',
               }}
-            >
-              <Title value={title} sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', fontSize: 20 }} />
-              <SubTitle
-                value={subTitle}
-                sx={{
-                  fontSize: 16,
-                  borderRadius: '30px',
-                  maxWidth: '200px',
-                }}
-              />
-            </Grid>
+            />
           </Grid>
           <ContactOptions mails={contact.mails} chats={contact.chats} jabberPhone={contact.jabberPhone} />
         </Grid>
+        <Title value={contact.rank} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 12, ml: 4, mt: -0.5 }} />
         <Grid item>
           <ContactTags tags={contact.tags ?? []} isEdit={isEdit} />
         </Grid>

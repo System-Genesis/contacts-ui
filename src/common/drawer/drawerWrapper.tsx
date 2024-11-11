@@ -162,30 +162,9 @@ export const ContactDrawer: React.FC<{
           <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 2 }}>
             <StyledDivider theme={theme} />
             <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', columnGap: 2 }}>
-              <Button
-                variant="outlined"
-                sx={{
-                  color: theme.colors.aqua,
-                  fontSize: 14,
-                  borderRadius: '30px',
-                  borderColor: theme.colors.aqua,
-                  backgroundColor: theme.colors.white,
-                  '&:hover': { borderColor: theme.colors.aqua, backgroundColor: theme.colors.white },
-                }}
-                onClick={() => setIsEdit(false)}
-              >
-                {i18next.t(`cancel`)}
-              </Button>
-              <Button
-                sx={{
-                  color: theme.colors.white,
-                  backgroundColor: theme.colors.aqua,
-                  borderRadius: '30px',
-                  fontSize: 14,
-                  p: '0 1rem',
-                  '&:hover': { backgroundColor: theme.colors.darkAqua },
-                }}
-                endIcon={<SaveIcon />}
+              <CancelButton value={i18next.t(`cancel`)} onClick={() => setIsEdit(false)} />
+              <SaveButton
+                value={i18next.t(`saveChanges`)}
                 onClick={() => {
                   mutation.mutate();
                   setIsEdit(false);
