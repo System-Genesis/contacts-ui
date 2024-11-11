@@ -1,8 +1,10 @@
-import { Grid, Typography, useTheme } from '@mui/material';
+import { Grid, useTheme } from '@mui/material';
 import { ContactTags } from '../../tag/contactTags';
 import { ProfileImage } from '../../profileImage';
 import { ContactOptions } from '../../contactOptions';
 import { FavoriteButton } from '../../buttons/favoriteButton';
+import { Title } from '../../divs/title';
+import { SubTitle } from '../../divs/subTitle';
 
 export const UpperContact: React.FC<{
   contact: any;
@@ -47,28 +49,15 @@ export const UpperContact: React.FC<{
                 gap: 1,
               }}
             >
-              <Typography variant="h5" sx={{ fontWeight: 'bold', whiteSpace: 'nowrap' }}>
-                {title}
-              </Typography>
-              {subTitle && (
-                <Typography
-                  sx={{
-                    backgroundColor: theme.colors.lightAqua,
-                    color: theme.colors.green,
-                    fontSize: 16,
-                    borderRadius: '30px',
-                    padding: '0.25rem 0.5rem',
-                    whiteSpace: 'nowrap',
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    minWidth: '50px',
-                    maxWidth: '180px',
-                    m: 0,
-                  }}
-                >
-                  {subTitle}
-                </Typography>
-              )}
+              <Title value={title} sx={{ fontWeight: 'bold', whiteSpace: 'nowrap', fontSize: 20 }} />
+              <SubTitle
+                value={subTitle}
+                sx={{
+                  fontSize: 16,
+                  borderRadius: '30px',
+                  maxWidth: '200px',
+                }}
+              />
             </Grid>
           </Grid>
           <ContactOptions mails={contact.mails} chats={contact.chats} jabberPhone={contact.jabberPhone} />

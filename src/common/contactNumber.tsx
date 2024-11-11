@@ -1,7 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import mobilePhoneIcon from '../assets/icons/mobilePhoneIcon.svg';
 import mobilePhoneIconHidden from '../assets/icons/mobilePhoneIconHidden.svg';
-import jabberPhoneIcon from '../assets/icons/jabberPhoneIcon.svg';
+import redPhoneIcon from '../assets/icons/redPhoneIcon.svg';
 
 export const ContactNumber = ({
   value,
@@ -9,10 +9,10 @@ export const ContactNumber = ({
   isHidden = false,
 }: {
   value: string;
-  type: 'mobile' | 'jabber';
+  type: 'mobile' | 'red';
   isHidden?: boolean;
 }) => {
-  const iconSrc = type === 'mobile' ? (isHidden ? mobilePhoneIconHidden : mobilePhoneIcon) : jabberPhoneIcon;
+  const iconSrc = type === 'mobile' ? (isHidden ? mobilePhoneIconHidden : mobilePhoneIcon) : redPhoneIcon;
 
   return (
     <Box

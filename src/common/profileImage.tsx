@@ -18,7 +18,6 @@ export const ProfileImage = ({
   const { data: pic } = useQuery({
     queryKey: ['getPicByID', id],
     queryFn: () => getPicByID({ id }),
-    enabled: !!id,
   });
 
   if (type === 'group') return <img src={HierarchyIcon} style={style} onClick={onClick} />;

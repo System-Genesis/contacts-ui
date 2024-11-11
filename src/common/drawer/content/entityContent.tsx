@@ -14,6 +14,7 @@ export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; is
   const theme = useTheme();
   const contact = useSelector((state: RootState) => state.drawer.contact);
 
+  console.log({ contact });
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>
       <UpperContact contact={contact} isEdit={isEdit} title={contact.fullName} subTitle={contact.jobTitle} />
@@ -22,6 +23,7 @@ export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; is
         <Typography variant="body1">{i18next.t(`role`)}</Typography>
         <StyledGridInfo container theme={theme}>
           <FieldDiv field={i18next.t('field.hierarchy')} value={contact.hierarchy} />
+          <FieldDiv field={i18next.t('field.uniqueId')} value={contact.uniqueId} />
           <FieldDiv field={i18next.t('field.mail')} value={contact.mail} />
         </StyledGridInfo>
       </StyledGridSection>
@@ -29,7 +31,7 @@ export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; is
       <StyledDivider theme={theme} />
 
       <StyledGridSection container theme={theme}>
-        <Typography variant="body1">{i18next.t(`contactDetails`)}</Typography>
+        <Typography variant="body1">{i18next.t(`personalDetails`)}</Typography>
         <StyledGridInfo container theme={theme}>
           <FieldDiv
             field={i18next.t('field.mobilePhone')}
@@ -47,6 +49,10 @@ export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; is
             }
           />
           <FieldDiv
+            field={i18next.t('field.birthDate')}
+            value={contact.birthDate ? new Date(contact.birthDate?.toString()).toLocaleDateString('en-GB') : undefined}
+          />
+          <FieldDiv
             field={i18next.t('field.jabberPhone')}
             value={contact.jabberPhone?.toString()}
             isEdit={isEdit}
@@ -58,21 +64,6 @@ export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; is
                 hiddenFields: !isHidden
                   ? prev.hiddenFields.concat('jabberPhone')
                   : prev.hiddenFields.filter((field) => field !== 'jabberPhone'),
-              }))
-            }
-          />
-          <FieldDiv
-            field={i18next.t('field.redPhone')}
-            value={contact.redPhone?.toString()}
-            isEdit={isEdit}
-            onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
-            isHidden={formData.hiddenFields?.includes('redPhone')}
-            onHide={(isHidden) =>
-              setFormData((prev) => ({
-                ...prev,
-                hiddenFields: !isHidden
-                  ? prev.hiddenFields.concat('redPhone')
-                  : prev.hiddenFields.filter((field) => field !== 'redPhone'),
               }))
             }
           />
@@ -88,9 +79,20 @@ export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; is
           <FieldDiv field={i18next.t('field.identityCard')} value={contact.identityCard} />
           <FieldDiv field={i18next.t('field.rank')} value={contact.rank} />
           <FieldDiv
-            field={i18next.t('field.birthDate')}
-            value={contact.birthDate ? new Date(contact.birthDate?.toString()).toLocaleDateString('en-GB') : undefined}
-          />
+            field={i18next.t('field.redPhone')}
+            value={contact.redPhone?.toString()}
+            isEdit={isEdit}
+            onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+            isHidden={formData.hiddenFields?.includes('redPhone')}
+            onHide={(isHidden) =>
+              setFormData((prev) => ({
+                ...prev,
+                hiddenFields: !isHidden
+                  ? prev.hiddenFields.concat('redPhone')
+                  : prev.hiddenFields.filter((field) => field !== 'redPhone'),
+              }))
+            }
+          />   
         </StyledGridInfo>
       </StyledGridSection>
     </Grid>

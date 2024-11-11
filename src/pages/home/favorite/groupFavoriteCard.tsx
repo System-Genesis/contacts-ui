@@ -5,6 +5,7 @@ import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
 import { Option } from '../../../common/contactMenu';
 import { ContactNumbers } from '../../../common/contactNumbers';
+import { Title } from '../../../common/divs/title';
 
 export const GroupFavoriteCard = ({
   id,
@@ -12,6 +13,7 @@ export const GroupFavoriteCard = ({
   mails,
   chats,
   jabberPhone,
+  redPhone,
   mobilePhone,
   handleSelect,
   isSelected,
@@ -21,6 +23,7 @@ export const GroupFavoriteCard = ({
   mails: Option[];
   chats: Option[];
   jabberPhone: string;
+  redPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
   isSelected: boolean;
@@ -77,20 +80,11 @@ export const GroupFavoriteCard = ({
               padding: '1rem 0 0 0 ',
             }}
           >
-            <Typography
-              sx={{
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                maxWidth: '100px',
-              }}
-            >
-              {name}
-            </Typography>
+            <Title value={name} />
           </Box>
           <ContactOptions chats={chats} mails={mails} jabberPhone={jabberPhone} isGroup />
           <Divider sx={{ width: '90%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }} />
-          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
+          <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} isGroup />
         </Box>
       </Grid>
     </Grid>

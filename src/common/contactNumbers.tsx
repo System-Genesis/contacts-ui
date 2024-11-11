@@ -3,11 +3,11 @@ import { ContactNumber } from './contactNumber';
 
 export const ContactNumbers = ({
   mobilePhone = undefined,
-  jabberPhone = undefined,
+  redPhone = undefined,
   isGroup = false,
   hiddenFields = [],
 }: {
-  jabberPhone?: string;
+  redPhone?: string;
   mobilePhone?: string;
   isGroup?: boolean;
   hiddenFields?: string[];
@@ -21,9 +21,7 @@ export const ContactNumbers = ({
           isHidden={hiddenFields.includes('mobilePhone')}
         />
       )}
-      {jabberPhone && (
-        <ContactNumber type="jabber" value={jabberPhone} isHidden={hiddenFields.includes('jabberPhone')} />
-      )}
+      {redPhone && <ContactNumber type="red" value={redPhone} isHidden={hiddenFields.includes('redPhone')} />}
     </Box>
   );
 };

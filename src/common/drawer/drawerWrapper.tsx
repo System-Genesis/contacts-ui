@@ -9,7 +9,7 @@ import { StyledDivider } from './content/divider';
 import { SaveIcon } from '../../assets/icons/save';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { closeSubGroup, setIsDrawerOpen } from '../../store/reducers/drawer';
+import { closeSubGroup, setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { EntityContentDrawer } from './content/entityContent';
 import { GroupContactDrawer } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
@@ -58,7 +58,9 @@ export const ContactDrawer: React.FC<{
 
   const mutation = useMutation({
     mutationFn: () => {
-      return editUser(contact.id, formData);
+      const updatedUser = editUser(contact.id, formData);
+      dispatch(setDrawerObject(updatedUser));
+      return updatedUser;
     },
   });
 

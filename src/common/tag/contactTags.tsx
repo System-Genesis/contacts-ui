@@ -4,11 +4,6 @@ import i18next from 'i18next';
 
 export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _id: string }[]; isEdit?: boolean }) => {
   const theme = useTheme();
-  const tagsList = [
-    { name: 'asdasd1', _id: '1' },
-    { name: 'asdasd2', _id: '2' },
-    { name: 'asdasd3', _id: '3' },
-  ];
 
   return (
     <Grid container>
@@ -46,9 +41,9 @@ export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _i
           <Autocomplete<string, true, true, true>
             multiple
             id="tags-filled"
-            options={tagsList.map((t) => t.name)}
+            options={tags.map((t) => t.name)}
             sx={{ width: '100%' }}
-            defaultValue={tagsList.map((t) => t.name)}
+            defaultValue={tags.map((t) => t.name)}
             freeSolo
             getOptionLabel={(option) => option}
             renderTags={(value: readonly string[], getTagProps) =>

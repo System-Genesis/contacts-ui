@@ -1,5 +1,3 @@
 3. drawers: edit everything .. (hidden, tags, added value)
-9. *** the value of numbers in the backend -> how to overwrite entity vs group (search: "LIRAZ BUG HERE" ) update the contact info by DB!!!
 11. animations -> 
       2. remove unfav cards
-      5. favorites <-> search
