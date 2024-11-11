@@ -54,6 +54,7 @@ export const Results = ({
       id: result.id,
       hierarchy: result.hierarchy,
       jabberPhone: result.jabberPhone,
+      redPhone: result.redPhone,
       mobilePhone: result.mobilePhone,
       tags: result.tags,
       mails: result.mails,

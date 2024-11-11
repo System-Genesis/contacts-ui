@@ -8,6 +8,8 @@ export const FieldDiv = ({
   field,
   value,
   isEdit = false,
+  editable = false,
+  hidable = false,
   onChange = (event: ChangeEvent) => ({}),
   onHide = (isHidden: boolean) => ({}),
   isHidden = false,
@@ -15,15 +17,21 @@ export const FieldDiv = ({
   const theme = useTheme();
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', width: '20rem' }}>
       {isEdit ? (
         <>
-          <IconButton sx={{ m: 0 }} onClick={() => onHide(isHidden)}>
-            <img src={isHidden ? unHide : hide} width={'24rem'} style={{ padding: 0 }} />
-          </IconButton>
+          <Typography sx={{ flex: '0.5', color: theme.colors.darkGray, fontSize: 12 }}>
+            <IconButton sx={{ m: 0 }} onClick={() => onHide(isHidden)}>
+              <img src={isHidden ? unHide : hide} width={'20rem'} style={{ padding: 0 }} />
+            </IconButton>
+            {field}
+          </Typography>
           <TextField
-            sx={{ flex: '3', fontSize: 12 }}
-            label={field}
+            sx={{
+              flex: '1',
+              fontSize: 12,
+              '& .MuiInput-underline:after': { borderBottom: '1px solid #DCDCDC' },
+            }}
             variant="standard"
             defaultValue={value}
             onChange={onChange}

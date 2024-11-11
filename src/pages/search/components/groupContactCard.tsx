@@ -6,6 +6,8 @@ import { ProfileImage } from '../../../common/profileImage';
 import { ContactTags } from '../../../common/tag/contactTags';
 import { ResultsTypes } from '../../../lib/enums';
 import { SelectedSign } from './selectedSign';
+import { Title } from '../../../common/divs/title';
+import { SubTitle } from '../../../common/divs/subTitle';
 
 export const GroupContactsCard: React.FC<{
   id: string;
@@ -16,6 +18,7 @@ export const GroupContactsCard: React.FC<{
   tags: { name: string; _id: string }[];
   mobilePhone: string;
   jabberPhone: string;
+  redPhone: string;
   mails: string[];
   chats: string[];
   handleSelect: (type: ResultsTypes) => void;
@@ -28,6 +31,7 @@ export const GroupContactsCard: React.FC<{
   hierarchy,
   mobilePhone,
   jabberPhone,
+  redPhone,
   tags,
   mails,
   chats,
@@ -89,27 +93,8 @@ export const GroupContactsCard: React.FC<{
               >
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
-                    <Typography fontSize={14}>{title}</Typography>
-                    {(typeof subTitle === 'string' || subTitle > 0) && (
-                      <Typography
-                        fontSize={14}
-                        sx={{
-                          borderRadius: '50%',
-                          backgroundColor: theme.colors.subTitleBack,
-                          padding: 'auto',
-                          width: 'fix-content',
-                          minWidth: '28px',
-                          height: 'fix-content',
-                          minHeight: '25px',
-                          textAlign: 'center',
-                          justifyContent: 'center',
-                          alignContent: 'center',
-                          color: theme.colors.green,
-                        }}
-                      >
-                        {subTitle}
-                      </Typography>
-                    )}
+                    <Title value={title} />
+                    <SubTitle value={subTitle || ''} sx={{ borderRadius: '50%' }} />
                   </Grid>
                 </Grid>
 
@@ -127,7 +112,7 @@ export const GroupContactsCard: React.FC<{
 
         <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup />
-          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} isGroup />
+          <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} isGroup />
         </Grid>
       </Grid>
     </Grid>

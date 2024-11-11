@@ -10,6 +10,7 @@ export const hebrew = {
   save: 'שמירה',
   role: 'תפקיד',
   cancel: 'ביטול',
+  personalDetails: 'פרטים אישיים',
   militaryDetails: 'פרטים צבאיים',
   field: {
     hierarchy: 'היררכיה',

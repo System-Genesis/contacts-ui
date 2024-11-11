@@ -4,6 +4,8 @@ import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
 import { Option } from '../../../common/contactMenu';
 import { ContactNumbers } from '../../../common/contactNumbers';
+import { SubTitle } from '../../../common/divs/subTitle';
+import { Title } from '../../../common/divs/title';
 
 export const EntityFavoriteCard = ({
   id,
@@ -12,6 +14,7 @@ export const EntityFavoriteCard = ({
   mails,
   chats,
   jabberPhone,
+  redPhone,
   mobilePhone,
   entityType,
   handleSelect,
@@ -24,6 +27,7 @@ export const EntityFavoriteCard = ({
   mails: Option[];
   chats: Option[];
   jabberPhone: string;
+  redPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
   isSelected: boolean;
@@ -85,38 +89,12 @@ export const EntityFavoriteCard = ({
               padding: '1rem 0 0 0 ',
             }}
           >
-            <Typography
-              sx={{
-                whiteSpace: 'nowrap',
-                overflow: 'hidden',
-                textOverflow: 'ellipsis',
-                maxWidth: '100px',
-              }}
-            >
-              {fullName}
-            </Typography>
-            {jobTitle && (
-              <Typography
-                sx={{
-                  backgroundColor: theme.colors.subTitleBack,
-                  color: theme.colors.subTitle,
-                  borderRadius: '4px',
-                  paddingX: '8px',
-                  paddingY: '4px',
-                  fontSize: 14,
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
-                  textOverflow: 'ellipsis',
-                  maxWidth: '130px',
-                }}
-              >
-                {jobTitle}
-              </Typography>
-            )}
+            <Title value={fullName} />
+            <SubTitle value={jobTitle} />
           </Box>
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
           <Divider sx={{ width: '90%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }} />
-          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} />
+          <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} />
         </Box>
       </Grid>
     </Grid>

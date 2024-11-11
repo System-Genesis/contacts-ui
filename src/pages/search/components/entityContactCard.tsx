@@ -6,6 +6,8 @@ import { ProfileImage } from '../../../common/profileImage';
 import { ContactTags } from '../../../common/tag/contactTags';
 import { ResultsTypes } from '../../../lib/enums';
 import { SelectedSign } from './selectedSign';
+import { Title } from '../../../common/divs/title';
+import { SubTitle } from '../../../common/divs/subTitle';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -16,6 +18,7 @@ export const EntityContactsCard: React.FC<{
   tags: { name: string; _id: string }[];
   mobilePhone: string;
   jabberPhone: string;
+  redPhone: string;
   entityType: string;
   mails: string[];
   chats: string[];
@@ -31,6 +34,7 @@ export const EntityContactsCard: React.FC<{
   hierarchy,
   entityType,
   mobilePhone,
+  redPhone,
   jabberPhone,
   tags,
   mails,
@@ -100,20 +104,8 @@ export const EntityContactsCard: React.FC<{
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
                     {rank && <Typography fontSize={12}>{rank}</Typography>}
-                    <Typography fontSize={14}>{title}</Typography>
-                    {subTitle && (
-                      <Typography
-                        fontSize={14}
-                        sx={{
-                          backgroundColor: theme.colors.subTitleBack,
-                          color: theme.colors.subTitle,
-                          borderRadius: '4px',
-                          padding: '0.25rem 0.5rem ',
-                        }}
-                      >
-                        {subTitle}
-                      </Typography>
-                    )}
+                    <Title value={title} />
+                    <SubTitle value={subTitle} sx={{ fontSize: '14', maxWidth: 'fit-content' }} />
                   </Grid>
                 </Grid>
 
@@ -131,7 +123,7 @@ export const EntityContactsCard: React.FC<{
 
         <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} chats={chats} mails={mails} />
-          <ContactNumbers jabberPhone={jabberPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
+          <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
         </Grid>
       </Grid>
     </Grid>
