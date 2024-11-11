@@ -36,6 +36,7 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
             type={entity.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
             style={{ width: '2.5rem', height: '2.5rem' }}
             onClick={() => ({})}
+            sex={contact.sex}
           />
         </Grid>
         <Grid item xs={7} sx={{ alignContent: 'center' }}>

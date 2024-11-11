@@ -59,6 +59,7 @@ const TopBar = () => {
             dispatch(setIsDrawerOpen(true));
             dispatch(setDrawerObject(currentUser));
           }}
+          sex={currentUser.sex}
         />
       </Box>
       <ContactDrawer />

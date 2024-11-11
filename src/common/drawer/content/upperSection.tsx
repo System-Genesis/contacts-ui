@@ -1,4 +1,4 @@
-import { Grid, useTheme } from '@mui/material';
+import { Grid } from '@mui/material';
 import { ContactTags } from '../../tag/contactTags';
 import { ProfileImage } from '../../profileImage';
 import { ContactOptions } from '../../contactOptions';
@@ -13,8 +13,6 @@ export const UpperContact: React.FC<{
   title: string;
   imageSize?: string;
 }> = ({ contact, isEdit, subTitle, title, imageSize = '5rem' }) => {
-  const theme = useTheme();
-
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container>
@@ -23,6 +21,7 @@ export const UpperContact: React.FC<{
             type={contact.type ?? 'entity'}
             id={contact.id}
             style={{ width: imageSize, height: imageSize }}
+            sex={contact.sex}
           />
         </Grid>
 

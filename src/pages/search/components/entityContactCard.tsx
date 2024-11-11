@@ -27,6 +27,7 @@ export const EntityContactsCard: React.FC<{
   isSelected: boolean;
   hiddenFields: string[];
   rank: string;
+  sex: 'male' | 'female';
 }> = ({
   type,
   id,
@@ -44,6 +45,7 @@ export const EntityContactsCard: React.FC<{
   handleSelect,
   hiddenFields,
   rank,
+  sex,
 }) => {
   const theme = useTheme();
 
@@ -90,6 +92,7 @@ export const EntityContactsCard: React.FC<{
               type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
               id={id}
               style={{ width: '4rem', height: '4rem' }}
+              sex={sex}
             />
             <Grid item p={1} alignContent={'center'} textAlign={'left'}>
               <Grid

@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, Typography, useTheme } from '@mui/material';
+import { Box, Divider, Grid, useTheme } from '@mui/material';
 import { ContactOptions } from '../../../common/contactOptions';
 import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
@@ -19,6 +19,7 @@ export const EntityFavoriteCard = ({
   entityType,
   handleSelect,
   isSelected,
+  sex,
 }: {
   id: string;
   fullName: string;
@@ -31,6 +32,7 @@ export const EntityFavoriteCard = ({
   mobilePhone: string;
   handleSelect: () => void;
   isSelected: boolean;
+  sex: 'male' | 'female';
 }) => {
   const theme = useTheme();
 
@@ -78,6 +80,7 @@ export const EntityFavoriteCard = ({
             type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
             id={id}
             style={{ width: '3.5rem', height: '3.5rem' }}
+            sex={sex}
           />
 
           <Box
