@@ -14,7 +14,6 @@ export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; is
   const theme = useTheme();
   const contact = useSelector((state: RootState) => state.drawer.contact);
 
-  console.log({ contact });
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>
       <UpperContact contact={contact} isEdit={isEdit} title={contact.fullName} subTitle={contact.jobTitle} />

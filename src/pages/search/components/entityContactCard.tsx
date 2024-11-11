@@ -8,6 +8,7 @@ import { ResultsTypes } from '../../../lib/enums';
 import { SelectedSign } from './selectedSign';
 import { Title } from '../../../common/divs/title';
 import { SubTitle } from '../../../common/divs/subTitle';
+import { Option } from '../../../common/contactMenu';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -20,8 +21,8 @@ export const EntityContactsCard: React.FC<{
   jabberPhone: string;
   redPhone: string;
   entityType: string;
-  mails: string[];
-  chats: string[];
+  mails: Option[];
+  chats: Option[];
   handleSelect: (type: ResultsTypes) => void;
   isSelected: boolean;
   hiddenFields: string[];

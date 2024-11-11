@@ -43,4 +43,7 @@ export const hebrew = {
   historyHeader: 'חיפושים אחרונים',
   tagsExplain: 'ניתן להוסיף תגיות לכרטיסייה שיצרתם בהתאם לסוג הכרטיסיה, תחום מקצועי ומערכות קשורות.',
   tagsTitle: 'התגיות שלי',
+  hiChat: "היי צ'ט",
+  outlook: 'אאוטלוק',
+  jabber: "ג'אבר",
 };

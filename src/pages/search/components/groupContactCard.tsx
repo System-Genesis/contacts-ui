@@ -8,6 +8,7 @@ import { ResultsTypes } from '../../../lib/enums';
 import { SelectedSign } from './selectedSign';
 import { Title } from '../../../common/divs/title';
 import { SubTitle } from '../../../common/divs/subTitle';
+import { Option } from '../../../common/contactMenu';
 
 export const GroupContactsCard: React.FC<{
   id: string;
@@ -19,8 +20,8 @@ export const GroupContactsCard: React.FC<{
   mobilePhone: string;
   jabberPhone: string;
   redPhone: string;
-  mails: string[];
-  chats: string[];
+  mails: Option[];
+  chats: Option[];
   handleSelect: (type: ResultsTypes) => void;
   isSelected?: boolean;
 }> = ({

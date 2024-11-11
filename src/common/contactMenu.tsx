@@ -1,5 +1,6 @@
 import { Box, IconButton, Menu, MenuItem, Typography, useTheme } from '@mui/material';
 import { useState } from 'react';
+import Tooltip from './divs/toolTip';
 
 export interface Option {
   option: string;
@@ -7,7 +8,17 @@ export interface Option {
   displayText: string;
 }
 
-export const ContactMenu = ({ icon, options, href }: { icon: string; options: Option[]; href: string }) => {
+export const ContactMenu = ({
+  title,
+  icon,
+  options,
+  href,
+}: {
+  title: string;
+  icon: string;
+  options: Option[];
+  href: string;
+}) => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -23,9 +34,11 @@ export const ContactMenu = ({ icon, options, href }: { icon: string; options: Op
 
   return (
     <>
-      <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ m: 0 }}>
-        <img src={icon} width={'24rem'} style={{ padding: 0 }} />
-      </IconButton>
+      <Tooltip title={title}>
+        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ m: 0 }}>
+          <img src={icon} width={'24rem'} style={{ padding: 0 }} />
+        </IconButton>
+      </Tooltip>
       <Menu
         anchorEl={anchorEl}
         open={open}
