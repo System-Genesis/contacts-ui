@@ -6,8 +6,8 @@ export const DirectEntities = ({ entities }: { entities: Entity[] }) => {
   return (
     <Grid
       container
-      minHeight={'250px'}
-      maxHeight={'250px'}
+      minHeight={'210px'}
+      maxHeight={'210px'}
       sx={{
         display: 'flex',
         flexDirection: 'column',

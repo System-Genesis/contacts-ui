@@ -3,9 +3,7 @@ import i18next from 'i18next';
 import { FieldDiv } from '../../divs/field';
 import { UpperContact } from './upperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store';
-import { Entity, EntitySearchResult } from '../../../lib/types';
+import { EntitySearchResult } from '../../../lib/types';
 
 export const EntityContentDrawer: React.FC<{
   setFormData: any;
@@ -23,7 +21,7 @@ export const EntityContentDrawer: React.FC<{
         <Typography variant="body1">{i18next.t(`role`)}</Typography>
         <StyledGridInfo container theme={theme}>
           <FieldDiv field={i18next.t('field.hierarchy')} value={contact.hierarchy} />
-          <FieldDiv field={i18next.t('field.mail')} value={contact.mail} />
+          <FieldDiv field={i18next.t('field.jobTitle')} value={contact.jobTitle} />
         </StyledGridInfo>
       </StyledGridSection>
 
@@ -55,21 +53,6 @@ export const EntityContentDrawer: React.FC<{
         <Typography variant="body1">{i18next.t(`extraContactDetails`)}</Typography>
         <StyledGridInfo container theme={theme}>
           <FieldDiv
-            field={i18next.t('field.redPhone')}
-            value={contact.redPhone?.toString()}
-            isEdit={isEdit}
-            onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
-            isHidden={formData.hiddenFields?.includes('redPhone')}
-            onHide={(isHidden) =>
-              setFormData((prev) => ({
-                ...prev,
-                hiddenFields: !isHidden
-                  ? prev.hiddenFields.concat('redPhone')
-                  : prev.hiddenFields.filter((field) => field !== 'redPhone'),
-              }))
-            }
-          />
-          <FieldDiv
             field={i18next.t('field.mobilePhone')}
             value={contact.mobilePhone?.toString()}
             isEdit={isEdit}
@@ -84,6 +67,22 @@ export const EntityContentDrawer: React.FC<{
               }))
             }
           />
+          <FieldDiv
+            field={i18next.t('field.redPhone')}
+            value={contact.redPhone?.toString()}
+            isEdit={isEdit}
+            onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+            isHidden={formData.hiddenFields?.includes('redPhone')}
+            onHide={(isHidden) =>
+              setFormData((prev) => ({
+                ...prev,
+                hiddenFields: !isHidden
+                  ? prev.hiddenFields.concat('redPhone')
+                  : prev.hiddenFields.filter((field) => field !== 'redPhone'),
+              }))
+            }
+          />
+
           <FieldDiv
             field={i18next.t('field.jabberPhone')}
             value={contact.jabberPhone?.toString()}

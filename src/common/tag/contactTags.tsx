@@ -55,7 +55,7 @@ export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _i
             renderInput={(params) => <TextField {...params} variant="standard" />}
           />
         ) : (
-          tags.map(({ name, _id }) => <TagChip value={name} id={_id} key={_id} isEdit={isEdit} />)
+          tags.map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} isEdit={isEdit} />)
         )}
       </Grid>
     </Grid>
