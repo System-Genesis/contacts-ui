@@ -168,10 +168,19 @@ export const ContactDrawer: React.FC<{
                 onClick={() => {
                   mutation.mutate();
                   setIsEdit(false);
+
+                  queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {
+                    if (!oldData) return;
+
+                    return {
+                      ...oldData,
+                      pages: oldData.pages.map((page) =>
+                        page.map((c) => (c.id === formData.id ? { ...c, ...formData } : c)),
+                      ),
+                    };
+                  });
                 }}
-              >
-                {i18next.t(`saveChanges`)}
-              </Button>
+              />
             </Grid>
           </Grid>
         )}
