@@ -15,6 +15,6 @@ export const StyledGridSection = styled(Grid)(({ theme }) => ({
 export const StyledGridInfo = styled(Grid)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
-  rowGap: theme.spacing(1.2),
+  rowGap: theme.spacing(1.5),
   flexWrap: 'nowrap',
 }));

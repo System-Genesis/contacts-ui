@@ -35,14 +35,15 @@ export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _i
           display: 'flex',
           gap: 1,
           mt: 0.5,
+          p: 0,
         }}
       >
-        {isEdit ? (
+        {/* {isEdit ? (
           <Autocomplete<string, true, true, true>
             multiple
             id="tags-filled"
             options={tags.map((t) => t.name)}
-            sx={{ width: '100%' }}
+            sx={{ width: '100%', p: 0 }}
             defaultValue={tags.map((t) => t.name)}
             freeSolo
             getOptionLabel={(option) => option}
@@ -52,11 +53,12 @@ export const ContactTags = ({ tags, isEdit = false }: { tags: { name: string; _i
                 return <Chip variant="outlined" label={option} key={key} {...tagProps} />;
               })
             }
-            renderInput={(params) => <TextField {...params} variant="standard" />}
+            renderInput={(params) => <TextField {...params} sx={{ padding: 0 }} variant="standard" />}
           />
         ) : (
           tags.map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} isEdit={isEdit} />)
-        )}
+        )} */}
+        {tags.map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} isEdit={isEdit} />)}
       </Grid>
     </Grid>
   );

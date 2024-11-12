@@ -17,30 +17,28 @@ export const FieldDiv = ({
   const theme = useTheme();
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', width: '20rem' }}>
-      {isEdit ? (
-        <>
-          <Typography sx={{ flex: '0.5', color: theme.colors.darkGray, fontSize: 12 }}>
-            <IconButton sx={{ m: 0 }} onClick={() => onHide(isHidden)}>
-              <img src={isHidden ? unHide : hide} width={'20rem'} style={{ padding: 0 }} />
-            </IconButton>
-            {field}
-          </Typography>
-          <TextField
-            sx={{
-              flex: '1',
-              fontSize: 12,
-              '& .MuiInput-underline:after': { borderBottom: '1px solid #DCDCDC' },
-            }}
-            variant="standard"
-            defaultValue={value}
-            onChange={onChange}
-          />
-        </>
+    <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 2 }}>
+      {isEdit && (
+        <IconButton sx={{ m: 0, p: 0, width: 10 }} onClick={() => onHide(isHidden)}>
+          {hidable && <img src={isHidden ? unHide : hide} width={18} style={{ padding: 0 }} />}
+        </IconButton>
+      )}
+      <Typography sx={{ flex: '0.2', color: theme.colors.darkGray, fontSize: 12 }}>{field}</Typography>
+      {isEdit && editable ? (
+        <TextField
+          sx={{
+            flex: '0.3',
+
+            '& .MuiInput-underline:before': { borderBottom: '1px solid #DCDCDC' },
+            '& .MuiInput-input': { p: 0, fontSize: 12 },
+          }}
+          variant="standard"
+          defaultValue={value}
+          onChange={onChange}
+        />
       ) : (
         <>
-          <Typography sx={{ flex: '1', color: theme.colors.darkGray, fontSize: 12 }}>{field}</Typography>
-          <Typography sx={{ flex: '3', fontSize: 12 }}>{value ?? i18next.t('noData')}</Typography>
+          <Typography sx={{ flex: '0.3', fontSize: 12 }}>{value ?? i18next.t('noData')}</Typography>
         </>
       )}
     </Box>
