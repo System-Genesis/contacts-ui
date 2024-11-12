@@ -13,6 +13,7 @@ import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 const TopBar = () => {
   const currentUser = useSelector((state: RootState) => state.user);
   const theme = useTheme();
+  const contact = useSelector((state: RootState) => state.drawer.contact);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -62,7 +63,7 @@ const TopBar = () => {
           sex={currentUser.sex}
         />
       </Box>
-      <ContactDrawer />
+      {contact && <ContactDrawer contact={contact} />}
     </Box>
   );
 };

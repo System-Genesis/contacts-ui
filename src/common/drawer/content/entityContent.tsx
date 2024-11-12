@@ -5,14 +5,15 @@ import { UpperContact } from './upperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
+import { Entity, EntitySearchResult } from '../../../lib/types';
 
-export const EntityContentDrawer: React.FC<{ setFormData: any; formData: any; isEdit: boolean }> = ({
-  setFormData,
-  formData,
-  isEdit,
-}) => {
+export const EntityContentDrawer: React.FC<{
+  setFormData: any;
+  formData: any;
+  isEdit: boolean;
+  contact: EntitySearchResult;
+}> = ({ contact, setFormData, formData, isEdit }) => {
   const theme = useTheme();
-  const contact = useSelector((state: RootState) => state.drawer.contact!);
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>

@@ -52,13 +52,7 @@ const Search = () => {
     initialPageParam: 1,
   });
 
-  const searchResults = useMemo(() => {
-    return (
-      data?.pages.reduce((acc, page) => {
-        return [...acc, ...page];
-      }, []) ?? []
-    );
-  }, [data]);
+  const searchResults = useMemo(() => data?.pages.reduce((acc, page) => [...acc, ...page], []) ?? [], [data]);
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement) => {

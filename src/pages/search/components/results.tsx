@@ -119,7 +119,7 @@ export const Results = ({
           ]}
         </Stack>
       </Box>
-      <ContactDrawer />
+      {contact && <ContactDrawer contact={contact} />}
     </>
   );
 };

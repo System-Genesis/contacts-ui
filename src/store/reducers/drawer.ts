@@ -6,7 +6,7 @@ import { UserState } from './user';
 export interface DrawerState {
   isOpen: boolean;
   contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
-  subEntity: Entity | undefined;
+  subEntity: EntitySearchResult | undefined;
   subGroups: GroupSearchResult[];
 }
 

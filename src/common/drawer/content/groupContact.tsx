@@ -9,10 +9,11 @@ import { useQuery } from '@tanstack/react-query';
 import { getSubsOfGroup } from '../../../services/searchService';
 import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
+import { ContactDrawer } from '../drawerWrapper';
 
 export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const theme = useTheme();
-  const { contact } = useSelector((state: RootState) => state.drawer);
+  const { contact, subEntity } = useSelector((state: RootState) => state.drawer);
 
   const subs = useQuery({
     queryKey: ['subs', contact?.id],
@@ -86,6 +87,8 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
       ) : (
         <></>
       )}
+
+      {subEntity && <ContactDrawer contact={subEntity} sx={{ mr: '490px' }} />}
     </Grid>
   );
 };
