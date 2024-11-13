@@ -1,11 +1,11 @@
 import { Grid, Typography, useTheme } from '@mui/material';
-import { GroupSearchResult } from '../../../../lib/types';
+import { Group } from '../../../../lib/types';
 import { ProfileImage } from '../../../profileImage';
 import openSub from '../../../../assets/icons/openSub.svg';
 import { openSubGroup } from '../../../../store/reducers/drawer';
 import { useDispatch } from 'react-redux';
 
-export const GroupCard = ({ group }: { group: GroupSearchResult }) => {
+export const GroupCard = ({ group }: { group: Group }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
 
