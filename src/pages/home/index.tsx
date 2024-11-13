@@ -107,7 +107,7 @@ const Home = () => {
           {data.map(generateFavorite)}
         </Grid>
       )}
-      {contact && <ContactDrawer contact={contact} />}
+      <ContactDrawer contact={contact} />
     </Box>
   );
 };

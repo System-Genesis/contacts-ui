@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
+import { Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
 import CloseIcon from '../../assets/icons/close.svg';
 import BackIcon from '../../assets/icons/back.svg';
 import EditIcon from '../../assets/icons/edit.svg';
@@ -8,7 +8,7 @@ import i18next from 'i18next';
 import { StyledDivider } from './content/divider';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { closeSubGroup, setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
+import { closeSubEntity, closeSubGroup, setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { EntityContentDrawer } from './content/entityContent';
 import { GroupContactDrawer } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
@@ -19,10 +19,10 @@ import { CancelButton } from '../buttons/cancel';
 import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { setUser, UserState } from '../../store/reducers/user';
 
-const StyledDrawerWrapper = styled(SwipeableDrawer)({
-  '& .MuiBackdrop-root': {
-    backgroundColor: 'rgba(0,0,0,0)',
-  },
+const StyledDrawerWrapper = styled(SwipeableDrawer, {
+  shouldForwardProp: (prop) => prop !== 'isSubEntity', // Prevents `isSubEntity` from reaching the DOM
+})<{ isSubEntity?: boolean }>(({ isSubEntity }) => ({
+  pointerEvents: isSubEntity ? 'none' : 'auto', // Allow interactions with the main drawer when nested drawer is open
   '& .MuiDrawer-paper': {
     position: 'absolute',
     top: 0,
@@ -34,19 +34,25 @@ const StyledDrawerWrapper = styled(SwipeableDrawer)({
       width: 0,
       height: 0,
     },
+    pointerEvents: 'auto',
     scrollbarWidth: 'none',
-    '-ms-overflow-style': 'none',
-    boxShadow: `
-    30px 0px 65px 0px #383F511F,
-    118px 0px 118px 0px #383F511C,
-    266px 0px 159px 0px #383F510F,
-    472px 0px 189px 0px #383F5103,
-    738px 0px 207px 0px #383F5100`,
+    msOverflowStyle: 'none',
+    boxShadow: isSubEntity
+      ? 'none'
+      : `
+        30px 0px 65px 0px #383F511F,
+        118px 0px 118px 0px #383F511C,
+        266px 0px 159px 0px #383F510F,
+        472px 0px 189px 0px #383F5103,
+        738px 0px 207px 0px #383F5100`,
   },
-});
+  '& .MuiBackdrop-root': {
+    backgroundColor: 'rgba(0,0,0,0)', // Fully transparent backdrop
+  },
+}));
 
 export const ContactDrawer: React.FC<{
-  contact: GroupSearchResult | EntitySearchResult | UserState;
+  contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
   sx?: object;
   onClose?: () => void;
 }> = ({ onClose = () => ({}), contact, sx = {} }) => {
@@ -54,15 +60,11 @@ export const ContactDrawer: React.FC<{
   const theme = useTheme();
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
-
-  const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
   const subGroups = useSelector((state: RootState) => state.drawer.subGroups);
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentUser = useSelector((state: RootState) => state.user);
-
   const [formData, setFormData] = useState({});
-  const [isSubEntityOpen, setIsSubEntityOpen] = useState(false);
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -83,23 +85,26 @@ export const ContactDrawer: React.FC<{
       });
     }
   }, [contact]);
-
   return (
     <StyledDrawerWrapper
+      isSubEntity={subEntity?.id === contact?.id}
       anchor="right"
-      open={isOpen}
+      open={!!contact}
       elevation={2}
-      onOpen={() => dispatch(setIsDrawerOpen(true))}
+      onOpen={() => {
+        if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(true));
+      }}
       onClose={() => {
         setIsEdit(false);
-        dispatch(setIsDrawerOpen(false));
+        if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
+        else dispatch(closeSubEntity());
         onClose();
       }}
-      allowSwipeInChildren
       PaperProps={{
         sx: {
           borderRadius: '20px 0px 0px 20px',
           padding: theme.spacing(0),
+          ...(subEntity?.id === contact?.id && { transform: 'translateX(480px)' }),
         },
       }}
       sx={sx}
@@ -151,8 +156,9 @@ export const ContactDrawer: React.FC<{
               )}
               <IconButton
                 onClick={() => {
-                  dispatch(setIsDrawerOpen(false));
                   setIsEdit(false);
+                  if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
+                  else dispatch(closeSubEntity());
                   onClose();
                 }}
                 sx={{ p: 0, m: 1 }}

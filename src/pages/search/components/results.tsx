@@ -1,4 +1,4 @@
-import { Box, Stack, useTheme } from '@mui/material';
+import { Box, Stack } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
 import { HistoryHeader, SearchHeader } from './header';
@@ -119,7 +119,7 @@ export const Results = ({
           ]}
         </Stack>
       </Box>
-      {contact && <ContactDrawer contact={contact} />}
+      <ContactDrawer contact={contact} />
     </>
   );
 };
