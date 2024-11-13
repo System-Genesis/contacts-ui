@@ -1,4 +1,4 @@
-import { Box, Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
+import { Grid, IconButton, SwipeableDrawer, styled } from '@mui/material';
 import CloseIcon from '../../assets/icons/close.svg';
 import BackIcon from '../../assets/icons/back.svg';
 import EditIcon from '../../assets/icons/edit.svg';
@@ -19,7 +19,9 @@ import { CancelButton } from '../buttons/cancel';
 import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { setUser, UserState } from '../../store/reducers/user';
 
-const StyledDrawerWrapper = styled(SwipeableDrawer)<{ isSubEntity?: boolean }>(({ isSubEntity }) => ({
+const StyledDrawerWrapper = styled(SwipeableDrawer, {
+  shouldForwardProp: (prop) => prop !== 'isSubEntity', // Prevents `isSubEntity` from reaching the DOM
+})<{ isSubEntity?: boolean }>(({ isSubEntity }) => ({
   pointerEvents: isSubEntity ? 'none' : 'auto', // Allow interactions with the main drawer when nested drawer is open
   '& .MuiDrawer-paper': {
     position: 'absolute',
@@ -34,7 +36,7 @@ const StyledDrawerWrapper = styled(SwipeableDrawer)<{ isSubEntity?: boolean }>((
     },
     pointerEvents: 'auto',
     scrollbarWidth: 'none',
-    '-ms-overflow-style': 'none',
+    msOverflowStyle: 'none',
     boxShadow: isSubEntity
       ? 'none'
       : `
