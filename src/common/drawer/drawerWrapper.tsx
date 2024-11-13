@@ -52,7 +52,7 @@ const StyledDrawerWrapper = styled(SwipeableDrawer, {
 }));
 
 export const ContactDrawer: React.FC<{
-  contact: GroupSearchResult | EntitySearchResult | UserState;
+  contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
   sx?: object;
   onClose?: () => void;
 }> = ({ onClose = () => ({}), contact, sx = {} }) => {
@@ -85,20 +85,18 @@ export const ContactDrawer: React.FC<{
       });
     }
   }, [contact]);
-
   return (
     <StyledDrawerWrapper
-      isSubEntity={subEntity?.id === contact.id}
+      isSubEntity={subEntity?.id === contact?.id}
       anchor="right"
-      // variant={subEntity?.id === contact.id ? 'temporary' : 'permanent'}
       open={!!contact}
       elevation={2}
       onOpen={() => {
-        if (subEntity?.id !== contact.id) dispatch(setIsDrawerOpen(true));
+        if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(true));
       }}
       onClose={() => {
         setIsEdit(false);
-        if (subEntity?.id !== contact.id) dispatch(setIsDrawerOpen(false));
+        if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
         else dispatch(closeSubEntity());
         onClose();
       }}
@@ -106,6 +104,7 @@ export const ContactDrawer: React.FC<{
         sx: {
           borderRadius: '20px 0px 0px 20px',
           padding: theme.spacing(0),
+          ...(subEntity?.id === contact?.id && { transform: 'translateX(480px)' }),
         },
       }}
       sx={sx}
@@ -158,7 +157,7 @@ export const ContactDrawer: React.FC<{
               <IconButton
                 onClick={() => {
                   setIsEdit(false);
-                  if (subEntity?.id !== contact.id) dispatch(setIsDrawerOpen(false));
+                  if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
                   else dispatch(closeSubEntity());
                   onClose();
                 }}
