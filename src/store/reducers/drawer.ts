@@ -29,6 +29,9 @@ export const drawerSlice = createSlice({
         state.subGroups = [] as GroupSearchResult[];
       }
     },
+    closeSubEntity: (state) => {
+      state.subEntity = undefined;
+    },
     setDrawerObject: (state, action: PayloadAction<GroupSearchResult | EntitySearchResult | UserState>) => {
       state.contact = action.payload;
     },
@@ -37,6 +40,7 @@ export const drawerSlice = createSlice({
     },
     openSubGroup: (state, action: PayloadAction<GroupSearchResult>) => {
       state.subGroups.push(state.contact);
+      state.subEntity = undefined;
       state.contact = { ...action.payload, type: ResultsTypes.GROUP };
     },
     closeSubGroup: (state) => {
@@ -45,5 +49,6 @@ export const drawerSlice = createSlice({
   },
 });
 
-export const { setIsDrawerOpen, setDrawerObject, openSubEntity, openSubGroup, closeSubGroup } = drawerSlice.actions;
+export const { setIsDrawerOpen, setDrawerObject, openSubEntity, openSubGroup, closeSubGroup, closeSubEntity } =
+  drawerSlice.actions;
 export default drawerSlice.reducer;

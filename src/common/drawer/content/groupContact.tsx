@@ -89,7 +89,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
         <></>
       )}
 
-      {subEntity && <ContactDrawer contact={subEntity} sx={{ mr: '490px' }} />}
+      <ContactDrawer contact={subEntity} sx={{ mr: '485px' }} />
     </Grid>
   );
 };

@@ -63,7 +63,7 @@ const TopBar = () => {
           sex={currentUser.sex}
         />
       </Box>
-      {contact && <ContactDrawer contact={contact} />}
+      <ContactDrawer contact={contact} />
     </Box>
   );
 };
