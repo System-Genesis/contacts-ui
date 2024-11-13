@@ -9,7 +9,7 @@ import { openSubEntity } from '../../../../store/reducers/drawer';
 
 export const EntityCard = ({ entity }: { entity: Entity }) => {
   const theme = useTheme();
-  const contact = useSelector((state: RootState) => state.drawer.contact);
+  const contact = useSelector((state: RootState) => state.drawer.contact!);
 
   const dispatch = useDispatch();
 
@@ -64,7 +64,7 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
               )}
             </Grid>
 
-            {entity.commanderOf?.includes(contact?.id) && (
+            {entity.commanderOf?.includes(contact.id) && (
               <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Typography fontSize={12} color={theme.colors.darkGray}>
                   מפקד היררכיה

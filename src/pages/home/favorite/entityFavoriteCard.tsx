@@ -60,13 +60,14 @@ export const EntityFavoriteCard = ({
           flexDirection: 'column',
           minWidth: '17.5rem',
           width: '17.5rem',
-          height: '16rem',
-          minHeight: '16rem',
+          height: '15rem',
+          minHeight: '15rem',
           padding: '1rem',
           margin: '0.25rem 0.5rem',
         }}
       >
-        <Box
+        <Grid
+          container
           sx={{
             mt: 1,
             flex: 1,
@@ -82,23 +83,37 @@ export const EntityFavoriteCard = ({
             style={{ width: '3.5rem', height: '3.5rem' }}
             sex={sex}
           />
-
-          <Box
+          <Grid
+            container
             sx={{
               display: 'flex',
-              justifyContent: 'row',
-              gap: 1,
-              alignItems: 'center',
-              padding: '1rem 0 0 0 ',
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: '65%',
             }}
           >
-            <Title value={fullName} />
-            <SubTitle value={jobTitle} />
-          </Box>
-          <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
-          <Divider sx={{ width: '90%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }} />
-          <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} />
-        </Box>
+            <Grid
+              container
+              sx={{ display: 'flex', flexDirection: 'column', alignContent: 'center', gap: 1, alignItems: 'center' }}
+            >
+              <Title value={fullName} />
+              <SubTitle value={jobTitle} sx={{ maxWidth: '210px' }} noToolTip />
+            </Grid>
+            <Grid container>
+              {(mails?.length || chats?.length || mobilePhone || jabberPhone) && (
+                <Grid container sx={{ width: '100%', gap: 1 }}>
+                  <Divider
+                    sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
+                  />
+                  <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
+                    <ContactNumbers mobilePhone={mobilePhone} />
+                    <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
+                  </Grid>
+                </Grid>
+              )}
+            </Grid>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   );

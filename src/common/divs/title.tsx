@@ -7,7 +7,7 @@ export const Title = ({ value, sx = {} }) => {
         whiteSpace: 'nowrap',
         overflow: 'hidden',
         textOverflow: 'ellipsis',
-        maxWidth: '100px',
+        maxWidth: '200px',
         ...sx,
       }}
     >

@@ -3,8 +3,7 @@ import i18next from 'i18next';
 import { FieldDiv } from '../../divs/field';
 import { UpperContact } from './upperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
-import { DirectEntities } from './directEntities';
-import { DirectGroups } from './directGroups';
+import { DirectSubs } from './directSubs';
 import { useQuery } from '@tanstack/react-query';
 import { getSubsOfGroup } from '../../../services/searchService';
 import { RootState } from '../../../store';
@@ -13,7 +12,8 @@ import { ContactDrawer } from '../drawerWrapper';
 
 export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
   const theme = useTheme();
-  const { contact, subEntity } = useSelector((state: RootState) => state.drawer);
+  const contact = useSelector((state: RootState) => state.drawer.contact!);
+  const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
 
   const subs = useQuery({
     queryKey: ['subs', contact?.id],
@@ -57,8 +57,9 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
           <StyledGridSection container theme={theme} margin={0}>
             <Typography variant="body1">משרתים</Typography>
             <StyledGridInfo container theme={theme}>
-              <DirectEntities
-                entities={[
+              <DirectSubs
+                type="entity"
+                subs={[
                   ...entities.sort((a, b) => {
                     const aIncludes = a.commanderOf?.includes(contact.id) ? 1 : 0;
                     const bIncludes = b.commanderOf?.includes(contact.id) ? 1 : 0;
@@ -80,7 +81,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
           <StyledGridSection container theme={theme} margin={0}>
             <Typography variant="body1">תתי היררכיות</Typography>
             <StyledGridInfo container theme={theme}>
-              <DirectGroups groups={[...groups.sort((a, b) => a.name.localeCompare(b.name))]} />
+              <DirectSubs type="group" subs={[...groups.sort((a, b) => a.name.localeCompare(b.name))]} />
             </StyledGridInfo>
           </StyledGridSection>
         </>

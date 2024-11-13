@@ -14,9 +14,9 @@ export const UpperContact: React.FC<{
   imageSize?: string;
 }> = ({ contact, isEdit, subTitle, title, imageSize = '5rem' }) => {
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
+    <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
       <Grid container>
-        <Grid item sx={{ height: '5rem', display: 'flex', alignItems: 'flex-end' }}>
+        <Grid item sx={{ height: '4rem', display: 'flex', alignItems: 'flex-end' }}>
           <ProfileImage
             type={contact.type ?? 'entity'}
             id={contact.id}
@@ -31,28 +31,32 @@ export const UpperContact: React.FC<{
             sx={{
               display: 'flex',
               flexDirection: 'row',
-              columnGap: 2,
+              columnGap: 1.5,
               alignItems: 'center',
               flexWrap: 'nowrap',
             }}
           >
             <FavoriteButton id={contact.id} type={contact.type ?? 'entity'} />
-
+            <Title value={contact.rank} sx={{ minWidth: 0, fontSize: 15 }} />
             <Title value={title} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 20 }} />
-            <SubTitle
-              value={subTitle}
-              sx={{
-                fontSize: 16,
-                borderRadius: '30px',
-                maxWidth: '200px',
-              }}
-            />
           </Grid>
           <ContactOptions mails={contact.mails} chats={contact.chats} jabberPhone={contact.jabberPhone} />
         </Grid>
-        <Title value={contact.rank} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 12, ml: 4, mt: -0.5 }} />
-        <Grid item>
-          <ContactTags tags={contact.tags ?? []} isEdit={isEdit} />
+
+        <Grid container>
+          <SubTitle
+            value={subTitle}
+            noToolTip
+            sx={{
+              fontSize: 16,
+              borderRadius: '30px',
+              maxWidth: 'none',
+              ml: 3,
+            }}
+          />
+        </Grid>
+        <Grid container mt={2}>
+          <ContactTags tags={[{ name: contact.serviceType, _id: 'mo' }].concat(contact.tags ?? [])} isEdit={isEdit} />
         </Grid>
       </Grid>
     </Grid>

@@ -121,7 +121,7 @@ export const ContactDrawer: React.FC<{
           justifyContent: isEdit ? 'space-between' : 'start',
         }}
       >
-        <Grid container sx={{}}>
+        <Grid container>
           <Grid
             container
             sx={{
