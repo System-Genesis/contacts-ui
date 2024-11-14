@@ -21,7 +21,13 @@ export const EntityContentDrawer: React.FC<{
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>
-      <UpperContact contact={contact} isEdit={isEdit} title={contact.fullName} subTitle={contact.jobTitle} />
+      <UpperContact
+        contact={contact}
+        isEdit={isEdit}
+        title={contact.fullName}
+        subTitle={contact.jobTitle}
+        setFormData={setFormData}
+      />
 
       {!isEdit && (
         <StyledGridSection container theme={theme}>
@@ -88,7 +94,7 @@ export const EntityContentDrawer: React.FC<{
           <FieldDiv
             field={i18next.t('field.redPhone')}
             hidable
-            editable 
+            editable
             value={contact.redPhone?.toString()}
             isEdit={isEdit}
             onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}

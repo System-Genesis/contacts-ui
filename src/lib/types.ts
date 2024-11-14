@@ -14,6 +14,11 @@ export interface User {
   type: UserTypes;
 }
 
+export interface Tag {
+  _id: string;
+  name: string;
+}
+
 export interface EntitySearchResult extends Omit<Entity, 'mobilePhone'> {
   mobilePhone: string;
   jabberPhone: string;

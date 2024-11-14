@@ -77,7 +77,8 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
         <Grid item xs={3} sx={{ gap: 1 }} alignContent={'center'}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
             <Grid item alignContent={'center'}>
-              <ContactTags tags={contact?.tags ?? []} />
+              <ContactTags tags={entity?.tags ?? []} shrinked />
+              {/* //todo: tags for entity? */}
             </Grid>
             <Grid item>
               <img src={openSub} style={{ padding: 0 }} />

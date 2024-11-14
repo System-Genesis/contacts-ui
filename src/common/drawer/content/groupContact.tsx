@@ -10,7 +10,7 @@ import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
 import { ContactDrawer } from '../drawerWrapper';
 
-export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
+export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }> = ({ isEdit, setFormData }) => {
   const theme = useTheme();
   const contact = useSelector((state: RootState) => state.drawer.contact!);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
@@ -29,6 +29,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
       <UpperContact
         contact={contact}
         isEdit={isEdit}
+        setFormData={setFormData}
         title={contact.name}
         subTitle={contact.entitiesCount === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`}
         imageSize="3rem"
@@ -51,7 +52,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
         </StyledGridInfo>
       </StyledGridSection>
 
-      {entities.length ? (
+      {entities.length && !isEdit ? (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
@@ -75,7 +76,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
         <></>
       )}
 
-      {groups.length ? (
+      {groups.length && !isEdit ? (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>

@@ -10,9 +10,10 @@ export const UpperContact: React.FC<{
   contact: any;
   isEdit: boolean;
   subTitle: string;
+  setFormData?: any;
   title: string;
   imageSize?: string;
-}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem' }) => {
+}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', setFormData }) => {
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
       <Grid container>
@@ -56,7 +57,11 @@ export const UpperContact: React.FC<{
           />
         </Grid>
         <Grid container mt={2}>
-          <ContactTags tags={[{ name: contact.serviceType, _id: 'mo' }].concat(contact.tags ?? [])} isEdit={isEdit} />
+          <ContactTags
+            tags={[{ name: contact.serviceType }].concat(contact.tags ?? [])}
+            isEdit={isEdit}
+            setFormData={setFormData}
+          />
         </Grid>
       </Grid>
     </Grid>

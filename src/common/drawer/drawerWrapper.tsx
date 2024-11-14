@@ -82,6 +82,7 @@ export const ContactDrawer: React.FC<{
         mobilePhone: contact.mobilePhone,
         jabberPhone: contact.jabberPhone,
         redPhone: contact.redPhone,
+        tags: contact.tags,
       });
     }
   }, [contact]);
@@ -170,7 +171,7 @@ export const ContactDrawer: React.FC<{
 
           <Grid container>
             {contact?.type === ResultsTypes.GROUP
-              ? contact && <GroupContactDrawer isEdit={isEdit} />
+              ? contact && <GroupContactDrawer isEdit={isEdit} setFormData={setFormData} />
               : contact && (
                   <EntityContentDrawer
                     formData={formData}
