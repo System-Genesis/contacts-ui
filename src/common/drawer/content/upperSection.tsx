@@ -9,16 +9,17 @@ import { SubTitle } from '../../divs/subTitle';
 export const UpperContact: React.FC<{
   contact: any;
   isEdit: boolean;
-  subTitle: string;
+  subTitle: string | undefined;
   title: string;
   imageSize?: string;
-}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem' }) => {
+  hiddenFields: string[];
+}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', hiddenFields }) => {
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
       <Grid container>
         <Grid item sx={{ height: '4rem', display: 'flex', alignItems: 'flex-end' }}>
           <ProfileImage
-            type={contact.type ?? 'entity'}
+            type={contact.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
             id={contact.id}
             style={{ width: imageSize, height: imageSize }}
             sex={contact.sex}
@@ -36,11 +37,16 @@ export const UpperContact: React.FC<{
               flexWrap: 'nowrap',
             }}
           >
-            <FavoriteButton id={contact.id} type={contact.type ?? 'entity'} />
+            <FavoriteButton id={contact.id} type={contact.type} />
             <Title value={contact.rank} sx={{ minWidth: 0, fontSize: 15 }} />
             <Title value={title} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 20 }} />
           </Grid>
-          <ContactOptions mails={contact.mails} chats={contact.chats} jabberPhone={contact.jabberPhone} />
+          <ContactOptions
+            mails={contact.mails}
+            chats={contact.chats}
+            jabberPhone={contact.jabberPhone}
+            hiddenFields={hiddenFields}
+          />
         </Grid>
 
         <Grid container>
@@ -56,7 +62,7 @@ export const UpperContact: React.FC<{
           />
         </Grid>
         <Grid container mt={2}>
-          <ContactTags tags={[{ name: contact.serviceType, _id: 'mo' }].concat(contact.tags ?? [])} isEdit={isEdit} />
+          <ContactTags tags={[{ name: contact.serviceType, _id: '' }].concat(contact.tags ?? [])} isEdit={isEdit} />
         </Grid>
       </Grid>
     </Grid>

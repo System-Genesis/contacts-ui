@@ -65,6 +65,7 @@ export const ContactDrawer: React.FC<{
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentUser = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({});
+  const [formErrors, setFormErrors] = useState({});
 
   const mutation = useMutation({
     mutationFn: () => {
@@ -80,11 +81,13 @@ export const ContactDrawer: React.FC<{
         id: contact.id,
         hiddenFields: contact.hiddenFields,
         mobilePhone: contact.mobilePhone,
-        jabberPhone: contact.jabberPhone,
         redPhone: contact.redPhone,
+        jabberPhone: contact.jabberPhone,
+        otherPhones: contact.otherPhones || [],
       });
     }
   }, [contact]);
+
   return (
     <StyledDrawerWrapper
       isSubEntity={subEntity?.id === contact?.id}
@@ -170,10 +173,18 @@ export const ContactDrawer: React.FC<{
 
           <Grid container>
             {contact?.type === ResultsTypes.GROUP
-              ? contact && <GroupContactDrawer isEdit={isEdit} />
+              ? contact && (
+                  <GroupContactDrawer
+                    isEdit={isEdit}
+                    formData={formData}
+                    setFormData={setFormData}
+                    formErrors={formErrors}
+                  />
+                )
               : contact && (
                   <EntityContentDrawer
                     formData={formData}
+                    formErrors={formErrors}
                     setFormData={setFormData}
                     isEdit={isEdit}
                     contact={contact}
