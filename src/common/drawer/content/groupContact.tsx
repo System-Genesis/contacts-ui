@@ -9,6 +9,8 @@ import { getSubsOfGroup } from '../../../services/searchService';
 import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
 import { ContactDrawer } from '../drawerWrapper';
+import outlook from '../../../assets/icons/outlook.svg';
+import jabber from '../../../assets/icons/jabber.svg';
 
 export const GroupContactDrawer: React.FC<{
   setFormData: any;
@@ -28,6 +30,11 @@ export const GroupContactDrawer: React.FC<{
   });
 
   const { entities, groups } = subs.data;
+
+  const handleRemove = ({ field, index }: { field: string; index?: number }) => {
+    if (index !== undefined) setFormData((prev) => ({ ...prev, [field]: [''] }));
+    else setFormData((prev) => ({ ...prev, [field]: '' }));
+  };
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 1, width: '100%' }}>
@@ -54,24 +61,63 @@ export const GroupContactDrawer: React.FC<{
           <StyledGridSection container theme={theme}>
             <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
             <StyledGridInfo container theme={theme}>
-              <FieldDiv field={i18next.t('redPhone')} value={contact.jabberPhone} />
-              <FieldDiv field={i18next.t('anotherPhone')} value={contact.anotherPhone} />
-              <FieldDiv field={i18next.t('mail')} value={contact.mail} />
+              <FieldDiv
+                field={i18next.t('jabber')}
+                editable
+                removable
+                value={formData.jabberPhone?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
+                onRemove={() => handleRemove({ field: 'jabberPhone' })}
+                icon={jabber}
+              />
+              <FieldDiv
+                field={i18next.t('outlook')}
+                editable
+                removable
+                value={formData.mails?.[0]?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
+                onRemove={() => handleRemove({ field: 'mails' })}
+                icon={outlook}
+              />
             </StyledGridInfo>
           </StyledGridSection>
         </>
       )}
 
-      <StyledDivider theme={theme} />
+      {(isEdit || contact.jabberPhone || contact.otherPhone || contact.mails) && (
+        <>
+          <StyledDivider theme={theme} />
 
-      <StyledGridSection container theme={theme}>
-        <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
-        <StyledGridInfo container theme={theme}>
-          <FieldDiv field={i18next.t('redPhone')} value={contact.jabberPhone} />
-          <FieldDiv field={i18next.t('anotherPhone')} value={contact.anotherPhone} />
-          <FieldDiv field={i18next.t('mail')} value={contact.mail} />
-        </StyledGridInfo>
-      </StyledGridSection>
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
+            <StyledGridInfo container theme={theme}>
+              <FieldDiv
+                field={i18next.t('field.redPhone')}
+                editable
+                removable
+                value={formData.redPhone?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+                onRemove={() => handleRemove({ field: 'redPhone' })}
+              />
+
+              <FieldDiv
+                field={i18next.t('field.otherPhone')}
+                editable
+                removable
+                value={formData.otherPhones?.[0]?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: event.target.value }))}
+                onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
+              />
+
+              {!isEdit && <FieldDiv field={i18next.t('mail')} value={contact.mails?.[0]} />}
+            </StyledGridInfo>
+          </StyledGridSection>
+        </>
+      )}
 
       {!isEdit && entities.length > 0 && (
         <>
@@ -94,7 +140,6 @@ export const GroupContactDrawer: React.FC<{
           </StyledGridSection>
         </>
       )}
-      
 
       {!isEdit && groups.length > 0 && (
         <>

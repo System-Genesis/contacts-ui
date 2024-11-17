@@ -37,7 +37,7 @@ export const hebrew = {
   fastShortcuts: 'קיצורים מהירים',
   redPhone: 'טלפון אדום',
   anotherPhone: 'טלפון נוסף',
-  mail: 'דוא"ל',
+  mail: 'מייל',
   people: 'אנשים',
   hierarchyCommander: 'מפקד היררכיה',
   resultsType: {

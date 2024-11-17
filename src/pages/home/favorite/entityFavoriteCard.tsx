@@ -43,12 +43,12 @@ export const EntityFavoriteCard = ({
       <FavoriteButton
         id={id}
         type={'entity'}
+        imageStyle={{
+          top: '20px',
+        }}
         iconStyle={{
           right: '-30px',
           bottom: '-20px',
-        }}
-        imageStyle={{
-          top: '20px',
         }}
       />
       <Grid
@@ -63,7 +63,9 @@ export const EntityFavoriteCard = ({
           width: '17.5rem',
           height: '15rem',
           minHeight: '15rem',
-          padding: 2,
+          paddingX: 2,
+          paddingTop: 2,
+          paddingBottom: 1,
           margin: '0.25rem 0.5rem',
         }}
       >
@@ -95,7 +97,7 @@ export const EntityFavoriteCard = ({
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'space-between',
-                height: '70%',
+                height: '58%',
               }}
             >
               <Grid
@@ -108,19 +110,17 @@ export const EntityFavoriteCard = ({
             </Grid>
           </Grid>
 
-          <Grid container>
-            {(mails?.length || chats?.length || mobilePhone || jabberPhone) && (
-              <Grid container sx={{ width: '100%', gap: 1 }}>
-                <Divider
-                  sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
-                />
-                <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
-                  <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
-                  <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} hiddenFields={hiddenFields} />
-                </Grid>
+          {(mails?.length || chats?.length || mobilePhone || jabberPhone) && (
+            <Grid container sx={{ width: '100%', gap: 1 }}>
+              <Divider
+                sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
+              />
+              <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
+                <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
+                <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} hiddenFields={hiddenFields} />
               </Grid>
-            )}
-          </Grid>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>

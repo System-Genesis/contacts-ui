@@ -31,7 +31,7 @@ export const ContactMenu = ({
     //TODO: if hidden -> disabled!!!!!
     return (
       <Tooltip title={title}>
-        <IconButton href={`${href}${options[0].option}`} disabled={disabled} sx={{}}>
+        <IconButton href={`${href}${options[0].option}`} disabled={disabled} sx={{ p: 0, m: 1 }}>
           <img src={icon} width={'20rem'} />
         </IconButton>
       </Tooltip>
@@ -40,7 +40,7 @@ export const ContactMenu = ({
   return (
     <>
       <Tooltip title={title}>
-        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{}}>
+        <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ p: 0, m: 1 }}>
           <img src={icon} width={'24rem'} style={{ padding: 0 }} />
         </IconButton>
       </Tooltip>
