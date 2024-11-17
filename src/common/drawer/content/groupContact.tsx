@@ -10,7 +10,12 @@ import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
 import { ContactDrawer } from '../drawerWrapper';
 
-export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) => {
+export const GroupContactDrawer: React.FC<{
+  setFormData: any;
+  formData: any;
+  formErrors: any;
+  isEdit: boolean;
+}> = ({ setFormData, formData, isEdit, formErrors }) => {
   const theme = useTheme();
   const contact = useSelector((state: RootState) => state.drawer.contact!);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
@@ -32,13 +37,30 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
         title={contact.name}
         subTitle={contact.entitiesCount === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`}
         imageSize="3rem"
+        hiddenFields={contact.hiddenFields}
+        type="group"
       />
+
       <StyledGridSection container theme={theme}>
         <Typography variant="body1">{i18next.t('description')}</Typography>
         <StyledGridInfo container theme={theme}>
           <FieldDiv field={i18next.t('field.hierarchy')} value={contact.hierarchy} />
         </StyledGridInfo>
       </StyledGridSection>
+
+      {isEdit && (
+        <>
+          <StyledDivider theme={theme} />
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
+            <StyledGridInfo container theme={theme}>
+              <FieldDiv field={i18next.t('redPhone')} value={contact.jabberPhone} />
+              <FieldDiv field={i18next.t('anotherPhone')} value={contact.anotherPhone} />
+              <FieldDiv field={i18next.t('mail')} value={contact.mail} />
+            </StyledGridInfo>
+          </StyledGridSection>
+        </>
+      )}
 
       <StyledDivider theme={theme} />
 
@@ -51,7 +73,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
         </StyledGridInfo>
       </StyledGridSection>
 
-      {entities.length ? (
+      {!isEdit && entities.length > 0 && (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
@@ -71,11 +93,9 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
             </StyledGridInfo>
           </StyledGridSection>
         </>
-      ) : (
-        <></>
       )}
 
-      {groups.length ? (
+      {!isEdit && groups.length > 0 && (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
@@ -85,8 +105,6 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean }> = ({ isEdit }) =>
             </StyledGridInfo>
           </StyledGridSection>
         </>
-      ) : (
-        <></>
       )}
 
       <ContactDrawer contact={subEntity} sx={{ mr: '485px' }} />

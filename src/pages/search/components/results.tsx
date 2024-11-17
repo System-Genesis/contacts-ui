@@ -58,12 +58,13 @@ export const Results = ({
       mails: result.mails,
       chats: result.chats,
       isSelected: contact?.id === result.id,
+      type: type ?? result.type,
+      hiddenFields: result.chats ?? [],
     };
 
     switch (type ?? result.type) {
       case ResultsTypes.ENTITY:
       case ResultsTypes.GOAL_USER:
-        contactsCardProps.type = 'entity';
         contactsCardProps.entityType = (result as EntitySearchResult).entityType;
         contactsCardProps.title = (result as EntitySearchResult).fullName;
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
@@ -77,7 +78,6 @@ export const Results = ({
         return <EntityContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       case ResultsTypes.GROUP:
-        contactsCardProps.type = 'group';
         contactsCardProps.title = (result as GroupSearchResult).name;
         contactsCardProps.handleSelect = (resType: ResultsTypes) =>
           handleCardClick({ ...result, type: resType } as GroupSearchResult);
@@ -89,7 +89,7 @@ export const Results = ({
         return <GroupContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       default:
-        return <h1>no type!!!!</h1>;
+        return <></>;
     }
   };
 

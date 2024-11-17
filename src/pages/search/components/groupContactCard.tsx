@@ -24,6 +24,7 @@ export const GroupContactsCard: React.FC<{
   chats: Option[];
   handleSelect: (type: ResultsTypes) => void;
   isSelected?: boolean;
+  hiddenFields: string[];
 }> = ({
   type,
   id,
@@ -38,6 +39,7 @@ export const GroupContactsCard: React.FC<{
   chats,
   isSelected,
   handleSelect,
+  hiddenFields,
 }) => {
   const theme = useTheme();
 
@@ -112,8 +114,8 @@ export const GroupContactsCard: React.FC<{
         </Grid>
 
         <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
-          <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup />
-          <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} isGroup />
+          <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup hiddenFields={hiddenFields} />
+          <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} isGroup hiddenFields={hiddenFields} />
         </Grid>
       </Grid>
     </Grid>
