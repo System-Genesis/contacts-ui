@@ -13,17 +13,13 @@ export const UpperContact: React.FC<{
   title: string;
   imageSize?: string;
   hiddenFields: string[];
-}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', hiddenFields }) => {
+  type: 'group' | 'goalUser' | 'entity';
+}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', hiddenFields, type }) => {
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
       <Grid container>
         <Grid item sx={{ height: '4rem', display: 'flex', alignItems: 'flex-end' }}>
-          <ProfileImage
-            type={contact.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
-            id={contact.id}
-            style={{ width: imageSize, height: imageSize }}
-            sex={contact.sex}
-          />
+          <ProfileImage type={type} id={contact.id} style={{ width: imageSize, height: imageSize }} sex={contact.sex} />
         </Grid>
 
         <Grid container sx={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'nowrap' }}>

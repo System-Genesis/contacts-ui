@@ -34,6 +34,7 @@ export const hebrew = {
   description: 'תיאור',
   hierarchy: 'היררכיה',
   contactDetails: 'פרטי יצירת קשר',
+  fastShortcuts: 'קיצורים מהירים',
   redPhone: 'טלפון אדום',
   anotherPhone: 'טלפון נוסף',
   mail: 'דוא"ל',
@@ -47,7 +48,7 @@ export const hebrew = {
   historyHeader: 'חיפושים אחרונים',
   tagsExplain: 'ניתן להוסיף תגיות לכרטיסייה שיצרתם בהתאם לסוג הכרטיסיה, תחום מקצועי ומערכות קשורות.',
   tagsTitle: 'התגיות שלי',
-  hiChat: "היי צ'ט",
-  outlook: 'outlook',
-  jabber: 'jabber',
+  hiChat: 'Hi.Chat',
+  outlook: 'מייל',
+  jabber: 'Jabber',
 };

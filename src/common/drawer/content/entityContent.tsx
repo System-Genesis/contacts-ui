@@ -21,11 +21,17 @@ export const EntityContentDrawer: React.FC<{
       hiddenFields: !isHidden ? prev.hiddenFields.concat(field) : prev.hiddenFields.filter((f) => f !== field),
     }));
 
-  const handleRemove = (field) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: undefined,
-    }));
+  const handleRemove = ({ field, index }) => {
+    if (index)
+      setFormData((prev) => ({
+        ...prev,
+        [field]: prev[field].map((v, i) => (i === index ? undefined : v)),
+      }));
+    else
+      setFormData((prev) => ({
+        ...prev,
+        [field]: undefined,
+      }));
   };
 
   return (
@@ -37,6 +43,7 @@ export const EntityContentDrawer: React.FC<{
         subTitle={contact.jobTitle}
         hiddenFields={contact.hiddenFields}
         imageSize={contact.entityType === 'GoalUser' ? '3rem' : '5rem'}
+        type={contact.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
       />
 
       {!isEdit && (
@@ -55,7 +62,7 @@ export const EntityContentDrawer: React.FC<{
           <StyledGridSection container theme={theme}>
             <Typography variant="body1">{i18next.t('userDetails')}</Typography>
             <StyledGridInfo container theme={theme}>
-              {contact.personalNumber ?? contact.identityCard ? (
+              {(contact.personalNumber ?? contact.identityCard) ? (
                 <>
                   <FieldDiv
                     isEdit={isEdit}
@@ -157,6 +164,7 @@ export const EntityContentDrawer: React.FC<{
               otherPhone && (
                 <FieldDiv
                   field={i18next.t('field.otherPhone')}
+                  dropDownOptions={[i18next.t('field.redPhone'), i18next.t('field.otherPhone')]}
                   editable
                   removable
                   value={otherPhone}
@@ -167,7 +175,7 @@ export const EntityContentDrawer: React.FC<{
                       otherPhones: formData.otherPhones?.map((c, i) => (i === index ? event.target.value : c)),
                     }))
                   }
-                  onRemove={() => handleRemove('otherPhone', i)}
+                  onRemove={() => handleRemove('otherPhone', index)}
                   isHidden={formData.hiddenFields?.includes('redPhone')}
                   onHide={(isHidden) => handleHide(isHidden, 'redPhone')}
                 />
