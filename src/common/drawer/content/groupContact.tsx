@@ -94,6 +94,7 @@ export const GroupContactDrawer: React.FC<{
           </StyledGridSection>
         </>
       )}
+      
 
       {!isEdit && groups.length > 0 && (
         <>

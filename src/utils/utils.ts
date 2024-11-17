@@ -13,7 +13,7 @@ export const getIdentifier = (entity: Entity) => entity.identityCard ?? entity.p
 export const getHierarchyName = (group: Group) =>
   group.hierarchy && group.name ? `${group.hierarchy}/${group.name}` : group.hierarchy || group.name;
 
-const formValidations = (formData) => {
+// const formValidations = (formData) => {
 //   const newErrors = {};
 
 //   if (!/^\d{10}$/.test(formData.mobilePhone)) {
