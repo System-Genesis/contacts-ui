@@ -31,7 +31,6 @@ const searchRequest = async (
   const { data } = await axiosInstance.get(
     `${search}?queryString=${searchTerm}&type=${type ?? 'all'}&page=${page}&pageSize=${pageSize}`,
   );
-  console.log('d', data, searchTerm, type, page, pageSize);
   return data;
 };
 
