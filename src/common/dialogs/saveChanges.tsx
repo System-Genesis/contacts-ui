@@ -21,6 +21,7 @@ export const SaveChangesDialog: React.FC<{ open: boolean; onSave: any; onCancel:
           height: '45vh',
           margin: 'auto',
           borderRadius: '20px',
+          pb: 1,
         },
       }}
     >
@@ -69,8 +70,8 @@ export const SaveChangesDialog: React.FC<{ open: boolean; onSave: any; onCancel:
           </Box>
         </Box>
         <Box flex={'10%'} sx={{ display: 'flex', justifyContent: 'center', columnGap: 2 }}>
-          <CancelButton value={i18next.t(`cancel`)} onClick={onCancel} />
-          <SaveButton value={i18next.t(`saveChanges`)} onClick={onSave} />
+          <CancelButton value={i18next.t(`cancelChanges`)} onClick={onCancel} />
+          <SaveButton value={i18next.t(`save`)} onClick={onSave} />
         </Box>
       </Box>
     </Dialog>

@@ -8,6 +8,7 @@ export const hebrew = {
   unknown: 'לא ידוע',
   search: 'חיפוש',
   save: 'שמירה',
+  cancelChanges: 'ביטול שינויים',
   role: 'פרטי תפקיד',
   cancel: 'ביטול',
   userDetails: 'פרטי משתמש',

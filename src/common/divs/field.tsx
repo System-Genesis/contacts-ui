@@ -5,7 +5,7 @@ import unHide from '../../assets/icons/unHide.svg';
 import remove from '../../assets/icons/remove.svg';
 import { HiddenLabel } from '../../assets/icons/hiddenLabel';
 export const FieldDiv = ({
-  icon,
+  icon = '',
   field,
   value,
   isEdit = false,
@@ -55,7 +55,7 @@ export const FieldDiv = ({
 
         {!isEdit && isHidden && <HiddenLabel />}
 
-        {(!isEdit || !editable) && <Typography sx={{ flex: '0.5', fontSize: 12 }}>{value}</Typography>}
+        {(!isEdit || !editable) && !isHidden && <Typography sx={{ flex: '0.5', fontSize: 12 }}>{value}</Typography>}
       </Box>
     )
   );

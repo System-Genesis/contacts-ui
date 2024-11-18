@@ -2,10 +2,10 @@ import { Autocomplete, Box, Chip, Grid, TextField, Typography, useTheme } from '
 import { TagChip } from './chip';
 import i18next from 'i18next';
 import { useEffect, useState } from 'react';
-import { useDebounce } from 'use-debounce';
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { getTags, searchTags } from '../../services/tagService';
 import AddIcon from '@mui/icons-material/Add';
+import { useDebounce } from '@uidotdev/usehooks';
 
 export const ContactTags = ({
   tags,

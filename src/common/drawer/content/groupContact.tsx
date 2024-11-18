@@ -12,7 +12,6 @@ import { ContactDrawer } from '../drawerWrapper';
 import outlook from '../../../assets/icons/outlook.svg';
 import jabber from '../../../assets/icons/jabber.svg';
 
-
 export const GroupContactDrawer: React.FC<{
   setFormData?: any;
   formData: any;
@@ -80,7 +79,7 @@ export const GroupContactDrawer: React.FC<{
                 value={formData.mails?.[0]?.toString()}
                 isEdit={isEdit}
                 onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
-                onRemove={() => handleRemove({ field: 'mails' })}
+                onRemove={() => handleRemove({ field: 'mails', index: 0 })}
                 icon={outlook}
               />
             </StyledGridInfo>
@@ -111,7 +110,7 @@ export const GroupContactDrawer: React.FC<{
                 removable
                 value={formData.otherPhones?.[0]?.toString()}
                 isEdit={isEdit}
-                onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: event.target.value }))}
+                onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
                 onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
               />
 
@@ -142,7 +141,6 @@ export const GroupContactDrawer: React.FC<{
           </StyledGridSection>
         </>
       )}
-
 
       {!isEdit && groups.length > 0 && (
         <>

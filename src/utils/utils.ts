@@ -29,3 +29,6 @@ export const getHierarchyName = (group: Group) =>
 //   }
 //   return Object.keys(newErrors).length === 0;
 // };
+
+export const hasChanges = (formData: object, contact) =>
+  Object.keys(formData).some((key) => JSON.stringify(formData[key]) !== JSON.stringify(contact[key]));

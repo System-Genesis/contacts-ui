@@ -19,6 +19,7 @@ import { CancelButton } from '../buttons/cancel';
 import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { setUser, UserState } from '../../store/reducers/user';
 import { SaveChangesDialog } from '../dialogs/saveChanges';
+import { hasChanges } from '../../utils/utils';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer, {
   shouldForwardProp: (prop) => prop !== 'isSubEntity', // Prevents `isSubEntity` from reaching the DOM
@@ -74,21 +75,58 @@ export const ContactDrawer: React.FC<{
       return editUser(contact.id, data);
     },
   });
-
   useEffect(() => {
     if (contact) {
       setFormData({
         id: contact.id,
-        hiddenFields: contact.hiddenFields,
-        mobilePhone: contact.mobilePhone,
-        redPhone: contact.redPhone,
-        tags: contact.tags,
-        jabberPhone: contact.jabberPhone,
+        hiddenFields: contact.hiddenFields ?? [],
+        mobilePhone: contact.mobilePhone ?? '',
+        redPhone: contact.redPhone ?? '',
+        tags: contact.tags ?? [],
+        jabberPhone: contact.jabberPhone ?? '',
         otherPhones: contact.otherPhones || [],
-        mail: contact.mails?.[0],
+        mails: contact.mails || [],
       });
     }
-  }, [contact]);
+  }, [contact, isEdit]);
+
+  const onSave = () => {
+    setIsEdit(false);
+    const data = {
+      ...formData,
+      otherPhones: formData.otherPhones.filter((v) => !!v),
+    };
+    mutation.mutate(data);
+    if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, data }));
+    dispatch(setDrawerObject({ ...contact, ...data }));
+
+    queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {
+      if (!oldData) return;
+      return {
+        ...oldData,
+        pages: oldData.pages.map((page) => page.map((c) => (c.id === formData.id ? { ...c, ...data } : c))),
+      };
+    });
+    queryClient.setQueryData(['history'], (oldData) => {
+      if (!oldData) return;
+      return oldData.map((c) => (c.id === formData.id ? { ...c, ...data } : c));
+    });
+    queryClient.setQueryData(['myFavorites'], (oldData) => {
+      if (!oldData) return;
+      return oldData.map((f) => (f.id === formData.id ? { ...f, ...data } : f));
+    });
+  };
+  const onCancel = () => {
+    setIsEdit(false);
+    setFormData({
+      id: contact.id,
+      hiddenFields: contact.hiddenFields,
+      mobilePhone: contact.mobilePhone,
+      jabberPhone: contact.jabberPhone,
+      redPhone: contact.redPhone,
+      tags: contact.tags,
+    });
+  };
 
   return (
     <StyledDrawerWrapper
@@ -100,10 +138,16 @@ export const ContactDrawer: React.FC<{
         if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(true));
       }}
       onClose={() => {
-        setIsEdit(false);
-        if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
-        else dispatch(closeSubEntity());
-        onClose();
+        const data = {
+          ...formData,
+          otherPhones: formData.otherPhones.filter((v) => !!v),
+        };
+        if (hasChanges(data, contact)) setSaveChangesDialogOpen(true);
+        else {
+          onCancel();
+          if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
+          else dispatch(closeSubEntity());
+        }
       }}
       PaperProps={{
         sx: {
@@ -161,10 +205,16 @@ export const ContactDrawer: React.FC<{
               )}
               <IconButton
                 onClick={() => {
-                  setIsEdit(false);
-                  if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
-                  else dispatch(closeSubEntity());
-                  onClose();
+                  const data = {
+                    ...formData,
+                    otherPhones: formData.otherPhones.filter((v) => !!v),
+                  };
+                  if (hasChanges(data, contact)) setSaveChangesDialogOpen(true);
+                  else {
+                    onCancel();
+                    if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
+                    else dispatch(closeSubEntity());
+                  }
                 }}
                 sx={{ p: 0, m: 1 }}
               >
@@ -202,22 +252,27 @@ export const ContactDrawer: React.FC<{
               <CancelButton
                 value={i18next.t(`cancel`)}
                 onClick={() => {
-                  setIsEdit(false);
-                  setFormData({
-                    id: contact.id,
-                    hiddenFields: contact.hiddenFields,
-                    mobilePhone: contact.mobilePhone,
-                    jabberPhone: contact.jabberPhone,
-                    redPhone: contact.redPhone,
-                    tags: contact.tags,
-                  });
+                  const data = {
+                    ...formData,
+                    otherPhones: formData.otherPhones.filter((v) => !!v),
+                  };
+                  if (hasChanges(data, contact)) setSaveChangesDialogOpen(true);
+                  else onCancel();
                 }}
               />
               <SaveButton
                 value={i18next.t(`saveChanges`)}
-                onClick={() => {
-                  setSaveChangesDialogOpen(true);
-                }}
+                withEndIcon
+                onClick={() => onSave()}
+                disabled={
+                  !hasChanges(
+                    {
+                      ...formData,
+                      otherPhones: formData.otherPhones.filter((v) => !!v),
+                    },
+                    contact,
+                  )
+                }
               />
             </Grid>
           </Grid>
@@ -227,41 +282,11 @@ export const ContactDrawer: React.FC<{
         open={saveChangesDialogOpen}
         onCancel={() => {
           setSaveChangesDialogOpen(false);
-          setIsEdit(false);
-          setFormData({
-            id: contact.id,
-            hiddenFields: contact.hiddenFields,
-            mobilePhone: contact.mobilePhone,
-            jabberPhone: contact.jabberPhone,
-            redPhone: contact.redPhone,
-            tags: contact.tags,
-          });
+          onCancel();
         }}
         onSave={() => {
-          setIsEdit(false);
-          const data = {
-            ...formData,
-            otherPhones: formData.otherPhones.filter((v) => !!v),
-          };
-          mutation.mutate(data);
-          if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, data }));
-          dispatch(setDrawerObject({ ...contact, ...data }));
-
-          queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {
-            if (!oldData) return;
-            return {
-              ...oldData,
-              pages: oldData.pages.map((page) => page.map((c) => (c.id === formData.id ? { ...c, ...data } : c))),
-            };
-          });
-          queryClient.setQueryData(['history'], (oldData) => {
-            if (!oldData) return;
-            return oldData.map((c) => (c.id === formData.id ? { ...c, ...data } : c));
-          });
-          queryClient.setQueryData(['myFavorites'], (oldData) => {
-            if (!oldData) return;
-            return oldData.map((f) => (f.id === formData.id ? { ...f, ...data } : f));
-          });
+          setSaveChangesDialogOpen(false);
+          onSave();
         }}
       />
     </StyledDrawerWrapper>

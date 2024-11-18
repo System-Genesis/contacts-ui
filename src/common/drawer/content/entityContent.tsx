@@ -21,7 +21,6 @@ export const EntityContentDrawer: React.FC<{
       hiddenFields: !isHidden ? prev.hiddenFields.concat(field) : prev.hiddenFields.filter((f) => f !== field),
     }));
 
-
   const handleRemove = ({ field, index }: { field: string; index?: number }) => {
     if (index !== undefined)
       setFormData((prev) => ({
@@ -116,65 +115,71 @@ export const EntityContentDrawer: React.FC<{
           </StyledGridSection>
         </>
       )}
+
       <StyledDivider theme={theme} />
 
-      <StyledGridSection container theme={theme}>
-        <Typography variant="body1">{i18next.t(`extraContactDetails`)}</Typography>
-        <StyledGridInfo container theme={theme}>
-          {contact.entityType !== 'GoalUser' && (
+      {(isEdit ||
+        (contact.mobilePhone && contact.entityType !== 'GoalUser') ||
+        contact.jabberPhone ||
+        contact.redPhone ||
+        contact?.otherPhones?.length > 0) && (
+        <StyledGridSection container theme={theme}>
+          <Typography variant="body1">{i18next.t(`extraContactDetails`)}</Typography>
+          <StyledGridInfo container theme={theme}>
+            {contact.entityType !== 'GoalUser' && (
+              <FieldDiv
+                field={i18next.t('field.mobilePhone')}
+                hidable
+                editable
+                value={formData.mobilePhone?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }))}
+                isHidden={formData.hiddenFields?.includes('mobilePhone')}
+                onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
+              />
+            )}
             <FieldDiv
-              field={i18next.t('field.mobilePhone')}
-              hidable
+              field={i18next.t('field.jabberPhone')}
               editable
-              value={contact.mobilePhone?.toString()}
+              hidable
+              value={formData.jabberPhone?.toString()}
               isEdit={isEdit}
-              onChange={(event) => setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }))}
-              isHidden={formData.hiddenFields?.includes('mobilePhone')}
-              onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
+              onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
+              isHidden={formData.hiddenFields?.includes('jabberPhone')}
+              onHide={(isHidden) => handleHide(isHidden, 'jabberPhone')}
             />
-          )}
-          <FieldDiv
-            field={i18next.t('field.jabberPhone')}
-            editable
-            hidable
-            value={contact.jabberPhone?.toString()}
-            isEdit={isEdit}
-            onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
-            isHidden={formData.hiddenFields?.includes('jabberPhone')}
-            onHide={(isHidden) => handleHide(isHidden, 'jabberPhone')}
-          />
-          <FieldDiv
-            field={i18next.t('field.redPhone')}
-            hidable
-            editable
-            value={contact.redPhone?.toString()}
-            isEdit={isEdit}
-            onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
-            onRemove={() => handleRemove({ field: 'redPhone' })}
-            isHidden={formData.hiddenFields?.includes('redPhone')}
-            onHide={(isHidden) => handleHide(isHidden, 'redPhone')}
-          />
-          {formData.otherPhones?.map((otherPhone, index) => (
             <FieldDiv
-              field={i18next.t('field.otherPhone')}
+              field={i18next.t('field.redPhone')}
               editable
               removable
-              value={otherPhone}
+              value={formData.redPhone?.toString()}
               isEdit={isEdit}
-              onChange={(event) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  otherPhones: formData.otherPhones.map((c, i) => (i === index ? event.target.value : c)),
-                }))
-              }
-              onRemove={() => handleRemove({ field: 'otherPhones', index })}
+              onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+              onRemove={() => handleRemove({ field: 'redPhone' })}
+              isHidden={formData.hiddenFields?.includes('redPhone')}
             />
-          ))}
-          {isEdit && formData.otherPhones?.length < 3 && (
-            <AddPhone onClick={() => setFormData((prev) => ({ ...prev, otherPhones: [...prev.otherPhones, ''] }))} />
-          )}
-        </StyledGridInfo>
-      </StyledGridSection>
+            {formData?.otherPhones?.map((otherPhone, index) => (
+              <FieldDiv
+                field={i18next.t('field.otherPhone')}
+                editable
+                removable
+                value={otherPhone}
+                isEdit={isEdit}
+                onChange={(event) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    otherPhones: formData.otherPhones?.map((c, i) => (i === index ? event.target.value : c)),
+                  }))
+                }
+                onRemove={() => handleRemove({ field: 'otherPhones', index })}
+              />
+            ))}
+            {isEdit && formData.otherPhones?.length < 3 && (
+              <AddPhone onClick={() => setFormData((prev) => ({ ...prev, otherPhones: [...prev.otherPhones, ''] }))} />
+            )}
+          </StyledGridInfo>
+        </StyledGridSection>
+      )}
     </Grid>
   );
 };

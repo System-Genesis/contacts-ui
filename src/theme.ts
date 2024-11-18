@@ -88,6 +88,7 @@ interface ThemeOptions extends ThemeOptionsMui {
     greener?: string;
     subTitleBack?: string;
     subTitle?: string;
+    disabledBackground?: string;
   };
 }
 
@@ -110,6 +111,8 @@ declare module '@mui/material/styles' {
       greener: string;
       subTitleBack: string;
       subTitle: string;
+      disabledBackground: string;
+      disabledTe1xt: string;
     };
   }
 }
