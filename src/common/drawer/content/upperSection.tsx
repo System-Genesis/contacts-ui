@@ -57,11 +57,7 @@ export const UpperContact: React.FC<{
           />
         </Grid>
         <Grid container mt={2}>
-          <ContactTags
-            tags={[{ name: contact.serviceType }].concat(contact.tags ?? [])}
-            isEdit={isEdit}
-            setFormData={setFormData}
-          />
+          <ContactTags tags={contact.tags ?? []} isEdit={isEdit} setFormData={setFormData} />
         </Grid>
       </Grid>
     </Grid>

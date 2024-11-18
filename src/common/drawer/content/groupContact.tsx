@@ -25,7 +25,7 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }
   const { entities, groups } = subs.data;
 
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 1, width: '100%' }}>
+    <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 0.5, width: '100%' }}>
       <UpperContact
         contact={contact}
         isEdit={isEdit}

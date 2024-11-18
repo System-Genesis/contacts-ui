@@ -20,7 +20,7 @@ export const EntityContentDrawer: React.FC<{
     }));
 
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '16px' }}>
+    <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: '14px' }}>
       <UpperContact
         contact={contact}
         isEdit={isEdit}

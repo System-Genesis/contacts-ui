@@ -4,10 +4,10 @@ import { RootState } from '../../store';
 import Results from './components/results';
 import EmptyResults from '../../assets/icons/emptyResults.svg';
 import EmptyHistory from '../../assets/icons/emptyHistory.svg';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ResultsTypes } from '../../lib/enums';
 import { useDebounce } from '@uidotdev/usehooks';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getCountsBySearchTermRequest, searchRequest } from '../../services/searchService';
 import { ResultsMenu } from './components/resultsMenu';
 import { mySearchHistory } from '../../services/historyService';
@@ -22,7 +22,8 @@ const Search = () => {
   const theme = useTheme();
   const observer = useRef<IntersectionObserver>();
 
-  const [resultsType, setResultsType] = useState<ResultsTypes>(ResultsTypes.ENTITY);
+  const [resultsType, setResultsType] = useState<ResultsTypes | null>(ResultsTypes.ENTITY);
+  const [firstSearch, setFirstSearch] = useState(true);
 
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
@@ -41,16 +42,22 @@ const Search = () => {
       entity: 0,
       goalUser: 0,
       group: 0,
+      tag: 0,
     },
     enabled: !!debouncedSearchTerm,
   });
 
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
     queryKey: ['search', debouncedSearchTerm, resultsType],
-    queryFn: ({ pageParam }) => searchRequest(debouncedSearchTerm, resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
+    queryFn: ({ pageParam }) =>
+      searchRequest(debouncedSearchTerm, firstSearch ? null : resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
     getNextPageParam: (lastPage, allPages) => (lastPage.length ? allPages.length + 1 : undefined),
     initialPageParam: 1,
   });
+
+  useEffect(() => {
+    if (debouncedSearchTerm) setFirstSearch(false);
+  }, [debouncedSearchTerm]);
 
   const searchResults = useMemo(() => data?.pages.reduce((acc, page) => [...acc, ...page], []) ?? [], [data]);
 

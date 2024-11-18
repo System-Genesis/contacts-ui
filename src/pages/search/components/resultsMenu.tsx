@@ -5,12 +5,15 @@ import { useEffect, useState } from 'react';
 import EntityIcon from '../../../assets/icons/entity.svg';
 import HierarchyIcon from '../../../assets/icons/hierarchy.svg';
 import GoalUserIcon from '../../../assets/icons/goal-user.svg';
+import TagIcon from '../../../assets/icons/tag.svg';
+
 import { SelectedSign } from './selectedSign';
 
 const resultsTypeToIcon = {
   [ResultsTypes.ENTITY]: EntityIcon,
   [ResultsTypes.GROUP]: HierarchyIcon,
   [ResultsTypes.GOAL_USER]: GoalUserIcon,
+  [ResultsTypes.TAG]: TagIcon,
 };
 
 const ResultsMenuItem = ({
@@ -97,7 +100,7 @@ export const ResultsMenu = ({
           key={type}
           type={type}
           count={counts[type]}
-          selected={resultsType}
+          selected={resultsType ?? ResultsTypes.ENTITY}
           setSelected={setResultsType}
         />
       ))}

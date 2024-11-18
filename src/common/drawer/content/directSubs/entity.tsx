@@ -39,7 +39,7 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
             sex={contact.sex}
           />
         </Grid>
-        <Grid item xs={7} sx={{ alignContent: 'center' }}>
+        <Grid item xs={6} sx={{ alignContent: 'center' }}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 0.2 }}>
             <Grid item sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
               <Typography fontSize={14}>{entity.fullName}</Typography>
@@ -74,9 +74,17 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
           </Grid>
         </Grid>
 
-        <Grid item xs={3} sx={{ gap: 1 }} alignContent={'center'}>
-          <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Grid item alignContent={'center'}>
+        <Grid item xs={4} sx={{ gap: 1 }} alignContent={'center'}>
+          <Grid
+            container
+            sx={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
+            <Grid item>
               <ContactTags tags={entity?.tags ?? []} shrinked />
               {/* //todo: tags for entity? */}
             </Grid>

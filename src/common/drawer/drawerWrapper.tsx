@@ -187,12 +187,24 @@ export const ContactDrawer: React.FC<{
           <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 2 }}>
             <StyledDivider theme={theme} />
             <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', columnGap: 2 }}>
-              <CancelButton value={i18next.t(`cancel`)} onClick={() => setIsEdit(false)} />
+              <CancelButton
+                value={i18next.t(`cancel`)}
+                onClick={() => {
+                  setIsEdit(false);
+                  setFormData({
+                    id: contact.id,
+                    hiddenFields: contact.hiddenFields,
+                    mobilePhone: contact.mobilePhone,
+                    jabberPhone: contact.jabberPhone,
+                    redPhone: contact.redPhone,
+                    tags: contact.tags,
+                  });
+                }}
+              />
               <SaveButton
                 value={i18next.t(`saveChanges`)}
                 onClick={() => {
                   mutation.mutate();
-
                   setIsEdit(false);
 
                   queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {

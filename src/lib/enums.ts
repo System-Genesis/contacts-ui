@@ -8,4 +8,5 @@ export enum ResultsTypes {
   ENTITY = 'entity',
   GROUP = 'group',
   GOAL_USER = 'goalUser',
+  TAG = 'tag',
 }
