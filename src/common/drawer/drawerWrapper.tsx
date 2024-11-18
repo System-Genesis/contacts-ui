@@ -18,6 +18,7 @@ import { SaveButton } from '../buttons/save';
 import { CancelButton } from '../buttons/cancel';
 import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { setUser, UserState } from '../../store/reducers/user';
+import { SaveChangesDialog } from '../dialogs/saveChanges';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer, {
   shouldForwardProp: (prop) => prop !== 'isSubEntity', // Prevents `isSubEntity` from reaching the DOM
@@ -66,6 +67,7 @@ export const ContactDrawer: React.FC<{
   const currentUser = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({});
   const [formErrors, setFormErrors] = useState({});
+  const [saveChangesDialogOpen, setSaveChangesDialogOpen] = useState(false);
 
   const mutation = useMutation({
     mutationFn: (data) => {
@@ -214,39 +216,54 @@ export const ContactDrawer: React.FC<{
               <SaveButton
                 value={i18next.t(`saveChanges`)}
                 onClick={() => {
-                  setIsEdit(false);
-
-                  const data = {
-                    ...formData,
-                    otherPhones: formData.otherPhones.filter((v) => !!v),
-                  };
-                  mutation.mutate(data);
-                  if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, data }));
-                  dispatch(setDrawerObject({ ...contact, ...data }));
-
-                  queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {
-                    if (!oldData) return;
-                    return {
-                      ...oldData,
-                      pages: oldData.pages.map((page) =>
-                        page.map((c) => (c.id === formData.id ? { ...c, ...data } : c)),
-                      ),
-                    };
-                  });
-                  queryClient.setQueryData(['history'], (oldData) => {
-                    if (!oldData) return;
-                    return oldData.map((c) => (c.id === formData.id ? { ...c, ...data } : c));
-                  });
-                  queryClient.setQueryData(['myFavorites'], (oldData) => {
-                    if (!oldData) return;
-                    return oldData.map((f) => (f.id === formData.id ? { ...f, ...data } : f));
-                  });
+                  setSaveChangesDialogOpen(true);
                 }}
               />
             </Grid>
           </Grid>
         )}
       </Grid>
+      <SaveChangesDialog
+        open={saveChangesDialogOpen}
+        onCancel={() => {
+          setSaveChangesDialogOpen(false);
+          setIsEdit(false);
+          setFormData({
+            id: contact.id,
+            hiddenFields: contact.hiddenFields,
+            mobilePhone: contact.mobilePhone,
+            jabberPhone: contact.jabberPhone,
+            redPhone: contact.redPhone,
+            tags: contact.tags,
+          });
+        }}
+        onSave={() => {
+          setIsEdit(false);
+          const data = {
+            ...formData,
+            otherPhones: formData.otherPhones.filter((v) => !!v),
+          };
+          mutation.mutate(data);
+          if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, data }));
+          dispatch(setDrawerObject({ ...contact, ...data }));
+
+          queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {
+            if (!oldData) return;
+            return {
+              ...oldData,
+              pages: oldData.pages.map((page) => page.map((c) => (c.id === formData.id ? { ...c, ...data } : c))),
+            };
+          });
+          queryClient.setQueryData(['history'], (oldData) => {
+            if (!oldData) return;
+            return oldData.map((c) => (c.id === formData.id ? { ...c, ...data } : c));
+          });
+          queryClient.setQueryData(['myFavorites'], (oldData) => {
+            if (!oldData) return;
+            return oldData.map((f) => (f.id === formData.id ? { ...f, ...data } : f));
+          });
+        }}
+      />
     </StyledDrawerWrapper>
   );
 };
