@@ -14,9 +14,9 @@ import { basicTheme } from './theme';
 import { hebrew } from './i18n/hebrew';
 import { initReactI18next } from 'react-i18next';
 import { setSearchTerm } from './store/reducers/search';
-import TopBar from './layout/Topbar';
-import { HeroSection } from './layout/HeroSection';
-import ChatBot from './layout/ChatBot';
+import TopBar from './layout/topbar';
+import { HeroSection } from './layout/heroSection';
+import ChatBot from './layout/chatBot';
 
 const App = () => {
   const dispatch = useDispatch();

@@ -43,9 +43,9 @@ export const EntityContactsCard: React.FC<{
   chats,
   isSelected,
   handleSelect,
-  hiddenFields,
   rank,
   sex,
+  hiddenFields,
 }) => {
   const theme = useTheme();
 
@@ -126,7 +126,7 @@ export const EntityContactsCard: React.FC<{
         </Grid>
 
         <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
-          <ContactOptions jabberPhone={jabberPhone} chats={chats} mails={mails} />
+          <ContactOptions jabberPhone={jabberPhone} chats={chats} mails={mails} hiddenFields={hiddenFields} />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
         </Grid>
       </Grid>

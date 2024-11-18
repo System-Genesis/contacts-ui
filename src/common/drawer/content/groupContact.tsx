@@ -9,8 +9,16 @@ import { getSubsOfGroup } from '../../../services/searchService';
 import { RootState } from '../../../store';
 import { useSelector } from 'react-redux';
 import { ContactDrawer } from '../drawerWrapper';
+import outlook from '../../../assets/icons/outlook.svg';
+import jabber from '../../../assets/icons/jabber.svg';
 
-export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }> = ({ isEdit, setFormData }) => {
+
+export const GroupContactDrawer: React.FC<{
+  setFormData?: any;
+  formData: any;
+  formErrors: any;
+  isEdit: boolean;
+}> = ({ setFormData, formData, isEdit, formErrors }) => {
   const theme = useTheme();
   const contact = useSelector((state: RootState) => state.drawer.contact!);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
@@ -24,6 +32,11 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }
 
   const { entities, groups } = subs.data;
 
+  const handleRemove = ({ field, index }: { field: string; index?: number }) => {
+    if (index !== undefined) setFormData((prev) => ({ ...prev, [field]: [''] }));
+    else setFormData((prev) => ({ ...prev, [field]: '' }));
+  };
+
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 0.5, width: '100%' }}>
       <UpperContact
@@ -33,7 +46,10 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }
         title={contact.name}
         subTitle={contact.entitiesCount === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`}
         imageSize="3rem"
+        hiddenFields={contact.hiddenFields}
+        type="group"
       />
+
       <StyledGridSection container theme={theme}>
         <Typography variant="body1">{i18next.t('description')}</Typography>
         <StyledGridInfo container theme={theme}>
@@ -41,18 +57,71 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }
         </StyledGridInfo>
       </StyledGridSection>
 
-      <StyledDivider theme={theme} />
+      {isEdit && (
+        <>
+          <StyledDivider theme={theme} />
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
+            <StyledGridInfo container theme={theme}>
+              <FieldDiv
+                field={i18next.t('jabber')}
+                editable
+                removable
+                value={formData.jabberPhone?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
+                onRemove={() => handleRemove({ field: 'jabberPhone' })}
+                icon={jabber}
+              />
+              <FieldDiv
+                field={i18next.t('outlook')}
+                editable
+                removable
+                value={formData.mails?.[0]?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
+                onRemove={() => handleRemove({ field: 'mails' })}
+                icon={outlook}
+              />
+            </StyledGridInfo>
+          </StyledGridSection>
+        </>
+      )}
 
-      <StyledGridSection container theme={theme}>
-        <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
-        <StyledGridInfo container theme={theme}>
-          <FieldDiv field={i18next.t('redPhone')} value={contact.jabberPhone} />
-          <FieldDiv field={i18next.t('anotherPhone')} value={contact.anotherPhone} />
-          <FieldDiv field={i18next.t('mail')} value={contact.mail} />
-        </StyledGridInfo>
-      </StyledGridSection>
+      {(isEdit || contact.jabberPhone || contact.otherPhone || contact.mails) && (
+        <>
+          <StyledDivider theme={theme} />
 
-      {entities.length && !isEdit ? (
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
+            <StyledGridInfo container theme={theme}>
+              <FieldDiv
+                field={i18next.t('field.redPhone')}
+                editable
+                removable
+                value={formData.redPhone?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+                onRemove={() => handleRemove({ field: 'redPhone' })}
+              />
+
+              <FieldDiv
+                field={i18next.t('field.otherPhone')}
+                editable
+                removable
+                value={formData.otherPhones?.[0]?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: event.target.value }))}
+                onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
+              />
+
+              {!isEdit && <FieldDiv field={i18next.t('mail')} value={contact.mails?.[0]} />}
+            </StyledGridInfo>
+          </StyledGridSection>
+        </>
+      )}
+
+      {!isEdit && entities.length > 0 && (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
@@ -72,11 +141,10 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }
             </StyledGridInfo>
           </StyledGridSection>
         </>
-      ) : (
-        <></>
       )}
 
-      {groups.length && !isEdit ? (
+
+      {!isEdit && groups.length > 0 && (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
@@ -86,8 +154,6 @@ export const GroupContactDrawer: React.FC<{ isEdit: boolean; setFormData?: any }
             </StyledGridInfo>
           </StyledGridSection>
         </>
-      ) : (
-        <></>
       )}
 
       <ContactDrawer contact={subEntity} sx={{ mr: '485px' }} />

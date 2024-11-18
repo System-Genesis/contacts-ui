@@ -65,12 +65,11 @@ export const ContactDrawer: React.FC<{
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentUser = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({});
+  const [formErrors, setFormErrors] = useState({});
 
   const mutation = useMutation({
-    mutationFn: () => {
-      dispatch(setDrawerObject({ ...contact, ...formData }));
-      const updatedUser = editUser(contact.id, formData);
-      return updatedUser;
+    mutationFn: (data) => {
+      return editUser(contact.id, data);
     },
   });
 
@@ -80,12 +79,15 @@ export const ContactDrawer: React.FC<{
         id: contact.id,
         hiddenFields: contact.hiddenFields,
         mobilePhone: contact.mobilePhone,
-        jabberPhone: contact.jabberPhone,
         redPhone: contact.redPhone,
         tags: contact.tags,
+        jabberPhone: contact.jabberPhone,
+        otherPhones: contact.otherPhones || [],
+        mail: contact.mails?.[0],
       });
     }
   }, [contact]);
+
   return (
     <StyledDrawerWrapper
       isSubEntity={subEntity?.id === contact?.id}
@@ -171,10 +173,18 @@ export const ContactDrawer: React.FC<{
 
           <Grid container>
             {contact?.type === ResultsTypes.GROUP
-              ? contact && <GroupContactDrawer isEdit={isEdit} setFormData={setFormData} />
+              ? contact && (
+                  <GroupContactDrawer
+                    isEdit={isEdit}
+                    formData={formData}
+                    setFormData={setFormData}
+                    formErrors={formErrors}
+                  />
+                )
               : contact && (
                   <EntityContentDrawer
                     formData={formData}
+                    formErrors={formErrors}
                     setFormData={setFormData}
                     isEdit={isEdit}
                     contact={contact}
@@ -204,29 +214,33 @@ export const ContactDrawer: React.FC<{
               <SaveButton
                 value={i18next.t(`saveChanges`)}
                 onClick={() => {
-                  mutation.mutate();
                   setIsEdit(false);
+
+                  const data = {
+                    ...formData,
+                    otherPhones: formData.otherPhones.filter((v) => !!v),
+                  };
+                  mutation.mutate(data);
+                  if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, data }));
+                  dispatch(setDrawerObject({ ...contact, ...data }));
 
                   queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {
                     if (!oldData) return;
                     return {
                       ...oldData,
                       pages: oldData.pages.map((page) =>
-                        page.map((c) => (c.id === formData.id ? { ...c, ...formData } : c)),
+                        page.map((c) => (c.id === formData.id ? { ...c, ...data } : c)),
                       ),
                     };
                   });
-
                   queryClient.setQueryData(['history'], (oldData) => {
                     if (!oldData) return;
-                    return oldData.map((c) => (c.id === formData.id ? { ...c, ...formData } : c));
+                    return oldData.map((c) => (c.id === formData.id ? { ...c, ...data } : c));
                   });
                   queryClient.setQueryData(['myFavorites'], (oldData) => {
                     if (!oldData) return;
-                    return oldData.map((f) => (f.id === formData.id ? { ...f, ...formData } : f));
+                    return oldData.map((f) => (f.id === formData.id ? { ...f, ...data } : f));
                   });
-
-                  if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, ...formData }));
                 }}
               />
             </Grid>

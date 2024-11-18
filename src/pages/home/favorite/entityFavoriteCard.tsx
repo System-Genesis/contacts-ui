@@ -1,4 +1,4 @@
-import { Box, Divider, Grid, useTheme } from '@mui/material';
+import { Divider, Grid, useTheme } from '@mui/material';
 import { ContactOptions } from '../../../common/contactOptions';
 import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
@@ -20,6 +20,7 @@ export const EntityFavoriteCard = ({
   handleSelect,
   isSelected,
   sex,
+  hiddenFields,
 }: {
   id: string;
   fullName: string;
@@ -33,6 +34,7 @@ export const EntityFavoriteCard = ({
   handleSelect: () => void;
   isSelected: boolean;
   sex: 'male' | 'female';
+  hiddenFields: string[];
 }) => {
   const theme = useTheme();
 
@@ -41,17 +43,16 @@ export const EntityFavoriteCard = ({
       <FavoriteButton
         id={id}
         type={'entity'}
+        imageStyle={{
+          top: '20px',
+        }}
         iconStyle={{
           right: '-30px',
           bottom: '-20px',
         }}
-        imageStyle={{
-          top: '20px',
-        }}
       />
       <Grid
         container
-        onClick={handleSelect}
         sx={{
           border: 1,
           borderColor: isSelected ? theme.colors.darkAqua : theme.colors.lighterGray,
@@ -62,7 +63,9 @@ export const EntityFavoriteCard = ({
           width: '17.5rem',
           height: '15rem',
           minHeight: '15rem',
-          padding: '1rem',
+          paddingX: 2,
+          paddingTop: 2,
+          paddingBottom: 1,
           margin: '0.25rem 0.5rem',
         }}
       >
@@ -77,42 +80,47 @@ export const EntityFavoriteCard = ({
             justifyContent: 'space-between',
           }}
         >
-          <ProfileImage
-            type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
-            id={id}
-            style={{ width: '3.5rem', height: '3.5rem' }}
-            sex={sex}
-          />
           <Grid
             container
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              height: '65%',
-            }}
+            onClick={handleSelect}
+            sx={{ height: '70%', justifyContent: 'center', gap: 1.5, cursor: 'pointer' }}
           >
+            <ProfileImage
+              type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
+              id={id}
+              style={{ width: '3.5rem', height: '3.5rem' }}
+              sex={sex}
+            />
             <Grid
               container
-              sx={{ display: 'flex', flexDirection: 'column', alignContent: 'center', gap: 1, alignItems: 'center' }}
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                height: '58%',
+              }}
             >
-              <Title value={fullName} />
-              <SubTitle value={jobTitle} sx={{ maxWidth: '210px' }} noToolTip />
-            </Grid>
-            <Grid container>
-              {(mails?.length || chats?.length || mobilePhone || jabberPhone) && (
-                <Grid container sx={{ width: '100%', gap: 1 }}>
-                  <Divider
-                    sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
-                  />
-                  <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
-                    <ContactNumbers mobilePhone={mobilePhone} />
-                    <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} />
-                  </Grid>
-                </Grid>
-              )}
+              <Grid
+                container
+                sx={{ display: 'flex', flexDirection: 'column', alignContent: 'center', gap: 1, alignItems: 'center' }}
+              >
+                <Title value={fullName} />
+                <SubTitle value={jobTitle} sx={{ maxWidth: '210px' }} noToolTip />
+              </Grid>
             </Grid>
           </Grid>
+
+          {(mails?.length || chats?.length || mobilePhone || jabberPhone) && (
+            <Grid container sx={{ width: '100%', gap: 1 }}>
+              <Divider
+                sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
+              />
+              <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
+                <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
+                <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} hiddenFields={hiddenFields} />
+              </Grid>
+            </Grid>
+          )}
         </Grid>
       </Grid>
     </Grid>

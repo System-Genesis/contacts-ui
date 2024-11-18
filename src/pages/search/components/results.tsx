@@ -59,6 +59,7 @@ export const Results = ({
       chats: result.chats,
       isSelected: contact?.id === result.id,
       type: result.type,
+      hiddenFields: result.chats ?? [],
     };
 
     switch (result.type) {
@@ -88,7 +89,7 @@ export const Results = ({
         return <GroupContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       default:
-        return <h1>no type!!!!</h1>;
+        return <></>;
     }
   };
 

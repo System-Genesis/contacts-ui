@@ -10,11 +10,13 @@ export const ContactOptions = ({
   chats,
   jabberPhone,
   isGroup = false,
+  hiddenFields,
 }: {
-  jabberPhone: string; //TODO: fix to git the contact menu
+  jabberPhone: string; //TODO: fix to get the contact menu
   chats: Option[];
   mails: Option[];
   isGroup?: boolean;
+  hiddenFields: string[];
 }) => {
   return (
     <Box
@@ -34,7 +36,13 @@ export const ContactOptions = ({
           href="https://hi.prod.services.idf/direct/"
         />
       )}
-      <ContactMenu title={i18next.t('jabber')} icon={jabber} options={jabberPhone ? [jabberPhone] : []} href="sip:" />
+      <ContactMenu
+        title={i18next.t('jabber')}
+        icon={jabber}
+        options={jabberPhone ? [{ option: jabberPhone }] : []}
+        href="sip:"
+        disabled={hiddenFields?.includes('jabberPhone')}
+      />
       <ContactMenu title={i18next.t('outlook')} icon={outlook} options={mails} href="mailto:" />
     </Box>
   );
