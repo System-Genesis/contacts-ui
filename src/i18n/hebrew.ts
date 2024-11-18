@@ -53,4 +53,9 @@ export const hebrew = {
   hiChat: 'Hi.Chat',
   outlook: 'מייל',
   jabber: 'Jabber',
+  dialog: {
+    savedChanges: 'האם לשמור את השינויים?',
+    areYouSure: 'שמנו לב שביצעת שינויים.',
+    afterSave: 'האם ברצונך לצאת ללא שמירה?',
+  },
 };
