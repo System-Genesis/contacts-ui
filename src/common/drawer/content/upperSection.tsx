@@ -9,12 +9,13 @@ import { SubTitle } from '../../divs/subTitle';
 export const UpperContact: React.FC<{
   contact: any;
   isEdit: boolean;
+  setFormData?: any;
   subTitle: string | undefined;
   title: string;
   imageSize?: string;
   hiddenFields: string[];
   type: 'group' | 'goalUser' | 'entity';
-}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', hiddenFields, type }) => {
+}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', setFormData, hiddenFields, type }) => {
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
       <Grid container>
@@ -58,7 +59,7 @@ export const UpperContact: React.FC<{
           />
         </Grid>
         <Grid container mt={2}>
-          <ContactTags tags={[{ name: contact.serviceType, _id: '' }].concat(contact.tags ?? [])} isEdit={isEdit} />
+          <ContactTags tags={contact.tags ?? []} isEdit={isEdit} setFormData={setFormData} />
         </Grid>
       </Grid>
     </Grid>

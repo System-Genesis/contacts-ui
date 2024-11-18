@@ -1,7 +1,7 @@
 import { Box, Typography, useTheme } from '@mui/material';
 import { ResultsTypes } from '../../../lib/enums';
 import i18next from 'i18next';
-
+import TagIcon from '../../../assets/icons/tag.svg';
 import EntityIcon from '../../../assets/icons/greenEntity.svg';
 import HierarchyIcon from '../../../assets/icons/greenHierarchy.svg';
 import GoalUserIcon from '../../../assets/icons/green-goal-user.svg';
@@ -10,6 +10,7 @@ const resultsTypeToIcon = {
   [ResultsTypes.ENTITY]: EntityIcon,
   [ResultsTypes.GROUP]: HierarchyIcon,
   [ResultsTypes.GOAL_USER]: GoalUserIcon,
+  [ResultsTypes.TAG]: TagIcon,
 };
 
 export const HistoryHeader = () => {

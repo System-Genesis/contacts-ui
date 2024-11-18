@@ -4,24 +4,32 @@ export const ChipStyled = styled(Chip)(({ theme }) => ({
   cursor: 'default',
   minWidth: '60px',
   padding: '0.25rem 0.5rem',
+  direction: 'ltr',
   borderRadius: '40px',
   backgroundColor: theme.colors.gray,
   fontSize: 13,
 }));
 
-export const TagChip = ({ id, value, isEdit }: { id: string; value: string; isEdit: boolean }) => {
+export const TagChip = ({
+  id,
+  value,
+  isEdit = false,
+  onDelete,
+}: {
+  id?: string | undefined;
+  value: string;
+  isEdit?: boolean;
+  onDelete?: any;
+}) => {
   const theme = useTheme();
-  const handleDelete = () => {
-    console.log('deleted {', value, '} chip');
-  };
 
   return isEdit ? (
     <ChipStyled
-      key={id}
+      key={id ?? value}
       theme={theme}
       label={value}
       deleteIcon={<CloseRoundedIcon />}
-      onDelete={handleDelete}
+      onDelete={onDelete}
       size="small"
     />
   ) : (

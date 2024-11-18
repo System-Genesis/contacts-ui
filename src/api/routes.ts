@@ -9,5 +9,7 @@ export const routes = {
     search: '/api/users/search',
     history: 'api/users/my/history',
     subs: '/api/users/group/:id/subs',
+    groups: '/api/tags/group',
+    tags: '/api/tags',
   },
 };

@@ -9,11 +9,13 @@ const {
 } = routes;
 
 const getCountsBySearchTermRequest = async (searchTerm: string) => {
-  const counts: Record<ResultsTypes, number> = { entity: 0, goalUser: 0, group: 0 };
+  const counts: Record<ResultsTypes, number> = { entity: 0, goalUser: 0, group: 0, tag: 0 };
   await Promise.allSettled(
     Object.values(ResultsTypes).map(async (type: ResultsTypes) => {
-      const { headers } = await axiosInstance.get(`${search}?queryString=${searchTerm}&type=${type}&page=1&pageSize=1`);
-      counts[type] = +headers['x-total-count'];
+      const { headers, data } = await axiosInstance.get(
+        `${search}?queryString=${searchTerm}&type=${type}&page=1&pageSize=1`,
+      );
+      counts[type] = +headers['x-total-count'] || data.length;
     }),
   );
 
@@ -22,13 +24,14 @@ const getCountsBySearchTermRequest = async (searchTerm: string) => {
 
 const searchRequest = async (
   searchTerm: string,
-  type: ResultsTypes,
+  type: ResultsTypes | null,
   page: number,
   pageSize: number,
 ): Promise<EntitySearchResult[] | GroupSearchResult[]> => {
   const { data } = await axiosInstance.get(
-    `${search}?queryString=${searchTerm}&type=${type}&page=${page}&pageSize=${pageSize}`,
+    `${search}?queryString=${searchTerm}&type=${type ?? 'all'}&page=${page}&pageSize=${pageSize}`,
   );
+  console.log('d', data, searchTerm, type, page, pageSize);
   return data;
 };
 

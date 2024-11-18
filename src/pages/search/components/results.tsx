@@ -58,11 +58,11 @@ export const Results = ({
       mails: result.mails,
       chats: result.chats,
       isSelected: contact?.id === result.id,
-      type: type ?? result.type,
+      type: result.type,
       hiddenFields: result.chats ?? [],
     };
 
-    switch (type ?? result.type) {
+    switch (result.type) {
       case ResultsTypes.ENTITY:
       case ResultsTypes.GOAL_USER:
         contactsCardProps.entityType = (result as EntitySearchResult).entityType;

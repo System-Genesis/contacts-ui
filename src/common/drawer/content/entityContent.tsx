@@ -38,6 +38,7 @@ export const EntityContentDrawer: React.FC<{
         isEdit={isEdit}
         title={contact.fullName}
         subTitle={contact.jobTitle}
+        setFormData={setFormData}
         hiddenFields={contact.hiddenFields}
         imageSize={contact.entityType === 'GoalUser' ? '3rem' : '5rem'}
         type={contact.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
@@ -144,9 +145,9 @@ export const EntityContentDrawer: React.FC<{
           />
           <FieldDiv
             field={i18next.t('field.redPhone')}
+            hidable
             editable
-            removable
-            value={formData.redPhone?.toString()}
+            value={contact.redPhone?.toString()}
             isEdit={isEdit}
             onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
             onRemove={() => handleRemove({ field: 'redPhone' })}

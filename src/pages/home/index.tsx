@@ -45,6 +45,7 @@ const Home = () => {
             isSelected={contact?.id === favorite.id}
           />
         );
+
       default:
         return <>No type!!!</>;
     }

@@ -12,8 +12,9 @@ import { ContactDrawer } from '../drawerWrapper';
 import outlook from '../../../assets/icons/outlook.svg';
 import jabber from '../../../assets/icons/jabber.svg';
 
+
 export const GroupContactDrawer: React.FC<{
-  setFormData: any;
+  setFormData?: any;
   formData: any;
   formErrors: any;
   isEdit: boolean;
@@ -37,10 +38,11 @@ export const GroupContactDrawer: React.FC<{
   };
 
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 1, width: '100%' }}>
+    <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 0.5, width: '100%' }}>
       <UpperContact
         contact={contact}
         isEdit={isEdit}
+        setFormData={setFormData}
         title={contact.name}
         subTitle={contact.entitiesCount === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`}
         imageSize="3rem"
@@ -140,6 +142,7 @@ export const GroupContactDrawer: React.FC<{
           </StyledGridSection>
         </>
       )}
+
 
       {!isEdit && groups.length > 0 && (
         <>
