@@ -7,14 +7,15 @@ export interface DrawerState {
   isOpen: boolean;
   contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
   subEntity: EntitySearchResult | undefined;
-  subGroups: GroupSearchResult[];
+  prevGroups: GroupSearchResult[];
+  isEdit: boolean;
 }
 
 const initialState: DrawerState = {
   isOpen: false,
   contact: undefined,
   subEntity: undefined,
-  subGroups: [] as GroupSearchResult[],
+  prevGroups: [] as GroupSearchResult[],
 };
 
 export const drawerSlice = createSlice({
@@ -26,7 +27,7 @@ export const drawerSlice = createSlice({
       if (!action.payload) {
         state.contact = undefined;
         state.subEntity = undefined;
-        state.subGroups = [] as GroupSearchResult[];
+        state.prevGroups = [] as GroupSearchResult[];
       }
     },
     closeSubEntity: (state) => {
@@ -34,17 +35,19 @@ export const drawerSlice = createSlice({
     },
     setDrawerObject: (state, action: PayloadAction<GroupSearchResult | EntitySearchResult | UserState>) => {
       state.contact = action.payload;
+      state.subEntity = undefined;
+      state.prevGroups = [] as GroupSearchResult[];
     },
     openSubEntity: (state, action: PayloadAction<Entity>) => {
       state.subEntity = action.payload;
     },
     openSubGroup: (state, action: PayloadAction<GroupSearchResult>) => {
-      state.subGroups.push(state.contact);
+      state.prevGroups.push(state.contact);
       state.subEntity = undefined;
       state.contact = { ...action.payload, type: ResultsTypes.GROUP };
     },
     closeSubGroup: (state) => {
-      state.contact = state.subGroups.pop();
+      state.contact = state.prevGroups.pop();
     },
   },
 });

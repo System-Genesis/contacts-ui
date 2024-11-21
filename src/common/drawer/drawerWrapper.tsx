@@ -19,7 +19,15 @@ import { CancelButton } from '../buttons/cancel';
 import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { setUser, UserState } from '../../store/reducers/user';
 import { SaveChangesDialog } from '../dialogs/saveChanges';
-import { hasChanges } from '../../utils/utils';
+import {
+  cleanFormData,
+  hasChanges,
+  redPhoneValidation,
+  mobilePhoneValidation,
+  jabberPhoneValidation,
+  otherPhoneValidation,
+  mailValidation,
+} from '../../utils/utils';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer, {
   shouldForwardProp: (prop) => prop !== 'isSubEntity', // Prevents `isSubEntity` from reaching the DOM
@@ -54,77 +62,89 @@ const StyledDrawerWrapper = styled(SwipeableDrawer, {
 }));
 
 export const ContactDrawer: React.FC<{
-  contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
+  contact: GroupSearchResult | EntitySearchResult | UserState;
   sx?: object;
+  alowEdit?: boolean;
   onClose?: () => void;
-}> = ({ onClose = () => ({}), contact, sx = {} }) => {
+}> = ({ onClose = () => ({}), contact, sx = {}, alowEdit = true }) => {
   const dispatch = useDispatch();
   const theme = useTheme();
   const queryClient = useQueryClient();
   const [isEdit, setIsEdit] = useState(false);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
-  const subGroups = useSelector((state: RootState) => state.drawer.subGroups);
+  const prevGroups = useSelector((state: RootState) => state.drawer.prevGroups);
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentUser = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({});
-  const [formErrors, setFormErrors] = useState({});
   const [saveChangesDialogOpen, setSaveChangesDialogOpen] = useState(false);
+  const [formErrors, setFormErrors] = useState({});
+
+  const formValidations = {
+    mobilePhone: mobilePhoneValidation,
+    jabberPhone: jabberPhoneValidation,
+    redPhone: redPhoneValidation,
+    otherPhone: otherPhoneValidation,
+    mail: mailValidation,
+  };
 
   const mutation = useMutation({
     mutationFn: (data) => {
       return editUser(contact.id, data);
     },
   });
+
+  const resetFormData = () => {
+    setFormData({
+      id: contact.id,
+      hiddenFields: contact.hiddenFields ?? [],
+      mobilePhone: contact.mobilePhone ?? '',
+      redPhone: contact.redPhone ?? '',
+      tags: contact.tags ?? [],
+      jabberPhone: contact.jabberPhone ?? '',
+      otherPhones: contact.otherPhones || [],
+      mails: contact.mails || [],
+    });
+  };
+
   useEffect(() => {
-    if (contact) {
-      setFormData({
-        id: contact.id,
-        hiddenFields: contact.hiddenFields ?? [],
-        mobilePhone: contact.mobilePhone ?? '',
-        redPhone: contact.redPhone ?? '',
-        tags: contact.tags ?? [],
-        jabberPhone: contact.jabberPhone ?? '',
-        otherPhones: contact.otherPhones || [],
-        mails: contact.mails || [],
-      });
-    }
+    if (contact) resetFormData();
   }, [contact, isEdit]);
+
+  const onCancel = () => {
+    setIsEdit(false);
+    resetFormData();
+  };
+
+  const onEdit = () => {
+    setIsEdit(true);
+    dispatch(setDrawerObject(contact));
+  };
 
   const onSave = () => {
     setIsEdit(false);
-    const data = {
-      ...formData,
-      otherPhones: formData.otherPhones.filter((v) => !!v),
-    };
+    const data = { ...cleanFormData(formData), mails: formData.mails.map((o) => o.option ?? o) };
     mutation.mutate(data);
-    if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, data }));
+
+    //update lists
+    if (formData.id === currentUser.id) dispatch(setUser({ ...currentUser, ...data }));
     dispatch(setDrawerObject({ ...contact, ...data }));
 
     queryClient.setQueryData(['search', searchTerm, contact.type], (oldData) => {
-      if (!oldData) return;
+      if (!oldData || !searchTerm) return;
       return {
         ...oldData,
         pages: oldData.pages.map((page) => page.map((c) => (c.id === formData.id ? { ...c, ...data } : c))),
       };
     });
+
     queryClient.setQueryData(['history'], (oldData) => {
       if (!oldData) return;
       return oldData.map((c) => (c.id === formData.id ? { ...c, ...data } : c));
     });
+
     queryClient.setQueryData(['myFavorites'], (oldData) => {
       if (!oldData) return;
       return oldData.map((f) => (f.id === formData.id ? { ...f, ...data } : f));
-    });
-  };
-  const onCancel = () => {
-    setIsEdit(false);
-    setFormData({
-      id: contact.id,
-      hiddenFields: contact.hiddenFields,
-      mobilePhone: contact.mobilePhone,
-      jabberPhone: contact.jabberPhone,
-      redPhone: contact.redPhone,
-      tags: contact.tags,
     });
   };
 
@@ -138,11 +158,7 @@ export const ContactDrawer: React.FC<{
         if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(true));
       }}
       onClose={() => {
-        const data = {
-          ...formData,
-          otherPhones: formData.otherPhones.filter((v) => !!v),
-        };
-        if (hasChanges(data, contact)) setSaveChangesDialogOpen(true);
+        if (hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
         else {
           onCancel();
           if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
@@ -182,7 +198,7 @@ export const ContactDrawer: React.FC<{
             }}
           >
             <Grid>
-              {subGroups.length ? (
+              {prevGroups.length > 0 && (
                 <IconButton
                   onClick={() => {
                     dispatch(closeSubGroup());
@@ -193,23 +209,17 @@ export const ContactDrawer: React.FC<{
                 >
                   <img src={BackIcon} style={{ padding: 0 }} />
                 </IconButton>
-              ) : (
-                <></>
               )}
             </Grid>
             <Grid>
-              {!isEdit && (
-                <IconButton onClick={() => setIsEdit(true)} sx={{ p: 0 }}>
+              {!isEdit && alowEdit && (
+                <IconButton onClick={() => onEdit()} sx={{ p: 0 }}>
                   <img src={EditIcon} style={{ padding: 0 }} />
                 </IconButton>
               )}
               <IconButton
                 onClick={() => {
-                  const data = {
-                    ...formData,
-                    otherPhones: formData.otherPhones.filter((v) => !!v),
-                  };
-                  if (hasChanges(data, contact)) setSaveChangesDialogOpen(true);
+                  if (hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
                   else {
                     onCancel();
                     if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
@@ -230,16 +240,18 @@ export const ContactDrawer: React.FC<{
                     isEdit={isEdit}
                     formData={formData}
                     setFormData={setFormData}
-                    formErrors={formErrors}
+                    formValidations={formValidations}
+                    setFormErrors={setFormErrors}
                   />
                 )
               : contact && (
                   <EntityContentDrawer
                     formData={formData}
-                    formErrors={formErrors}
+                    formValidations={formValidations}
                     setFormData={setFormData}
                     isEdit={isEdit}
                     contact={contact}
+                    setFormErrors={setFormErrors}
                   />
                 )}
           </Grid>
@@ -249,30 +261,12 @@ export const ContactDrawer: React.FC<{
           <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 2 }}>
             <StyledDivider theme={theme} />
             <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', columnGap: 2 }}>
-              <CancelButton
-                value={i18next.t(`cancel`)}
-                onClick={() => {
-                  const data = {
-                    ...formData,
-                    otherPhones: formData.otherPhones.filter((v) => !!v),
-                  };
-                  if (hasChanges(data, contact)) setSaveChangesDialogOpen(true);
-                  else onCancel();
-                }}
-              />
+              <CancelButton value={i18next.t(`cancel`)} onClick={onCancel} />
               <SaveButton
                 value={i18next.t(`saveChanges`)}
                 withEndIcon
                 onClick={() => onSave()}
-                disabled={
-                  !hasChanges(
-                    {
-                      ...formData,
-                      otherPhones: formData.otherPhones.filter((v) => !!v),
-                    },
-                    contact,
-                  )
-                }
+                disabled={!hasChanges(cleanFormData(formData), contact) || Object.values(formErrors).some((v) => !v)}
               />
             </Grid>
           </Grid>
@@ -280,6 +274,8 @@ export const ContactDrawer: React.FC<{
       </Grid>
       <SaveChangesDialog
         open={saveChangesDialogOpen}
+        setOpen={setSaveChangesDialogOpen}
+        disabledSave={Object.values(formErrors).some((v) => !v)}
         onCancel={() => {
           setSaveChangesDialogOpen(false);
           onCancel();

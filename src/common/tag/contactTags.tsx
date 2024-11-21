@@ -10,18 +10,20 @@ import { useDebounce } from '@uidotdev/usehooks';
 export const ContactTags = ({
   tags,
   isEdit = false,
-  shrinked = false,
+  shrunk = false,
   setFormData,
+  sx = {},
 }: {
-  tags: { name: string; _id: string }[];
+  tags: { name: string; _id?: string }[];
   isEdit?: boolean;
-  shrinked?: boolean;
+  shrunk?: boolean;
   setFormData?: any;
+  sx?: any;
 }) => {
   const theme = useTheme();
   const [search, setSearch] = useState('');
   const [debounced] = useDebounce(search, 1000);
-  const [selectedTags, setSelectedTags] = useState(tags); // State to hold selected tags
+  const [selectedTags, setSelectedTags] = useState(tags);
   const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
 
   const { data: firstTags } = useQuery({
@@ -92,7 +94,7 @@ export const ContactTags = ({
           p: 0,
         }}
       >
-        {!shrinked ? (
+        {!shrunk ? (
           <Box display={'flex'} width={'100%'}>
             <Box
               sx={{
@@ -120,6 +122,7 @@ export const ContactTags = ({
                 gap: 0.5,
                 justifyContent: 'flex-end',
                 flexWrap: 'wrap',
+                ...sx,
               }}
             >
               {selectedTags.map(
@@ -130,97 +133,93 @@ export const ContactTags = ({
                       id={_id}
                       key={_id}
                       isEdit={isEdit}
-                      onDelete={() => {
-                        setSelectedTags(selectedTags.filter((tag: any) => tag.name != name));
-                      }}
+                      onDelete={() => setSelectedTags(selectedTags.filter((tag: any) => tag.name != name))}
                     />
                   ),
               )}
             </Box>
-            {!isAutoCompleteOpen && isEdit && (
-              <Chip
-                component={'div'}
-                label={i18next.t('newTag')}
-                size="small"
-                onClick={() => setIsAutoCompleteOpen(true)}
-                onDelete={() => setIsAutoCompleteOpen(true)}
-                deleteIcon={<AddIcon />}
-                sx={{
-                  cursor: 'pointer',
-                  alignSelf: 'center',
-                  direction: 'ltr',
-                  color: theme.colors.white,
-                  borderRadius: '40px',
-                  backgroundColor: '#295C54',
-                  fontSize: 13,
-                  '&:hover': {
-                    backgroundColor: '#295C54',
-                    color: theme.colors.white,
-                  },
-                  '& .MuiChip-deleteIcon': {
-                    color: theme.colors.white,
+            {isEdit &&
+              (isAutoCompleteOpen ? (
+                <Autocomplete
+                  multiple
+                  id="tags-filled"
+                  noOptionsText={'אין תוצאות'}
+                  options={displayOptions}
+                  sx={{
+                    width: '10vw',
+                    borderRadius: '40px',
+                    backgroundColor: theme.colors.gray,
+                    height: 0,
+                    border: '1px solid',
+                    borderColor: theme.colors.gray,
+                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                      borderColor: theme.colors.aqua,
+                    },
+                    '& .MuiOutlinedInput-root': {
+                      borderRadius: '40px',
+                      backgroundColor: theme.colors.gray,
+                    },
+                    '& .MuiInputBase-input': {
+                      height: 0,
+                    },
+                  }}
+                  filterOptions={(x) => x}
+                  filterSelectedOptions
+                  value={selectedTags}
+                  onChange={(_event, newValue) => {
+                    if (newValue.length === 0) return setSearch('');
+                    setSelectedTags(newValue as []);
+                  }}
+                  getOptionLabel={(option) => option.name}
+                  renderTags={() => <></>}
+                  renderOption={(props, option: any) => (
+                    <li {...props} key={option.name}>
+                      <Typography variant="body2" color="textSecondary">
+                        {option._id ? option.name : `תג חדש: ` + option.name}
+                      </Typography>
+                    </li>
+                  )}
+                  renderInput={(params) => (
+                    <TextField
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      {...params}
+                      variant="outlined"
+                      InputProps={params.InputProps}
+                    />
+                  )}
+                />
+              ) : (
+                <Chip
+                  component={'div'}
+                  label={i18next.t('newTag')}
+                  size="small"
+                  onClick={() => setIsAutoCompleteOpen(true)}
+                  onDelete={() => setIsAutoCompleteOpen(true)}
+                  deleteIcon={<AddIcon />}
+                  sx={{
                     cursor: 'pointer',
+                    alignSelf: 'center',
+                    direction: 'ltr',
+                    color: theme.colors.white,
+                    borderRadius: '40px',
+                    backgroundColor: '#295C54',
+                    fontSize: 13,
                     '&:hover': {
                       backgroundColor: '#295C54',
                       color: theme.colors.white,
                     },
-                  },
-                }}
-              />
-            )}
-            {isEdit && isAutoCompleteOpen && (
-              <Autocomplete
-                multiple
-                id="tags-filled"
-                noOptionsText={'אין תוצאות'}
-                options={displayOptions}
-                sx={{
-                  width: '10vw',
-                  borderRadius: '40px',
-                  backgroundColor: theme.colors.gray,
-                  height: 0,
-                  border: '1px solid',
-                  borderColor: theme.colors.gray,
-                  '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                    borderColor: theme.colors.aqua,
-                  },
-                  '& .MuiOutlinedInput-root': {
-                    borderRadius: '40px',
-                    backgroundColor: theme.colors.gray,
-                  },
-                  '& .MuiInputBase-input': {
-                    height: 0,
-                  },
-                }}
-                filterOptions={(x) => x}
-                filterSelectedOptions
-                value={selectedTags}
-                onChange={(_event, newValue) => {
-                  if (newValue.length === 0) return setSearch('');
-                  setSelectedTags(newValue as []);
-                }}
-                getOptionLabel={(option) => option.name}
-                renderTags={() => <></>}
-                renderOption={(props, option: any) => (
-                  <li {...props} key={option.name}>
-                    <Typography variant="body2" color="textSecondary">
-                      {option._id ? option.name : `תג חדש: ` + option.name}
-                    </Typography>
-                  </li>
-                )}
-                renderInput={(params) => (
-                  <TextField
-                    value={search}
-                    onChange={(e) => setSearch(e.target.value)}
-                    {...params}
-                    variant="outlined"
-                    InputProps={{
-                      ...params.InputProps,
-                    }}
-                  />
-                )}
-              />
-            )}
+                    '& .MuiChip-deleteIcon': {
+                      color: theme.colors.white,
+                      cursor: 'pointer',
+                      '&:hover': {
+                        backgroundColor: '#295C54',
+                        color: theme.colors.white,
+                      },
+                    },
+                  }}
+                />
+              ))}
           </Box>
         ) : (
           <Grid>

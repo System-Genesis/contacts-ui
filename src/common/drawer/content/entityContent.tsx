@@ -5,14 +5,17 @@ import { UpperContact } from './upperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
 import { EntitySearchResult } from '../../../lib/types';
 import { AddPhone } from '../../buttons/addPhone';
+import outlook from '../../../assets/icons/outlook.svg';
+import jabber from '../../../assets/icons/jabber.svg';
 
 export const EntityContentDrawer: React.FC<{
-  setFormData: any;
-  formData: any;
-  formErrors: any;
   isEdit: boolean;
   contact: EntitySearchResult;
-}> = ({ contact, setFormData, formData, isEdit, formErrors }) => {
+  formData: any;
+  setFormData: any;
+  formValidations: any;
+  setFormErrors: any;
+}> = ({ contact, setFormData, formData, isEdit, formValidations, setFormErrors }) => {
   const theme = useTheme();
 
   const handleHide = (isHidden, field) =>
@@ -43,12 +46,14 @@ export const EntityContentDrawer: React.FC<{
         type={contact.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
       />
 
-      {!isEdit && (
+      {!isEdit && (contact.hierarchy ?? (contact.entityType !== 'GoalUser' && contact.jobTitle)) && (
         <StyledGridSection container theme={theme}>
           <Typography variant="body1">{i18next.t(`role`)}</Typography>
           <StyledGridInfo container theme={theme}>
             <FieldDiv field={i18next.t('field.hierarchy')} value={contact.hierarchy} />
-            <FieldDiv field={i18next.t('field.jobTitle')} value={contact.jobTitle} />
+            {contact.entityType !== 'GoalUser' && (
+              <FieldDiv field={i18next.t('field.jobTitle')} value={contact.jobTitle} />
+            )}
           </StyledGridInfo>
         </StyledGridSection>
       )}
@@ -116,7 +121,47 @@ export const EntityContentDrawer: React.FC<{
         </>
       )}
 
-      <StyledDivider theme={theme} />
+      {isEdit && contact.entityType === 'GoalUser' && (
+        <>
+          <StyledDivider theme={theme} />
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
+            <StyledGridInfo container theme={theme}>
+              <FieldDiv
+                field={i18next.t('jabber')}
+                editable
+                removable
+                value={formData.jabberPhone?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }));
+                  setFormErrors((prev) => ({ ...prev, jabberPhone: formValidations.jabberPhone(event.target.value) }));
+                }}
+                onRemove={() => handleRemove({ field: 'jabberPhone' })}
+                icon={jabber}
+                validation={formValidations.jabberPhone}
+                helperText={i18next.t('validationError.jabberPhone')}
+              />
+              <FieldDiv
+                field={i18next.t('outlook')}
+                editable
+                removable
+                value={formData.mails?.[0]?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, mails: [event.target.value] }));
+                  setFormErrors((prev) => ({ ...prev, mails: formValidations.email(event.target.value) }));
+                }}
+                onRemove={() => handleRemove({ field: 'mails', index: 0 })}
+                icon={outlook}
+                validation={formValidations.email}
+                helperText={i18next.t('validationError.mail')}
+              />
+            </StyledGridInfo>
+          </StyledGridSection>
+          <StyledDivider theme={theme} />
+        </>
+      )}
 
       {(isEdit ||
         (contact.mobilePhone && contact.entityType !== 'GoalUser') ||
@@ -131,51 +176,101 @@ export const EntityContentDrawer: React.FC<{
                 field={i18next.t('field.mobilePhone')}
                 hidable
                 editable
-                value={formData.mobilePhone?.toString()}
+                value={
+                  isEdit
+                    ? formData.mobilePhone
+                    : formData.mobilePhone?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
+                }
                 isEdit={isEdit}
-                onChange={(event) => setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }))}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }));
+                  setFormErrors((prev) => ({ ...prev, mobilePhone: formValidations.mobilePhone(event.target.value) }));
+                }}
                 isHidden={formData.hiddenFields?.includes('mobilePhone')}
                 onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
+                validation={formValidations.mobilePhone}
+                helperText={i18next.t('validationError.mobilePhone')}
               />
             )}
-            <FieldDiv
-              field={i18next.t('field.jabberPhone')}
-              editable
-              hidable
-              value={formData.jabberPhone?.toString()}
-              isEdit={isEdit}
-              onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
-              isHidden={formData.hiddenFields?.includes('jabberPhone')}
-              onHide={(isHidden) => handleHide(isHidden, 'jabberPhone')}
-            />
+            {contact.entityType !== 'GoalUser' && (
+              <FieldDiv
+                field={i18next.t('field.jabberPhone')}
+                editable
+                hidable
+                value={formData.jabberPhone?.toString()}
+                isEdit={isEdit}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }));
+                  setFormErrors((prev) => ({ ...prev, jabberPhone: formValidations.jabberPhone(event.target.value) }));
+                }}
+                isHidden={formData.hiddenFields?.includes('jabberPhone')}
+                onHide={(isHidden) => handleHide(isHidden, 'jabberPhone')}
+                validation={formValidations.jabberPhone}
+                helperText={i18next.t('validationError.jabberPhone')}
+              />
+            )}
             <FieldDiv
               field={i18next.t('field.redPhone')}
               editable
               removable
               value={formData.redPhone?.toString()}
               isEdit={isEdit}
-              onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+              onChange={(event) => {
+                setFormData((prev) => ({ ...prev, redPhone: event.target.value }));
+                setFormErrors((prev) => ({ ...prev, redPhone: formValidations.redPhone(event.target.value) }));
+              }}
               onRemove={() => handleRemove({ field: 'redPhone' })}
               isHidden={formData.hiddenFields?.includes('redPhone')}
+              validation={formValidations.redPhone}
+              helperText={i18next.t('validationError.redPhone')}
             />
-            {formData?.otherPhones?.map((otherPhone, index) => (
+            {contact.entityType !== 'GoalUser' ? (
+              <>
+                {formData?.otherPhones?.map((otherPhone, index) => (
+                  <FieldDiv
+                    field={i18next.t('field.otherPhone')}
+                    editable
+                    removable
+                    value={otherPhone}
+                    isEdit={isEdit}
+                    onChange={(event) => {
+                      setFormData((prev) => ({
+                        ...prev,
+                        otherPhones: formData.otherPhones?.map((c, i) => (i === index ? event.target.value : c)),
+                      }));
+                      setFormErrors((prev) => ({
+                        ...prev,
+                        otherPhones: formData.otherPhones?.every((c, i) =>
+                          formValidations.otherPhone(i === index ? event.target.value : c),
+                        ),
+                      }));
+                    }}
+                    onRemove={() => handleRemove({ field: 'otherPhones', index })}
+                    helperText={i18next.t('validationError.')}
+                    validation={formValidations.otherPhone}
+                  />
+                ))}
+                {isEdit && formData.otherPhones?.length < 3 && (
+                  <AddPhone
+                    onClick={() => setFormData((prev) => ({ ...prev, otherPhones: [...prev.otherPhones, ''] }))}
+                  />
+                )}
+              </>
+            ) : (
               <FieldDiv
                 field={i18next.t('field.otherPhone')}
                 editable
                 removable
-                value={otherPhone}
+                value={formData.otherPhones?.[0]?.toString()}
                 isEdit={isEdit}
-                onChange={(event) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    otherPhones: formData.otherPhones?.map((c, i) => (i === index ? event.target.value : c)),
-                  }))
-                }
-                onRemove={() => handleRemove({ field: 'otherPhones', index })}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }));
+                  setFormErrors((prev) => ({ ...prev, otherPhones: formValidations.otherPhone(event.target.value) }));
+                }}
+                onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
+                helperText={i18next.t('validationError.otherPhone')}
+                validation={formValidations.otherPhone}
               />
-            ))}
-            {isEdit && formData.otherPhones?.length < 3 && (
-              <AddPhone onClick={() => setFormData((prev) => ({ ...prev, otherPhones: [...prev.otherPhones, ''] }))} />
             )}
           </StyledGridInfo>
         </StyledGridSection>

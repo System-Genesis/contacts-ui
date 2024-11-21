@@ -15,9 +15,10 @@ import jabber from '../../../assets/icons/jabber.svg';
 export const GroupContactDrawer: React.FC<{
   setFormData?: any;
   formData: any;
-  formErrors: any;
   isEdit: boolean;
-}> = ({ setFormData, formData, isEdit, formErrors }) => {
+  setFormErrors: any;
+  formValidations: any;
+}> = ({ setFormData, formData, isEdit, setFormErrors, formValidations }) => {
   const theme = useTheme();
   const contact = useSelector((state: RootState) => state.drawer.contact!);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
@@ -87,7 +88,7 @@ export const GroupContactDrawer: React.FC<{
         </>
       )}
 
-      {(isEdit || contact.jabberPhone || contact.otherPhone || contact.mails) && (
+      {(isEdit || contact.otherPhones?.length > 0 || contact.mails?.length > 0) && (
         <>
           <StyledDivider theme={theme} />
 
@@ -154,7 +155,7 @@ export const GroupContactDrawer: React.FC<{
         </>
       )}
 
-      <ContactDrawer contact={subEntity} sx={{ mr: '485px' }} />
+      <ContactDrawer contact={subEntity} sx={{ mr: '481px' }} alowEdit={false} />
     </Grid>
   );
 };

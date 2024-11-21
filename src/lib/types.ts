@@ -22,15 +22,21 @@ export interface Tag {
 export interface EntitySearchResult extends Omit<Entity, 'mobilePhone'> {
   mobilePhone: string;
   jabberPhone: string;
+  redPhone: string;
   hiddenFields: string[];
+  otherPhones: string[];
+  mails: string[];
   tags: string[];
 }
 
 export interface GroupSearchResult extends Group {
   mobilePhone: string;
   jabberPhone: string;
+  redPhone: string;
   hiddenFields: string[];
   entitiesCount: string;
+  otherPhones: string[];
+  mails: string[];
   tags: string[];
 }
 
@@ -54,7 +60,6 @@ export interface Entity {
   mail?: string;
   jobTitle?: string;
   phone?: string[];
-  mobilePhone?: string[];
   address?: string;
   clearance?: string;
   fullClearance?: string;
@@ -80,6 +85,7 @@ export interface Entity {
   digitalIdentities?: DigitalIdentity[];
   akaUnitHierarchy?: string[];
   isAmanAssociated?: boolean;
+  mobilePhone: string;
 }
 
 export interface DigitalIdentity {

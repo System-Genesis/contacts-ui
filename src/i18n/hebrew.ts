@@ -59,4 +59,10 @@ export const hebrew = {
     areYouSure: 'שמנו לב שביצעת שינויים.',
     afterSave: 'האם ברצונך לצאת ללא שמירה?',
   },
+  validationError: {
+    mobilePhone: 'טלפון נייד מכיל 10 ספרות.',
+    redPhone: 'טלפון אדום מכיל 10 ספרות.',
+    jabberPhone: "טלפון גא'בר מכיל עד 8 ספרות וכוכבית.",
+    otherPhone: 'טלפון אחר מכיל 10 ספרות.',
+  },
 };

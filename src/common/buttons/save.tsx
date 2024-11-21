@@ -8,8 +8,8 @@ export const SaveButton = ({
   onClick = () => ({}),
 }: {
   value: any;
-  disabled: boolean;
-  withEndIcon: boolean;
+  disabled?: boolean;
+  withEndIcon?: boolean;
   onClick: () => void;
 }) => {
   const theme = useTheme();

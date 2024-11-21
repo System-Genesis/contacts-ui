@@ -85,8 +85,7 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
             }}
           >
             <Grid item>
-              <ContactTags tags={entity?.tags ?? []} shrinked />
-              {/* //todo: tags for entity? */}
+              <ContactTags tags={entity?.tags ?? []} shrunk />
             </Grid>
             <Grid item>
               <img src={openSub} style={{ padding: 0 }} />

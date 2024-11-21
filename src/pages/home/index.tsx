@@ -6,7 +6,6 @@ import { getMyFavoritesRequest } from '../../services/favoriteService';
 import { GroupFavoriteCard } from './favorite/groupFavoriteCard';
 import favStar from '../../assets/icons/favStar.svg';
 import { ResultsTypes } from '../../lib/enums';
-import { ContactDrawer } from '../../common/drawer/drawerWrapper';
 import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
@@ -88,6 +87,7 @@ const Home = () => {
           sx={{
             height: '30rem',
             overflowY: 'auto',
+            scrollBehavior: 'smooth',
             '&::-webkit-scrollbar': {
               width: '0.6rem',
             },
@@ -108,7 +108,6 @@ const Home = () => {
           {data.map(generateFavorite)}
         </Grid>
       )}
-      <ContactDrawer contact={contact} />
     </Box>
   );
 };

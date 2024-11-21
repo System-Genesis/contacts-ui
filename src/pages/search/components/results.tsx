@@ -9,7 +9,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { setDrawerObject, setIsDrawerOpen } from '../../../store/reducers/drawer';
-import { ContactDrawer } from '../../../common/drawer/drawerWrapper';
 
 export const Results = ({
   type,
@@ -119,7 +118,6 @@ export const Results = ({
           ]}
         </Stack>
       </Box>
-      <ContactDrawer contact={contact} />
     </>
   );
 };

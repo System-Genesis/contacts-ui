@@ -7,7 +7,7 @@ import EmptyHistory from '../../assets/icons/emptyHistory.svg';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { ResultsTypes } from '../../lib/enums';
 import { useDebounce } from '@uidotdev/usehooks';
-import { keepPreviousData, useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getCountsBySearchTermRequest, searchRequest } from '../../services/searchService';
 import { ResultsMenu } from './components/resultsMenu';
 import { mySearchHistory } from '../../services/historyService';

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { RoleHistory } from '../../lib/types';
 
 export interface UserState {
   id: string;
@@ -12,11 +11,17 @@ export interface UserState {
   entityType: string;
   userType: string;
   permissions: { type: string }[];
-  roleHistory: Partial<RoleHistory>[];
   digitalIdentities: any[];
   directGroup: string;
   hierarchy: string;
   fullName: string;
+  jabberPhone: string;
+  redPhone: string;
+  mobilePhone: string;
+  otherPhones: string[];
+  hiddenFields: string[];
+  tags: string[];
+  mails: string[];
 }
 
 const initialState: Partial<UserState> = {};

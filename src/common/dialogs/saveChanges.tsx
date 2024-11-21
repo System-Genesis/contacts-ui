@@ -5,11 +5,13 @@ import i18next from 'i18next';
 import { CancelButton } from '../buttons/cancel';
 import { SaveButton } from '../buttons/save';
 
-export const SaveChangesDialog: React.FC<{ open: boolean; onSave: any; onCancel: any }> = ({
-  open,
-  onSave,
-  onCancel,
-}) => {
+export const SaveChangesDialog: React.FC<{
+  open: boolean;
+  onSave: any;
+  onCancel: any;
+  disabledSave: boolean;
+  setOpen: (val) => void;
+}> = ({ open, setOpen, onSave, onCancel, disabledSave }) => {
   const theme = useTheme();
   return (
     <Dialog
@@ -38,7 +40,7 @@ export const SaveChangesDialog: React.FC<{ open: boolean; onSave: any; onCancel:
         }}
       >
         <Box flex={'10%'} alignSelf={'flex-end'}>
-          <IconButton onClick={onCancel} sx={{ ml: 2 }}>
+          <IconButton onClick={() => setOpen(false)} sx={{ ml: 2 }}>
             <img src={CloseIcon} style={{ padding: 0 }} />
           </IconButton>
         </Box>
@@ -71,7 +73,7 @@ export const SaveChangesDialog: React.FC<{ open: boolean; onSave: any; onCancel:
         </Box>
         <Box flex={'10%'} sx={{ display: 'flex', justifyContent: 'center', columnGap: 2 }}>
           <CancelButton value={i18next.t(`cancelChanges`)} onClick={onCancel} />
-          <SaveButton value={i18next.t(`save`)} onClick={onSave} />
+          <SaveButton value={i18next.t(`save`)} onClick={onSave} disabled={disabledSave} />
         </Box>
       </Box>
     </Dialog>

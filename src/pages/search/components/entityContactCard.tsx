@@ -87,11 +87,13 @@ export const EntityContactsCard: React.FC<{
             alignContent={'center'}
             onClick={() => handleSelect(type)}
             sx={{ cursor: 'pointer' }}
+            alignItems={'center'}
+            wrap="nowrap"
           >
             <ProfileImage
               type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
               id={id}
-              style={{ width: '4rem', height: '4rem' }}
+              style={{ width: '4.2rem', height: '4.2rem' }}
               sex={sex}
             />
             <Grid item p={1} alignContent={'center'} textAlign={'left'}>
@@ -104,6 +106,7 @@ export const EntityContactsCard: React.FC<{
                 pl={1}
                 wrap="nowrap"
                 minHeight={'4.5rem'}
+                gap={1.5}
               >
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
@@ -125,7 +128,7 @@ export const EntityContactsCard: React.FC<{
           </Grid>
         </Grid>
 
-        <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
+        <Grid item xs={3} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} chats={chats} mails={mails} hiddenFields={hiddenFields} />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
         </Grid>

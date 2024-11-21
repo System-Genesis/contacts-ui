@@ -81,8 +81,10 @@ export const GroupContactsCard: React.FC<{
             alignContent={'center'}
             onClick={() => handleSelect(type)}
             sx={{ cursor: 'pointer' }}
+            alignItems={'center'}
+            wrap="nowrap"
           >
-            <ProfileImage type="group" id={id} style={{ width: '4rem', height: '4rem' }} />
+            <ProfileImage type="group" id={id} style={{ width: '4.2rem', height: '4.2rem' }} />
             <Grid item p={1} alignContent={'center'} textAlign={'left'}>
               <Grid
                 container
@@ -93,6 +95,7 @@ export const GroupContactsCard: React.FC<{
                 pl={1}
                 wrap="nowrap"
                 minHeight={'4.5rem'}
+                gap={1.5}
               >
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
@@ -113,7 +116,7 @@ export const GroupContactsCard: React.FC<{
           </Grid>
         </Grid>
 
-        <Grid item xs={2.5} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
+        <Grid item xs={3} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup hiddenFields={hiddenFields} />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} isGroup hiddenFields={hiddenFields} />
         </Grid>

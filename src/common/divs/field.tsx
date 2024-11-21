@@ -16,6 +16,8 @@ export const FieldDiv = ({
   onHide = (isHidden: boolean) => ({}),
   onRemove = () => ({}),
   isHidden = false,
+  helperText = '',
+  validation = (value: string) => ({}),
 }) => {
   const theme = useTheme();
 
@@ -41,15 +43,16 @@ export const FieldDiv = ({
 
         {isEdit && editable && (
           <TextField
-            // error = {} //TODO: add the errororrr!!!
             sx={{
-              flex: '0.3',
+              flex: '0.4',
               '& .MuiInput-underline': { borderBottom: '1px solid #DCDCDC' },
               '& .MuiInput-input': { p: '0.2rem 0', fontSize: 12 },
             }}
             variant="standard"
             onChange={onChange}
             value={value}
+            helperText={!validation(value) ? helperText : ''}
+            error={!validation(value)}
           />
         )}
 

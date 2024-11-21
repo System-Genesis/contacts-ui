@@ -17,10 +17,13 @@ import { setSearchTerm } from './store/reducers/search';
 import TopBar from './layout/topbar';
 import { HeroSection } from './layout/heroSection';
 import ChatBot from './layout/chatBot';
+import { ContactDrawer } from './common/drawer/drawerWrapper';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const contact = useSelector((state: RootState) => state.drawer.contact);
+  const currentUser = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     const resources = {
@@ -54,7 +57,6 @@ const App = () => {
     void getUser();
   }, [dispatch]);
 
-  const currentUser = useSelector((state: RootState) => state.user);
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
   if (!currentUser) redirect(`/unauthorized`);
 
@@ -112,6 +114,10 @@ const App = () => {
           <TopBar />
           <HeroSection />
           <Outlet />
+          <ContactDrawer
+            contact={contact}
+            alowEdit={contact?.id === currentUser.id || contact?.id === currentUser.directGroup}
+          />
         </Box>
       </Box>
       <ChatBot />
