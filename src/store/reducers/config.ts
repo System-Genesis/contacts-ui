@@ -3,7 +3,10 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface ConfigState {
   hiChatUrl: string;
   jabberUrl: string;
-
+  resetTimeoutActions: string[];
+  resetTimeout: number; 
+  matomoUrl: string;
+  matomoSiteID: number;
   //TODO: add the config interface structure
 }
 

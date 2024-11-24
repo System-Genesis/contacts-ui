@@ -228,6 +228,7 @@ export const EntityContentDrawer: React.FC<{
               <>
                 {formData?.otherPhones?.map((otherPhone, index) => (
                   <FieldDiv
+                    key={index}
                     field={i18next.t('field.otherPhone')}
                     editable
                     removable

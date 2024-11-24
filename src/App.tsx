@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { environment } from './globals';
 import Bowser from 'bowser';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -18,25 +18,29 @@ import TopBar from './layout/topbar';
 import { HeroSection } from './layout/heroSection';
 import ChatBot from './layout/chatBot';
 import { ContactDrawer } from './common/drawer/drawerWrapper';
+import { useQuery } from '@tanstack/react-query';
+import { getBackendConfigRequest } from './services/configService';
+import { setConfig } from './store/reducers/config';
+import { MatomoProvider } from '@datapunt/matomo-tracker-react';
+import { initializeMatomo } from './matomo';
+import { useMatomo } from '@datapunt/matomo-tracker-react';
 
 const App = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const config = useSelector((state: RootState) => state.config);
+
   const contact = useSelector((state: RootState) => state.drawer.contact);
   const currentUser = useSelector((state: RootState) => state.user);
 
   useEffect(() => {
     const resources = {
-      he: {
-        translation: hebrew,
-      },
+      he: { translation: hebrew },
     };
     void i18next.use(initReactI18next).init({
       resources,
       lng: 'he',
-      interpolation: {
-        escapeValue: false,
-      },
+      interpolation: { escapeValue: false },
     });
 
     const browser = Bowser.getParser(window.navigator.userAgent);
@@ -48,21 +52,19 @@ const App = () => {
       toast.error(i18next.t('error.unsupportedChromeVersion'), { autoClose: false, theme: 'colored' });
   }, []);
 
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await AuthService.getUser();
-      if (user) dispatch(setUser(user));
-    };
+  const { data: backendConfig } = useQuery({
+    queryKey: ['getBackendConfig'],
+    queryFn: getBackendConfigRequest,
+    meta: {
+      errorMessage: i18next.t('error.config'),
+    },
+  });
 
-    void getUser();
-  }, [dispatch]);
+  useEffect(() => {
+    if (backendConfig) dispatch(setConfig(backendConfig));
+  }, [backendConfig, dispatch]);
 
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
-  if (!currentUser) redirect(`/unauthorized`);
-
-  const theme = { ...basicTheme };
-  const lightTheme = createTheme({ ...theme });
-
   useEffect(() => {
     let inactivityTimeout: () => void;
     const startInactivityTimer = () => {
@@ -71,7 +73,7 @@ const App = () => {
       inactivityTimeout = setTimeout(() => {
         dispatch(setSearchTerm(''));
         navigate('/');
-      }, environment.resetTimeout);
+      }, config.resetTimeout);
     };
 
     const resetTimeout = () => {
@@ -81,47 +83,78 @@ const App = () => {
 
     startInactivityTimer();
 
-    environment.resetTimeoutActions.forEach((action) => window.addEventListener(action, resetTimeout));
+    config.resetTimeoutActions?.forEach((action) => window.addEventListener(action, resetTimeout));
 
     return () => {
       clearTimeout(inactivityTimeout);
-      environment.resetTimeoutActions.forEach((action) => window.removeEventListener(action, resetTimeout));
+      config.resetTimeoutActions?.forEach((action) => window.removeEventListener(action, resetTimeout));
     };
   }, [dispatch, navigate, isOpen]);
 
+  const { trackEvent } = useMatomo();
+
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await AuthService.getUser();
+      if (user) {
+        dispatch(setUser(user));
+
+        trackEvent({
+          category: 'LogIn',
+          action: 'LogIn',
+          name: `User: ${(user.id, user.adfsId, user.fullName, user.hierarchy, user.rank)}`,
+        });
+      }
+
+      void getUser();
+    };
+  }, [dispatch]);
+
+  if (!currentUser) redirect(`/unauthorized`);
+
+  const theme = { ...basicTheme };
+  const lightTheme = createTheme({ ...theme });
+
+  const matomoInstance = useMemo(() => {
+    if (config.matomoUrl && config.matomoSiteID) return initializeMatomo(config.matomoUrl, config.matomoSiteID);
+    return null;
+  }, [config.matomoUrl, config.matomoSiteID]);
+
   return (
-    <ThemeProvider theme={lightTheme}>
-      <Box
-        sx={{
-          display: 'flex',
-          width: '100vw',
-          height: '100vh',
-          background: 'white',
-          overflow: 'hidden',
-        }}
-      >
-        <CssBaseline />
+    <MatomoProvider value={matomoInstance}>
+      <ThemeProvider theme={lightTheme}>
         <Box
           sx={{
-            flex: 1,
             display: 'flex',
-            flexDirection: 'column',
-            paddingRight: 3,
-            paddingLeft: 3,
-            paddingTop: 1,
+            width: '100vw',
+            height: '100vh',
+            background: 'white',
+            overflow: 'hidden',
           }}
         >
-          <TopBar />
-          <HeroSection />
-          <Outlet />
-          <ContactDrawer
-            contact={contact}
-            alowEdit={contact?.id === currentUser.id || contact?.id === currentUser.directGroup}
-          />
+          <CssBaseline />
+          <Box
+            sx={{
+              flex: 1,
+              display: 'flex',
+              flexDirection: 'column',
+              paddingRight: 3,
+              paddingLeft: 3,
+              paddingTop: 1,
+            }}
+          >
+            <TopBar />
+            <HeroSection />
+            <Outlet />
+            <ContactDrawer
+              contact={contact}
+              alowEdit={contact?.id === currentUser.id || contact?.id === currentUser.directGroup}
+            />
+          </Box>
         </Box>
-      </Box>
-      <ChatBot />
-    </ThemeProvider>
+        <ChatBot />
+      </ThemeProvider>
+    </MatomoProvider>
   );
 };
 
