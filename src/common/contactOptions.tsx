@@ -4,6 +4,8 @@ import jabber from '../assets/icons/jabber.svg';
 import hiChat from '../assets/icons/hiChat.svg';
 import { ContactMenu, Option } from './contactMenu';
 import i18next from 'i18next';
+import { RootState } from '../store';
+import { useSelector } from 'react-redux';
 
 export const ContactOptions = ({
   mails,
@@ -18,6 +20,8 @@ export const ContactOptions = ({
   isGroup?: boolean;
   hiddenFields: string[];
 }) => {
+  const config = useSelector((state: RootState) => state.config);
+
   return (
     <Box
       sx={{
@@ -28,14 +32,7 @@ export const ContactOptions = ({
         minHeight: '2.5rem',
       }}
     >
-      {!isGroup && (
-        <ContactMenu
-          title={i18next.t('hiChat')}
-          icon={hiChat}
-          options={chats}
-          href="https://hi.prod.services.idf/direct/"
-        />
-      )}
+      {!isGroup && <ContactMenu title={i18next.t('hiChat')} icon={hiChat} options={chats} href={config.hiChatUrl} />}
       <ContactMenu
         title={i18next.t('jabber')}
         icon={jabber}

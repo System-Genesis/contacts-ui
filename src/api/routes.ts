@@ -1,5 +1,6 @@
 export const routes = {
   login: '/api/auth/login',
+  config: '/api/config',
   users: '/api/users',
   me: '/api/users/my',
   backend: {

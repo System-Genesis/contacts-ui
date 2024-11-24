@@ -59,6 +59,7 @@ export const ContactMenu = ({
       >
         {options?.map(({ option, displayText }: Option) => (
           <MenuItem
+            key={displayText}
             onClick={() => setAnchorEl(null)}
             component="a"
             href={`${href}${option}`}
