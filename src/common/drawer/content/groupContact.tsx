@@ -69,9 +69,14 @@ export const GroupContactDrawer: React.FC<{
                 removable
                 value={formData.jabberPhone?.toString()}
                 isEdit={isEdit}
-                onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }));
+                  setFormErrors((prev) => ({ ...prev, jabberPhone: formValidations.jabberPhone(event.target.value) }));
+                }}
                 onRemove={() => handleRemove({ field: 'jabberPhone' })}
                 icon={jabber}
+                validation={formValidations.jabberPhone}
+                helperText={i18next.t('validationError.jabberPhone')}
               />
               <FieldDiv
                 field={i18next.t('outlook')}
@@ -79,9 +84,14 @@ export const GroupContactDrawer: React.FC<{
                 removable
                 value={formData.mails?.[0]?.toString()}
                 isEdit={isEdit}
-                onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, mails: [event.target.value] }));
+                  setFormErrors((prev) => ({ ...prev, mails: formValidations.mail(event.target.value) }));
+                }}
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })}
                 icon={outlook}
+                validation={formValidations.email}
+                helperText={i18next.t('validationError.mail')}
               />
             </StyledGridInfo>
           </StyledGridSection>
@@ -101,8 +111,13 @@ export const GroupContactDrawer: React.FC<{
                 removable
                 value={formData.redPhone?.toString()}
                 isEdit={isEdit}
-                onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+                onChange={(event) => {
+                  setFormData((prev) => ({ ...prev, redPhone: event.target.value }));
+                  setFormErrors((prev) => ({ ...prev, redPhone: formValidations.redPhone(event.target.value) }));
+                }}
                 onRemove={() => handleRemove({ field: 'redPhone' })}
+                validation={formValidations.redPhone}
+                helperText={i18next.t('validationError.redPhone')}
               />
 
               <FieldDiv

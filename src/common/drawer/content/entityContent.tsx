@@ -150,11 +150,11 @@ export const EntityContentDrawer: React.FC<{
                 isEdit={isEdit}
                 onChange={(event) => {
                   setFormData((prev) => ({ ...prev, mails: [event.target.value] }));
-                  setFormErrors((prev) => ({ ...prev, mails: formValidations.email(event.target.value) }));
+                  setFormErrors((prev) => ({ ...prev, mails: formValidations.mail(event.target.value) }));
                 }}
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })}
                 icon={outlook}
-                validation={formValidations.email}
+                validation={formValidations.mail}
                 helperText={i18next.t('validationError.mail')}
               />
             </StyledGridInfo>

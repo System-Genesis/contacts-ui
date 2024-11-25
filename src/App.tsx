@@ -105,9 +105,8 @@ const App = () => {
           name: `User: ${(user.id, user.adfsId, user.fullName, user.hierarchy, user.rank)}`,
         });
       }
-
-      void getUser();
     };
+    void getUser();
   }, [dispatch]);
 
   if (!currentUser) redirect(`/unauthorized`);
