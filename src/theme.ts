@@ -56,6 +56,7 @@ export const basicTheme: ThemeOptions = {
     darkGray: '#525252',
     lightGray: '#7C7C7C',
     lighterGray: '#EFEFEF',
+    otherGray: '#DCDCDC',
 
     aqua: '#57AA9A',
     aquaDark: '#56968a',
@@ -78,6 +79,7 @@ interface ThemeOptions extends ThemeOptionsMui {
     darkGray?: string;
     lightGray?: string;
     lighterGray?: string;
+    otherGray?: string;
     aqua?: string;
     aquaDark?: string;
     lightAqua?: string;
@@ -101,6 +103,7 @@ declare module '@mui/material/styles' {
       darkGray: string;
       lightGray: string;
       lighterGray: string;
+      otherGray: string;
       aqua: string;
       aquaDark: string;
       lightAqua: string;

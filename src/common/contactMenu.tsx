@@ -1,6 +1,7 @@
 import { Box, IconButton, Menu, MenuItem, Typography, useTheme } from '@mui/material';
 import { useState } from 'react';
 import Tooltip from './divs/toolTip';
+import { StyledDivider } from './drawer/content/divider';
 
 export interface Option {
   option: string;
@@ -58,42 +59,43 @@ export const ContactMenu = ({
         }}
       >
         {options?.map(({ option, displayText }: Option) => (
-          <MenuItem
-            key={displayText}
-            onClick={() => setAnchorEl(null)}
-            component="a"
-            href={`${href}${option}`}
-            target="_blank"
-            sx={{
-              maxWidth: 'auto',
-              borderRadius: 2,
-              borderBottom: 1,
-              borderColor: theme.colors.aquaLightGray,
-              m: 1,
-              p: 1,
-            }}
-          >
-            <Box
+          <>
+            <MenuItem
+              key={displayText}
+              onClick={() => setAnchorEl(null)}
+              component="a"
+              href={`${href}${option}`}
+              target="_blank"
               sx={{
-                display: 'flex',
-                gap: 1,
-                justifyContent: 'space-around',
-                width: '100%',
+                maxWidth: 'auto',
+                m: 0.5,
+                p: 0.5,
               }}
             >
-              <Typography color={theme.colors.lightGray}>{displayText}</Typography>
-              <Typography
+              <Box
                 sx={{
-                  textOverflow: 'ellipsis',
-                  width: '8rem',
-                  whiteSpace: 'nowrap',
-                  overflow: 'hidden',
+                  display: 'flex',
+                  gap: 1,
+                  justifyContent: 'space-around',
+                  width: '100%',
                 }}
               >
-                {option}
-              </Typography>
-            </Box>
-          </MenuItem>
+                <Typography color={theme.colors.lightGray}>{displayText}</Typography>
+                <Typography
+                  color={theme.colors.darkGray}
+                  sx={{
+                    textOverflow: 'ellipsis',
+                    width: '8rem',
+                    whiteSpace: 'nowrap',
+                    overflow: 'hidden',
+                  }}
+                >
+                  {option}
+                </Typography>
+              </Box>
+            </MenuItem>
+            <StyledDivider theme={theme} sx={{ border: `1px solid ${theme.colors.otherGray}`, margin: 0 }} />
+          </>
         ))}
       </Menu>
     </>

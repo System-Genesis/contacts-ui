@@ -21,6 +21,7 @@ export const SaveButton = ({
         backgroundColor: theme.colors.aqua,
         borderRadius: '30px',
         fontSize: 14,
+        width: withEndIcon ? 'fit-content' : '7rem', 
         p: '0 1rem',
         '&:hover': { backgroundColor: theme.colors.darkAqua },
         '&.Mui-disabled': {

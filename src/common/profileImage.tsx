@@ -16,7 +16,7 @@ export const ProfileImage = ({
   style?: object;
   type: 'group' | 'goalUser' | 'entity';
   onClick?: () => void;
-  sex?: 'male' | 'female';
+  sex?: 'זכר' | 'נקבה';
 }) => {
   const { data: pic } = useQuery({
     queryKey: ['getPicByID', id],
@@ -28,7 +28,7 @@ export const ProfileImage = ({
 
   return (
     <img
-      src={pic ?? (sex === 'female' ? femaleAvatar : maleAvatar)}
+      src={pic ?? (sex === 'נקבה' ? femaleAvatar : maleAvatar)}
       style={{ ...style, borderRadius: '100%' }}
       onClick={onClick}
     />

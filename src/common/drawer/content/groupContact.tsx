@@ -146,10 +146,10 @@ export const GroupContactDrawer: React.FC<{
                 type="entity"
                 subs={[
                   ...entities.sort((a, b) => {
-                    const aIncludes = a.commanderOf?.includes(contact.id) ? 1 : 0;
-                    const bIncludes = b.commanderOf?.includes(contact.id) ? 1 : 0;
+                    const aIncludes = Object.values(a.commanderOf)?.includes(contact.id) ? 1 : 0;
+                    const bIncludes = Object.values(b.commanderOf)?.includes(contact.id) ? 1 : 0;
                     if (bIncludes - aIncludes !== 0) return bIncludes - aIncludes;
-                    return a.fullName.localeCompare(b.fullName);
+                    return a.fullName?.localeCompare(b.fullName);
                   }),
                 ]}
               />
@@ -164,7 +164,7 @@ export const GroupContactDrawer: React.FC<{
           <StyledGridSection container theme={theme} margin={0}>
             <Typography variant="body1">תתי היררכיות</Typography>
             <StyledGridInfo container theme={theme}>
-              <DirectSubs type="group" subs={[...groups.sort((a, b) => a.name.localeCompare(b.name))]} />
+              <DirectSubs type="group" subs={[...groups.sort((a, b) => a.name?.localeCompare(b.name))]} />
             </StyledGridInfo>
           </StyledGridSection>
         </>

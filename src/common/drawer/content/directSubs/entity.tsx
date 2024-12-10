@@ -42,7 +42,9 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
         <Grid item xs={6} sx={{ alignContent: 'center' }}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 0.2 }}>
             <Grid item sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-              <Typography fontSize={14}>{entity.fullName}</Typography>
+              <Typography fontSize={14} width={'max-content'}>
+                {entity.fullName}
+              </Typography>
               {entity.jobTitle && (
                 <Typography
                   sx={{
@@ -64,7 +66,7 @@ export const EntityCard = ({ entity }: { entity: Entity }) => {
               )}
             </Grid>
 
-            {entity.commanderOf?.includes(contact.id) && (
+            {Object.values(entity?.commanderOf)?.includes(contact.id) && (
               <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
                 <Typography fontSize={12} color={theme.colors.darkGray}>
                   מפקד היררכיה

@@ -23,10 +23,19 @@ export const FieldDiv = ({
 
   return (
     (isEdit || value) && (
-      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100%',
+          flexDirection: 'row',
+          alignItems: 'center',
+          // gap: 1,
+          height: '1.2rem',
+        }}
+      >
         {isEdit && (
           <IconButton
-            sx={{ m: 0, p: 0, width: 10 }}
+            sx={{ m: 0, p: 0, width: 10, mr: 1 }}
             onClick={() => {
               if (hidable) onHide(isHidden);
               if (removable) onRemove();
@@ -44,7 +53,7 @@ export const FieldDiv = ({
         {isEdit && editable && (
           <TextField
             sx={{
-              flex: '0.4',
+              flex: '0.25',
               '& .MuiInput-underline': { borderBottom: '1px solid #DCDCDC' },
               '& .MuiInput-input': { p: '0.2rem 0', fontSize: 12 },
             }}
@@ -56,9 +65,15 @@ export const FieldDiv = ({
           />
         )}
 
-        {!isEdit && isHidden && <HiddenLabel />}
+        {(!isHidden || (isHidden && isEdit)) && !editable && (
+          <Typography sx={{ flex: isEdit ? '0.25' : '0.4', fontSize: 12 }}>{value}</Typography>
+        )}
 
-        {(!isEdit || !editable) && !isHidden && <Typography sx={{ flex: '0.5', fontSize: 12 }}>{value}</Typography>}
+        {isHidden && (
+          <Box sx={{ flex: isEdit ? '0.3' : '0', alignItems: 'center', width: '2rem', textAlign: 'center' }}>
+            <HiddenLabel />
+          </Box>
+        )}
       </Box>
     )
   );

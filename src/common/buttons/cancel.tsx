@@ -8,6 +8,7 @@ export const CancelButton = ({ value, onClick }) => {
       variant="outlined"
       sx={{
         color: theme.colors.aqua,
+        width: '7rem',
         fontSize: 14,
         borderRadius: '30px',
         borderColor: theme.colors.aqua,

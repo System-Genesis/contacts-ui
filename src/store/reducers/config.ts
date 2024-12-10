@@ -7,7 +7,6 @@ export interface ConfigState {
   resetTimeout: number; 
   matomoUrl: string;
   matomoSiteID: number;
-  //TODO: add the config interface structure
 }
 
 const initialState: Partial<ConfigState> = {};

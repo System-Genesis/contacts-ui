@@ -23,7 +23,7 @@ export const HierarchyEntityCard = ({ entity, groupId, onClick }: { entity: any;
             }}
           />
         </Box>
-        {entity.commanderOf.includes(groupId) && (
+        {Object.values(entity.commanderOf)?.includes(groupId) && (
           <Typography variant="subtitle1" sx={{ fontSize: 12, flex: 1 }}>
             {i18next.t('hierarchyCommander')}
           </Typography>

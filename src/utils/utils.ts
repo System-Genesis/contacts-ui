@@ -10,9 +10,9 @@ export const getIdentifier = (entity: Entity) => entity.identityCard ?? entity.p
 export const getHierarchyName = (group: Group) =>
   group.hierarchy && group.name ? `${group.hierarchy}/${group.name}` : group.hierarchy || group.name;
 
-export const otherPhoneValidation = (value: string): boolean => /^\d{10}$/.test(value);
+export const otherPhoneValidation = (value: string): boolean => /^\d{10}$/.test(value) || value === '';
 export const mobilePhoneValidation = (value: string): boolean => /^\d{10}$/.test(value);
-export const redPhoneValidation = (value: string): boolean => /^\d{10}$/.test(value);
+export const redPhoneValidation = (value: string): boolean => /^\d{10}$/.test(value) || value === '';
 export const jabberPhoneValidation = (value: string): boolean => /^[\d*]{3,8}$/.test(value);
 
 export const mailValidation = (value: string): boolean => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);

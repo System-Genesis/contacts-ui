@@ -100,7 +100,7 @@ export const ContactTags = ({
               sx={{
                 flex: 'auto',
                 maxWidth: !isAutoCompleteOpen ? '100%' : '60%',
-                maxHeight: '3vh',
+                maxHeight: '6vh',
                 overflowY: 'auto',
                 direction: 'rtl',
                 '&::-webkit-scrollbar': {

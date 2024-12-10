@@ -27,7 +27,7 @@ export const EntityContactsCard: React.FC<{
   isSelected: boolean;
   hiddenFields: string[];
   rank: string;
-  sex: 'male' | 'female';
+  sex: 'זכר' | 'נקבה';
 }> = ({
   type,
   id,

@@ -33,7 +33,7 @@ export const EntityFavoriteCard = ({
   mobilePhone: string;
   handleSelect: () => void;
   isSelected: boolean;
-  sex: 'male' | 'female';
+  sex: 'זכר' | 'נקבה';
   hiddenFields: string[];
 }) => {
   const theme = useTheme();

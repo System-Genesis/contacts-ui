@@ -5,6 +5,9 @@ import { ContactOptions } from '../../contactOptions';
 import { FavoriteButton } from '../../buttons/favoriteButton';
 import { Title } from '../../divs/title';
 import { SubTitle } from '../../divs/subTitle';
+import i18next from 'i18next';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 export const UpperContact: React.FC<{
   contact: any;
@@ -16,6 +19,8 @@ export const UpperContact: React.FC<{
   hiddenFields: string[];
   type: 'group' | 'goalUser' | 'entity';
 }> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', setFormData, hiddenFields, type }) => {
+  const currentUser = useSelector((state: RootState) => state.user);
+
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
       <Grid container>
@@ -35,15 +40,17 @@ export const UpperContact: React.FC<{
             }}
           >
             <FavoriteButton id={contact.id} type={contact.type} />
-            <Title value={contact.rank} sx={{ minWidth: 0, fontSize: 15 }} />
+            {contact.rank !== i18next.t('unknown') && <Title value={contact.rank} sx={{ minWidth: 0, fontSize: 15 }} />}
             <Title value={title} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 20 }} />
           </Grid>
-          <ContactOptions
-            mails={contact.mails}
-            chats={contact.chats}
-            jabberPhone={contact.jabberPhone}
-            hiddenFields={hiddenFields}
-          />
+          {currentUser.id !== contact.id && (
+            <ContactOptions
+              mails={contact.mails}
+              chats={contact.chats}
+              jabberPhone={contact.jabberPhone}
+              hiddenFields={hiddenFields}
+            />
+          )}
         </Grid>
 
         <Grid container>

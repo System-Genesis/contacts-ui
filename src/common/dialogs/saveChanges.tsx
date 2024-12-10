@@ -44,11 +44,11 @@ export const SaveChangesDialog: React.FC<{
             <img src={CloseIcon} style={{ padding: 0 }} />
           </IconButton>
         </Box>
-        <Box flex={'40%'} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box flex={'50%'} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <img src={ErrorDialog} width={'100px'} height={'100px'} />
         </Box>
         <Box
-          flex={'50%'}
+          flex={'40%'}
           sx={{
             display: 'flex',
             justifyContent: 'flex-start',
