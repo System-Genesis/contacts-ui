@@ -3,8 +3,9 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 export interface ConfigState {
   hiChatUrl: string;
   jabberUrl: string;
+  serviceNowUrl: string;
   resetTimeoutActions: string[];
-  resetTimeout: number; 
+  resetTimeout: number;
   matomoUrl: string;
   matomoSiteID: number;
 }

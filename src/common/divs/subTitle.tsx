@@ -4,7 +4,8 @@ import Tooltip from './toolTip';
 export const SubTitle = ({ value, sx = {}, noToolTip = false }) => {
   const theme = useTheme();
 
-  if (!value) return;
+
+  if (!value || value === 'unknown') return null;
 
   const commonStyles = {
     backgroundColor: theme.colors.subTitleBack,

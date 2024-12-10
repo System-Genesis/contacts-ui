@@ -27,7 +27,11 @@ export const DirectSubs = ({ subs, type }: { subs: Group[] | Entity[]; type: 'gr
       }}
     >
       {subs.map((sub) =>
-        type === 'group' ? <GroupCard key={sub.id} group={sub} /> : <EntityCard key={sub.id} entity={sub} />,
+        type === 'group' ? (
+          sub.entitiesCount && <GroupCard key={sub.id} group={sub} />
+        ) : (
+          <EntityCard key={sub.id} entity={sub} />
+        ),
       )}
     </Grid>
   );

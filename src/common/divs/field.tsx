@@ -29,7 +29,6 @@ export const FieldDiv = ({
           width: '100%',
           flexDirection: 'row',
           alignItems: 'center',
-          // gap: 1,
           height: '1.2rem',
         }}
       >

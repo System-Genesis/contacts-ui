@@ -65,4 +65,11 @@ export const hebrew = {
     jabberPhone: "טלפון גא'בר מכיל עד 8 ספרות וכוכבית.",
     otherPhone: 'טלפון אחר מכיל 10 ספרות.',
   },
+  chatBotDialog: {
+    wereHereToHelp: 'נתקלת בבעיה? אנחנו כאן לעזור!',
+    haveAProblem: 'יש לך שאלה או בעיה טכנית בשימוש במערכת?',
+    weWouldLikeToHelp: 'נשמח לסייע!',
+    noThankYou: 'לא, תודה',
+    openIssue: 'פתיחת תקלה',
+  },
 };
