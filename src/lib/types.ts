@@ -116,6 +116,7 @@ export interface Role {
 }
 
 export interface Group {
+  entitiesCount: number;
   id: string;
   name: string;
   source: string;

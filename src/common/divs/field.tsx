@@ -23,7 +23,7 @@ export const FieldDiv = ({
 
   return (
     (isEdit || value) && (
-      <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 1 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'row', gap: 1 , alignItems: 'flex-start'}}>
         {isEdit && (
           <IconButton
             sx={{ m: 0, p: 0, width: 10 }}
@@ -58,7 +58,7 @@ export const FieldDiv = ({
 
         {!isEdit && isHidden && <HiddenLabel />}
 
-        {(!isEdit || !editable) && !isHidden && <Typography sx={{ flex: '0.5', fontSize: 12 }}>{value}</Typography>}
+        {(!isEdit || !editable) && !isHidden && <Typography sx={{ flex: '0.9', fontSize: 12 }}>{value}</Typography>}
       </Box>
     )
   );

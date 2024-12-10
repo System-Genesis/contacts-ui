@@ -22,7 +22,7 @@ export const ContactTags = ({
 }) => {
   const theme = useTheme();
   const [search, setSearch] = useState('');
-  const [debounced] = useDebounce(search, 1000);
+  const [debounced] = useDebounce(search, 2000);
   const [selectedTags, setSelectedTags] = useState(tags);
   const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
 
@@ -100,7 +100,7 @@ export const ContactTags = ({
               sx={{
                 flex: 'auto',
                 maxWidth: !isAutoCompleteOpen ? '100%' : '60%',
-                maxHeight: '3vh',
+                maxHeight: '5.5vh',
                 overflowY: 'auto',
                 direction: 'rtl',
                 '&::-webkit-scrollbar': {

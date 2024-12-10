@@ -158,7 +158,7 @@ export const GroupContactDrawer: React.FC<{
         </>
       )}
 
-      {!isEdit && groups.length > 0 && (
+      {!isEdit && groups.length > 0 &&  groups.some((group) => group.entitiesCount > 0) &&  (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
