@@ -11,6 +11,7 @@ import { SubTitle } from '../../../common/divs/subTitle';
 import { Option } from '../../../common/contactMenu';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
+import i18next from 'i18next';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -113,8 +114,8 @@ export const EntityContactsCard: React.FC<{
               >
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
-                    {rank && <Typography fontSize={12}>{rank}</Typography>}
-                    <Title value={title} />
+                    {rank && rank != i18next.t('unknown') && <Typography>{rank}</Typography>}
+                    <Title value={title} sx={{ fontWeight: '600' }} />
                     <SubTitle value={subTitle} sx={{ fontSize: '14', maxWidth: 'fit-content' }} />
                   </Grid>
                 </Grid>

@@ -1,6 +1,7 @@
 import { ResultsTypes } from '../lib/enums';
 
 export const hebrew = {
+  disabled: 'מוסתר',
   systemName: 'Call-Aman',
   yes: 'כן',
   no: 'לא',

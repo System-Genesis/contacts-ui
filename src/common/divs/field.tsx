@@ -52,7 +52,7 @@ export const FieldDiv = ({
         {isEdit && editable && (
           <TextField
             sx={{
-              flex: '0.25',
+              flex: '0.4',
               '& .MuiInput-underline': { borderBottom: '1px solid #DCDCDC' },
               '& .MuiInput-input': { p: '0.2rem 0', fontSize: 12 },
             }}
@@ -65,7 +65,7 @@ export const FieldDiv = ({
         )}
 
         {(!isHidden || (isHidden && isEdit)) && !editable && (
-          <Typography sx={{ flex: isEdit ? '0.25' : '0.4', fontSize: 12 }}>{value}</Typography>
+          <Typography sx={{ flex: '0.4', fontSize: 12 }}>{value}</Typography>
         )}
 
         {isHidden && (

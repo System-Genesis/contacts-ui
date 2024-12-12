@@ -94,7 +94,9 @@ export const EntityContentDrawer: React.FC<{
                 />
               )}
 
-              <FieldDiv isEdit={isEdit} field={i18next.t('field.rank')} value={contact.rank ?? i18next.t('noData')} />
+              {contact.rank !== i18next.t('unknown') && (
+                <FieldDiv isEdit={isEdit} field={i18next.t('field.rank')} value={contact.rank} />
+              )}
               <FieldDiv
                 isEdit={isEdit}
                 field={i18next.t('field.birthDate')}

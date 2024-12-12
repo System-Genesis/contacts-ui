@@ -99,7 +99,7 @@ export const GroupContactsCard: React.FC<{
               >
                 <Grid item>
                   <Grid container gap={1} alignItems={'center'}>
-                    <Title value={title} />
+                    <Title value={title} sx={{ fontWeight: '600' }} />
                     <SubTitle value={subTitle ?? ''} sx={{ borderRadius: '50%' }} />
                   </Grid>
                 </Grid>

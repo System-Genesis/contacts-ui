@@ -59,7 +59,6 @@ export const EntityFavoriteCard = ({
         sx={{
           border: 1,
           borderColor: isSelected ? theme.colors.darkAqua : theme.colors.lighterGray,
-          boxShadow: isSelected ? '0 4px 8px rgba(0, 0, 0, 0.2)' : 'none',
           borderRadius: '1rem',
           flexDirection: 'column',
           minWidth: '17.5rem',

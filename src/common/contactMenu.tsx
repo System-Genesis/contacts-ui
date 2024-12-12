@@ -2,6 +2,7 @@ import { Box, IconButton, Menu, MenuItem, Typography, useTheme } from '@mui/mate
 import { useState } from 'react';
 import Tooltip from './divs/toolTip';
 import { StyledDivider } from './drawer/content/divider';
+import i18next from 'i18next';
 
 export interface Option {
   option: string;
@@ -30,9 +31,9 @@ export const ContactMenu = ({
 
   if (options?.length === 1)
     return (
-      <Tooltip title={title}>
-        <IconButton href={`${href}${options[0].option}`} disabled={disabled} sx={{ p: 0, m: 1 }}>
-          <img src={icon} width={'22rem'} />
+      <Tooltip title={disabled ? i18next.t(`disabled`) : title}>
+        <IconButton href={!disabled && `${href}${options[0].option}`} sx={{ p: 0, m: 1 }}>
+          <img src={icon} width={'22rem'} style={{ filter: disabled ? 'grayscale(100%)' : '' }} />
         </IconButton>
       </Tooltip>
     );

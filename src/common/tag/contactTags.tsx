@@ -6,6 +6,7 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { getTags, searchTags } from '../../services/tagService';
 import AddIcon from '@mui/icons-material/Add';
 import { useDebounce } from '@uidotdev/usehooks';
+import add from '../../assets/icons/add.svg';
 
 export const ContactTags = ({
   tags,
@@ -60,6 +61,28 @@ export const ContactTags = ({
       ? [{ name: search }, ...filteredOptions]
       : filteredOptions;
 
+  if (shrunk)
+    return (
+      <Grid>
+        {selectedTags.slice(0, 1).map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
+        {selectedTags.length > 1 && (
+          <Chip
+            key={`${selectedTags.length - 1}+`}
+            component={'div'}
+            label={`${selectedTags.length - 1}+`}
+            size="small"
+            sx={{
+              cursor: 'default',
+              direction: 'ltr',
+              borderRadius: '40px',
+              backgroundColor: theme.colors.gray,
+              fontSize: 13,
+            }}
+          />
+        )}
+      </Grid>
+    );
+
   return (
     <Grid container>
       {isEdit && (
@@ -88,159 +111,150 @@ export const ContactTags = ({
         container
         sx={{
           display: 'flex',
-          alignItems: 'flex-start',
+
           justifyContent: 'flex-start',
-          gap: 1,
-          p: 0,
         }}
       >
-        {!shrunk ? (
-          <Box display={'flex'} width={'100%'}>
-            <Box
+        <Box
+          sx={{
+            display: 'flex',
+            minHeight: '3vh',
+            maxHeight: '6vh',
+            alignItems: 'flex-start',
+            overflowY: 'auto',
+            '&::-webkit-scrollbar': { width: '0.5rem' },
+            '&::-webkit-scrollbar-track': {
+              background: theme.colors.gray,
+              borderRadius: '100px',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              backgroundColor: theme.colors.aquaLight,
+              borderRadius: '10px',
+              border: `2px solid ${theme.colors.gray}`,
+            },
+            '&::-webkit-scrollbar-thumb:hover, &::-webkit-scrollbar-thumb:focus': {
+              backgroundColor: theme.colors.aquaLightGray,
+            },
+            gap: 0.75,
+            flexWrap: 'wrap',
+            ...sx,
+          }}
+        >
+          {isEdit && (
+            <Autocomplete
+              multiple
+              id="tags-filled"
+              noOptionsText={'אין תוצאות'}
+              options={displayOptions}
+              open={isAutoCompleteOpen} // Controls dropdown visibility
+              onClose={() => setIsAutoCompleteOpen(false)}
+              filterOptions={(x) => x} // Prevents default filtering
+              filterSelectedOptions
               sx={{
-                flex: 'auto',
-                maxWidth: !isAutoCompleteOpen ? '100%' : '60%',
-                maxHeight: '6vh',
-                overflowY: 'auto',
-                direction: 'rtl',
-                '&::-webkit-scrollbar': {
-                  width: '0.5rem',
+                borderRadius: '40px',
+                backgroundColor: theme.colors.gray,
+                height: 0,
+                '& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline': {
+                  borderColor: theme.colors.aqua,
                 },
-                '&::-webkit-scrollbar-track': {
-                  background: theme.colors.gray,
-                  borderRadius: '100px',
+                '& .MuiOutlinedInput-notchedOutline': {
+                  borderColor: theme.colors.aqua,
                 },
-                '&::-webkit-scrollbar-thumb': {
-                  backgroundColor: theme.colors.aquaLight,
-                  borderRadius: '10px',
-                  border: `2px solid ${theme.colors.gray}`,
+                '& .MuiOutlinedInput-root': {
+                  borderRadius: '40px',
+                  backgroundColor: theme.colors.gray,
                 },
-                '&::-webkit-scrollbar-thumb:hover': {
-                  backgroundColor: theme.colors.aquaLightGray,
+
+                '& .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiOutlinedInput-root': {
+                  pr: 0,
                 },
-                display: 'flex',
-                gap: 0.5,
-                justifyContent: 'flex-end',
-                flexWrap: 'wrap',
-                ...sx,
+                '& .MuiAutocomplete-popupIndicator': {
+                  display: 'none',
+                },
+                '& .MuiInputBase-input': {
+                  height: 0,
+                },
               }}
-            >
-              {selectedTags.map(
-                ({ name, _id }) =>
-                  name && (
-                    <TagChip
-                      value={name}
-                      id={_id}
-                      key={_id}
-                      isEdit={isEdit}
-                      onDelete={() => setSelectedTags(selectedTags.filter((tag: any) => tag.name != name))}
-                    />
-                  ),
+              filterSelectedOptions
+              value={selectedTags}
+              onChange={(_event, newValue) => (newValue.length === 0 ? setSearch('') : setSelectedTags(newValue as []))}
+              getOptionLabel={(option) => option.name}
+              renderTags={() => <></>}
+              renderOption={(props, option: any) => (
+                <li {...props} key={option.name} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                  <Typography variant="body2" color="textSecondary">
+                    {option._id ? option.name : `תג חדש: ` + option.name}
+                  </Typography>
+                  <img src={add} width={12} style={{ padding: 0 }} />{' '}
+                </li>
               )}
-            </Box>
-            {isEdit &&
-              (isAutoCompleteOpen ? (
-                <Autocomplete
-                  multiple
-                  id="tags-filled"
-                  noOptionsText={'אין תוצאות'}
-                  options={displayOptions}
-                  sx={{
-                    width: '10vw',
-                    borderRadius: '40px',
-                    backgroundColor: theme.colors.gray,
-                    height: 0,
-                    border: '1px solid',
-                    borderColor: theme.colors.gray,
-                    '& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                      borderColor: theme.colors.aqua,
-                    },
-                    '& .MuiOutlinedInput-root': {
-                      borderRadius: '40px',
-                      backgroundColor: theme.colors.gray,
-                    },
-                    '& .MuiInputBase-input': {
-                      height: 0,
-                    },
-                  }}
-                  filterOptions={(x) => x}
-                  filterSelectedOptions
-                  value={selectedTags}
-                  onChange={(_event, newValue) => {
-                    if (newValue.length === 0) return setSearch('');
-                    setSelectedTags(newValue as []);
-                  }}
-                  getOptionLabel={(option) => option.name}
-                  renderTags={() => <></>}
-                  renderOption={(props, option: any) => (
-                    <li {...props} key={option.name}>
-                      <Typography variant="body2" color="textSecondary">
-                        {option._id ? option.name : `תג חדש: ` + option.name}
-                      </Typography>
-                    </li>
-                  )}
-                  renderInput={(params) => (
-                    <TextField
-                      value={search}
-                      onChange={(e) => setSearch(e.target.value)}
-                      {...params}
-                      variant="outlined"
-                      InputProps={params.InputProps}
-                    />
-                  )}
-                />
-              ) : (
-                <Chip
-                  component={'div'}
-                  label={i18next.t('newTag')}
-                  size="small"
-                  onClick={() => setIsAutoCompleteOpen(true)}
-                  onDelete={() => setIsAutoCompleteOpen(true)}
-                  deleteIcon={<AddIcon />}
-                  sx={{
-                    cursor: 'pointer',
-                    alignSelf: 'center',
-                    direction: 'ltr',
-                    color: theme.colors.white,
-                    borderRadius: '40px',
-                    backgroundColor: '#295C54',
-                    fontSize: 13,
-                    '&:hover': {
-                      backgroundColor: '#295C54',
-                      color: theme.colors.white,
-                    },
-                    '& .MuiChip-deleteIcon': {
-                      color: theme.colors.white,
+              renderInput={(params) =>
+                isAutoCompleteOpen ? (
+                  <TextField
+                    value={search}
+                    variant="outlined"
+                    autoFocus
+                    onChange={(e) => e.target.value.length <= 20 && setSearch(e.target.value)}
+                    {...params}
+                    InputProps={params.InputProps}
+                    sx={{
+                      width: '10rem',
+                      border: 'none',
+                      p: 0,
+                      ['& .MuiOutlinedInput-root']: {
+                        borderWidth: 1,
+                        padding: 0,
+                        pl: '0.5rem',
+                        height: '1.5rem',
+                      },
+                    }}
+                  />
+                ) : (
+                  <Chip
+                    label={i18next.t('newTag')}
+                    size="small"
+                    onClick={() => setIsAutoCompleteOpen(true)}
+                    onDelete={() => setIsAutoCompleteOpen(true)}
+                    deleteIcon={<AddIcon />}
+                    sx={{
                       cursor: 'pointer',
+                      alignSelf: 'center',
+                      color: theme.colors.white,
+                      borderRadius: '40px',
+                      backgroundColor: '#295C54',
+                      fontSize: 13,
                       '&:hover': {
                         backgroundColor: '#295C54',
                         color: theme.colors.white,
                       },
-                    },
-                  }}
+                      '& .MuiChip-deleteIcon': {
+                        color: theme.colors.white,
+                        cursor: 'pointer',
+                        '&:hover': {
+                          backgroundColor: '#295C54',
+                          color: theme.colors.white,
+                        },
+                      },
+                    }}
+                  />
+                )
+              }
+            />
+          )}
+
+          {selectedTags.map(
+            ({ name, _id }) =>
+              name && (
+                <TagChip
+                  value={name}
+                  id={_id}
+                  key={_id}
+                  isEdit={isEdit}
+                  onDelete={() => setSelectedTags(selectedTags.filter((tag: any) => tag.name != name))}
                 />
-              ))}
-          </Box>
-        ) : (
-          <Grid>
-            {selectedTags.slice(0, 1).map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
-            {selectedTags.length > 1 && (
-              <Chip
-                key={`${selectedTags.length - 1}+`}
-                component={'div'}
-                label={`${selectedTags.length - 1}+`}
-                size="small"
-                sx={{
-                  cursor: 'default',
-                  direction: 'ltr',
-                  borderRadius: '40px',
-                  backgroundColor: theme.colors.gray,
-                  fontSize: 13,
-                }}
-              />
-            )}
-          </Grid>
-        )}
+              ),
+          )}
+        </Box>
       </Grid>
     </Grid>
   );
