@@ -9,6 +9,8 @@ import { SelectedSign } from './selectedSign';
 import { Title } from '../../../common/divs/title';
 import { SubTitle } from '../../../common/divs/subTitle';
 import { Option } from '../../../common/contactMenu';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -48,6 +50,7 @@ export const EntityContactsCard: React.FC<{
   hiddenFields,
 }) => {
   const theme = useTheme();
+  const currentUser = useSelector((state: RootState) => state.user);
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '99%', mb: 2 }}>
@@ -129,7 +132,12 @@ export const EntityContactsCard: React.FC<{
         </Grid>
 
         <Grid item xs={3} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
-          <ContactOptions jabberPhone={jabberPhone} chats={chats} mails={mails} hiddenFields={hiddenFields} />
+          <ContactOptions
+            jabberPhone={currentUser.id !== id && jabberPhone}
+            chats={currentUser.id !== id && chats}
+            mails={currentUser.id !== id && mails}
+            hiddenFields={hiddenFields}
+          />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
         </Grid>
       </Grid>

@@ -6,6 +6,8 @@ import { Option } from '../../../common/contactMenu';
 import { ContactNumbers } from '../../../common/contactNumbers';
 import { SubTitle } from '../../../common/divs/subTitle';
 import { Title } from '../../../common/divs/title';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store';
 
 export const EntityFavoriteCard = ({
   id,
@@ -37,6 +39,7 @@ export const EntityFavoriteCard = ({
   hiddenFields: string[];
 }) => {
   const theme = useTheme();
+  const currentUser = useSelector((state: RootState) => state.user);
 
   return (
     <Grid item>
@@ -111,13 +114,15 @@ export const EntityFavoriteCard = ({
           </Grid>
 
           {(mails?.length || chats?.length || mobilePhone || jabberPhone) && (
-            <Grid container sx={{ width: '100%', gap: 1 }}>
+            <Grid container sx={{ width: '100%', gap: 1, height: '3rem' }}>
               <Divider
                 sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
               />
               <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
                 <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
-                <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} hiddenFields={hiddenFields} />
+                {currentUser.id !== id && (
+                  <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} hiddenFields={hiddenFields} />
+                )}
               </Grid>
             </Grid>
           )}

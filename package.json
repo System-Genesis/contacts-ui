@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "start": "vite",
-    "start:be": "VITE_APP_BE=true npm start",
+    "start:be": "set VITE_APP_BE=true && npm start",
     "build": "vite build",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",

@@ -28,21 +28,20 @@ export const ContactMenu = ({
 
   if (!options?.length) return;
 
-  if (options?.length === 1) {
-    //TODO: if hidden -> disabled!!!!!
+  if (options?.length === 1)
     return (
       <Tooltip title={title}>
         <IconButton href={`${href}${options[0].option}`} disabled={disabled} sx={{ p: 0, m: 1 }}>
-          <img src={icon} width={'20rem'} />
+          <img src={icon} width={'22rem'} />
         </IconButton>
       </Tooltip>
     );
-  }
+
   return (
     <>
       <Tooltip title={title}>
         <IconButton onClick={(e) => setAnchorEl(e.currentTarget)} sx={{ p: 0, m: 1 }}>
-          <img src={icon} width={'24rem'} style={{ padding: 0 }} />
+          <img src={icon} width={'22rem'} style={{ padding: 0 }} />
         </IconButton>
       </Tooltip>
       <Menu
