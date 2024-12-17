@@ -29,6 +29,7 @@ const ResultsMenuItem = ({
 }) => {
   const theme = useTheme();
 
+
   return (
     <Box sx={{ display: 'flex', wrap: 'nowrap', overflow: 'hidden' }}>
       <SelectedSign isSelected={selected === type} theme={theme} sx={{ height: '25px', marginLeft: 0.2 }} />

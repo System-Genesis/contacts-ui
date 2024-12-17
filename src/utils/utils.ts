@@ -29,9 +29,12 @@ export const cleanFormData = (formData: object) => {
   return Object.entries(formData).reduce((cleanedData, [key, value]) => {
     if (Array.isArray(value)) {
       const filteredArray = value.filter((v) => v !== '' && v !== undefined);
-      if (filteredArray.length > 0) cleanedData[key] = filteredArray;
-    } else if (value !== undefined) cleanedData[key] = value;
-
+      cleanedData[key] = filteredArray.length > 0 ? filteredArray : []; // Ensure key exists with empty array if necessary
+    } else if (value !== undefined) {
+      cleanedData[key] = value;
+    } else {
+      cleanedData[key] = value;
+    }
     return cleanedData;
   }, {});
 };

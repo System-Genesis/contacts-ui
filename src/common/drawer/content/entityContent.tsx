@@ -119,7 +119,7 @@ export const EntityContentDrawer: React.FC<{
         </>
       )}
 
-      {isEdit && contact.entityType === 'GoalUser' && (
+      {contact.entityType === 'GoalUser' && (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme}>
@@ -127,7 +127,7 @@ export const EntityContentDrawer: React.FC<{
             <StyledGridInfo container theme={theme}>
               <FieldDiv
                 field={i18next.t('jabber')}
-                editable
+                editable={isEdit}
                 removable
                 value={formData.jabberPhone?.toString()}
                 isEdit={isEdit}
@@ -142,7 +142,7 @@ export const EntityContentDrawer: React.FC<{
               />
               <FieldDiv
                 field={i18next.t('outlook')}
-                editable
+                editable={isEdit}
                 removable
                 value={formData.mails?.[0]?.toString()}
                 isEdit={isEdit}
@@ -171,33 +171,35 @@ export const EntityContentDrawer: React.FC<{
             <Typography variant="body1">{i18next.t(`extraContactDetails`)}</Typography>
             <StyledGridInfo container theme={theme}>
               {contact.entityType !== 'GoalUser' && (
-                <FieldDiv
-                  field={i18next.t('field.mobilePhone')}
-                  hidable
-                  editable
-                  value={
-                    isEdit
-                      ? formData.mobilePhone
-                      : formData.mobilePhone?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
-                  }
-                  isEdit={isEdit}
-                  onChange={(event) => {
-                    setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }));
-                    setFormErrors((prev) => ({
-                      ...prev,
-                      mobilePhone: formValidations.mobilePhone(event.target.value),
-                    }));
-                  }}
-                  isHidden={formData.hiddenFields?.includes('mobilePhone')}
-                  onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
-                  validation={formValidations.mobilePhone}
-                  helperText={i18next.t('validationError.mobilePhone')}
-                />
+                <>
+                  <FieldDiv
+                    field={i18next.t('field.mobilePhone')}
+                    hidable
+                    editable={isEdit}
+                    value={
+                      isEdit
+                        ? formData.mobilePhone
+                        : formData.mobilePhone?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
+                    }
+                    isEdit={isEdit}
+                    onChange={(event) => {
+                      setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }));
+                      setFormErrors((prev) => ({
+                        ...prev,
+                        mobilePhone: formValidations.mobilePhone(event.target.value),
+                      }));
+                    }}
+                    isHidden={formData.hiddenFields?.includes('mobilePhone')}
+                    onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
+                    validation={formValidations.mobilePhone}
+                    helperText={i18next.t('validationError.mobilePhone')}
+                  />
+                </>
               )}
               {contact.entityType !== 'GoalUser' && (
                 <FieldDiv
                   field={i18next.t('field.jabberPhone')}
-                  editable
+                  editable={isEdit}
                   hidable
                   value={formData.jabberPhone?.toString()}
                   isEdit={isEdit}
@@ -216,7 +218,7 @@ export const EntityContentDrawer: React.FC<{
               )}
               <FieldDiv
                 field={i18next.t('field.redPhone')}
-                editable
+                editable={isEdit}
                 removable
                 value={formData.redPhone?.toString()}
                 isEdit={isEdit}
@@ -235,7 +237,7 @@ export const EntityContentDrawer: React.FC<{
                     <FieldDiv
                       key={index}
                       field={i18next.t('field.otherPhone')}
-                      editable
+                      editable={isEdit}
                       removable
                       value={otherPhone}
                       isEdit={isEdit}
@@ -265,7 +267,7 @@ export const EntityContentDrawer: React.FC<{
               ) : (
                 <FieldDiv
                   field={i18next.t('field.otherPhone')}
-                  editable
+                  editable={isEdit}
                   removable
                   value={formData.otherPhones?.[0]?.toString()}
                   isEdit={isEdit}

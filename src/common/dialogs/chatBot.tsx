@@ -13,7 +13,6 @@ export const ChatBotDialog: React.FC<{
 }> = ({ open, setOpen, onSave, onCancel }) => {
   const theme = useTheme();
 
-
   return (
     <Dialog
       open={!!open}
@@ -45,11 +44,11 @@ export const ChatBotDialog: React.FC<{
             <img src={CloseIcon} style={{ padding: 0 }} />
           </IconButton>
         </Box>
-        <Box flex={'40%'} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        <Box flex={'50%'} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <img src={ErrorDialog} width={'100px'} height={'100px'} />
         </Box>
         <Box
-          flex={'50%'}
+          flex={'40%'}
           sx={{
             display: 'flex',
             justifyContent: 'flex-start',
@@ -74,7 +73,7 @@ export const ChatBotDialog: React.FC<{
         </Box>
         <Box flex={'10%'} sx={{ display: 'flex', justifyContent: 'center', columnGap: 2 }}>
           <CancelButton value={i18next.t(`chatBotDialog.noThankYou`)} onClick={onCancel} />
-          <SaveButton  value={i18next.t(`chatBotDialog.openIssue`)} onClick={onSave} disabled={false} />
+          <SaveButton value={i18next.t(`chatBotDialog.openIssue`)} onClick={onSave} disabled={false} />
         </Box>
       </Box>
     </Dialog>
