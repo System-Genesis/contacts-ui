@@ -51,7 +51,7 @@ const Search = () => {
     queryKey: ['search', debouncedSearchTerm, resultsType],
     queryFn: ({ pageParam }) =>
       searchRequest(debouncedSearchTerm, firstSearch ? null : resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
-    getNextPageParam: (lastPage, allPages) => (lastPage.length ? allPages.length + 1 : undefined),
+    getNextPageParam: (lastPage, allPages) => (lastPage.length ? Math.min(allPages.length + 1, 3) : undefined),
     initialPageParam: 1,
   });
 
