@@ -87,23 +87,6 @@ export const ContactDrawer: React.FC<{
     mail: mailValidation,
   };
 
-  useEffect(() => {
-    const org_data = contact;
-    const data = formData;
-    const cleanData = cleanFormData(formData);
-    const hasChange = hasChanges(cleanFormData(formData), contact);
-    const hasError = Object.values(formErrors).some((v) => !v);
-
-    console.log({
-      res: !hasChanges(cleanFormData(formData), contact) || Object.values(formErrors).some((v) => !v),
-      org_data,
-      data,
-      cleanData,
-      hasChange,
-      hasError,
-    });
-  }, [formData]);
-
   const mutation = useMutation({
     mutationFn: (data) => {
       return editUser(contact.id, data);
