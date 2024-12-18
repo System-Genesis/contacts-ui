@@ -65,6 +65,7 @@ export const hebrew = {
     redPhone: 'טלפון אדום מכיל 10 ספרות.',
     jabberPhone: "טלפון גא'בר מכיל עד 8 ספרות וכוכבית.",
     otherPhone: 'טלפון אחר מכיל 10 ספרות.',
+    mail: 'נא להזין כתובת אימייל חוקית',
   },
   chatBotDialog: {
     wereHereToHelp: 'נתקלת בבעיה? אנחנו כאן לעזור!',

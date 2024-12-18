@@ -71,6 +71,12 @@ export const FieldDiv = ({
               flex: '0.4',
               '& .MuiInput-underline': { borderBottom: '1px solid #DCDCDC' },
               '& .MuiInput-input': { p: '0.2rem 0', fontSize: 12 },
+              '& .MuiFormHelperText-root': {
+                position: 'absolute',
+                bottom: '-14px',
+                fontSize: 10,
+                color: 'red',
+              },
             }}
             variant="standard"
             onChange={onChange}

@@ -93,7 +93,7 @@ export const GroupContactDrawer: React.FC<{
                 }}
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })}
                 icon={outlook}
-                validation={formValidations.email}
+                validation={formValidations.mail}
                 helperText={i18next.t('validationError.mail')}
               />
             </StyledGridInfo>
@@ -131,6 +131,8 @@ export const GroupContactDrawer: React.FC<{
                 isEdit={isEdit}
                 onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
                 onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
+                validation={formValidations.otherPhone}
+                helperText={i18next.t('validationError.otherPhone')}
               />
 
               {!isEdit && <FieldDiv field={i18next.t('mail')} value={contact.mails?.[0]} />}
