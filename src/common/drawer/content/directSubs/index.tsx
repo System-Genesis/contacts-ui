@@ -7,14 +7,13 @@ export const DirectSubs = ({ subs, type }: { subs: Group[] | Entity[]; type: 'gr
   return (
     <Grid
       container
-      minHeight={type === 'group' ? '140px' : '230px'}
+      minHeight={type === 'group' ? '155px' : '225px'}
       maxHeight={'120px'}
       sx={{
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'nowrap',
-        gap: 1,
-        px: 1,
+        gap: 0.5,
         marginLeft: 1,
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
@@ -27,11 +26,7 @@ export const DirectSubs = ({ subs, type }: { subs: Group[] | Entity[]; type: 'gr
       }}
     >
       {subs.map((sub) =>
-        type === 'group' ? (
-          sub.entitiesCount && <GroupCard key={sub.id} group={sub} />
-        ) : (
-          <EntityCard key={sub.id} entity={sub} />
-        ),
+        type === 'group' ? <GroupCard key={sub.id} group={sub} /> : <EntityCard key={sub.id} entity={sub} />,
       )}
     </Grid>
   );

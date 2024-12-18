@@ -50,7 +50,7 @@ export const HeroSection = () => {
             objectPosition: 'top',
             borderRadius: `${isHome ? '2rem' : '1rem'}`,
             opacity: isHome ? 1 : 0,
-            transition: 'opacity 0.4s', // Smooth transition for the opacity
+            transition: 'opacity 0.4s',
           }}
         />
       </>

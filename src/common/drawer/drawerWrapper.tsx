@@ -159,7 +159,7 @@ export const ContactDrawer: React.FC<{
         if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(true));
       }}
       onClose={() => {
-        if (hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
+        if (isEdit && hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
         else {
           onCancel();
           if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
@@ -220,7 +220,7 @@ export const ContactDrawer: React.FC<{
               )}
               <IconButton
                 onClick={() => {
-                  if (hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
+                  if (isEdit && hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
                   else {
                     onCancel();
                     if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));

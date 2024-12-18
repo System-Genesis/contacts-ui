@@ -1,8 +1,5 @@
 import { useEffect, useMemo } from 'react';
-import { environment } from './globals';
-import Bowser from 'bowser';
 import CssBaseline from '@mui/material/CssBaseline';
-import { toast } from 'react-toastify';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from './store';
@@ -43,13 +40,7 @@ const App = () => {
       interpolation: { escapeValue: false },
     });
 
-    const browser = Bowser.getParser(window.navigator.userAgent);
-    const isValidBrowser = browser.satisfies({
-      chrome: `>=${environment.minimumSupportedChromeVersion}`,
-    });
-
-    if (!isValidBrowser)
-      toast.error(i18next.t('error.unsupportedChromeVersion'), { autoClose: false, theme: 'colored' });
+    // toast.error(i18next.t('error.unsupportedChromeVersion'), { autoClose: false, theme: 'colored' });
   }, []);
 
   const { data: backendConfig } = useQuery({

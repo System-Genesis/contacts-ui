@@ -19,7 +19,8 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
       onClick={() => dispatch(openSubEntity(entity))}
       sx={{
         borderBottom: `1px solid ${theme.colors.gray}`,
-        p: 1,
+        p: 0.5,
+        m: 0.5,
         width: '100%',
         borderRadius: 4,
         ['&:hover']: {

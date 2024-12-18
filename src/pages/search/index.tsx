@@ -22,7 +22,7 @@ const Search = () => {
   const theme = useTheme();
   const observer = useRef<IntersectionObserver>();
 
-  const [resultsType, setResultsType] = useState<ResultsTypes | null>(ResultsTypes.ENTITY);
+  const [resultsType, setResultsType] = useState<ResultsTypes>(ResultsTypes.ENTITY);
   const [firstSearch, setFirstSearch] = useState(true);
 
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
@@ -51,7 +51,7 @@ const Search = () => {
     queryKey: ['search', debouncedSearchTerm, resultsType],
     queryFn: ({ pageParam }) =>
       searchRequest(debouncedSearchTerm, firstSearch ? null : resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
-    getNextPageParam: (lastPage, allPages) => (lastPage.length ? Math.min(allPages.length + 1, 3) : undefined),
+    getNextPageParam: (lastPage, allPages) => (lastPage.length ? allPages.length + 1 : undefined),
     initialPageParam: 1,
   });
 
@@ -67,9 +67,7 @@ const Search = () => {
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
-        if (entries[0].isIntersecting && hasNextPage && !isFetching) {
-          fetchNextPage();
-        }
+        if (entries[0].isIntersecting && hasNextPage && !isFetching) void fetchNextPage();
       });
 
       if (node) observer.current.observe(node);

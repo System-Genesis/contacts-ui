@@ -12,12 +12,28 @@ export const FieldDiv = ({
   editable = false,
   hidable = false,
   removable = false,
-  onChange = (event: ChangeEvent) => ({}),
-  onHide = (isHidden: boolean) => ({}),
-  onRemove = () => ({}),
   isHidden = false,
   helperText = '',
-  validation = (value: string) => ({}),
+  onChange,
+  onHide,
+  onRemove,
+  validation,
+}: {
+  field: string;
+  value: string;
+  isEdit?: boolean;
+  editable?: boolean;
+  hidable?: boolean;
+  removable?: boolean;
+  isHidden?: boolean;
+
+  icon?: string;
+  helperText?: string;
+
+  onChange?: (event: ChangeEvent) => void;
+  onHide?: (isHidden: boolean) => void;
+  onRemove?: () => void;
+  validation?: (value: string) => boolean;
 }) => {
   const theme = useTheme();
 
@@ -36,8 +52,8 @@ export const FieldDiv = ({
           <IconButton
             sx={{ m: 0, p: 0, width: 10, mr: 1 }}
             onClick={() => {
-              if (hidable) onHide(isHidden);
-              if (removable) onRemove();
+              if (hidable) onHide?.(isHidden);
+              if (removable) onRemove?.();
             }}
           >
             {hidable && <img src={isHidden ? hide : unHide} width={18} style={{ padding: 0 }} />}
@@ -59,8 +75,8 @@ export const FieldDiv = ({
             variant="standard"
             onChange={onChange}
             value={value}
-            helperText={!validation(value) ? helperText : ''}
-            error={!validation(value)}
+            helperText={!validation?.(value) ? helperText : ''}
+            error={!validation?.(value)}
           />
         )}
 

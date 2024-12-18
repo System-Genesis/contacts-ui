@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux';
 import { ContactDrawer } from '../drawerWrapper';
 import outlook from '../../../assets/icons/outlook.svg';
 import jabber from '../../../assets/icons/jabber.svg';
+import { GroupSearchResult } from '../../../lib/types';
 
 export const GroupContactDrawer: React.FC<{
   setFormData?: any;
@@ -20,7 +21,7 @@ export const GroupContactDrawer: React.FC<{
   formValidations: any;
 }> = ({ setFormData, formData, isEdit, setFormErrors, formValidations }) => {
   const theme = useTheme();
-  const contact = useSelector((state: RootState) => state.drawer.contact!);
+  const contact: GroupSearchResult = useSelector((state: RootState) => state.drawer.contact!) as GroupSearchResult;
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
 
   const subs = useQuery({
@@ -44,7 +45,9 @@ export const GroupContactDrawer: React.FC<{
         isEdit={isEdit}
         setFormData={setFormData}
         title={contact.name}
-        subTitle={contact.entitiesCount === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`}
+        subTitle={
+          Number(contact.entitiesCount) === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`
+        }
         imageSize="3rem"
         hiddenFields={contact.hiddenFields}
         type="group"
@@ -158,7 +161,7 @@ export const GroupContactDrawer: React.FC<{
         </>
       )}
 
-      {!isEdit && groups.length > 0 &&  groups.some((group) => group.entitiesCount > 0) &&  (
+      {!isEdit && groups.length > 0 && (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>

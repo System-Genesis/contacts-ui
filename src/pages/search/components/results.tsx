@@ -81,10 +81,6 @@ export const Results = ({
         contactsCardProps.handleSelect = (resType: ResultsTypes) =>
           handleCardClick({ ...result, type: resType } as GroupSearchResult);
 
-        if (Number((result as GroupSearchResult).entitiesCount) === 0) {
-          return null;
-        }
-
         contactsCardProps.subTitle =
           Number((result as GroupSearchResult).entitiesCount) > 99
             ? '99+'
