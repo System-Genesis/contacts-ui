@@ -9,8 +9,7 @@ export const ChatBotDialog: React.FC<{
   open: boolean;
   onSave: any;
   onCancel: any;
-  setOpen: (val) => void;
-}> = ({ open, setOpen, onSave, onCancel }) => {
+}> = ({ open, onSave, onCancel }) => {
   const theme = useTheme();
 
   return (
@@ -40,7 +39,7 @@ export const ChatBotDialog: React.FC<{
         }}
       >
         <Box flex={'10%'} alignSelf={'flex-end'}>
-          <IconButton onClick={() => setOpen(false)} sx={{ ml: 2 }}>
+          <IconButton onClick={onCancel} sx={{ ml: 2 }}>
             <img src={CloseIcon} style={{ padding: 0 }} />
           </IconButton>
         </Box>

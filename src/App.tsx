@@ -16,7 +16,7 @@ import { initReactI18next } from 'react-i18next';
 import { setSearchTerm } from './store/reducers/search';
 import TopBar from './layout/topbar';
 import { HeroSection } from './layout/heroSection';
-import ChatBot from './layout/chatBot';
+import { ChatBot } from './layout/chatBot';
 import { ContactDrawer } from './common/drawer/drawerWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { getBackendConfigRequest } from './services/configService';

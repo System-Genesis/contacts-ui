@@ -5,7 +5,7 @@ import { ChatBotDialog } from '../../common/dialogs/chatBot';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
-export default function ChatBot() {
+export const ChatBot = () => {
   const theme = useTheme();
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -24,25 +24,24 @@ export default function ChatBot() {
           background: theme.colors.aquaDark,
         },
       }}
+      onClick={(e) => {
+        e.stopPropagation();
+        setDialogOpen(true);
+      }}
     >
-      <img
-        src={chatBotSrc}
-        alt="Chatbot Icon"
-        onClick={() => {
-          setDialogOpen(true);
-        }}
-      />
+      <img src={chatBotSrc} alt="Chatbot Icon" />
       <ChatBotDialog
         open={dialogOpen}
-        setOpen={setDialogOpen}
-        onCancel={() => {
+        onCancel={(e) => {
+          e.stopPropagation();
           setDialogOpen(false);
         }}
-        onSave={() => {
+        onSave={(e) => {
+          e.stopPropagation();
           setDialogOpen(false);
           window.open(`${config.serviceNowUrl}`);
         }}
       />
     </Fab>
   );
-}
+};
