@@ -64,7 +64,7 @@ export const FieldDiv = ({
           />
         )}
 
-        {(!isHidden || (isHidden && isEdit)) && !editable && (
+        {((isEdit && !editable) || (!isEdit && !isHidden)) && (
           <Typography sx={{ flex: '0.4', fontSize: 12 }}>{value}</Typography>
         )}
 
