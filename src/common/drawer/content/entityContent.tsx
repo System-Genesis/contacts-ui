@@ -21,7 +21,7 @@ export const EntityContentDrawer: React.FC<{
   const handleHide = (isHidden, field) =>
     setFormData((prev) => ({
       ...prev,
-      hiddenFields: !isHidden ? prev.hiddenFields.concat(field) : prev.hiddenFields.filter((f) => f !== field),
+      hiddenFields: !isHidden ? prev.hiddenFields.concat(field).sort() : prev.hiddenFields.filter((f) => f !== field),
     }));
 
   const handleRemove = ({ field, index }: { field: string; index?: number }) => {
