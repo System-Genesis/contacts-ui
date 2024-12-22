@@ -122,7 +122,7 @@ export const EntityContactsCard: React.FC<{
                 </Grid>
 
                 <Grid item gap={1} alignItems={'center'}>
-                  <ContactTags tags={tags} />
+                  <ContactTags tags={tags} shrunkSize={7} />                      
                 </Grid>
               </Grid>
             </Grid>

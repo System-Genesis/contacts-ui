@@ -88,7 +88,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
             }}
           >
             <Grid item>
-              <ContactTags tags={entity?.tags ?? []} shrunk />
+              <ContactTags tags={entity?.tags ?? []} shrunkSize={1} />
             </Grid>
             <Grid item>
               <img src={openSub} style={{ padding: 0 }} />

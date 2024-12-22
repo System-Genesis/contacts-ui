@@ -11,13 +11,13 @@ import add from '../../assets/icons/add.svg';
 export const ContactTags = ({
   tags,
   isEdit = false,
-  shrunk = false,
+  shrunkSize = -1,
   setFormData,
   sx = {},
 }: {
   tags: { name: string; _id?: string }[];
   isEdit?: boolean;
-  shrunk?: boolean;
+  shrunkSize?: number;
   setFormData?: any;
   sx?: any;
 }) => {
@@ -61,15 +61,15 @@ export const ContactTags = ({
       ? [{ name: search }, ...filteredOptions]
       : filteredOptions;
 
-  if (shrunk)
+  if (shrunkSize != -1)
     return (
-      <Grid>
-        {selectedTags.slice(0, 1).map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
-        {selectedTags.length > 1 && (
+      <Box display={'flex'} gap={0.5}>
+        {selectedTags.slice(0, shrunkSize).map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
+        {selectedTags.length > shrunkSize && (
           <Chip
-            key={`${selectedTags.length - 1}+`}
+            key={`${selectedTags.length - shrunkSize}+`}
             component={'div'}
-            label={`${selectedTags.length - 1}+`}
+            label={`${selectedTags.length - shrunkSize}+`}
             size="small"
             sx={{
               cursor: 'default',
@@ -80,7 +80,7 @@ export const ContactTags = ({
             }}
           />
         )}
-      </Grid>
+      </Box>
     );
 
   return (

@@ -42,7 +42,6 @@ export const GroupContactsCard: React.FC<{
   hiddenFields,
 }) => {
   const theme = useTheme();
-
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '99%', mb: 2 }}>
       <SelectedSign isSelected={isSelected} theme={theme} />
@@ -109,7 +108,7 @@ export const GroupContactsCard: React.FC<{
                 </Grid>
 
                 <Grid item gap={1} alignItems={'center'}>
-                  <ContactTags tags={tags} />
+                  <ContactTags tags={tags} shrunkSize={7} />
                 </Grid>
               </Grid>
             </Grid>
