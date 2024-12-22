@@ -28,9 +28,9 @@ import { SaveChangesDialog } from '../dialogs/saveChanges';
 import { cleanFormData, hasChanges } from '../../utils/utils';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer, {
-  shouldForwardProp: (prop) => prop !== 'isSubEntity', // Prevents `isSubEntity` from reaching the DOM
+  shouldForwardProp: (prop) => prop !== 'isSubEntity',
 })<{ isSubEntity?: boolean }>(({ isSubEntity }) => ({
-  pointerEvents: isSubEntity ? 'none' : 'auto', // Allow interactions with the main drawer when nested drawer is open
+  pointerEvents: isSubEntity ? 'none' : 'auto',
   '& .MuiDrawer-paper': {
     position: 'absolute',
     top: 0,
@@ -55,7 +55,7 @@ const StyledDrawerWrapper = styled(SwipeableDrawer, {
         738px 0px 207px 0px #383F5100`,
   },
   '& .MuiBackdrop-root': {
-    backgroundColor: 'rgba(0,0,0,0)', // Fully transparent backdrop
+    backgroundColor: 'rgba(0,0,0,0)',
   },
 }));
 
@@ -69,6 +69,7 @@ export const ContactDrawer: React.FC<{
   const theme = useTheme();
   const queryClient = useQueryClient();
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
+  const validationError = useSelector((state: RootState) => state.drawer.validationError);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
   const prevGroups = useSelector((state: RootState) => state.drawer.prevGroups);
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
@@ -239,7 +240,10 @@ export const ContactDrawer: React.FC<{
                 value={i18next.t(`saveChanges`)}
                 withEndIcon
                 onClick={() => onSave()}
-                // disabled={!hasChanges(cleanFormData(formData), contact) || Object.values(formErrors).some((v) => !v)}
+                disabled={
+                  !hasChanges(cleanFormData(formData), contact) ||
+                  Object.values(validationError).some((error) => error.isError)
+                }
               />
             </Grid>
           </Grid>
@@ -248,7 +252,7 @@ export const ContactDrawer: React.FC<{
       <SaveChangesDialog
         open={saveChangesDialogOpen}
         setOpen={setSaveChangesDialogOpen}
-        // disabledSave={Object.values(formErrors).some((v) => !v)}
+        disabledSave={Object.values(validationError).some((error) => error.isError)}
         onCancel={() => {
           setSaveChangesDialogOpen(false);
           onCancel();

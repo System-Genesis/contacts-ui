@@ -1,7 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { EntitySearchResult, GroupSearchResult, Entity } from '../../lib/types';
+import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { ResultsTypes } from '../../lib/enums';
 import { UserState } from './user';
+import i18next from 'i18next';
+
 import {
   jabberPhoneValidation,
   mailValidation,
@@ -16,7 +18,7 @@ export interface DrawerState {
   subEntity: EntitySearchResult | undefined;
   prevGroups: GroupSearchResult[];
   isEdit: boolean;
-  isError: boolean;
+  validationError: Record<string, { isError: boolean; errorMessage: string }>;
 }
 
 const initialState: DrawerState = {
@@ -25,7 +27,7 @@ const initialState: DrawerState = {
   subEntity: undefined,
   prevGroups: [] as GroupSearchResult[],
   isEdit: false,
-  isError: false,
+  validationError: {},
 };
 
 export const drawerSlice = createSlice({
@@ -61,16 +63,27 @@ export const drawerSlice = createSlice({
     },
     setIsEdit: (state, action: PayloadAction<boolean>) => {
       state.isEdit = action.payload;
+      state.validationError = {};
     },
-    validateForm: (state, action: PayloadAction<FormData>) => {
-      const formValidations = {
+    validateForm: (state, action: PayloadAction<{ field: string; value: string; required: boolean }>): void => {
+      const { field, value, required } = action.payload;
+
+      const formValidations: Record<string, (value: string) => boolean> = {
         mobilePhone: mobilePhoneValidation,
         jabberPhone: jabberPhoneValidation,
         redPhone: redPhoneValidation,
         otherPhone: otherPhoneValidation,
         mail: mailValidation,
       };
-      state.isError = true;
+
+      if (required && (!value || value.trim() === ''))
+        state.validationError[field] = { isError: true, errorMessage: i18next.t(`validationError.${field}Empty`) };
+      else {
+        const validationFn = formValidations[field];
+        if (validationFn && !validationFn(value))
+          state.validationError[field] = { isError: true, errorMessage: i18next.t(`validationError.${field}`) };
+        else delete state.validationError[field];
+      }
     },
   },
 });

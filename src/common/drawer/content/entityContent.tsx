@@ -28,7 +28,7 @@ export const EntityContentDrawer: React.FC<{
     if (index !== undefined)
       setFormData((prev) => ({
         ...prev,
-        [field]: prev[field].filter((_, i) => i !== index), // Remove the item at the specified index
+        [field]: prev[field].filter((_, i) => i !== index),
       }));
     else setFormData((prev) => ({ ...prev, [field]: '' }));
   };

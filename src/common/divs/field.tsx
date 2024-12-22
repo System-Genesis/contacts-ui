@@ -4,12 +4,11 @@ import hide from '../../assets/icons/hide.svg';
 import unHide from '../../assets/icons/unHide.svg';
 import remove from '../../assets/icons/remove.svg';
 import { HiddenLabel } from '../../assets/icons/hiddenLabel';
-import i18next from 'i18next';
 import { RootState } from '../../store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { validateForm } from '../../store/reducers/drawer';
 export const FieldDiv = ({
-  icon = '',
-  field,
+  field = '',
   fieldLabel,
   value,
   editable = false,
@@ -17,10 +16,10 @@ export const FieldDiv = ({
   removable = false,
   isHidden = false,
   required = false,
+  icon = '',
   onChange,
   onHide,
   onRemove,
-  validation,
 }: {
   field?: string;
   fieldLabel: string;
@@ -36,26 +35,17 @@ export const FieldDiv = ({
   onChange?: (event: ChangeEvent) => void;
   onHide?: (isHidden: boolean) => void;
   onRemove?: () => void;
-  validation?: (value: string) => boolean;
 }) => {
+  const dispatch = useDispatch();
+
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
+  const validationError = useSelector((state: RootState) => state.drawer.validationError[field]);
   const theme = useTheme();
 
-
-  const validate = (value) => {
-    if (required && (!value || value === '')) return true;
-    return !validation?.(value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+    dispatch(validateForm({ field, value: event.target.value, required }));
+    onChange?.(event);
   };
-
-  const getHelperText = () => {
-    console.log(field);
-    if (required && (!value || value === '')) return i18next.t(`validationError.${field}Empty`);
-
-    if (validation?.(value)) i18next.t(`validationError.${field}`);
-
-    return '';
-  };
-
   return (
     (value || (isEdit && editable)) && (
       <Box
@@ -88,7 +78,7 @@ export const FieldDiv = ({
         {isEdit && editable && (
           <TextField
             sx={{
-              flex: '0.25',
+              flex: '0.5',
               '& .MuiInput-underline': { borderBottom: '1px solid #DCDCDC' },
               '& .MuiInput-input': { p: '0.2rem 0', fontSize: 12 },
               '& .MuiFormHelperText-root': {
@@ -99,15 +89,15 @@ export const FieldDiv = ({
               },
             }}
             variant="standard"
-            onChange={onChange}
+            onChange={handleChange}
             value={value}
-            helperText={getHelperText()}
-            error={validate(value)}
+            helperText={validationError?.errorMessage}
+            error={validationError?.isError}
           />
         )}
 
         {((isEdit && !editable) || (!isEdit && !isHidden)) && (
-          <Typography sx={{ flex: !editable && !hidable ? '0.8' : '0.25', fontSize: 12 }}>{value}</Typography>
+          <Typography sx={{ flex: !editable && !hidable ? '0.8' : '0.5', fontSize: 12 }}>{value}</Typography>
         )}
 
         {isHidden && (
