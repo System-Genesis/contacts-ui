@@ -32,7 +32,7 @@ export const ContactMenu = ({
   if (options?.length === 1)
     return (
       <Tooltip title={disabled ? i18next.t(`disabled`) : title}>
-        <IconButton href={!disabled && `${href}${options[0].option}`} sx={{ p: 0, m: 1 }}>
+        <IconButton href={!disabled && `${href}${options[0].option}`} sx={{ p: 0, m: 1 }} target="_blank">
           <img src={icon} width={'22rem'} style={{ filter: disabled ? 'grayscale(100%)' : '' }} />
         </IconButton>
       </Tooltip>

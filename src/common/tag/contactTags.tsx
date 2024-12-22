@@ -107,142 +107,135 @@ export const ContactTags = ({
           </Typography>
         </Grid>
       )}
-      <Grid
-        container
+
+      <Box
         sx={{
           display: 'flex',
-
-          justifyContent: 'flex-start',
+          minHeight: selectedTags.length ? '3vh' : '0',
+          maxHeight: '6vh',
+          alignItems: 'flex-start',
+          overflowY: 'auto',
+          '&::-webkit-scrollbar': { width: '0.5rem' },
+          '&::-webkit-scrollbar-track': {
+            background: theme.colors.gray,
+            borderRadius: '100px',
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: theme.colors.aquaLight,
+            borderRadius: '10px',
+            border: `2px solid ${theme.colors.gray}`,
+          },
+          '&::-webkit-scrollbar-thumb:hover, &::-webkit-scrollbar-thumb:focus': {
+            backgroundColor: theme.colors.aquaLightGray,
+          },
+          gap: 0.75,
+          flexWrap: 'wrap',
+          ...sx,
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            minHeight: '3vh',
-            maxHeight: '6vh',
-            alignItems: 'flex-start',
-            overflowY: 'auto',
-            '&::-webkit-scrollbar': { width: '0.5rem' },
-            '&::-webkit-scrollbar-track': {
-              background: theme.colors.gray,
-              borderRadius: '100px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: theme.colors.aquaLight,
-              borderRadius: '10px',
-              border: `2px solid ${theme.colors.gray}`,
-            },
-            '&::-webkit-scrollbar-thumb:hover, &::-webkit-scrollbar-thumb:focus': {
-              backgroundColor: theme.colors.aquaLightGray,
-            },
-            gap: 0.75,
-            flexWrap: 'wrap',
-            ...sx,
-          }}
-        >
-          {isEdit && (
-            <Autocomplete
-              multiple
-              id="tags-filled"
-              noOptionsText={'אין תוצאות'}
-              options={displayOptions}
-              open={isAutoCompleteOpen} // Controls dropdown visibility
-              onClose={() => setIsAutoCompleteOpen(false)}
-              filterOptions={(x) => x} // Prevents default filtering
-              filterSelectedOptions
-              sx={{
+        {isEdit && (
+          <Autocomplete
+            multiple
+            id="tags-filled"
+            noOptionsText={'מה מתאר אותך?'}
+            options={displayOptions}
+            open={isAutoCompleteOpen} // Controls dropdown visibility
+            onClose={() => setIsAutoCompleteOpen(false)}
+            filterOptions={(x) => x} // Prevents default filtering
+            filterSelectedOptions
+            sx={{
+              borderRadius: '40px',
+              backgroundColor: theme.colors.gray,
+              height: 0,
+              '& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline': {
+                borderColor: theme.colors.aqua,
+              },
+              '& .MuiOutlinedInput-notchedOutline': {
+                borderColor: theme.colors.aqua,
+              },
+              '& .MuiOutlinedInput-root': {
                 borderRadius: '40px',
                 backgroundColor: theme.colors.gray,
-                height: 0,
-                '& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline': {
-                  borderColor: theme.colors.aqua,
-                },
-                '& .MuiOutlinedInput-notchedOutline': {
-                  borderColor: theme.colors.aqua,
-                },
-                '& .MuiOutlinedInput-root': {
-                  borderRadius: '40px',
-                  backgroundColor: theme.colors.gray,
-                },
+              },
 
-                '& .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiOutlinedInput-root': {
-                  pr: 0,
-                },
-                '& .MuiAutocomplete-popupIndicator': {
-                  display: 'none',
-                },
-                '& .MuiInputBase-input': {
-                  height: 0,
-                },
-              }}
-              filterSelectedOptions
-              value={selectedTags}
-              onChange={(_event, newValue) => (newValue.length === 0 ? setSearch('') : setSelectedTags(newValue as []))}
-              getOptionLabel={(option) => option.name}
-              renderTags={() => <></>}
-              renderOption={(props, option: any) => (
-                <li {...props} key={option.name} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                  <Typography variant="body2" color="textSecondary">
-                    {option._id ? option.name : `תג חדש: ` + option.name}
-                  </Typography>
-                  <img src={add} width={12} style={{ padding: 0 }} />{' '}
-                </li>
-              )}
-              renderInput={(params) =>
-                isAutoCompleteOpen ? (
-                  <TextField
-                    value={search}
-                    variant="outlined"
-                    autoFocus
-                    onChange={(e) => e.target.value.length <= 20 && setSearch(e.target.value)}
-                    {...params}
-                    InputProps={params.InputProps}
-                    sx={{
-                      width: '10rem',
-                      border: 'none',
-                      p: 0,
-                      ['& .MuiOutlinedInput-root']: {
-                        borderWidth: 1,
-                        padding: 0,
-                        pl: '0.5rem',
-                        height: '1.5rem',
-                      },
-                    }}
-                  />
-                ) : (
-                  <Chip
-                    label={i18next.t('newTag')}
-                    size="small"
-                    onClick={() => setIsAutoCompleteOpen(true)}
-                    onDelete={() => setIsAutoCompleteOpen(true)}
-                    deleteIcon={<AddIcon />}
-                    sx={{
-                      cursor: 'pointer',
-                      alignSelf: 'center',
-                      color: theme.colors.white,
-                      borderRadius: '40px',
+              '& .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiOutlinedInput-root': {
+                pr: 0,
+              },
+              '& .MuiAutocomplete-popupIndicator': {
+                display: 'none',
+              },
+              '& .MuiInputBase-input': {
+                height: 0,
+              },
+            }}
+            value={selectedTags}
+            onChange={(_event, newValue) => (newValue.length === 0 ? setSearch('') : setSelectedTags(newValue as []))}
+            getOptionLabel={(option) => option.name}
+            renderTags={() => <></>}
+            renderOption={(props, option: any) => (
+              <li {...props} key={option.name} style={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Typography variant="body2" color="textSecondary">
+                  {option._id ? option.name : `תגית חדשה: ` + option.name}
+                </Typography>
+                <img src={add} width={12} style={{ padding: 0 }} />
+              </li>
+            )}
+            renderInput={(params) =>
+              isAutoCompleteOpen ? (
+                <TextField
+                  value={search}
+                  variant="outlined"
+                  autoFocus
+                  onChange={(e) => e.target.value.length <= 5 && setSearch(e.target.value)}
+                  {...params}
+                  InputProps={params.InputProps}
+                  sx={{
+                    width: '10rem',
+                    border: 'none',
+                    p: 0,
+                    ['& .MuiOutlinedInput-root']: {
+                      borderWidth: 1,
+                      padding: 0,
+                      pl: '0.5rem',
+                      height: '1.5rem',
+                    },
+                  }}
+                />
+              ) : (
+                <Chip
+                  label={i18next.t('newTag')}
+                  size="small"
+                  onClick={() => setIsAutoCompleteOpen(true)}
+                  onDelete={() => setIsAutoCompleteOpen(true)}
+                  deleteIcon={<AddIcon />}
+                  sx={{
+                    cursor: 'pointer',
+                    alignSelf: 'center',
+                    color: theme.colors.white,
+                    borderRadius: '40px',
+                    backgroundColor: '#295C54',
+                    fontSize: 13,
+                    '&:hover': {
                       backgroundColor: '#295C54',
-                      fontSize: 13,
+                      color: theme.colors.white,
+                    },
+                    '& .MuiChip-deleteIcon': {
                       '&:hover': {
                         backgroundColor: '#295C54',
                         color: theme.colors.white,
                       },
-                      '& .MuiChip-deleteIcon': {
-                        color: theme.colors.white,
-                        cursor: 'pointer',
-                        '&:hover': {
-                          backgroundColor: '#295C54',
-                          color: theme.colors.white,
-                        },
-                      },
-                    }}
-                  />
-                )
-              }
-            />
-          )}
+                      color: theme.colors.white,
+                      cursor: 'pointer',
+                    },
+                  }}
+                />
+              )
+            }
+          />
+        )}
 
-          {selectedTags.map(
+        {selectedTags
+          .map(
             ({ name, _id }) =>
               name && (
                 <TagChip
@@ -253,9 +246,9 @@ export const ContactTags = ({
                   onDelete={() => setSelectedTags(selectedTags.filter((tag: any) => tag.name != name))}
                 />
               ),
-          )}
-        </Box>
-      </Grid>
+          )
+          .reverse()}
+      </Box>
     </Grid>
   );
 };

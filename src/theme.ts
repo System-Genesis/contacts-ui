@@ -52,6 +52,8 @@ export const basicTheme: ThemeOptions = {
   colors: {
     black: '#0F2423',
     white: '#FFFF',
+    red: '#FF5832',
+
     gray: '#F7F7F7',
     darkGray: '#525252',
     lightGray: '#7C7C7C',
@@ -75,6 +77,7 @@ interface ThemeOptions extends ThemeOptionsMui {
   colors?: {
     black?: string;
     white?: string;
+    red?: string;
     gray?: string;
     darkGray?: string;
     lightGray?: string;
@@ -99,6 +102,7 @@ declare module '@mui/material/styles' {
     colors: {
       black: string;
       white: string;
+      red: string;
       gray: string;
       darkGray: string;
       lightGray: string;

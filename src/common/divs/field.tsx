@@ -7,25 +7,28 @@ import { HiddenLabel } from '../../assets/icons/hiddenLabel';
 export const FieldDiv = ({
   icon = '',
   field,
+  fieldLabel,
   value,
   isEdit = false,
   editable = false,
   hidable = false,
   removable = false,
   isHidden = false,
-  helperText = '',
+  required = false,
   onChange,
   onHide,
   onRemove,
   validation,
 }: {
-  field: string;
+  field?: string;
+  fieldLabel: string;
   value: string;
   isEdit?: boolean;
   editable?: boolean;
   hidable?: boolean;
   removable?: boolean;
   isHidden?: boolean;
+  required?: boolean;
 
   icon?: string;
   helperText?: string;
@@ -38,7 +41,7 @@ export const FieldDiv = ({
   const theme = useTheme();
 
   return (
-    (isEdit || value) && (
+    (value || (isEdit && editable)) && (
       <Box
         sx={{
           display: 'flex',
@@ -60,15 +63,16 @@ export const FieldDiv = ({
             {removable && <img src={remove} width={18} style={{ padding: 0 }} />}
           </IconButton>
         )}
-        <Box sx={{ flex: '0.2', display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ flex: '0.2', display: 'flex', alignItems: 'center', gap: 0.5 }}>
           {icon && <img src={icon} width={16} style={{ marginLeft: 5 }} />}
-          <Typography sx={{ color: theme.colors.darkGray, fontSize: 12 }}>{field}</Typography>
+          <Typography sx={{ color: theme.colors.darkGray, fontSize: 12 }}>{fieldLabel}</Typography>
+          <Typography sx={{ color: theme.colors.red, fontSize: 12 }}>{required && isEdit ? '*' : ''}</Typography>
         </Box>
 
         {isEdit && editable && (
           <TextField
             sx={{
-              flex: '0.4',
+              flex: '0.25',
               '& .MuiInput-underline': { borderBottom: '1px solid #DCDCDC' },
               '& .MuiInput-input': { p: '0.2rem 0', fontSize: 12 },
               '& .MuiFormHelperText-root': {
@@ -87,7 +91,7 @@ export const FieldDiv = ({
         )}
 
         {((isEdit && !editable) || (!isEdit && !isHidden)) && (
-          <Typography sx={{ flex: '0.4', fontSize: 12 }}>{value}</Typography>
+          <Typography sx={{ flex: !editable && !hidable ? '0.8' : '0.25', fontSize: 12 }}>{value}</Typography>
         )}
 
         {isHidden && (
