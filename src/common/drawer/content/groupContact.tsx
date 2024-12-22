@@ -16,13 +16,11 @@ import { GroupSearchResult } from '../../../lib/types';
 export const GroupContactDrawer: React.FC<{
   setFormData?: any;
   formData: any;
-  isEdit: boolean;
-  setFormErrors: any;
-  formValidations: any;
-}> = ({ setFormData, formData, isEdit, setFormErrors, formValidations }) => {
+}> = ({ setFormData, formData }) => {
   const theme = useTheme();
   const contact: GroupSearchResult = useSelector((state: RootState) => state.drawer.contact!) as GroupSearchResult;
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
+  const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
 
   const subs = useQuery({
     queryKey: ['subs', contact?.id],
@@ -42,7 +40,6 @@ export const GroupContactDrawer: React.FC<{
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 0.5, width: '100%' }}>
       <UpperContact
         contact={contact}
-        isEdit={isEdit}
         setFormData={setFormData}
         title={contact.name}
         subTitle={
@@ -56,7 +53,7 @@ export const GroupContactDrawer: React.FC<{
       <StyledGridSection container theme={theme}>
         <Typography variant="body1">{i18next.t('description')}</Typography>
         <StyledGridInfo container theme={theme}>
-          <FieldDiv field={i18next.t('field.hierarchy')} value={contact.hierarchy} />
+          <FieldDiv fieldLabel={i18next.t('field.hierarchy')} value={contact.hierarchy} />
         </StyledGridInfo>
       </StyledGridSection>
 
@@ -67,34 +64,24 @@ export const GroupContactDrawer: React.FC<{
             <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
             <StyledGridInfo container theme={theme}>
               <FieldDiv
-                field={i18next.t('jabber')}
+                field={'jabberPhone'}
+                fieldLabel={i18next.t('jabber')}
+                value={formData.jabberPhone?.toString()}
                 editable
                 removable
-                value={formData.jabberPhone?.toString()}
-                isEdit={isEdit}
-                onChange={(event) => {
-                  setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }));
-                  setFormErrors((prev) => ({ ...prev, jabberPhone: formValidations.jabberPhone(event.target.value) }));
-                }}
+                onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
                 onRemove={() => handleRemove({ field: 'jabberPhone' })}
                 icon={jabber}
-                validation={formValidations.jabberPhone}
-                helperText={i18next.t('validationError.jabberPhone')}
               />
               <FieldDiv
-                field={i18next.t('outlook')}
+                field={'mail'}
+                fieldLabel={i18next.t('mail')}
+                value={formData.mails?.[0]?.toString()}
                 editable
                 removable
-                value={formData.mails?.[0]?.toString()}
-                isEdit={isEdit}
-                onChange={(event) => {
-                  setFormData((prev) => ({ ...prev, mails: [event.target.value] }));
-                  setFormErrors((prev) => ({ ...prev, mails: formValidations.mail(event.target.value) }));
-                }}
+                onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })}
                 icon={outlook}
-                validation={formValidations.mail}
-                helperText={i18next.t('validationError.mail')}
               />
             </StyledGridInfo>
           </StyledGridSection>
@@ -109,33 +96,26 @@ export const GroupContactDrawer: React.FC<{
             <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
             <StyledGridInfo container theme={theme}>
               <FieldDiv
-                field={i18next.t('field.redPhone')}
+                field={'redPhone'}
+                fieldLabel={i18next.t('field.redPhone')}
+                value={formData.redPhone?.toString()}
                 editable
                 removable
-                value={formData.redPhone?.toString()}
-                isEdit={isEdit}
-                onChange={(event) => {
-                  setFormData((prev) => ({ ...prev, redPhone: event.target.value }));
-                  setFormErrors((prev) => ({ ...prev, redPhone: formValidations.redPhone(event.target.value) }));
-                }}
+                onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
                 onRemove={() => handleRemove({ field: 'redPhone' })}
-                validation={formValidations.redPhone}
-                helperText={i18next.t('validationError.redPhone')}
               />
 
               <FieldDiv
-                field={i18next.t('field.otherPhone')}
+                field={'otherPhone'}
+                fieldLabel={i18next.t('field.otherPhone')}
+                value={formData.otherPhones?.[0]?.toString()}
                 editable
                 removable
-                value={formData.otherPhones?.[0]?.toString()}
-                isEdit={isEdit}
                 onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
                 onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
-                validation={formValidations.otherPhone}
-                helperText={i18next.t('validationError.otherPhone')}
               />
 
-              {!isEdit && <FieldDiv field={i18next.t('mail')} value={contact.mails?.[0]} />}
+              {!isEdit && <FieldDiv fieldLabel={i18next.t('mail')} value={contact.mails?.[0]} />}
             </StyledGridInfo>
           </StyledGridSection>
         </>

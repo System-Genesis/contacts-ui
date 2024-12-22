@@ -11,15 +11,15 @@ import { RootState } from '../../../store';
 
 export const UpperContact: React.FC<{
   contact: any;
-  isEdit: boolean;
   setFormData?: any;
   subTitle: string | undefined;
   title: string;
   imageSize?: string;
   hiddenFields: string[];
   type: 'group' | 'goalUser' | 'entity';
-}> = ({ contact, isEdit, subTitle, title, imageSize = '5rem', setFormData, hiddenFields, type }) => {
+}> = ({ contact, subTitle, title, imageSize = '5rem', setFormData, hiddenFields, type }) => {
   const currentUser = useSelector((state: RootState) => state.user);
+  const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
 
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>

@@ -8,7 +8,13 @@ import i18next from 'i18next';
 import { StyledDivider } from './content/divider';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import { closeSubEntity, closeSubGroup, setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
+import {
+  closeSubEntity,
+  closeSubGroup,
+  setDrawerObject,
+  setIsDrawerOpen,
+  setIsEdit,
+} from '../../store/reducers/drawer';
 import { EntityContentDrawer } from './content/entityContent';
 import { GroupContactDrawer } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
@@ -19,15 +25,7 @@ import { CancelButton } from '../buttons/cancel';
 import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { setUser, UserState } from '../../store/reducers/user';
 import { SaveChangesDialog } from '../dialogs/saveChanges';
-import {
-  cleanFormData,
-  hasChanges,
-  redPhoneValidation,
-  mobilePhoneValidation,
-  jabberPhoneValidation,
-  otherPhoneValidation,
-  mailValidation,
-} from '../../utils/utils';
+import { cleanFormData, hasChanges } from '../../utils/utils';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer, {
   shouldForwardProp: (prop) => prop !== 'isSubEntity', // Prevents `isSubEntity` from reaching the DOM
@@ -70,22 +68,13 @@ export const ContactDrawer: React.FC<{
   const dispatch = useDispatch();
   const theme = useTheme();
   const queryClient = useQueryClient();
-  const [isEdit, setIsEdit] = useState(false);
+  const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
   const prevGroups = useSelector((state: RootState) => state.drawer.prevGroups);
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentUser = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({});
   const [saveChangesDialogOpen, setSaveChangesDialogOpen] = useState(false);
-  const [formErrors, setFormErrors] = useState({});
-
-  const formValidations = {
-    mobilePhone: mobilePhoneValidation,
-    jabberPhone: jabberPhoneValidation,
-    redPhone: redPhoneValidation,
-    otherPhone: otherPhoneValidation,
-    mail: mailValidation,
-  };
 
   const mutation = useMutation({
     mutationFn: (data) => {
@@ -111,17 +100,17 @@ export const ContactDrawer: React.FC<{
   }, [contact, isEdit]);
 
   const onCancel = () => {
-    setIsEdit(false);
+    dispatch(setIsEdit(false));
     resetFormData();
   };
 
   const onEdit = () => {
-    setIsEdit(true);
+    dispatch(setIsEdit(true));
     dispatch(setDrawerObject(contact));
   };
 
   const onSave = () => {
-    setIsEdit(false);
+    dispatch(setIsEdit(false));
     const data = { ...cleanFormData(formData), mails: formData.mails.map((o) => o.option ?? o) };
 
     mutation.mutate(data);
@@ -203,7 +192,7 @@ export const ContactDrawer: React.FC<{
                 <IconButton
                   onClick={() => {
                     dispatch(closeSubGroup());
-                    setIsEdit(false);
+                    dispatch(setIsEdit(false));
                     onClose();
                   }}
                   sx={{ p: 0, m: 0, ['&:hover']: { backgroundColor: 'transparent' } }}
@@ -236,25 +225,8 @@ export const ContactDrawer: React.FC<{
 
           <Grid container>
             {contact?.type === ResultsTypes.GROUP
-              ? contact && (
-                  <GroupContactDrawer
-                    isEdit={isEdit}
-                    formData={formData}
-                    setFormData={setFormData}
-                    formValidations={formValidations}
-                    setFormErrors={setFormErrors}
-                  />
-                )
-              : contact && (
-                  <EntityContentDrawer
-                    formData={formData}
-                    formValidations={formValidations}
-                    setFormData={setFormData}
-                    isEdit={isEdit}
-                    contact={contact}
-                    setFormErrors={setFormErrors}
-                  />
-                )}
+              ? contact && <GroupContactDrawer formData={formData} setFormData={setFormData} />
+              : contact && <EntityContentDrawer formData={formData} setFormData={setFormData} contact={contact} />}
           </Grid>
         </Grid>
 
@@ -267,7 +239,7 @@ export const ContactDrawer: React.FC<{
                 value={i18next.t(`saveChanges`)}
                 withEndIcon
                 onClick={() => onSave()}
-                disabled={!hasChanges(cleanFormData(formData), contact) || Object.values(formErrors).some((v) => !v)}
+                // disabled={!hasChanges(cleanFormData(formData), contact) || Object.values(formErrors).some((v) => !v)}
               />
             </Grid>
           </Grid>
@@ -276,7 +248,7 @@ export const ContactDrawer: React.FC<{
       <SaveChangesDialog
         open={saveChangesDialogOpen}
         setOpen={setSaveChangesDialogOpen}
-        disabledSave={Object.values(formErrors).some((v) => !v)}
+        // disabledSave={Object.values(formErrors).some((v) => !v)}
         onCancel={() => {
           setSaveChangesDialogOpen(false);
           onCancel();

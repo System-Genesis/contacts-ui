@@ -2,6 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { EntitySearchResult, GroupSearchResult, Entity } from '../../lib/types';
 import { ResultsTypes } from '../../lib/enums';
 import { UserState } from './user';
+import {
+  jabberPhoneValidation,
+  mailValidation,
+  mobilePhoneValidation,
+  otherPhoneValidation,
+  redPhoneValidation,
+} from '../../utils/utils';
 
 export interface DrawerState {
   isOpen: boolean;
@@ -9,6 +16,7 @@ export interface DrawerState {
   subEntity: EntitySearchResult | undefined;
   prevGroups: GroupSearchResult[];
   isEdit: boolean;
+  isError: boolean;
 }
 
 const initialState: DrawerState = {
@@ -16,6 +24,8 @@ const initialState: DrawerState = {
   contact: undefined,
   subEntity: undefined,
   prevGroups: [] as GroupSearchResult[],
+  isEdit: false,
+  isError: false,
 };
 
 export const drawerSlice = createSlice({
@@ -38,7 +48,7 @@ export const drawerSlice = createSlice({
       state.subEntity = undefined;
       state.prevGroups = [] as GroupSearchResult[];
     },
-    openSubEntity: (state, action: PayloadAction<Entity>) => {
+    openSubEntity: (state, action: PayloadAction<EntitySearchResult>) => {
       state.subEntity = action.payload;
     },
     openSubGroup: (state, action: PayloadAction<GroupSearchResult>) => {
@@ -49,9 +59,30 @@ export const drawerSlice = createSlice({
     closeSubGroup: (state) => {
       state.contact = state.prevGroups.pop();
     },
+    setIsEdit: (state, action: PayloadAction<boolean>) => {
+      state.isEdit = action.payload;
+    },
+    validateForm: (state, action: PayloadAction<FormData>) => {
+      const formValidations = {
+        mobilePhone: mobilePhoneValidation,
+        jabberPhone: jabberPhoneValidation,
+        redPhone: redPhoneValidation,
+        otherPhone: otherPhoneValidation,
+        mail: mailValidation,
+      };
+      state.isError = true;
+    },
   },
 });
 
-export const { setIsDrawerOpen, setDrawerObject, openSubEntity, openSubGroup, closeSubGroup, closeSubEntity } =
-  drawerSlice.actions;
+export const {
+  setIsDrawerOpen,
+  setDrawerObject,
+  openSubEntity,
+  openSubGroup,
+  closeSubGroup,
+  closeSubEntity,
+  setIsEdit,
+  validateForm,
+} = drawerSlice.actions;
 export default drawerSlice.reducer;

@@ -4,12 +4,14 @@ import hide from '../../assets/icons/hide.svg';
 import unHide from '../../assets/icons/unHide.svg';
 import remove from '../../assets/icons/remove.svg';
 import { HiddenLabel } from '../../assets/icons/hiddenLabel';
+import i18next from 'i18next';
+import { RootState } from '../../store';
+import { useSelector } from 'react-redux';
 export const FieldDiv = ({
   icon = '',
   field,
   fieldLabel,
   value,
-  isEdit = false,
   editable = false,
   hidable = false,
   removable = false,
@@ -23,7 +25,6 @@ export const FieldDiv = ({
   field?: string;
   fieldLabel: string;
   value: string;
-  isEdit?: boolean;
   editable?: boolean;
   hidable?: boolean;
   removable?: boolean;
@@ -31,14 +32,29 @@ export const FieldDiv = ({
   required?: boolean;
 
   icon?: string;
-  helperText?: string;
 
   onChange?: (event: ChangeEvent) => void;
   onHide?: (isHidden: boolean) => void;
   onRemove?: () => void;
   validation?: (value: string) => boolean;
 }) => {
+  const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
   const theme = useTheme();
+
+
+  const validate = (value) => {
+    if (required && (!value || value === '')) return true;
+    return !validation?.(value);
+  };
+
+  const getHelperText = () => {
+    console.log(field);
+    if (required && (!value || value === '')) return i18next.t(`validationError.${field}Empty`);
+
+    if (validation?.(value)) i18next.t(`validationError.${field}`);
+
+    return '';
+  };
 
   return (
     (value || (isEdit && editable)) && (
@@ -85,8 +101,8 @@ export const FieldDiv = ({
             variant="standard"
             onChange={onChange}
             value={value}
-            helperText={!validation?.(value) ? helperText : ''}
-            error={!validation?.(value)}
+            helperText={getHelperText()}
+            error={validate(value)}
           />
         )}
 
