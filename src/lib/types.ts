@@ -26,7 +26,7 @@ export interface EntitySearchResult extends Omit<Entity, 'mobilePhone'> {
   hiddenFields: string[];
   otherPhones: string[];
   mails: string[];
-  tags: string[];
+  tags: Tag[];
 }
 
 export interface GroupSearchResult extends Group {

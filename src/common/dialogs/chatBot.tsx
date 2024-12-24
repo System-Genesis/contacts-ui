@@ -18,8 +18,8 @@ export const ChatBotDialog: React.FC<{
       onClose={onCancel}
       sx={{
         '& .MuiDialog-paper': {
-          width: '20vw',
-          height: '45vh',
+          width: '385px',
+          height: '415px',
           margin: 'auto',
           borderRadius: '20px',
           pb: 1,

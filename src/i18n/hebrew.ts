@@ -68,6 +68,7 @@ export const hebrew = {
     redPhone: 'טלפון אדום מכיל 10 ספרות.',
     otherPhone: 'טלפון נוסף מכיל 10 ספרות.',
     mail: 'יש להזין כתובת אימייל חוקית',
+    tags: 'ניתן להוסיף עד 15 תגיות.',
   },
   chatBotDialog: {
     wereHereToHelp: 'נתקלת בבעיה? אנחנו כאן לעזור!',

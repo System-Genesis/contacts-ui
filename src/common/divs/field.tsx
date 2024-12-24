@@ -74,18 +74,17 @@ export const FieldDiv = ({
           <Typography sx={{ color: theme.colors.darkGray, fontSize: 12 }}>{fieldLabel}</Typography>
           <Typography sx={{ color: theme.colors.red, fontSize: 12 }}>{required && isEdit ? '*' : ''}</Typography>
         </Box>
-
         {isEdit && editable && (
           <TextField
             sx={{
-              flex: '0.5',
+              flex: '0.45',
               '& .MuiInput-underline': { borderBottom: '1px solid #DCDCDC' },
               '& .MuiInput-input': { p: '0.2rem 0', fontSize: 12 },
               '& .MuiFormHelperText-root': {
                 position: 'absolute',
                 bottom: '-14px',
                 fontSize: 10,
-                color: 'red',
+                color: theme.colors.red,
               },
             }}
             variant="standard"
@@ -97,7 +96,7 @@ export const FieldDiv = ({
         )}
 
         {((isEdit && !editable) || (!isEdit && !isHidden)) && (
-          <Typography sx={{ flex: !editable && !hidable ? '0.8' : '0.5', fontSize: 12 }}>{value}</Typography>
+          <Typography sx={{ flex: !editable && !hidable ? '0.8' : '0.45', fontSize: 12 }}>{value}</Typography>
         )}
 
         {isHidden && (

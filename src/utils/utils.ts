@@ -19,6 +19,8 @@ export const redPhoneValidation = (value: string): boolean => !value || value ==
 export const mailValidation = (value: string): boolean =>
   !value || value === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
+export const tagsValidation = (value: { name: string; _id: string }[]): boolean => value.length < 14;
+
 export const hasChanges = (formData: object, contact) =>
   Object.keys(formData).some(
     (key) =>

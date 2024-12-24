@@ -52,7 +52,7 @@ export const basicTheme: ThemeOptions = {
   colors: {
     black: '#0F2423',
     white: '#FFFF',
-    red: '#FF5832',
+    red: '#E68181',
 
     gray: '#F7F7F7',
     darkGray: '#525252',

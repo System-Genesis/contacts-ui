@@ -10,6 +10,7 @@ import {
   mobilePhoneValidation,
   otherPhoneValidation,
   redPhoneValidation,
+  tagsValidation,
 } from '../../utils/utils';
 
 export interface DrawerState {
@@ -65,25 +66,26 @@ export const drawerSlice = createSlice({
       state.isEdit = action.payload;
       state.validationError = {};
     },
-    validateForm: (state, action: PayloadAction<{ field: string; value: string; required: boolean }>): void => {
+    validateForm: (state, action: PayloadAction<{ field: string; value; required: boolean }>): void => {
       const { field, value, required } = action.payload;
 
-      const formValidations: Record<string, (value: string) => boolean> = {
+      const formValidations: Record<string, (value) => boolean> = {
         mobilePhone: mobilePhoneValidation,
         jabberPhone: jabberPhoneValidation,
         redPhone: redPhoneValidation,
         otherPhone: otherPhoneValidation,
         mail: mailValidation,
+        tags: tagsValidation,
       };
+      const validationFn = formValidations[field];
 
-      if (required && (!value || value.trim() === ''))
-        state.validationError[field] = { isError: true, errorMessage: i18next.t(`validationError.${field}Empty`) };
-      else {
-        const validationFn = formValidations[field];
-        if (validationFn && !validationFn(value))
-          state.validationError[field] = { isError: true, errorMessage: i18next.t(`validationError.${field}`) };
+      if (!value || value === '') {
+        if (required)
+          state.validationError[field] = { isError: true, errorMessage: i18next.t(`validationError.${field}Empty`) };
         else delete state.validationError[field];
-      }
+      } else if (validationFn && !validationFn(value))
+        state.validationError[field] = { isError: true, errorMessage: i18next.t(`validationError.${field}`) };
+      else delete state.validationError[field];
     },
   },
 });

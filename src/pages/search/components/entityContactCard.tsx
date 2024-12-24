@@ -30,6 +30,7 @@ export const EntityContactsCard: React.FC<{
   isSelected: boolean;
   hiddenFields: string[];
   rank: string;
+  serviceType?: string;
   sex: 'זכר' | 'נקבה';
 }> = ({
   type,
@@ -49,6 +50,7 @@ export const EntityContactsCard: React.FC<{
   rank,
   sex,
   hiddenFields,
+  serviceType,
 }) => {
   const theme = useTheme();
   const currentUser = useSelector((state: RootState) => state.user);
@@ -122,7 +124,7 @@ export const EntityContactsCard: React.FC<{
                 </Grid>
 
                 <Grid item gap={1} alignItems={'center'}>
-                  <ContactTags tags={tags} shrunkSize={7} />                      
+                  <ContactTags tags={tags} shrunkSize={7} serviceType={serviceType} />
                 </Grid>
               </Grid>
             </Grid>

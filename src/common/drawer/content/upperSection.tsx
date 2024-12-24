@@ -22,7 +22,7 @@ export const UpperContact: React.FC<{
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
 
   return (
-    <Grid container sx={{ display: 'flex', flexDirection: 'column', mb: 1 }}>
+    <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container>
         <Grid item sx={{ height: '4rem', display: 'flex', alignItems: 'flex-end' }}>
           <ProfileImage type={type} id={contact.id} style={{ width: imageSize, height: imageSize }} sex={contact.sex} />
@@ -65,8 +65,13 @@ export const UpperContact: React.FC<{
             }}
           />
         </Grid>
-        <Grid container mt={2}>
-          <ContactTags tags={contact.tags ?? []} isEdit={isEdit} setFormData={setFormData} />
+        <Grid container mt={1.5}>
+          <ContactTags
+            tags={contact.tags ?? []}
+            isEdit={isEdit}
+            setFormData={setFormData}
+            serviceType={contact.serviceType}
+          />
         </Grid>
       </Grid>
     </Grid>

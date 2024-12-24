@@ -7,6 +7,9 @@ import { getTags, searchTags } from '../../services/tagService';
 import AddIcon from '@mui/icons-material/Add';
 import { useDebounce } from '@uidotdev/usehooks';
 import add from '../../assets/icons/add.svg';
+import { validateForm } from '../../store/reducers/drawer';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
 
 export const ContactTags = ({
   tags,
@@ -14,18 +17,24 @@ export const ContactTags = ({
   shrunkSize = -1,
   setFormData,
   sx = {},
+  field = 'tags',
+  serviceType = '',
 }: {
   tags: { name: string; _id?: string }[];
   isEdit?: boolean;
   shrunkSize?: number;
   setFormData?: any;
   sx?: any;
+  field?: string;
+  serviceType?: string;
 }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const [search, setSearch] = useState('');
   const [debounced] = useDebounce(search, 2000);
   const [selectedTags, setSelectedTags] = useState(tags);
   const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
+  const validationError = useSelector((state: RootState) => state.drawer.validationError[field]);
 
   const { data: firstTags } = useQuery({
     queryKey: [getTags.name],
@@ -36,6 +45,7 @@ export const ContactTags = ({
 
   useEffect(() => {
     if (setFormData) setFormData((prev: any) => ({ ...prev, tags: selectedTags }));
+    dispatch(validateForm({ field, value: selectedTags, required: false }));
   }, [selectedTags]);
 
   useEffect(() => {
@@ -64,6 +74,7 @@ export const ContactTags = ({
   if (shrunkSize != -1)
     return (
       <Box display={'flex'} gap={0.5}>
+        {serviceType && <TagChip value={serviceType} id={''} key={serviceType} />}
         {selectedTags.slice(0, shrunkSize).map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
         {selectedTags.length > shrunkSize && (
           <Chip
@@ -86,7 +97,7 @@ export const ContactTags = ({
   return (
     <Grid container>
       {isEdit && (
-        <Grid container mb={1}>
+        <Grid container mb={0}>
           <Typography
             sx={{
               fontSize: 14,
@@ -107,7 +118,6 @@ export const ContactTags = ({
           </Typography>
         </Grid>
       )}
-
       <Box
         sx={{
           display: 'flex',
@@ -233,7 +243,7 @@ export const ContactTags = ({
             }
           />
         )}
-
+        {serviceType && <TagChip value={serviceType} id={''} key={serviceType} />}
         {selectedTags
           .map(
             ({ name, _id }) =>
@@ -249,6 +259,17 @@ export const ContactTags = ({
           )
           .reverse()}
       </Box>
+
+      <Typography
+        sx={{
+          minHeight: 22,
+          pt: 0.5,
+          fontSize: 12,
+          color: theme.colors.red,
+        }}
+      >
+        {validationError?.isError ? validationError?.errorMessage : ''}
+      </Typography>
     </Grid>
   );
 };

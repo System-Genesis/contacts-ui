@@ -65,6 +65,7 @@ export const Results = ({
       case ResultsTypes.ENTITY:
       case ResultsTypes.GOAL_USER:
         contactsCardProps.entityType = (result as EntitySearchResult).entityType;
+        contactsCardProps.serviceType = (result as EntitySearchResult).serviceType;
         contactsCardProps.title = (result as EntitySearchResult).fullName;
         contactsCardProps.subTitle = (result as EntitySearchResult).jobTitle;
         contactsCardProps.image = (result as EntitySearchResult).pictures?.profile.url;
