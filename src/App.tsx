@@ -106,9 +106,14 @@ const App = () => {
   const lightTheme = createTheme({ ...theme });
 
   const matomoInstance = useMemo(() => {
+    console.log('matomo');
+    console.log({ matomoUrl: config.matomoUrl, matomoSiteID: config.matomoSiteID });
+
     if (config.matomoUrl && config.matomoSiteID) return initializeMatomo(config.matomoUrl, config.matomoSiteID);
     return null;
   }, [config.matomoUrl, config.matomoSiteID]);
+
+  console.log({ matomoInstance });
 
   return (
     <MatomoProvider value={matomoInstance}>
