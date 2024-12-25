@@ -77,4 +77,5 @@ export const hebrew = {
     noThankYou: 'לא, תודה',
     openIssue: 'פתיחת תקלה',
   },
+  newTagText: 'תגית חדשה: ',
 };

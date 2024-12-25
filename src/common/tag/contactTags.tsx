@@ -1,4 +1,4 @@
-import { Autocomplete, Box, Chip, Grid, TextField, Typography, useTheme } from '@mui/material';
+import { Autocomplete, Box, Chip, Grid, ListItemButton, TextField, Typography, useTheme } from '@mui/material';
 import { TagChip } from './chip';
 import i18next from 'i18next';
 import { useEffect, useState } from 'react';
@@ -64,7 +64,7 @@ export const ContactTags = ({
 
   const options = (search.length === 0 ? firstTags : searchData) ?? firstTags;
   const totalOptions = [...options, ...selectedTags];
-  const filteredOptions = options.filter((option) => !selectedTags.map((tag: any) => tag.name).includes(option.name));
+  const filteredOptions = options.filter((option) => option.name.toLowerCase().includes(search.toLowerCase()));
 
   const displayOptions =
     search.length >= 2 && !totalOptions.find((option) => option.name === search)
@@ -179,16 +179,31 @@ export const ContactTags = ({
               },
             }}
             value={selectedTags}
-            onChange={(_event, newValue) => (newValue.length === 0 ? setSearch('') : setSelectedTags(newValue as []))}
+            onChange={(_event, newValue) =>
+              newValue.length === 0 || validationError?.isError ? setSearch('') : setSelectedTags(newValue as [])
+            }
             getOptionLabel={(option) => option.name}
             renderTags={() => <></>}
             renderOption={(props, option: any) => (
-              <li {...props} key={option.name} style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Typography variant="body2" color="textSecondary">
-                  {option._id ? option.name : `תגית חדשה: ` + option.name}
+              <ListItemButton
+                key={option.name}
+                {...props}
+                style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                }}
+                disabled={validationError?.isError || selectedTags.map((tag: any) => tag.name).includes(option.name)}
+              >
+                <Typography
+                  key={option.name}
+                  variant="body2"
+                  color="textSecondary"
+                  disabled={validationError?.isError || selectedTags.map((tag: any) => tag.name).includes(option.name)}
+                >
+                  {option._id ? option.name : i18next.t('newTagText') + option.name}
                 </Typography>
                 <img src={add} width={12} style={{ padding: 0 }} />
-              </li>
+              </ListItemButton>
             )}
             renderInput={(params) =>
               isAutoCompleteOpen ? (
@@ -196,7 +211,7 @@ export const ContactTags = ({
                   value={search}
                   variant="outlined"
                   autoFocus
-                  onChange={(e) => e.target.value.length <= 5 && setSearch(e.target.value)}
+                  onChange={(e) => e.target.value.length <= 20 && setSearch(e.target.value)}
                   {...params}
                   InputProps={params.InputProps}
                   sx={{
