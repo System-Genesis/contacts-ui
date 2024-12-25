@@ -29,7 +29,7 @@ export const ProfileImage = ({
   return (
     <img
       src={pic ?? (sex === 'נקבה' ? femaleAvatar : maleAvatar)}
-      style={{ ...style, borderRadius: '100%' }}
+      style={{ ...style, borderRadius: '100%', objectFit: 'cover' }}
       onClick={onClick}
     />
   );
