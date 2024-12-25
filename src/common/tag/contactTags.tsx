@@ -150,7 +150,10 @@ export const ContactTags = ({
             noOptionsText={'מה מתאר אותך?'}
             options={displayOptions}
             open={isAutoCompleteOpen} // Controls dropdown visibility
-            onClose={() => setIsAutoCompleteOpen(false)}
+            onClose={() => {
+              setIsAutoCompleteOpen(false);
+              setSearch('');
+            }}
             filterOptions={(x) => x} // Prevents default filtering
             filterSelectedOptions
             sx={{
@@ -225,6 +228,9 @@ export const ContactTags = ({
                       height: '1.5rem',
                     },
                   }}
+                  onKeyDown={(event) =>
+                    (event.key === 'Escape' || event.key === 'Backspace') && event.stopPropagation()
+                  }
                 />
               ) : (
                 <Chip
