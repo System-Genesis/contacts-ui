@@ -52,7 +52,7 @@ const Search = () => {
     initialPageParam: 1,
   });
 
-  const searchResults = useMemo(() => data?.pages.reduce((acc, page) => [...acc, ...page], []) ?? [], [data]);
+  const searchResults = data?.pages.reduce((acc, page) => [...acc, ...page], []) ?? [];
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement) => {
