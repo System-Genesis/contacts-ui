@@ -62,10 +62,12 @@ const Home = () => {
         maxHeight: '100vh',
       }}
     >
-      <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center', mb: 1 }}>
-        <img src={favStar} style={{ width: 21 }} />
-        <Typography fontSize={16}>מועדפים</Typography>
-      </Box>
+      {data.length !== 0 && (
+        <Box sx={{ display: 'flex', columnGap: 1, textAlign: 'center', mb: 1 }}>
+          <img src={favStar} style={{ width: 21 }} />
+          <Typography fontSize={16}>מועדפים</Typography>
+        </Box>
+      )}
 
       {data.length === 0 && (
         <Grid display="flex" justifyContent="center" paddingY="80px">

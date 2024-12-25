@@ -113,7 +113,7 @@ export const EntityContentDrawer: React.FC<{
         </>
       )}
 
-      {contact.entityType === 'GoalUser' && (
+      {contact.entityType === 'GoalUser' && (isEdit || !!contact.jabberPhone || formData.mails.length > 0) && (
         <>
           <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme}>
