@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 
 export const ContactTags = ({
-  tags,
+  tags = [],
   isEdit = false,
   shrunkSize = -1,
   setFormData,
