@@ -54,38 +54,36 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
         </StyledGridInfo>
       </StyledGridSection>
 
-      {isEdit ||
-        contact.jabberPhone?.length > 0 ||
-        (contact.mails?.length > 0 && (
-          <>
-            <StyledDivider theme={theme} />
-            <StyledGridSection container theme={theme}>
-              <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
-              <StyledGridInfo container theme={theme}>
-                <FieldDiv
-                  field={'jabberPhone'}
-                  fieldLabel={i18next.t('jabber')}
-                  value={formData.jabberPhone?.toString()}
-                  editable
-                  removable
-                  onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
-                  onRemove={() => handleRemove({ field: 'jabberPhone' })}
-                  icon={jabber}
-                />
-                <FieldDiv
-                  field={'mail'}
-                  fieldLabel={i18next.t('mail')}
-                  value={formData.mails?.[0]?.toString()}
-                  editable
-                  removable
-                  onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
-                  onRemove={() => handleRemove({ field: 'mails', index: 0 })}
-                  icon={outlook}
-                />
-              </StyledGridInfo>
-            </StyledGridSection>
-          </>
-        ))}
+      {(isEdit || contact.jabberPhone?.length > 0 || contact.mails?.length > 0) && (
+        <>
+          <StyledDivider theme={theme} />
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
+            <StyledGridInfo container theme={theme}>
+              <FieldDiv
+                field={'jabberPhone'}
+                fieldLabel={i18next.t('jabber')}
+                value={formData.jabberPhone?.toString()}
+                editable
+                removable
+                onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
+                onRemove={() => handleRemove({ field: 'jabberPhone' })}
+                icon={jabber}
+              />
+              <FieldDiv
+                field={'mail'}
+                fieldLabel={i18next.t('mail')}
+                value={formData.mails?.[0]?.toString()}
+                editable
+                removable
+                onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
+                onRemove={() => handleRemove({ field: 'mails', index: 0 })}
+                icon={outlook}
+              />
+            </StyledGridInfo>
+          </StyledGridSection>
+        </>
+      )}
 
       {(isEdit || contact.redPhone?.length > 0 || contact.otherPhones?.length > 0 || contact.mails?.length > 0) && (
         <>
