@@ -19,8 +19,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
       onClick={() => dispatch(openSubEntity(entity))}
       sx={{
         borderBottom: `1px solid ${theme.colors.gray}`,
-        p: 0.5,
-        m: 0.5,
+        p: 1,
         width: '100%',
         borderRadius: 4,
         ['&:hover']: {
@@ -77,22 +76,23 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
           </Grid>
         </Grid>
 
-        <Grid item xs={4} sx={{ gap: 1 }} alignContent={'center'}>
-          <Grid
-            container
-            sx={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-            }}
-          >
-            <Grid item>
-              <ContactTags tags={entity?.tags} shrunkSize={1} serviceType={entity.serviceType} />
-            </Grid>
-            <Grid item>
-              <img src={openSub} style={{ padding: 0 }} />
-            </Grid>
+        <Grid
+          item
+          xs={4}
+          alignContent={'center'}
+          sx={{
+            gap: 1,
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'flex-end',
+            alignItems: 'center',
+          }}
+        >
+          <Grid item>
+            <ContactTags tags={entity?.tags} shrunkSize={1} serviceType={entity.serviceType ?? ''} />
+          </Grid>
+          <Grid item display={'flex'} alignItems={'center'}>
+            <img src={openSub} style={{ padding: 0 }} />
           </Grid>
         </Grid>
       </Grid>

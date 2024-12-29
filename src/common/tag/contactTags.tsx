@@ -10,6 +10,7 @@ import add from '../../assets/icons/add.svg';
 import { validateForm } from '../../store/reducers/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { styledScrollY } from '../../css/common';
 
 export const ContactTags = ({
   tags = [],
@@ -75,12 +76,14 @@ export const ContactTags = ({
     return (
       <Box display={'flex'} gap={0.5}>
         {serviceType && <TagChip value={serviceType} id={''} key={serviceType} />}
-        {selectedTags.slice(0, shrunkSize).map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
+        {selectedTags
+          .slice(0, shrunkSize - Number(!!serviceType))
+          .map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
         {selectedTags.length > shrunkSize && (
           <Chip
-            key={`${selectedTags.length - shrunkSize}+`}
+            key={`${selectedTags.length - (shrunkSize - Number(!!serviceType))}+`}
             component={'div'}
-            label={`${selectedTags.length - shrunkSize}+`}
+            label={`${selectedTags.length - (shrunkSize - Number(!!serviceType))}+`}
             size="small"
             sx={{
               cursor: 'default',
@@ -121,23 +124,10 @@ export const ContactTags = ({
       <Box
         sx={{
           display: 'flex',
-          minHeight: selectedTags.length ? '3vh' : '0',
+          ...(isEdit && { minHeight: '3vh' }),
           maxHeight: '6vh',
           alignItems: 'flex-start',
-          overflowY: 'auto',
-          '&::-webkit-scrollbar': { width: '0.5rem' },
-          '&::-webkit-scrollbar-track': {
-            background: theme.colors.gray,
-            borderRadius: '100px',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            backgroundColor: theme.colors.aquaLight,
-            borderRadius: '10px',
-            border: `2px solid ${theme.colors.gray}`,
-          },
-          '&::-webkit-scrollbar-thumb:hover, &::-webkit-scrollbar-thumb:focus': {
-            backgroundColor: theme.colors.aquaLightGray,
-          },
+          ...styledScrollY(theme),
           gap: 0.75,
           flexWrap: 'wrap',
           ...sx,
@@ -281,16 +271,18 @@ export const ContactTags = ({
           .reverse()}
       </Box>
 
-      <Typography
-        sx={{
-          minHeight: 22,
-          pt: 0.5,
-          fontSize: 12,
-          color: theme.colors.red,
-        }}
-      >
-        {validationError?.isError ? validationError?.errorMessage : ''}
-      </Typography>
+      {isEdit && (
+        <Typography
+          sx={{
+            minHeight: 22,
+            pt: 0.5,
+            fontSize: 12,
+            color: theme.colors.red,
+          }}
+        >
+          {validationError?.isError ? validationError?.errorMessage : ''}
+        </Typography>
+      )}
     </Grid>
   );
 };

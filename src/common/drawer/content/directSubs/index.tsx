@@ -1,9 +1,11 @@
-import { Grid } from '@mui/material';
+import { Grid, useTheme } from '@mui/material';
 import { Entity, Group } from '../../../../lib/types';
 import { GroupCard } from './group';
 import { EntityCard } from './entity';
+import { styledScrollY } from './../../../../css/common';
 
 export const DirectSubs = ({ subs, type }: { subs: Group[] | Entity[]; type: 'group' | 'entity' }) => {
+  const theme = useTheme();
   return (
     <Grid
       container
@@ -13,16 +15,10 @@ export const DirectSubs = ({ subs, type }: { subs: Group[] | Entity[]; type: 'gr
         display: 'flex',
         flexDirection: 'column',
         flexWrap: 'nowrap',
-        gap: 0.5,
+        gap: 1,
+        px: 1,
         marginLeft: 1,
-        overflowY: 'auto',
-        '&::-webkit-scrollbar': {
-          width: '0',
-        },
-        '&': {
-          msOverflowStyle: 'none',
-          scrollbarWidth: 'none',
-        },
+        ...styledScrollY(theme),
       }}
     >
       {subs.map((sub) =>

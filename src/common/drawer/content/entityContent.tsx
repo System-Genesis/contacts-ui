@@ -190,9 +190,7 @@ export const EntityContentDrawer: React.FC<{
                 fieldLabel={i18next.t('field.redPhone')}
                 value={formData.redPhone?.toString()}
                 editable
-                removable
                 onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
-                onRemove={() => handleRemove({ field: 'redPhone' })}
                 isHidden={formData.hiddenFields?.includes('redPhone')}
               />
               {contact.entityType !== 'GoalUser' ? (

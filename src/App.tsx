@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +30,8 @@ const App = () => {
   const contact = useSelector((state: RootState) => state.drawer.contact);
   const currentUser = useSelector((state: RootState) => state.user);
 
+  const [hasMounted, setHasMounted] = useState(false);
+
   useEffect(() => {
     const resources = {
       he: { translation: hebrew },
@@ -57,7 +59,9 @@ const App = () => {
 
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
   useEffect(() => {
-    let inactivityTimeout: () => void;
+    if (!hasMounted) return setHasMounted(true);
+
+    let inactivityTimeout: NodeJS.Timeout;
     const startInactivityTimer = () => {
       if (isOpen) return clearTimeout(inactivityTimeout);
 
@@ -106,14 +110,14 @@ const App = () => {
   const lightTheme = createTheme({ ...theme });
 
   const matomoInstance = useMemo(() => {
-    console.log('matomo');
-    console.log({ matomoUrl: config.matomoUrl, matomoSiteID: config.matomoSiteID });
+    console.log('matomo', { matomoUrl: config.matomoUrl, matomoSiteID: config.matomoSiteID, currentUser });
 
-    if (config.matomoUrl && config.matomoSiteID) return initializeMatomo(config.matomoUrl, config.matomoSiteID);
+    if (config.matomoUrl && config.matomoSiteID)
+      return initializeMatomo(config.matomoUrl, config.matomoSiteID, currentUser.id);
     return null;
-  }, [config.matomoUrl, config.matomoSiteID]);
+  }, [config.matomoUrl, config.matomoSiteID, currentUser.id]);
 
-  console.log({ matomoInstance });
+  !!matomoInstance && console.log({ matomoInstance: matomoInstance });
 
   return (
     <MatomoProvider value={matomoInstance}>

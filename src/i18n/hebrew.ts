@@ -45,7 +45,7 @@ export const hebrew = {
   resultsType: {
     [ResultsTypes.ENTITY]: 'אנשי קשר',
     [ResultsTypes.GROUP]: 'היררכיות',
-    [ResultsTypes.GOAL_USER]: 'חמל"ים',
+    [ResultsTypes.GOAL_USER]: 'תפקידנים/חמל"ים',
     [ResultsTypes.TAG]: 'תגיות',
   },
   historyHeader: 'חיפושים אחרונים',

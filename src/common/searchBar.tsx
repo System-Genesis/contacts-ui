@@ -12,12 +12,11 @@ import { setSearchTerm } from '../store/reducers/search';
 import { useEffect } from 'react';
 
 export const SearchBar = () => {
+  const theme = useTheme();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  const theme = useTheme();
-
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
-  const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleSearchChange = (e?: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,7 +44,7 @@ export const SearchBar = () => {
         transition: 'width 0.7s, height 0.7s ',
         boxShadow: '0px 20px 50px  #DDDDDD',
       }}
-      onFocus={() => navigate('/search')}
+      onFocus={() => location.pathname === '/' && navigate('/search')}
       onSubmit={(e) => e.preventDefault()}
     >
       {location.pathname !== '/' && (
@@ -72,10 +71,10 @@ export const SearchBar = () => {
         placeholder='ניתן לחפש לפי -שם, היררכיה, חמ"ל, תפקידן ותגיות'
         value={searchTerm}
         onChange={handleSearchChange}
-        onFocus={() => navigate('/search')}
+        onFocus={() => location.pathname === '/' && navigate('/search')}
       />
       {location.pathname !== '/' && searchTerm !== '' && (
-        <IconButton sx={{ m: 0.2 }} onClick={() => dispatch(setSearchTerm(''))}>
+        <IconButton sx={{ m: 0.2 }} onClick={() => handleSearchChange()}>
           <img src={closeSvg} style={{ width: '1.2rem' }} />
         </IconButton>
       )}

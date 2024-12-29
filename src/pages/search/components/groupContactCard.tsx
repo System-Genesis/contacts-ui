@@ -56,14 +56,12 @@ export const GroupContactsCard: React.FC<{
           p: 2,
         }}
       >
-        <Grid item xs={9.5} display={'flex'} flexDirection={'column'}>
+        <Grid item xs={9.5} display={'flex'} flexDirection={'column'} mb={1}>
           <Grid container ml={0.5} mt={0.5}>
             <FavoriteButton
               id={id}
               type={type}
-              imageStyle={{
-                top: '20px',
-              }}
+              imageStyle={{ top: '20px' }}
               iconStyle={{
                 right: 4,
                 top: -25,
@@ -75,7 +73,6 @@ export const GroupContactsCard: React.FC<{
             container
             gap={1}
             ml={3.5}
-            mb={1}
             height={'5.5rem'}
             alignContent={'center'}
             onClick={() => handleSelect(type)}

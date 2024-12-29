@@ -92,7 +92,7 @@ export const ContactDrawer: React.FC<{
       tags: contact.tags ?? [],
       jabberPhone: contact.jabberPhone ?? '',
       otherPhones: contact.otherPhones || [],
-      mails: contact.mails || [],
+      mails: contact.mails.map((o) => o.option ?? o) || [],
     });
   };
 
@@ -144,10 +144,8 @@ export const ContactDrawer: React.FC<{
       isSubEntity={subEntity?.id === contact?.id}
       anchor="right"
       open={!!contact}
-      elevation={2}
-      onOpen={() => {
-        if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(true));
-      }}
+      elevation={1}
+      onOpen={() => subEntity?.id !== contact?.id && dispatch(setIsDrawerOpen(true))}
       onClose={() => {
         if (isEdit && hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
         else {

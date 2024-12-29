@@ -10,6 +10,7 @@ import { setDrawerObject, setIsDrawerOpen } from '../../store/reducers/drawer';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
 import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
+import { styledScrollY } from './../../css/common';
 
 const Home = () => {
   const theme = useTheme();
@@ -88,23 +89,7 @@ const Home = () => {
           columnGap={1}
           sx={{
             height: '30rem',
-            overflowY: 'auto',
-            scrollBehavior: 'smooth',
-            '&::-webkit-scrollbar': {
-              width: '0.6rem',
-            },
-            '&::-webkit-scrollbar-track': {
-              background: theme.colors.gray,
-              borderRadius: '100px',
-            },
-            '&::-webkit-scrollbar-thumb': {
-              backgroundColor: theme.colors.aquaLight,
-              borderRadius: '10px',
-              border: `2px solid ${theme.colors.gray}`,
-            },
-            '&::-webkit-scrollbar-thumb:hover': {
-              backgroundColor: theme.colors.aquaLightGray,
-            },
+            ...styledScrollY(theme),
           }}
         >
           {data.map(generateFavorite)}
