@@ -21,6 +21,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
         borderBottom: `1px solid ${theme.colors.gray}`,
         p: 1,
         width: '100%',
+        alignItems: 'center',
         borderRadius: 4,
         ['&:hover']: {
           backgroundColor: theme.colors.lightAqua,
