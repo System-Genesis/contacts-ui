@@ -92,7 +92,7 @@ export const ContactDrawer: React.FC<{
       tags: contact.tags ?? [],
       jabberPhone: contact.jabberPhone ?? '',
       otherPhones: contact.otherPhones || [],
-      mails: contact.mails.map((o) => o.option ?? o) || [],
+      mails: contact.mails?.map((o) => o.option ?? o) || [],
     });
   };
 
