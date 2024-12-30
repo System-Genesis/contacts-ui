@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import CssBaseline from '@mui/material/CssBaseline';
 import i18next from 'i18next';
 import { useDispatch, useSelector } from 'react-redux';
@@ -92,8 +92,8 @@ const App = () => {
       const user = await AuthService.getUser();
       if (user) {
         dispatch(setUser(user));
-        track('setUserId', `User: ${(user.id, user.adfsId, user.fullName, user.hierarchy, user.rank)}`);
-        trackEvent('login', `User: ${(user.id, user.adfsId, user.fullName, user.hierarchy, user.rank)}`);
+        trackEvent('login', `User: ${(user.id, user.adfsId, user.rank, user.fullName, user.hierarchy)}`);
+        track('setUserId', `User: ${(user.id, user.adfsId, user.rank, user.fullName, user.hierarchy)}`);
       }
     };
     void getUser();
