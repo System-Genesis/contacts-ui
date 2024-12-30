@@ -18,9 +18,7 @@ import { ContactDrawer } from './common/drawer/drawerWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { getBackendConfigRequest } from './services/configService';
 import { setConfig } from './store/reducers/config';
-import { MatomoProvider } from '@datapunt/matomo-tracker-react';
-import { initializeMatomo } from './matomo';
-import { useMatomo } from '@datapunt/matomo-tracker-react';
+import { track, trackEvent, matomoInit } from './matomo';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -54,7 +52,10 @@ const App = () => {
   });
 
   useEffect(() => {
-    if (backendConfig) dispatch(setConfig(backendConfig));
+    if (backendConfig) {
+      dispatch(setConfig(backendConfig));
+      matomoInit(backendConfig.matomoUrl, backendConfig.matomoSiteID);
+    }
   }, [backendConfig, dispatch]);
 
   const isOpen = useSelector((state: RootState) => state.drawer.isOpen);
@@ -86,19 +87,13 @@ const App = () => {
     };
   }, [dispatch, navigate, isOpen]);
 
-  const { trackEvent } = useMatomo();
-
   useEffect(() => {
     const getUser = async () => {
       const user = await AuthService.getUser();
       if (user) {
         dispatch(setUser(user));
-
-        trackEvent({
-          category: 'LogIn',
-          action: 'LogIn',
-          name: `User: ${(user.id, user.adfsId, user.fullName, user.hierarchy, user.rank)}`,
-        });
+        track('setUserId', `User: ${(user.id, user.adfsId, user.fullName, user.hierarchy, user.rank)}`);
+        trackEvent('login', `User: ${(user.id, user.adfsId, user.fullName, user.hierarchy, user.rank)}`);
       }
     };
     void getUser();
@@ -109,51 +104,39 @@ const App = () => {
   const theme = { ...basicTheme };
   const lightTheme = createTheme({ ...theme });
 
-  const matomoInstance = useMemo(() => {
-    console.log('matomo', { matomoUrl: config.matomoUrl, matomoSiteID: config.matomoSiteID, currentUser });
-
-    if (config.matomoUrl && config.matomoSiteID)
-      return initializeMatomo(config.matomoUrl, config.matomoSiteID, currentUser.id);
-    return null;
-  }, [config.matomoUrl, config.matomoSiteID, currentUser.id]);
-
-  !!matomoInstance && console.log({ matomoInstance: matomoInstance });
-
   return (
-    <MatomoProvider value={matomoInstance}>
-      <ThemeProvider theme={lightTheme}>
+    <ThemeProvider theme={lightTheme}>
+      <Box
+        sx={{
+          display: 'flex',
+          width: '100vw',
+          height: '100vh',
+          background: 'white',
+          overflow: 'hidden',
+        }}
+      >
+        <CssBaseline />
         <Box
           sx={{
+            flex: 1,
             display: 'flex',
-            width: '100vw',
-            height: '100vh',
-            background: 'white',
-            overflow: 'hidden',
+            flexDirection: 'column',
+            paddingRight: 3,
+            paddingLeft: 3,
+            paddingTop: 1,
           }}
         >
-          <CssBaseline />
-          <Box
-            sx={{
-              flex: 1,
-              display: 'flex',
-              flexDirection: 'column',
-              paddingRight: 3,
-              paddingLeft: 3,
-              paddingTop: 1,
-            }}
-          >
-            <TopBar />
-            <HeroSection />
-            <Outlet />
-            <ContactDrawer
-              contact={contact}
-              alowEdit={contact?.id === currentUser.id || contact?.id === currentUser.directGroup}
-            />
-          </Box>
+          <TopBar />
+          <HeroSection />
+          <Outlet />
+          <ContactDrawer
+            contact={contact}
+            alowEdit={contact?.id === currentUser.id || contact?.id === currentUser.directGroup}
+          />
         </Box>
-        <ChatBot />
-      </ThemeProvider>
-    </MatomoProvider>
+      </Box>
+      <ChatBot />
+    </ThemeProvider>
   );
 };
 
