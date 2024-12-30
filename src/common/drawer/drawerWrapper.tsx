@@ -187,9 +187,10 @@ export const ContactDrawer: React.FC<{
             }}
           >
             <Grid>
-              {prevGroups.length > 0 && (
+              {prevGroups.length > 0 && contact?.id !== subEntity?.id && (
                 <IconButton
                   onClick={() => {
+                    dispatch(closeSubEntity());
                     dispatch(closeSubGroup());
                     dispatch(setIsEdit(false));
                     onClose();
