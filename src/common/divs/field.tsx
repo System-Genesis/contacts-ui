@@ -54,7 +54,7 @@ export const FieldDiv = ({
           width: '100%',
           flexDirection: 'row',
           alignItems: 'center',
-          height: '1.2rem',
+          ...(isEdit && { height: '1.2rem' }),
         }}
       >
         {isEdit && (
@@ -69,7 +69,15 @@ export const FieldDiv = ({
             {removable && <img src={remove} width={18} style={{ padding: 0 }} />}
           </IconButton>
         )}
-        <Box sx={{ flex: '0.2', display: 'flex', alignItems: 'center', gap: 0.5 }}>
+        <Box
+          sx={{
+            flex: '0.2',
+            display: 'flex',
+            gap: 0.5,
+            height: '100%',
+            alignItems: 'flex-start',
+          }}
+        >
           {icon && <img src={icon} width={16} style={{ marginLeft: 5 }} />}
           <Typography sx={{ color: theme.colors.darkGray, fontSize: 12 }}>{fieldLabel}</Typography>
           <Typography sx={{ color: theme.colors.red, fontSize: 12 }}>{required && isEdit ? '*' : ''}</Typography>
