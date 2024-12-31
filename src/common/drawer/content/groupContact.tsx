@@ -72,7 +72,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               />
               <FieldDiv
                 field={'mail'}
-                fieldLabel={i18next.t('mail')}
+                fieldLabel={i18next.t('field.mail')}
                 value={formData.mails?.[0]?.toString()}
                 editable
                 removable
@@ -112,7 +112,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
                 onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
               />
 
-              {!isEdit && <FieldDiv fieldLabel={i18next.t('mail')} value={contact.mails?.[0]} />}
+              {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]} />}
             </StyledGridInfo>
           </StyledGridSection>
         </>
