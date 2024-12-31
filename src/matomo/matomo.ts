@@ -1,10 +1,8 @@
-export const track = (name: string | string[], value?: string | number) => {
-  const names = Array.isArray(name) ? name : [name];
-  (window as any)._paq.push([...names, ...(value ? [value] : [])]);
-};
+export const track = (args: string | string[], value?: string | number) => {
+  const eventNames = Array.isArray(args) ? args : [args];
+  const eventData = value ? [value] : [];
 
-export const trackEvent = (name: string, value?: string | number) => {
-  track(['trackEvent', 'Button', 'Click', name], value);
+  (window as any)._paq.push([...eventNames, ...eventData]);
 };
 
 export const matomoInit = (matomoUrl, matomoSiteId) => {
@@ -23,4 +21,8 @@ export const matomoInit = (matomoUrl, matomoSiteId) => {
     g.src = `${matomoUrl}/matomo.js`;
     s.parentNode?.insertBefore(g, s);
   })();
+};
+
+export const setCustomDimension = (dimensionIndex: number, dimensionValue: string) => {
+  track(['setCustomDimension', dimensionIndex + ''], dimensionValue);
 };

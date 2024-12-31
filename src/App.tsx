@@ -18,7 +18,8 @@ import { ContactDrawer } from './common/drawer/drawerWrapper';
 import { useQuery } from '@tanstack/react-query';
 import { getBackendConfigRequest } from './services/configService';
 import { setConfig } from './store/reducers/config';
-import { track, trackEvent, matomoInit } from './matomo';
+import { matomoInit } from './matomo/matomo';
+import { setUserLogin } from './matomo/actions';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -92,8 +93,7 @@ const App = () => {
       const user = await AuthService.getUser();
       if (user) {
         dispatch(setUser(user));
-        trackEvent('login', `User: ${(user.id, user.adfsId, user.rank, user.fullName, user.hierarchy)}`);
-        track('setUserId', `User: ${(user.id, user.adfsId, user.rank, user.fullName, user.hierarchy)}`);
+        setUserLogin(user);
       }
     };
     void getUser();
