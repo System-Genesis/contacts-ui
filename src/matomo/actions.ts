@@ -13,3 +13,8 @@ export const setUserLogin = (user: UserState) => {
 export const trackEventClick = (Action: 'Click' | 'Search', name: string, value?: string | number) => {
   track(['trackEvent', 'Button', Action, name], value);
 };
+
+export const clickedEdit = (id: string) => {
+  trackEventClick('Click', 'Edit', id);
+  console.log('trackEventClick', 'Click', 'Edit', id);
+};

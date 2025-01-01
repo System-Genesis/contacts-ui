@@ -9,7 +9,7 @@ export const DirectSubs = ({ subs, type }: { subs: Group[] | Entity[]; type: 'gr
   return (
     <Grid
       container
-      minHeight={type === 'group' ? '155px' : '225px'}
+      minHeight={type === 'group' ? '140px' : '210px'}
       maxHeight={'120px'}
       sx={{
         display: 'flex',

@@ -26,6 +26,7 @@ import { EntitySearchResult, GroupSearchResult } from '../../lib/types';
 import { setUser, UserState } from '../../store/reducers/user';
 import { SaveChangesDialog } from '../dialogs/saveChanges';
 import { cleanFormData, hasChanges } from '../../utils/utils';
+import { clickedEdit } from '../../matomo/actions';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer, {
   shouldForwardProp: (prop) => prop !== 'isSubEntity',
@@ -108,6 +109,8 @@ export const ContactDrawer: React.FC<{
   const onEdit = () => {
     dispatch(setIsEdit(true));
     dispatch(setDrawerObject(contact));
+    console.log('clickedEdit');
+    clickedEdit(contact.id);
   };
 
   const onSave = () => {
@@ -147,8 +150,10 @@ export const ContactDrawer: React.FC<{
       elevation={1}
       onOpen={() => subEntity?.id !== contact?.id && dispatch(setIsDrawerOpen(true))}
       onClose={() => {
-        if (isEdit && hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
-        else {
+        if (isEdit && hasChanges(cleanFormData(formData), contact)) {
+          console.log(1, hasChanges(cleanFormData(formData), contact), formData, cleanFormData(formData), contact);
+          setSaveChangesDialogOpen(true);
+        } else {
           onCancel();
           if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
           else dispatch(closeSubEntity());
@@ -209,8 +214,16 @@ export const ContactDrawer: React.FC<{
               )}
               <IconButton
                 onClick={() => {
-                  if (isEdit && hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
-                  else {
+                  if (isEdit && hasChanges(cleanFormData(formData), contact)) {
+                    console.log(
+                      2,
+                      hasChanges(cleanFormData(formData), contact),
+                      formData,
+                      cleanFormData(formData),
+                      contact,
+                    );
+                    setSaveChangesDialogOpen(true);
+                  } else {
                     onCancel();
                     if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
                     else dispatch(closeSubEntity());

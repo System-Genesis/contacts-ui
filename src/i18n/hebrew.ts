@@ -13,7 +13,6 @@ export const hebrew = {
   role: 'פרטי תפקיד',
   cancel: 'ביטול',
   userDetails: 'פרטי משתמש',
-  extraContactDetails: 'דרכי התקשרות נוספות',
   field: {
     hierarchy: 'היררכיה',
     mail: 'מייל',
@@ -29,16 +28,17 @@ export const hebrew = {
     serviceType: 'סוג שירות',
     dischargeDate: 'תאריך שחרור',
     jobTitle: 'תפקיד',
+    phone: 'טלפון',
   },
   edit: 'עריכה',
   noData: 'אין מידע',
   saveChanges: 'שמירת שינויים',
   description: 'תיאור',
   hierarchy: 'היררכיה',
+  extraContactDetails: 'דרכי התקשרות נוספות',
   contactDetails: 'פרטי יצירת קשר',
   fastShortcuts: 'קיצורים מהירים',
   redPhone: 'טלפון אדום',
-  anotherPhone: 'טלפון נוסף',
   people: 'אנשים',
   hierarchyCommander: 'מפקד היררכיה',
   resultsType: {
@@ -77,4 +77,7 @@ export const hebrew = {
     openIssue: 'פתיחת תקלה',
   },
   newTagText: 'תגית חדשה: ',
+  error: {
+    config: 'שגיאה בהבאת נתונים.',
+  },
 };

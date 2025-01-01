@@ -39,24 +39,30 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
         contact={contact}
         setFormData={setFormData}
         title={contact.name}
-        subTitle={
-          Number(contact.entitiesCount) === 1 ? 'איש 1' : `${contact.entitiesCount ?? 0} ${i18next.t('people')}`
-        }
+        subTitle={entities.length === 1 ? 'איש אחד' : `${entities.length} ${i18next.t('people')}`}
         imageSize="3rem"
         hiddenFields={contact.hiddenFields}
         type="group"
       />
 
-      <StyledGridSection container theme={theme}>
-        <Typography variant="body1">{i18next.t('description')}</Typography>
-        <StyledGridInfo container theme={theme}>
-          <FieldDiv fieldLabel={i18next.t('field.hierarchy')} value={contact.hierarchy} />
-        </StyledGridInfo>
-      </StyledGridSection>
-
-      {(isEdit || contact.jabberPhone?.length > 0 || contact.mails?.length > 0) && (
+      {contact.hierarchy && (
         <>
-          <StyledDivider theme={theme} />
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">{i18next.t('description')}</Typography>
+            <StyledGridInfo container theme={theme}>
+              <FieldDiv fieldLabel={i18next.t('field.hierarchy')} value={contact.hierarchy} />
+            </StyledGridInfo>
+          </StyledGridSection>
+          {(isEdit ||
+            contact.redPhone?.length > 0 ||
+            contact.otherPhones?.length > 0 ||
+            contact.mails?.length > 0 ||
+            (!isEdit && (entities.length > 0 || groups.length > 0))) && <StyledDivider theme={theme} />}
+        </>
+      )}
+
+      {isEdit && (
+        <>
           <StyledGridSection container theme={theme}>
             <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
             <StyledGridInfo container theme={theme}>
@@ -87,8 +93,6 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
 
       {(isEdit || contact.redPhone?.length > 0 || contact.otherPhones?.length > 0 || contact.mails?.length > 0) && (
         <>
-          <StyledDivider theme={theme} />
-
           <StyledGridSection container theme={theme}>
             <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
             <StyledGridInfo container theme={theme}>
@@ -115,12 +119,12 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]} />}
             </StyledGridInfo>
           </StyledGridSection>
+          {!isEdit && (entities.length > 0 || groups.length > 0) && <StyledDivider theme={theme} />}
         </>
       )}
 
       {!isEdit && entities.length > 0 && (
         <>
-          <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
             <Typography variant="body1">משרתים</Typography>
             <StyledGridInfo container theme={theme}>
@@ -137,12 +141,12 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               />
             </StyledGridInfo>
           </StyledGridSection>
+          {!isEdit && groups.length > 0 && <StyledDivider theme={theme} />}
         </>
       )}
 
       {!isEdit && groups.length > 0 && (
         <>
-          <StyledDivider theme={theme} />
           <StyledGridSection container theme={theme} margin={0}>
             <Typography variant="body1">תת היררכיות</Typography>
             <StyledGridInfo container theme={theme}>

@@ -262,7 +262,7 @@ export const ContactTags = ({
                 <TagChip
                   value={name}
                   id={_id}
-                  key={_id}
+                  key={`${_id} ${serviceType}`}
                   isEdit={isEdit}
                   onDelete={() => setSelectedTags(selectedTags.filter((tag: any) => tag.name != name))}
                 />
