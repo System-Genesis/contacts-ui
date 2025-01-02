@@ -72,6 +72,7 @@ export const Results = ({
         contactsCardProps.rank = (result as EntitySearchResult).rank;
         contactsCardProps.hiddenFields = (result as EntitySearchResult).hiddenFields;
         contactsCardProps.sex = (result as EntitySearchResult).sex;
+        contactsCardProps.source = (result as EntitySearchResult).source;
         contactsCardProps.handleSelect = (resType: ResultsTypes) =>
           handleCardClick({ ...result, type: resType } as EntitySearchResult);
 

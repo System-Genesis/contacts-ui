@@ -93,7 +93,7 @@ export const ContactDrawer: React.FC<{
       tags: contact.tags ?? [],
       jabberPhone: contact.jabberPhone ?? '',
       otherPhones: contact.otherPhones || [],
-      mails: contact.mails?.map((o) => o.option ?? o) || [],
+      mails: contact.mails?.map((o) => o?.option ?? o) || [],
     });
   };
 
@@ -115,7 +115,7 @@ export const ContactDrawer: React.FC<{
 
   const onSave = () => {
     dispatch(setIsEdit(false));
-    const data = { ...cleanFormData(formData), mails: formData.mails.map((o) => o.option ?? o) };
+    const data = { ...cleanFormData(formData), mails: formData.mails?.map((o) => o?.option ?? o) };
 
     mutation.mutate(data);
 
@@ -150,10 +150,12 @@ export const ContactDrawer: React.FC<{
       elevation={1}
       onOpen={() => subEntity?.id !== contact?.id && dispatch(setIsDrawerOpen(true))}
       onClose={() => {
-        if (isEdit && hasChanges(cleanFormData(formData), contact)) {
-          console.log(1, hasChanges(cleanFormData(formData), contact), formData, cleanFormData(formData), contact);
+        if (
+          isEdit &&
+          hasChanges(cleanFormData(formData), { ...contact, mails: contact.mails?.map((o) => o?.option ?? o) })
+        )
           setSaveChangesDialogOpen(true);
-        } else {
+        else {
           onCancel();
           if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
           else dispatch(closeSubEntity());
@@ -207,23 +209,22 @@ export const ContactDrawer: React.FC<{
               )}
             </Grid>
             <Grid>
-              {!isEdit && alowEdit && (
+              {!isEdit && ( // allowEdit && (
                 <IconButton onClick={() => onEdit()} sx={{ p: 0 }}>
                   <img src={EditIcon} style={{ padding: 0 }} />
                 </IconButton>
               )}
               <IconButton
                 onClick={() => {
-                  if (isEdit && hasChanges(cleanFormData(formData), contact)) {
-                    console.log(
-                      2,
-                      hasChanges(cleanFormData(formData), contact),
-                      formData,
-                      cleanFormData(formData),
-                      contact,
-                    );
+                  if (
+                    isEdit &&
+                    hasChanges(cleanFormData(formData), {
+                      ...contact,
+                      mails: contact.mails?.map((o) => o?.option ?? o),
+                    })
+                  )
                     setSaveChangesDialogOpen(true);
-                  } else {
+                  else {
                     onCancel();
                     if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
                     else dispatch(closeSubEntity());
@@ -251,10 +252,12 @@ export const ContactDrawer: React.FC<{
               <SaveButton
                 value={i18next.t(`saveChanges`)}
                 withEndIcon
-                onClick={() => onSave()}
+                onClick={onSave}
                 disabled={
-                  !hasChanges(cleanFormData(formData), contact) ||
-                  Object.values(validationError).some((error) => error.isError)
+                  !hasChanges(cleanFormData(formData), {
+                    ...contact,
+                    mails: contact?.mails?.map((o) => o?.option ?? o),
+                  }) || Object.values(validationError).some((error) => error.isError)
                 }
               />
             </Grid>

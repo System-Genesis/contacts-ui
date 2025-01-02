@@ -113,7 +113,13 @@ export const GroupContactsCard: React.FC<{
         </Grid>
 
         <Grid item xs={3} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
-          <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} isGroup hiddenFields={hiddenFields} />
+          <ContactOptions
+            jabberPhone={[{ option: jabberPhone }]}
+            mails={mails}
+            chats={chats}
+            isGroup
+            hiddenFields={hiddenFields}
+          />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} isGroup hiddenFields={hiddenFields} />
         </Grid>
       </Grid>

@@ -47,7 +47,7 @@ export const UpperContact: React.FC<{
             <ContactOptions
               mails={contact.mails}
               chats={contact.chats}
-              jabberPhone={contact.jabberPhone}
+              jabberPhone={[{ option: contact.jabberPhone, source: contact.source }]}
               hiddenFields={hiddenFields}
             />
           )}

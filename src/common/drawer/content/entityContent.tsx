@@ -142,16 +142,19 @@ export const EntityContentDrawer: React.FC<{
                 onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
                 onRemove={() => handleRemove({ field: 'jabberPhone' })}
                 icon={jabber}
+                keyFilter={/^[0-9*]$/}
+                lengthLimit={8}
               />
               <FieldDiv
                 field={'mail'}
                 fieldLabel={i18next.t('field.mail')}
-                value={formData.mails?.[0]?.option.toString()}
+                value={formData.mails?.[0]}
                 editable
                 removable
                 onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })} //TODO: fix this
                 icon={outlook}
+                keyFilter={/^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-@]$/}
               />
             </StyledGridInfo>
           </StyledGridSection>
@@ -164,7 +167,8 @@ export const EntityContentDrawer: React.FC<{
       )}
 
       {(isEdit ||
-        ((contact.jabberPhone || contact.mobilePhone) && contact.entityType !== 'GoalUser') ||
+        (contact.mobilePhone && contact.entityType !== 'GoalUser') ||
+        contact.jabberPhone ||
         contact.redPhone ||
         contact?.otherPhones?.length > 0) && (
         <StyledGridSection container theme={theme}>
@@ -174,7 +178,7 @@ export const EntityContentDrawer: React.FC<{
           <StyledGridInfo container theme={theme}>
             {contact.entityType !== 'GoalUser' && (
               <FieldDiv
-                field={'mobi   lePhone'}
+                field={'mobilePhone'}
                 fieldLabel={i18next.t('field.mobilePhone')}
                 value={
                   isEdit
@@ -187,9 +191,11 @@ export const EntityContentDrawer: React.FC<{
                 onChange={(event) => setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }))}
                 isHidden={formData.hiddenFields?.includes('mobilePhone')}
                 onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
+                keyFilter={/[0-9]/}
+                lengthLimit={10}
               />
             )}
-            {contact.entityType !== 'GoalUser' && (
+            {(contact.entityType !== 'GoalUser' || !isEdit) && (
               <FieldDiv
                 field={'jabberPhone'}
                 fieldLabel={i18next.t('field.jabberPhone')}
@@ -200,6 +206,8 @@ export const EntityContentDrawer: React.FC<{
                 onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
                 isHidden={formData.hiddenFields?.includes('jabberPhone')}
                 onHide={(isHidden) => handleHide(isHidden, 'jabberPhone')}
+                keyFilter={/[0-9*]/}
+                lengthLimit={8}
               />
             )}
             <FieldDiv
@@ -209,6 +217,8 @@ export const EntityContentDrawer: React.FC<{
               editable
               onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
               isHidden={formData.hiddenFields?.includes('redPhone')}
+              keyFilter={/[0-9]/}
+              lengthLimit={10}
             />
             {contact.entityType === 'GoalUser' ? (
               <FieldDiv
@@ -217,6 +227,8 @@ export const EntityContentDrawer: React.FC<{
                 value={formData.otherPhones?.[0]?.toString()}
                 editable
                 onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
+                keyFilter={/[0-9]/}
+                lengthLimit={10}
               />
             ) : (
               <>
@@ -235,6 +247,8 @@ export const EntityContentDrawer: React.FC<{
                       }))
                     }
                     onRemove={() => handleRemove({ field: 'otherPhones', index })}
+                    keyFilter={/[0-9]/}
+                    lengthLimit={10}
                   />
                 ))}
                 {isEdit && formData.otherPhones?.length < 3 && (
@@ -245,7 +259,7 @@ export const EntityContentDrawer: React.FC<{
               </>
             )}
             {!isEdit && contact.entityType === 'GoalUser' && (
-              <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]?.option} />
+              <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]} />
             )}
           </StyledGridInfo>
         </StyledGridSection>

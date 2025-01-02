@@ -14,14 +14,20 @@ export const ContactOptions = ({
   isGroup = false,
   hiddenFields,
 }: {
-  jabberPhone: string; //TODO: fix to get the contact menu
+  jabberPhone: Option[];
   chats: Option[];
   mails: Option[];
   isGroup?: boolean;
   hiddenFields: string[];
 }) => {
   const config = useSelector((state: RootState) => state.config);
+  const currentUser = useSelector((state: RootState) => state.user);
 
+  const jabberPhoneWithPrefix = jabberPhone.map((o) => {
+    if (currentUser.source === 'Souf' && o.source !== 'Souf') return { ...o, option: `70-${o.option}` };
+    if (currentUser.source !== 'Souf' && o.source === 'Souf') return { ...o, option: `81-${o.option}` };
+    return o;
+  });
   return (
     <Box
       sx={{
@@ -36,7 +42,7 @@ export const ContactOptions = ({
       <ContactMenu
         title={i18next.t('jabber')}
         icon={jabber}
-        options={jabberPhone ? [{ option: jabberPhone }] : []}
+        options={jabberPhoneWithPrefix}
         href="sip:"
         disabled={hiddenFields?.includes('jabberPhone')}
       />

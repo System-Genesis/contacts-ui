@@ -103,7 +103,12 @@ export const GroupFavoriteCard = ({
               />
               <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
                 <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
-                <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} hiddenFields={hiddenFields} />
+                <ContactOptions
+                  jabberPhone={[{ option: jabberPhone }]}
+                  mails={mails}
+                  chats={chats}
+                  hiddenFields={hiddenFields}
+                />
               </Grid>
             </Grid>
           )}

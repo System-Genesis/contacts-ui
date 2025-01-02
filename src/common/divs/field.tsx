@@ -17,6 +17,8 @@ export const FieldDiv = ({
   isHidden = false,
   required = false,
   icon = '',
+  keyFilter = /\S\s/,
+  lengthLimit = 999,
   onChange,
   onHide,
   onRemove,
@@ -30,6 +32,8 @@ export const FieldDiv = ({
   isHidden?: boolean;
   required?: boolean;
 
+  keyFilter?: RegExp;
+  lengthLimit?: number;
   icon?: string;
 
   onChange?: (event: ChangeEvent) => void;
@@ -43,8 +47,22 @@ export const FieldDiv = ({
   const theme = useTheme();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    dispatch(validateForm({ field, value: event.target.value, required }));
-    onChange?.(event);
+    if (event.target.value.length <= lengthLimit) {
+      dispatch(validateForm({ field, value: event.target.value, required }));
+      onChange?.(event);
+    }
+  };
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const key = event.key;
+    const isNavigationKey = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete'].includes(key);
+    const isControlOrCmd = event.ctrlKey || event.metaKey; // Check for Control or Command key
+
+    // Check if key is a number, '*' or a navigation key, or control actions (Ctrl + A, Ctrl + C, Ctrl + V)
+    const isValidKey =
+      keyFilter.test(key) || isNavigationKey || (isControlOrCmd && ['a', 'c', 'v'].includes(key.toLowerCase()));
+
+    if (!isValidKey) event.preventDefault();
   };
   return (
     (value || (isEdit && editable)) && (
@@ -96,6 +114,7 @@ export const FieldDiv = ({
               },
             }}
             variant="standard"
+            onKeyDown={handleKeyDown}
             onChange={handleChange}
             value={value}
             helperText={validationError?.errorMessage}

@@ -32,6 +32,7 @@ export const EntityContactsCard: React.FC<{
   rank: string;
   serviceType?: string;
   sex: 'זכר' | 'נקבה';
+  source: string;
 }> = ({
   type,
   id,
@@ -51,6 +52,7 @@ export const EntityContactsCard: React.FC<{
   sex,
   hiddenFields,
   serviceType,
+  source,
 }) => {
   const theme = useTheme();
   const currentUser = useSelector((state: RootState) => state.user);
@@ -133,7 +135,7 @@ export const EntityContactsCard: React.FC<{
 
         <Grid item xs={3} gap={6} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions
-            jabberPhone={currentUser.id !== id && jabberPhone}
+            jabberPhone={currentUser.id !== id && [{ option: jabberPhone, source }]}
             chats={currentUser.id !== id && chats}
             mails={currentUser.id !== id && mails}
             hiddenFields={hiddenFields}

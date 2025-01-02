@@ -75,11 +75,13 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
                 onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
                 onRemove={() => handleRemove({ field: 'jabberPhone' })}
                 icon={jabber}
+                keyFilter={/[0-9*]/}
+                lengthLimit={8}
               />
               <FieldDiv
                 field={'mail'}
                 fieldLabel={i18next.t('field.mail')}
-                value={formData.mails?.[0]?.toString()}
+                value={formData.mails?.[0]}
                 editable
                 removable
                 onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
@@ -104,16 +106,20 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
                 removable
                 onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
                 onRemove={() => handleRemove({ field: 'redPhone' })}
+                keyFilter={/[0-9*]/}
+                lengthLimit={10}
               />
 
               <FieldDiv
                 field={'otherPhone'}
-                fieldLabel={i18next.t('field.otherPhone')}
+                fieldLabel={i18next.t('field.phone')}
                 value={formData.otherPhones?.[0]?.toString()}
                 editable
                 removable
                 onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
                 onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
+                keyFilter={/[0-9*]/}
+                lengthLimit={8}
               />
 
               {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]} />}

@@ -14,9 +14,7 @@ export const GroupCard = ({ group }: { group: GroupSearchResult }) => {
   return (
     <Grid
       item
-      onClick={() => {
-        dispatch(openSubGroup(group));
-      }}
+      onClick={() => dispatch(openSubGroup(group))}
       sx={{
         borderBottom: `1px solid ${theme.colors.gray}`,
         p: 1,

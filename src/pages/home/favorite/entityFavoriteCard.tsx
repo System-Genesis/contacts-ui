@@ -16,13 +16,13 @@ export const EntityFavoriteCard = ({
   mails,
   chats,
   jabberPhone,
-  redPhone,
   mobilePhone,
   entityType,
   handleSelect,
   isSelected,
   sex,
   hiddenFields,
+  source,
 }: {
   id: string;
   fullName: string;
@@ -37,6 +37,7 @@ export const EntityFavoriteCard = ({
   isSelected: boolean;
   sex: 'זכר' | 'נקבה';
   hiddenFields: string[];
+  source: string;
 }) => {
   const theme = useTheme();
   const currentUser = useSelector((state: RootState) => state.user);
@@ -120,7 +121,12 @@ export const EntityFavoriteCard = ({
               <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
                 <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
                 {currentUser.id !== id && (
-                  <ContactOptions jabberPhone={jabberPhone} mails={mails} chats={chats} hiddenFields={hiddenFields} />
+                  <ContactOptions
+                    jabberPhone={[{ option: jabberPhone, source }]}
+                    mails={mails}
+                    chats={chats}
+                    hiddenFields={hiddenFields}
+                  />
                 )}
               </Grid>
             </Grid>

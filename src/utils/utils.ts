@@ -21,13 +21,17 @@ export const mailValidation = (value: string): boolean =>
 
 export const tagsValidation = (value: { name: string; _id: string }[]): boolean => value.length < 14;
 
-export const hasChanges = (formData: object, contact) =>
-  Object.keys(formData).some(
-    (key) =>
-      key !== 'id' &&
-      JSON.stringify(formData[key]) !== JSON.stringify(contact[key]) &&
-      !(formData[key] === '' && contact[key] === undefined),
-  );
+export const hasChanges = (formData: object, contact) => {
+  return Object.keys(formData).some((key) => {
+    const formValue = formData[key];
+    const contactValue = contact[key];
+
+    if ((formValue === '' && contactValue === undefined) || (formValue === undefined && contactValue === ''))
+      return false;
+
+    return JSON.stringify(formValue) !== JSON.stringify(contactValue);
+  });
+};
 
 export const cleanFormData = (formData: object) => {
   return Object.entries(formData).reduce((cleanedData, [key, value]) => {

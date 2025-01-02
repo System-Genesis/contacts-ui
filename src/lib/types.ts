@@ -86,6 +86,7 @@ export interface Entity {
   akaUnitHierarchy?: string[];
   isAmanAssociated?: boolean;
   mobilePhone: string;
+  source: string;
 }
 
 export interface DigitalIdentity {
