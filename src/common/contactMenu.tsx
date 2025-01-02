@@ -3,12 +3,7 @@ import { useState } from 'react';
 import Tooltip from './divs/toolTip';
 import { StyledDivider } from './drawer/content/divider';
 import i18next from 'i18next';
-
-export interface Option {
-  option: string;
-  source?: string;
-  displayText?: string;
-}
+import { Option } from '../lib/types';
 
 export const ContactMenu = ({
   title,
@@ -80,7 +75,7 @@ export const ContactMenu = ({
                   width: '100%',
                 }}
               >
-                <Typography color={theme.colors.lightGray}>{displayText}</Typography>
+                <Typography color={theme.colors.lightGray}>{displayText ?? option}</Typography>
                 <Typography
                   color={theme.colors.darkGray}
                   sx={{

@@ -3,16 +3,16 @@ import { Divider, Grid, useTheme } from '@mui/material';
 import { ContactOptions } from '../../../common/contactOptions';
 import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
-import { Option } from '../../../common/contactMenu';
 import { ContactNumbers } from '../../../common/contactNumbers';
 import { Title } from '../../../common/divs/title';
+import { Option } from '../../../lib/types';
 
 export const GroupFavoriteCard = ({
   id,
   name,
   mails,
   chats,
-  jabberPhone,
+  jabberPhones,
   redPhone,
   mobilePhone,
   handleSelect,
@@ -23,7 +23,7 @@ export const GroupFavoriteCard = ({
   name: string;
   mails: Option[];
   chats: Option[];
-  jabberPhone: string;
+  jabberPhones: Option[];
   redPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
@@ -96,19 +96,14 @@ export const GroupFavoriteCard = ({
             </Grid>
           </Grid>
 
-          {(mails?.length || chats?.length || redPhone || jabberPhone) && (
+          {(mails?.length || chats?.length || redPhone || jabberPhones?.length) && (
             <Grid container sx={{ width: '100%', gap: 1 }}>
               <Divider
                 sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
               />
               <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
                 <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
-                <ContactOptions
-                  jabberPhone={[{ option: jabberPhone }]}
-                  mails={mails}
-                  chats={chats}
-                  hiddenFields={hiddenFields}
-                />
+                <ContactOptions jabberPhones={jabberPhones} mails={mails} chats={chats} hiddenFields={hiddenFields} />
               </Grid>
             </Grid>
           )}

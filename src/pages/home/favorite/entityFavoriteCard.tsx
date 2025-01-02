@@ -2,12 +2,12 @@ import { Divider, Grid, useTheme } from '@mui/material';
 import { ContactOptions } from '../../../common/contactOptions';
 import { FavoriteButton } from '../../../common/buttons/favoriteButton';
 import { ProfileImage } from '../../../common/profileImage';
-import { Option } from '../../../common/contactMenu';
 import { ContactNumbers } from '../../../common/contactNumbers';
 import { SubTitle } from '../../../common/divs/subTitle';
 import { Title } from '../../../common/divs/title';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
+import { Option } from '../../../lib/types';
 
 export const EntityFavoriteCard = ({
   id,
@@ -15,14 +15,13 @@ export const EntityFavoriteCard = ({
   jobTitle,
   mails,
   chats,
-  jabberPhone,
+  jabberPhones,
   mobilePhone,
   entityType,
   handleSelect,
   isSelected,
   sex,
   hiddenFields,
-  source,
 }: {
   id: string;
   fullName: string;
@@ -30,7 +29,7 @@ export const EntityFavoriteCard = ({
   jobTitle: string;
   mails: Option[];
   chats: Option[];
-  jabberPhone: string;
+  jabberPhones: Option[];
   redPhone: string;
   mobilePhone: string;
   handleSelect: () => void;
@@ -113,7 +112,7 @@ export const EntityFavoriteCard = ({
             </Grid>
           </Grid>
 
-          {(mails?.length || chats?.length || mobilePhone || jabberPhone) && (
+          {(mails?.length || chats?.length || mobilePhone || jabberPhones) && (
             <Grid container sx={{ width: '100%', gap: 1, height: '3rem' }}>
               <Divider
                 sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
@@ -121,12 +120,7 @@ export const EntityFavoriteCard = ({
               <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
                 <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
                 {currentUser.id !== id && (
-                  <ContactOptions
-                    jabberPhone={[{ option: jabberPhone, source }]}
-                    mails={mails}
-                    chats={chats}
-                    hiddenFields={hiddenFields}
-                  />
+                  <ContactOptions jabberPhones={jabberPhones} mails={mails} chats={chats} hiddenFields={hiddenFields} />
                 )}
               </Grid>
             </Grid>

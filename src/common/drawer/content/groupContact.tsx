@@ -29,8 +29,12 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
   });
 
   const handleRemove = ({ field, index }: { field: string; index?: number }) => {
-    if (index !== undefined) setFormData((prev) => ({ ...prev, [field]: [''] }));
-    else setFormData((prev) => ({ ...prev, [field]: '' }));
+    if (index === undefined) setFormData((prev) => ({ ...prev, [field]: '' }));
+    else
+      setFormData((prev) => ({
+        ...prev,
+        [field]: prev[field][index]?.option ? [{ ...prev[field][index], option: '' }] : [''],
+      }));
   };
 
   return (
@@ -57,6 +61,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
             contact.redPhone?.length > 0 ||
             contact.otherPhones?.length > 0 ||
             contact.mails?.length > 0 ||
+            (contact.jabberPhones?.length > 0 && contact.jabberPhones?.[0]?.option !== '') ||
             (!isEdit && (entities.length > 0 || groups.length > 0))) && <StyledDivider theme={theme} />}
         </>
       )}
@@ -67,13 +72,18 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
             <Typography variant="body1">{i18next.t('fastShortcuts')}</Typography>
             <StyledGridInfo container theme={theme}>
               <FieldDiv
-                field={'jabberPhone'}
+                field={'jabberPhones'}
                 fieldLabel={i18next.t('jabber')}
-                value={formData.jabberPhone?.toString()}
+                value={formData.jabberPhones?.[0]?.option}
                 editable
                 removable
-                onChange={(event) => setFormData((prev) => ({ ...prev, jabberPhone: event.target.value }))}
-                onRemove={() => handleRemove({ field: 'jabberPhone' })}
+                onChange={(event) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    jabberPhones: [{ source: prev.jabberPhones[0]?.source ?? 'OneTree', option: event.target.value }],
+                  }))
+                }
+                onRemove={() => handleRemove({ field: 'jabberPhones', index: 0 })}
                 icon={jabber}
                 keyFilter={/[0-9*]/}
                 lengthLimit={8}
@@ -81,23 +91,36 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               <FieldDiv
                 field={'mail'}
                 fieldLabel={i18next.t('field.mail')}
-                value={formData.mails?.[0]}
+                value={formData.mails?.[0]?.option}
                 editable
                 removable
-                onChange={(event) => setFormData((prev) => ({ ...prev, mails: [event.target.value] }))}
+                onChange={(event) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    mails: [{ source: prev.mails?.[0]?.source, option: event.target.value }],
+                  }))
+                }
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })}
                 icon={outlook}
+                keyFilter={/^[a-zA-Z0-9!#$%&'*+/=?^_`{|}~.-@]$/}
               />
             </StyledGridInfo>
           </StyledGridSection>
         </>
       )}
 
-      {(isEdit || contact.redPhone?.length > 0 || contact.otherPhones?.length > 0 || contact.mails?.length > 0) && (
+      {(isEdit ||
+        contact.redPhone?.length > 0 ||
+        contact.otherPhones?.length > 0 ||
+        contact.mails?.length > 0 ||
+        (contact.jabberPhones?.length > 0 && contact.jabberPhones[0]?.option !== '')) && (
         <>
           <StyledGridSection container theme={theme}>
             <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
             <StyledGridInfo container theme={theme}>
+              {!isEdit && (
+                <FieldDiv fieldLabel={i18next.t('field.jabberPhone')} value={contact.jabberPhones?.[0]?.option} />
+              )}
               <FieldDiv
                 field={'redPhone'}
                 fieldLabel={i18next.t('field.redPhone')}
@@ -113,16 +136,16 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               <FieldDiv
                 field={'otherPhone'}
                 fieldLabel={i18next.t('field.phone')}
-                value={formData.otherPhones?.[0]?.toString()}
+                value={formData.otherPhones?.[0]}
                 editable
                 removable
                 onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
                 onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
                 keyFilter={/[0-9*]/}
-                lengthLimit={8}
+                lengthLimit={10}
               />
 
-              {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]} />}
+              {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]?.option} />}
             </StyledGridInfo>
           </StyledGridSection>
           {!isEdit && (entities.length > 0 || groups.length > 0) && <StyledDivider theme={theme} />}

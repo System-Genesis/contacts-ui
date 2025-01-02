@@ -50,7 +50,7 @@ export const Results = ({
     const contactsCardProps: any = {
       id: result.id,
       hierarchy: result.hierarchy,
-      jabberPhone: result.jabberPhone,
+      jabberPhones: result.jabberPhones,
       redPhone: result.redPhone,
       mobilePhone: result.mobilePhone,
       tags: result.tags,

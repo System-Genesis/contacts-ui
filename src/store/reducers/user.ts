@@ -15,7 +15,7 @@ export interface UserState {
   directGroup: string;
   hierarchy: string;
   fullName: string;
-  jabberPhone: string;
+  jabberPhones: string;
   redPhone: string;
   mobilePhone: string;
   otherPhones: string[];

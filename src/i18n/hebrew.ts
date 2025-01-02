@@ -10,7 +10,7 @@ export const hebrew = {
   search: 'חיפוש',
   save: 'שמירה',
   cancelChanges: 'ביטול שינויים',
-  role: 'פרטי תפקיד',
+  roleDetails: 'פרטי תפקיד',
   cancel: 'ביטול',
   userDetails: 'פרטי משתמש',
   field: {
@@ -62,8 +62,8 @@ export const hebrew = {
   validationError: {
     mobilePhoneEmpty: 'יש למלא טלפון נייד.',
     mobilePhone: 'טלפון נייד מכיל 10 ספרות.',
-    jabberPhone: "טלפון ג'אבר מכיל עד 8 ספרות וכוכבית.",
-    jabberPhoneEmpty: "יש למלא טלפון ג'אבר.",
+    jabberPhones: "טלפון ג'אבר מכיל עד 8 ספרות וכוכבית.",
+    jabberPhonesEmpty: "יש למלא טלפון ג'אבר.",
     redPhone: 'טלפון אדום מכיל 10 ספרות.',
     otherPhone: 'טלפון נוסף מכיל 10 ספרות.',
     mail: 'יש להזין כתובת אימייל חוקית',

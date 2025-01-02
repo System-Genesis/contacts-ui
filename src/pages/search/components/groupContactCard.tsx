@@ -8,7 +8,7 @@ import { ResultsTypes } from '../../../lib/enums';
 import { SelectedSign } from './selectedSign';
 import { Title } from '../../../common/divs/title';
 import { SubTitle } from '../../../common/divs/subTitle';
-import { Option } from '../../../common/contactMenu';
+import { Option } from '../../../lib/types';
 
 export const GroupContactsCard: React.FC<{
   id: string;
@@ -18,8 +18,8 @@ export const GroupContactsCard: React.FC<{
   hierarchy: string | undefined;
   tags: { name: string; _id: string }[];
   mobilePhone: string;
-  jabberPhone: string;
   redPhone: string;
+  jabberPhones: Option[];
   mails: Option[];
   chats: Option[];
   handleSelect: (type: ResultsTypes) => void;
@@ -32,8 +32,8 @@ export const GroupContactsCard: React.FC<{
   subTitle,
   hierarchy,
   mobilePhone,
-  jabberPhone,
   redPhone,
+  jabberPhones,
   tags,
   mails,
   chats,
@@ -113,13 +113,7 @@ export const GroupContactsCard: React.FC<{
         </Grid>
 
         <Grid item xs={3} gap={4} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
-          <ContactOptions
-            jabberPhone={[{ option: jabberPhone }]}
-            mails={mails}
-            chats={chats}
-            isGroup
-            hiddenFields={hiddenFields}
-          />
+          <ContactOptions jabberPhones={jabberPhones} mails={mails} chats={chats} isGroup hiddenFields={hiddenFields} />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} isGroup hiddenFields={hiddenFields} />
         </Grid>
       </Grid>

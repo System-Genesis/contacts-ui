@@ -71,7 +71,7 @@ export const drawerSlice = createSlice({
 
       const formValidations: Record<string, (value) => boolean> = {
         mobilePhone: mobilePhoneValidation,
-        jabberPhone: jabberPhoneValidation,
+        jabberPhones: jabberPhoneValidation,
         redPhone: redPhoneValidation,
         otherPhone: otherPhoneValidation,
         mail: mailValidation,

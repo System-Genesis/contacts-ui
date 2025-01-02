@@ -179,23 +179,17 @@ export const ContactTags = ({
             renderTags={() => <></>}
             renderOption={(props, option: any) => (
               <ListItemButton
-                key={option.name}
                 {...props}
-                style={{
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                }}
+                style={{ justifyContent: 'space-between' }}
                 disabled={validationError?.isError || selectedTags.map((tag: any) => tag.name).includes(option.name)}
               >
-                <Typography
-                  key={option.name}
-                  variant="body2"
-                  color="textSecondary"
-                  disabled={validationError?.isError || selectedTags.map((tag: any) => tag.name).includes(option.name)}
-                >
-                  {option._id ? option.name : i18next.t('newTagText') + option.name}
+                <Typography variant="body2" color="textSecondary">
+                  {option._id ? option.name : i18next.t('newTagText') + option.name}{' '}
                 </Typography>
-                <img src={add} width={12} style={{ padding: 0 }} />
+
+                {!validationError?.isError && !selectedTags.map((tag: any) => tag.name).includes(option.name) && (
+                  <img src={add} width={12} style={{ padding: 0 }} />
+                )}
               </ListItemButton>
             )}
             renderInput={(params) =>

@@ -2,15 +2,10 @@ import { UserTypes } from './enums';
 
 export interface User {
   kartoffelId: string;
-
   hiddenFields: string[];
-
   favorites: { type: UserTypes; id: string }[];
-
   history: { type: UserTypes; id: string }[];
-
   tags: string[];
-
   type: UserTypes;
 }
 
@@ -18,25 +13,32 @@ export interface Tag {
   _id: string;
   name: string;
 }
+export interface Option {
+  option: string;
+  source?: string;
+  displayText?: string;
+}
 
 export interface EntitySearchResult extends Omit<Entity, 'mobilePhone'> {
   mobilePhone: string;
-  jabberPhone: string;
+  jabberPhones: Option[];
   redPhone: string;
   hiddenFields: string[];
   otherPhones: string[];
-  mails: string[];
+  mails: Option[];
+  chats: Option[];
   tags: Tag[];
 }
 
 export interface GroupSearchResult extends Group {
   mobilePhone: string;
-  jabberPhone: string;
   redPhone: string;
   hiddenFields: string[];
   entitiesCount: string;
   otherPhones: string[];
-  mails: string[];
+  jabberPhones: Option[];
+  mails: Option[];
+  chats: Option[];
   tags: string[];
 }
 

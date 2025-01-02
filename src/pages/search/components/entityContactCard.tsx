@@ -8,10 +8,10 @@ import { ResultsTypes } from '../../../lib/enums';
 import { SelectedSign } from './selectedSign';
 import { Title } from '../../../common/divs/title';
 import { SubTitle } from '../../../common/divs/subTitle';
-import { Option } from '../../../common/contactMenu';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import i18next from 'i18next';
+import { Option } from '../../../lib/types';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -20,10 +20,10 @@ export const EntityContactsCard: React.FC<{
   subTitle: string | undefined;
   hierarchy: string | undefined;
   tags: { name: string; _id: string }[];
-  mobilePhone: string;
-  jabberPhone: string;
-  redPhone: string;
   entityType: string;
+  redPhone: string;
+  mobilePhone: string;
+  jabberPhones: Option[];
   mails: Option[];
   chats: Option[];
   handleSelect: (type: ResultsTypes) => void;
@@ -32,7 +32,6 @@ export const EntityContactsCard: React.FC<{
   rank: string;
   serviceType?: string;
   sex: 'זכר' | 'נקבה';
-  source: string;
 }> = ({
   type,
   id,
@@ -42,7 +41,7 @@ export const EntityContactsCard: React.FC<{
   entityType,
   mobilePhone,
   redPhone,
-  jabberPhone,
+  jabberPhones,
   tags,
   mails,
   chats,
@@ -52,7 +51,6 @@ export const EntityContactsCard: React.FC<{
   sex,
   hiddenFields,
   serviceType,
-  source,
 }) => {
   const theme = useTheme();
   const currentUser = useSelector((state: RootState) => state.user);
@@ -135,7 +133,7 @@ export const EntityContactsCard: React.FC<{
 
         <Grid item xs={3} gap={6} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions
-            jabberPhone={currentUser.id !== id && [{ option: jabberPhone, source }]}
+            jabberPhones={currentUser.id !== id && jabberPhones}
             chats={currentUser.id !== id && chats}
             mails={currentUser.id !== id && mails}
             hiddenFields={hiddenFields}
