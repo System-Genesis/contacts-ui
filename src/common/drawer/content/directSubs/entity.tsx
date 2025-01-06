@@ -15,6 +15,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
 
   const dispatch = useDispatch();
 
+  const c = (entity.identityCard ?? entity.employeeId) && !entity.personalNumber && !entity.serviceType;
   return (
     <Grid
       item
@@ -45,7 +46,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 0.2 }}>
             <Grid item sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
               <Title value={entity.fullName} />
-              <SubTitle value={entity.jobTitle} />
+              <SubTitle value={entity.jobTitle} shorten/>
             </Grid>
 
             {Object.values(entity?.commanderOf)?.includes(contact.id) && (
@@ -71,7 +72,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
           }}
         >
           <Grid item>
-            <ContactTags tags={entity?.tags} shrunkSize={1} serviceType={entity.serviceType ?? ''} />
+            <ContactTags tags={entity?.tags} shrunkSize={1} serviceType={c ? 'אזרח' : (entity.serviceType ?? '')} />
           </Grid>
           <Grid item display={'flex'} alignItems={'center'}>
             <img src={openSub} style={{ padding: 0 }} />
