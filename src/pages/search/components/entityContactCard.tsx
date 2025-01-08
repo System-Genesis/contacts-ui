@@ -133,9 +133,9 @@ export const EntityContactsCard: React.FC<{
 
         <Grid item xs={3} gap={6} pr={1} display={'flex'} flexDirection={'column'} alignItems={'end'}>
           <ContactOptions
-            jabberPhones={currentUser.id !== id && jabberPhones}
-            chats={currentUser.id !== id && chats}
-            mails={currentUser.id !== id && mails}
+            jabberPhones={currentUser.id !== id ? jabberPhones : []}
+            chats={currentUser.id !== id ? chats : []}
+            mails={currentUser.id !== id ? mails : []}
             hiddenFields={hiddenFields}
           />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />

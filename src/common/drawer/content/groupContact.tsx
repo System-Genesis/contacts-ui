@@ -80,7 +80,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
                 onChange={(event) =>
                   setFormData((prev) => ({
                     ...prev,
-                    jabberPhones: [{ source: prev.jabberPhones[0]?.source ?? 'OneTree', option: event.target.value }],
+                    jabberPhones: [{ ...prev.jabberPhones[0], option: event.target.value }],
                   }))
                 }
                 onRemove={() => handleRemove({ field: 'jabberPhones', index: 0 })}
@@ -97,7 +97,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
                 onChange={(event) =>
                   setFormData((prev) => ({
                     ...prev,
-                    mails: [{ source: prev.mails?.[0]?.source, option: event.target.value }],
+                    mails: [{ ...prev.mails?.[0], option: event.target.value }],
                   }))
                 }
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })}

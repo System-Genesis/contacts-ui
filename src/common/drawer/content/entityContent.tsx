@@ -145,7 +145,7 @@ export const EntityContentDrawer: React.FC<{
                 onChange={(event) =>
                   setFormData((prev) => ({
                     ...prev,
-                    jabberPhones: [{ source: prev.jabberPhones?.[0]?.source, option: event.target.value }],
+                    jabberPhones: [{ ...prev.jabberPhones?.[0], option: event.target.value }],
                   }))
                 }
                 onRemove={() => handleRemove({ field: 'jabberPhones', index: 0 })} //TODO: fix this
@@ -162,7 +162,7 @@ export const EntityContentDrawer: React.FC<{
                 onChange={(event) =>
                   setFormData((prev) => ({
                     ...prev,
-                    mails: [{ source: prev.mails?.[0]?.source, option: event.target.value }],
+                    mails: [{ ...prev.mails?.[0], option: event.target.value }],
                   }))
                 }
                 onRemove={() => handleRemove({ field: 'mails', index: 0 })} //TODO: fix this
@@ -219,7 +219,7 @@ export const EntityContentDrawer: React.FC<{
                 onChange={(event) =>
                   setFormData((prev) => ({
                     ...prev,
-                    jabberPhones: [{ source: prev.jabberPhones?.[0]?.source, option: event.target.value }],
+                    jabberPhones: [{ ...prev.jabberPhones?.[0], option: event.target.value }],
                   }))
                 }
                 isHidden={formData.hiddenFields?.includes('jabberPhones')}
@@ -277,7 +277,7 @@ export const EntityContentDrawer: React.FC<{
               </>
             )}
             {!isEdit && contact.entityType === 'GoalUser' && (
-              <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]} />
+              <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0].option} />
             )}
           </StyledGridInfo>
         </StyledGridSection>
