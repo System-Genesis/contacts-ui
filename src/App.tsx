@@ -40,8 +40,6 @@ const App = () => {
       lng: 'he',
       interpolation: { escapeValue: false },
     });
-
-    // toast.error(i18next.t('error.unsupportedChromeVersion'), { autoClose: false, theme: 'colored' });
   }, []);
 
   const { data: backendConfig } = useQuery({
@@ -51,6 +49,16 @@ const App = () => {
       errorMessage: i18next.t('error.config'),
     },
   });
+  useEffect(() => {
+    const getUser = async () => {
+      const user = await AuthService.getUser();
+      if (user) {
+        dispatch(setUser(user));
+        setUserLogin(user);
+      }
+    };
+    void getUser();
+  }, [dispatch]);
 
   useEffect(() => {
     if (backendConfig) {
@@ -86,18 +94,7 @@ const App = () => {
       clearTimeout(inactivityTimeout);
       config.resetTimeoutActions?.forEach((action) => window.removeEventListener(action, resetTimeout));
     };
-  }, [dispatch, navigate, isOpen]);
-
-  useEffect(() => {
-    const getUser = async () => {
-      const user = await AuthService.getUser();
-      if (user) {
-        dispatch(setUser(user));
-        setUserLogin(user);
-      }
-    };
-    void getUser();
-  }, [dispatch]);
+  }, [dispatch, navigate, isOpen, hasMounted, config.resetTimeoutActions, config.resetTimeout]);
 
   if (!currentUser) redirect(`/unauthorized`);
 

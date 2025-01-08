@@ -14,12 +14,16 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError } from 'axios';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './routes.tsx';
+import ErrorBoundary from './error/errorBoundry.tsx';
+import NotFound from './error/errorPage.tsx';
+import { ErrorEvent } from './matomo/actions.ts';
 
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
     children: Object.values(routes),
+    errorElement: <NotFound />,
   },
 ]);
 
@@ -49,8 +53,10 @@ const Index: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <CacheProvider value={cacheRtl}>
-        <RouterProvider router={router} />
-        <ToastContainer position="bottom-right" />
+        <ErrorBoundary>
+          <RouterProvider router={router} />
+          <ToastContainer position="bottom-right" toastStyle={{ fontFamily: 'Rubik, sans-serif' }} />
+        </ErrorBoundary>
       </CacheProvider>
       <ReactQueryDevtools buttonPosition="bottom-right" />
     </QueryClientProvider>
@@ -64,3 +70,14 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </Provider>
   </React.StrictMode>,
 );
+
+window.onerror = (message, source, lineno, colno, error) => {
+  console.error('Global error caught:', { message, source, lineno, colno, error });
+  toast.error('אירעה שגיאה, נסה שוב מאוחר יותר.', { theme: 'colored' });
+  ErrorEvent('Global error caught', `${message} ${source}`);
+};
+window.onunhandledrejection = (event) => {
+  console.error('Unhandled promise rejection:', event.reason);
+  toast.error('אירעה שגיאה, נסה שוב מאוחר יותר.', { theme: 'colored' });
+  ErrorEvent('Unhandled promise rejection', event.reason);
+};

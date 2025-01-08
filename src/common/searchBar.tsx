@@ -70,7 +70,7 @@ export const SearchBar = () => {
         readOnly={location.pathname === '/'}
         placeholder='ניתן לחפש לפי -שם, היררכיה, חמ"ל, תפקידן ותגיות'
         value={searchTerm}
-        onChange={handleSearchChange}
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSearchChange(e)}
         onFocus={() => location.pathname === '/' && navigate('/search')}
       />
       {location.pathname !== '/' && searchTerm !== '' && (

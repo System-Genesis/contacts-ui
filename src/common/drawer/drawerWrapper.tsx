@@ -61,7 +61,7 @@ const StyledDrawerWrapper = styled(SwipeableDrawer, {
 }));
 
 export const ContactDrawer: React.FC<{
-  contact: GroupSearchResult | EntitySearchResult | UserState;
+  contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
   sx?: object;
   alowEdit?: boolean;
   onClose?: () => void;
@@ -207,7 +207,7 @@ export const ContactDrawer: React.FC<{
               )}
             </Grid>
             <Grid>
-              {!isEdit && ( // allowEdit && (
+              {!isEdit && alowEdit && (
                 <IconButton onClick={() => onEdit()} sx={{ p: 0 }}>
                   <img src={EditIcon} style={{ padding: 0 }} />
                 </IconButton>
