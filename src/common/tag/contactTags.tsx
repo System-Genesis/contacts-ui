@@ -19,7 +19,7 @@ export const ContactTags = ({
   setFormData,
   sx = {},
   field = 'tags',
-  serviceType = '',
+  defaultTags = [],
 }: {
   tags: { name: string; _id?: string }[];
   isEdit?: boolean;
@@ -27,7 +27,7 @@ export const ContactTags = ({
   setFormData?: any;
   sx?: any;
   field?: string;
-  serviceType?: string;
+  defaultTags?: string[];
 }) => {
   const theme = useTheme();
   const dispatch = useDispatch();
@@ -75,15 +75,17 @@ export const ContactTags = ({
   if (shrunkSize != -1)
     return (
       <Box display={'flex'} gap={0.5}>
-        {serviceType && <TagChip value={serviceType} id={''} key={serviceType} />}
+        {defaultTags.map((t) => (
+          <TagChip value={t} id={''} key={t} />
+        ))}
         {selectedTags
-          .slice(0, shrunkSize - Number(!!serviceType))
+          .slice(0, shrunkSize - defaultTags.length)
           .map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
         {selectedTags.length > shrunkSize && (
           <Chip
-            key={`${selectedTags.length - (shrunkSize - Number(!!serviceType))}+`}
+            key={`${selectedTags.length - (shrunkSize - defaultTags.length)}+`}
             component={'div'}
-            label={`${selectedTags.length - (shrunkSize - Number(!!serviceType))}+`}
+            label={`${selectedTags.length - (shrunkSize - defaultTags.length)}+`}
             size="small"
             sx={{
               cursor: 'default',
@@ -248,7 +250,9 @@ export const ContactTags = ({
             }
           />
         )}
-        {serviceType && <TagChip value={serviceType} id={''} key={serviceType} />}
+        {defaultTags.map((t) => (
+          <TagChip value={t} id={''} key={t} />
+        ))}
         {selectedTags
           .map(
             ({ name, _id }) =>
@@ -256,7 +260,6 @@ export const ContactTags = ({
                 <TagChip
                   value={name}
                   id={_id}
-                  key={`${_id} ${serviceType}`}
                   isEdit={isEdit}
                   onDelete={() => setSelectedTags(selectedTags.filter((tag: any) => tag.name != name))}
                 />

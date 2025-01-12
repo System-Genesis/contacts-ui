@@ -54,7 +54,7 @@ export const ContactMenu = ({
         }}
       >
         {options?.map(({ option, displayText }: Option) => (
-          <>
+          <Box>
             <MenuItem
               key={displayText}
               onClick={() => setAnchorEl(null)}
@@ -90,7 +90,7 @@ export const ContactMenu = ({
               </Box>
             </MenuItem>
             <StyledDivider theme={theme} sx={{ border: `1px solid ${theme.colors.otherGray}`, margin: 0 }} />
-          </>
+          </Box>
         ))}
       </Menu>
     </>

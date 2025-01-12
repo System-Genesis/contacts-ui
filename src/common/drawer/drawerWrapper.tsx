@@ -91,9 +91,9 @@ export const ContactDrawer: React.FC<{
       mobilePhone: contact.mobilePhone ?? '',
       redPhone: contact.redPhone ?? '',
       tags: contact.tags ?? [],
-      otherPhones: contact.otherPhones || [],
-      jabberPhones: contact.jabberPhones || [],
-      mails: contact.mails || [],
+      otherPhones: contact?.otherPhones ?? [],
+      jabberPhones: contact?.jabberPhones ?? [],
+      mails: contact?.mails ?? [],
     });
   };
 

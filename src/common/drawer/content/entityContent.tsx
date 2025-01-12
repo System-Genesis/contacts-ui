@@ -37,7 +37,7 @@ export const EntityContentDrawer: React.FC<{
       <UpperContact
         contact={contact}
         title={contact.fullName}
-        subTitle={contact.jobTitle}
+        subTitle={contact.jobTitle ?? ''}
         setFormData={setFormData}
         hiddenFields={contact.hiddenFields}
         imageSize={contact.entityType === 'GoalUser' ? '3rem' : '5rem'}
@@ -58,13 +58,7 @@ export const EntityContentDrawer: React.FC<{
                   <FieldDiv fieldLabel={i18next.t('field.jobTitle')} value={contact.jobTitle} />
                 )}
               </StyledGridInfo>
-              {(isEdit ||
-                (contact.mobilePhone && contact.entityType !== 'GoalUser') ||
-                (contact.jabberPhones?.length > 0 && contact.jabberPhones?.[0]?.option !== '') ||
-                contact.redPhone ||
-                contact?.otherPhones?.length > 0 ||
-                (isEdit && contact.entityType === 'GoalUser') ||
-                contact.entityType !== 'GoalUser') && <StyledDivider theme={theme} />}
+              <StyledDivider theme={theme} />
             </StyledGridSection>
           </>
         )}
@@ -121,12 +115,7 @@ export const EntityContentDrawer: React.FC<{
               )}
             </StyledGridInfo>
           </StyledGridSection>
-          {(isEdit ||
-            (contact.mobilePhone && contact.entityType !== 'GoalUser') ||
-            (contact.jabberPhones?.length > 0 && contact.jabberPhones?.[0]?.option !== '') ||
-            contact.redPhone ||
-            contact?.otherPhones?.length > 0 ||
-            (isEdit && contact.entityType === 'GoalUser')) && <StyledDivider theme={theme} />}
+          <StyledDivider theme={theme} />
         </>
       )}
 
@@ -171,11 +160,7 @@ export const EntityContentDrawer: React.FC<{
               />
             </StyledGridInfo>
           </StyledGridSection>
-          {(isEdit ||
-            (contact.mobilePhone && contact.entityType !== 'GoalUser') ||
-            (contact.jabberPhones?.length > 0 && contact.jabberPhones?.[0]?.option !== '') ||
-            contact.redPhone ||
-            contact?.otherPhones?.length > 0) && <StyledDivider theme={theme} />}
+          <StyledDivider theme={theme} />
         </>
       )}
 

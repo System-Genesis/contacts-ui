@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import animationData from './lottie/notFound.json';
+import animationData from '../assets/lottie/notFound.json';
 import Lottie from 'react-lottie';
 
 const ErrorPage = () => {

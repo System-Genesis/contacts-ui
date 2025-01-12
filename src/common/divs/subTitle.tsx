@@ -1,21 +1,30 @@
-import { Typography, useTheme } from '@mui/material';
+import { Box, Typography, useTheme } from '@mui/material';
 import Tooltip from './toolTip';
+import Lottie from 'react-lottie';
+import animationData from '../../assets/lottie/smallCircleLoading.json';
 
 export const SubTitle = ({
   value,
   sx = {},
   noToolTip = false,
   shorten = false,
+  isPending = false,
 }: {
   value?: string;
   sx?: object;
   noToolTip?: boolean;
   shorten?: boolean;
+  isPending?: boolean;
 }) => {
   const theme = useTheme();
-
-  if (!value || value === 'unknown') return null;
-
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: animationData,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
   const commonStyles = {
     backgroundColor: theme.colors.subTitleBack,
     color: theme.colors.subTitle,
@@ -30,8 +39,16 @@ export const SubTitle = ({
     ...sx,
   };
 
-  const val = !shorten || value.length < 15 ? value : value.slice(0, 12) + '...';
+  if (isPending)
+    return (
+      <Box sx={commonStyles}>
+        <Lottie options={defaultOptions} height={30} width={30} />
+      </Box>
+    );
 
+  if (!value || value === 'unknown') return null;
+
+  const val = !shorten || value.length < 15 ? value : value.slice(0, 12) + '...';
   return noToolTip ? (
     <Typography sx={commonStyles}>{val}</Typography>
   ) : (

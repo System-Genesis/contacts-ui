@@ -8,16 +8,18 @@ import { SubTitle } from '../../divs/subTitle';
 import i18next from 'i18next';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
+import { getDefaultTags } from '../../../utils/utils';
 
 export const UpperContact: React.FC<{
   contact: any;
   setFormData?: any;
-  subTitle: string | undefined;
+  subTitle: string;
   title: string;
   imageSize?: string;
   hiddenFields: string[];
   type: 'group' | 'goalUser' | 'entity';
-}> = ({ contact, subTitle, title, imageSize = '5rem', setFormData, hiddenFields, type }) => {
+  isPending?: boolean;
+}> = ({ contact, subTitle, title, imageSize = '5rem', setFormData, hiddenFields, type, isPending = false }) => {
   const currentUser = useSelector((state: RootState) => state.user);
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
 
@@ -63,6 +65,7 @@ export const UpperContact: React.FC<{
               maxWidth: 'none',
               ml: 3,
             }}
+            isPending={isPending}
           />
         </Grid>
         <Grid container mt={1.5}>
@@ -70,7 +73,7 @@ export const UpperContact: React.FC<{
             tags={contact.tags ?? []}
             isEdit={isEdit}
             setFormData={setFormData}
-            serviceType={contact.serviceType}
+            defaultTags={type === 'entity' ? getDefaultTags(contact) : []}
           />
         </Grid>
       </Grid>

@@ -19,12 +19,9 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
 
-  const {
-    data: { entities, groups },
-  } = useQuery({
+  const { data, isPending } = useQuery({
     queryKey: ['subs', contact?.id],
     queryFn: () => getSubsOfGroup({ groupId: contact.id }),
-    initialData: { entities: [], groups: [] },
     enabled: !!contact?.id,
   });
 
@@ -36,17 +33,17 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
         [field]: prev[field][index]?.option ? [{ ...prev[field][index], option: '' }] : [''],
       }));
   };
-
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 0.5, width: '100%' }}>
       <UpperContact
         contact={contact}
         setFormData={setFormData}
         title={contact.name}
-        subTitle={entities.length === 1 ? 'איש אחד' : `${entities.length} ${i18next.t('people')}`}
+        subTitle={data?.entities.length === 1 ? 'איש אחד' : `${data?.entities.length} ${i18next.t('people')}`}
         imageSize="3rem"
         hiddenFields={contact.hiddenFields}
         type="group"
+        isPending={isPending}
       />
 
       {contact.hierarchy && (
@@ -57,12 +54,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               <FieldDiv fieldLabel={i18next.t('field.hierarchy')} value={contact.hierarchy} />
             </StyledGridInfo>
           </StyledGridSection>
-          {(isEdit ||
-            contact.redPhone?.length > 0 ||
-            contact.otherPhones?.length > 0 ||
-            contact.mails?.length > 0 ||
-            (contact.jabberPhones?.length > 0 && contact.jabberPhones?.[0]?.option !== '') ||
-            (!isEdit && (entities.length > 0 || groups.length > 0))) && <StyledDivider theme={theme} />}
+          <StyledDivider theme={theme} />
         </>
       )}
 
@@ -148,41 +140,37 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]?.option} />}
             </StyledGridInfo>
           </StyledGridSection>
-          {!isEdit && (entities.length > 0 || groups.length > 0) && <StyledDivider theme={theme} />}
+          <StyledDivider theme={theme} />
         </>
       )}
 
-      {!isEdit && entities.length > 0 && (
-        <>
-          <StyledGridSection container theme={theme} margin={0}>
-            <Typography variant="body1">משרתים</Typography>
-            <StyledGridInfo container theme={theme}>
-              <DirectSubs
-                type="entity"
-                subs={[
-                  ...entities.sort((a, b) => {
-                    const aIncludes = Object.values(a.commanderOf)?.includes(contact.id) ? 1 : 0;
-                    const bIncludes = Object.values(b.commanderOf)?.includes(contact.id) ? 1 : 0;
-                    if (bIncludes - aIncludes !== 0) return bIncludes - aIncludes;
-                    return a.fullName?.localeCompare(b.fullName);
-                  }),
-                ]}
-              />
-            </StyledGridInfo>
-          </StyledGridSection>
-          {!isEdit && groups.length > 0 && <StyledDivider theme={theme} />}
-        </>
+      {!isEdit && (
+        <StyledGridSection container theme={theme} margin={0}>
+          <DirectSubs
+            type="entity"
+            isPending={isPending}
+            header="משרתים"
+            subs={
+              data?.entities.sort((a, b) => {
+                const aIncludes = Object.values(a.commanderOf)?.includes(contact.id) ? 1 : 0;
+                const bIncludes = Object.values(b.commanderOf)?.includes(contact.id) ? 1 : 0;
+                if (bIncludes - aIncludes !== 0) return bIncludes - aIncludes;
+                return a.fullName?.localeCompare(b.fullName);
+              }) ?? []
+            }
+          />
+        </StyledGridSection>
       )}
 
-      {!isEdit && groups.length > 0 && (
-        <>
-          <StyledGridSection container theme={theme} margin={0}>
-            <Typography variant="body1">תת היררכיות</Typography>
-            <StyledGridInfo container theme={theme}>
-              <DirectSubs type="group" subs={[...groups.sort((a, b) => a.name?.localeCompare(b.name))]} />
-            </StyledGridInfo>
-          </StyledGridSection>
-        </>
+      {!isEdit && (
+        <StyledGridSection container theme={theme} margin={0}>
+          <DirectSubs
+            type="group"
+            header="תת היררכיות"
+            subs={data?.groups.sort((a, b) => a.name?.localeCompare(b.name)) ?? []}
+            isPending={isPending}
+          />
+        </StyledGridSection>
       )}
 
       <ContactDrawer contact={subEntity} sx={{ mr: '481px' }} alowEdit={false} />

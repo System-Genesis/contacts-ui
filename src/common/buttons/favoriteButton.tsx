@@ -8,7 +8,6 @@ export const FavoriteButton = ({ id, type, iconStyle = {}, imageStyle = {} }) =>
   const queryClient = useQueryClient();
 
   const { data } = useQuery({ queryKey: ['myFavorites'], queryFn: getMyFavoritesRequest, initialData: [] });
-
   const isFavorite = data.map((f) => f.id).includes(id);
 
   const mutation = useMutation({
@@ -27,7 +26,7 @@ export const FavoriteButton = ({ id, type, iconStyle = {}, imageStyle = {} }) =>
         ...iconStyle,
       }}
       disableRipple
-      onClick={mutation.mutate}
+      onClick={() => mutation.mutate()}
     >
       <Fade in={isFavorite} timeout={200}>
         <img style={{ position: 'absolute', ...imageStyle }} src={favStar} />
