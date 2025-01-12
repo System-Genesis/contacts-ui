@@ -8,6 +8,7 @@ import { ContactTags } from '../../../tag/contactTags';
 import { openSubEntity } from '../../../../store/reducers/drawer';
 import { SubTitle } from '../../../divs/subTitle';
 import { Title } from '../../../divs/title';
+import { getDefaultTags } from '../../../../utils/utils';
 
 export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
   const theme = useTheme();
@@ -46,7 +47,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 0.2 }}>
             <Grid item sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
               <Title value={entity.fullName} />
-              <SubTitle value={entity.jobTitle} shorten/>
+              <SubTitle value={entity.jobTitle} shorten />
             </Grid>
 
             {Object.values(entity?.commanderOf)?.includes(contact.id) && (
@@ -72,7 +73,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
           }}
         >
           <Grid item>
-            <ContactTags tags={entity?.tags} shrunkSize={1} serviceType={c ? 'אזרח' : (entity.serviceType ?? '')} />
+            <ContactTags tags={entity?.tags} shrunkSize={1} defaultTags={getDefaultTags(entity)} />
           </Grid>
           <Grid item display={'flex'} alignItems={'center'}>
             <img src={openSub} style={{ padding: 0 }} />

@@ -1,13 +1,14 @@
-import { Entity, Group } from '../lib/types';
+import { EntitySearchResult, GroupSearchResult } from '../lib/types';
 
 export const getHierarchyBySource = (entity, source: string) => {
   const { role } = entity.digitalIdentities.find((currentDI) => currentDI.source === source);
   return role.directGroup;
 };
 
-export const getIdentifier = (entity: Entity) => entity.identityCard ?? entity.personalNumber ?? entity.employeeNumber;
+export const getIdentifier = (entity: EntitySearchResult) =>
+  entity.identityCard ?? entity.personalNumber ?? entity.employeeNumber;
 
-export const getHierarchyName = (group: Group) =>
+export const getHierarchyName = (group: GroupSearchResult) =>
   group.hierarchy && group.name ? `${group.hierarchy}/${group.name}` : group.hierarchy || group.name;
 
 export const mobilePhoneValidation = (value: string): boolean => /^\d{10}$/.test(value);
@@ -41,4 +42,18 @@ export const cleanFormData = (formData: object) => {
     } else if (value !== undefined) cleanedData[key] = value;
     return cleanedData;
   }, {});
+};
+
+export const getDefaultTags = (contact: object): string[] => {
+  let tags: string[] = [];
+  if (['חובה', 'קבע', 'עובד צה"ל'].includes(contact?.serviceType ?? '')) tags = [contact?.serviceType ?? ''];
+
+  const c = (contact?.identityCard ?? contact.employeeId) && !contact.personalNumber && !contact.serviceType;
+
+  if (['8200', 'OneTree', 'Souf'].includes(contact.source))
+    tags = [contact?.serviceType ?? '', c ? 'אזרח' : (contact.entityType ?? '')];
+
+  tags = [c ? 'אזרח' : (contact.entityType ?? '')];
+
+  return tags.filter((t) => !!t);
 };
