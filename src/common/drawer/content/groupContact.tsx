@@ -7,14 +7,18 @@ import { DirectSubs } from './directSubs';
 import { useQuery } from '@tanstack/react-query';
 import { getSubsOfGroup } from '../../../services/searchService';
 import { RootState } from '../../../store';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ContactDrawer } from '../drawerWrapper';
 import outlook from '../../../assets/icons/outlook.svg';
 import jabber from '../../../assets/icons/jabber.svg';
 import { GroupSearchResult } from '../../../lib/types';
+import { getUserById } from '../../../services/userService';
+import { openSubUser } from '../../../store/reducers/drawer';
+import { UserTypes } from '../../../lib/enums';
 
 export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> = ({ setFormData, formData }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const contact: GroupSearchResult = useSelector((state: RootState) => state.drawer.contact!) as GroupSearchResult;
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
@@ -33,6 +37,12 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
         [field]: prev[field][index]?.option ? [{ ...prev[field][index], option: '' }] : [''],
       }));
   };
+
+  const handleHierarchyClick = async (id) => {
+    const user = await getUserById({ id, type: UserTypes.GROUP });
+    dispatch(openSubUser(user as GroupSearchResult));
+  };
+
   return (
     <Grid container sx={{ display: 'flex', flexDirection: 'column', rowGap: 0.5, width: '100%' }}>
       <UpperContact
@@ -51,7 +61,12 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
           <StyledGridSection container theme={theme}>
             <Typography variant="body1">{i18next.t('description')}</Typography>
             <StyledGridInfo container theme={theme}>
-              <FieldDiv fieldLabel={i18next.t('field.hierarchy')} value={contact.hierarchy} />
+              <FieldDiv
+                fieldLabel={i18next.t('field.hierarchy')}
+                value={contact.hierarchy}
+                onClick={() => handleHierarchyClick(contact.directGroup)}
+                sx={{ cursor: 'pointer' }}
+              />
             </StyledGridInfo>
           </StyledGridSection>
           <StyledDivider theme={theme} />

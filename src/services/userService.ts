@@ -1,5 +1,7 @@
 import axiosInstance from '../api/axios';
 import { routes } from '../api/routes';
+import { UserTypes } from '../lib/enums';
+import { EntitySearchResult, GroupSearchResult } from '../lib/types';
 
 const {
   backend: { pic, users },
@@ -18,4 +20,15 @@ const editUser = async (id: string, data: any) => {
   return resData;
 };
 
-export { getPicByID, editUser };
+const getUserById = async ({
+  id,
+  type,
+}: {
+  id: string;
+  type: UserTypes;
+}): Promise<GroupSearchResult | EntitySearchResult> => {
+  const { data: user } = await axiosInstance.get(`${users}/${id}`, { params: { type } });
+  return user;
+};
+
+export { getPicByID, editUser, getUserById };

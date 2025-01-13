@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import i18next from 'i18next';
 import { Option } from '../../../lib/types';
+import { getDefaultTags } from '../../../utils/utils';
 
 export const EntityContactsCard: React.FC<{
   id: string;
@@ -32,6 +33,10 @@ export const EntityContactsCard: React.FC<{
   rank: string;
   serviceType?: string;
   sex: 'זכר' | 'נקבה';
+  personalNumber: string;
+  identityCard: string;
+  employeeId: string;
+  source: string;
 }> = ({
   type,
   id,
@@ -51,6 +56,10 @@ export const EntityContactsCard: React.FC<{
   sex,
   hiddenFields,
   serviceType,
+  personalNumber,
+  identityCard,
+  employeeId,
+  source,
 }) => {
   const theme = useTheme();
   const currentUser = useSelector((state: RootState) => state.user);
@@ -115,7 +124,7 @@ export const EntityContactsCard: React.FC<{
                   <Grid container gap={1} alignItems={'center'}>
                     {rank && rank != i18next.t('unknown') && <Typography>{rank}</Typography>}
                     <Title value={title} sx={{ fontWeight: '600' }} />
-                    <SubTitle value={subTitle} sx={{ fontSize: '14', maxWidth: 'fit-content' }} />
+                    <SubTitle value={subTitle ?? ''} sx={{ fontSize: '14', maxWidth: 'fit-content' }} />
                   </Grid>
                 </Grid>
 
@@ -124,7 +133,18 @@ export const EntityContactsCard: React.FC<{
                 </Grid>
 
                 <Grid item gap={1} alignItems={'center'}>
-                  <ContactTags tags={tags} shrunkSize={7} serviceType={serviceType} />
+                  <ContactTags
+                    tags={tags}
+                    shrunkSize={7}
+                    defaultTags={getDefaultTags({
+                      entityType,
+                      serviceType,
+                      personalNumber,
+                      identityCard,
+                      employeeId,
+                      source,
+                    })}
+                  />
                 </Grid>
               </Grid>
             </Grid>

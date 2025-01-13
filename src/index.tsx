@@ -71,11 +71,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>,
 );
 
-window.onerror = (message, source, lineno, colno, error) => {
-  console.error('Global error caught:', { message, source, lineno, colno, error });
-  toast.error('אירעה שגיאה, נסה שוב מאוחר יותר.', { theme: 'colored' });
-  ErrorEvent('Global error caught', `${message} ${source}`);
-};
+// window.onerror = (message, source, lineno, colno, error) => {
+//   console.error('Global error caught:', { message, source, lineno, colno, error });
+//   toast.error('אירעה שגיאה, נסה שוב מאוחר יותר.', { theme: 'colored' });
+//   ErrorEvent('Global error caught', `${message} ${source}`);
+// };
 window.onunhandledrejection = (event) => {
   console.error('Unhandled promise rejection:', event.reason);
   toast.error('אירעה שגיאה, נסה שוב מאוחר יותר.', { theme: 'colored' });

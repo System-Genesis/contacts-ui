@@ -230,15 +230,15 @@ export const ContactTags = ({
                     alignSelf: 'center',
                     color: theme.colors.white,
                     borderRadius: '40px',
-                    backgroundColor: '#295C54',
+                    backgroundColor: theme.colors.green,
                     fontSize: 13,
                     '&:hover': {
-                      backgroundColor: '#295C54',
+                      backgroundColor: theme.colors.green,
                       color: theme.colors.white,
                     },
                     '& .MuiChip-deleteIcon': {
                       '&:hover': {
-                        backgroundColor: '#295C54',
+                        backgroundColor: theme.colors.green,
                         color: theme.colors.white,
                       },
                       color: theme.colors.white,
@@ -250,16 +250,17 @@ export const ContactTags = ({
             }
           />
         )}
-        {defaultTags.map((t) => (
-          <TagChip value={t} id={''} key={t} />
+        {defaultTags.map((t, i) => (
+          <TagChip value={t} id={`${t}-${i}`} key={t} />
         ))}
         {selectedTags
           .map(
-            ({ name, _id }) =>
+            ({ name, _id }, index) =>
               name && (
                 <TagChip
                   value={name}
                   id={_id}
+                  key={_id ?? `${name}-${index}`}
                   isEdit={isEdit}
                   onDelete={() => setSelectedTags(selectedTags.filter((tag: any) => tag.name != name))}
                 />

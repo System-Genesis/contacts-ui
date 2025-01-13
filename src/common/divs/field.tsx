@@ -22,6 +22,8 @@ export const FieldDiv = ({
   onChange,
   onHide,
   onRemove,
+  onClick = () => ({}),
+  sx = {},
 }: {
   field?: string;
   fieldLabel: string;
@@ -39,6 +41,9 @@ export const FieldDiv = ({
   onChange?: (event: ChangeEvent) => void;
   onHide?: (isHidden: boolean) => void;
   onRemove?: () => void;
+  onClick?: () => void;
+
+  sx: object;
 }) => {
   const dispatch = useDispatch();
 
@@ -60,7 +65,7 @@ export const FieldDiv = ({
 
     // Check if key is a number, '*' or a navigation key, or control actions (Ctrl + A, Ctrl + C, Ctrl + V)
     const isValidKey =
-      keyFilter.test(key) || isNavigationKey || (isControlOrCmd && ['a', 'c', 'v'].includes(key.toLowerCase()));
+      keyFilter.test(key) || isNavigationKey || (isControlOrCmd && ['a', 'c', 'v', 'x'].includes(key.toLowerCase()));
 
     if (!isValidKey) event.preventDefault();
   };
@@ -73,7 +78,9 @@ export const FieldDiv = ({
           flexDirection: 'row',
           alignItems: 'center',
           ...(isEdit && { height: '1.2rem' }),
+          ...sx,
         }}
+        onClick={onClick}
       >
         {isEdit && (
           <IconButton

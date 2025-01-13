@@ -8,13 +8,7 @@ import i18next from 'i18next';
 import { StyledDivider } from './content/divider';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store';
-import {
-  closeSubEntity,
-  closeSubGroup,
-  setDrawerObject,
-  setIsDrawerOpen,
-  setIsEdit,
-} from '../../store/reducers/drawer';
+import { closeSubEntity, closeSubUser, setDrawerObject, setIsDrawerOpen, setIsEdit } from '../../store/reducers/drawer';
 import { EntityContentDrawer } from './content/entityContent';
 import { GroupContactDrawer } from './content/groupContact';
 import { ResultsTypes } from '../../lib/enums';
@@ -72,7 +66,7 @@ export const ContactDrawer: React.FC<{
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
   const validationError = useSelector((state: RootState) => state.drawer.validationError);
   const subEntity = useSelector((state: RootState) => state.drawer.subEntity);
-  const prevGroups = useSelector((state: RootState) => state.drawer.prevGroups);
+  const prevUsers = useSelector((state: RootState) => state.drawer.prevUsers);
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const currentUser = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({});
@@ -192,11 +186,11 @@ export const ContactDrawer: React.FC<{
             }}
           >
             <Grid>
-              {prevGroups.length > 0 && contact?.id !== subEntity?.id && (
+              {prevUsers.length > 0 && contact?.id !== subEntity?.id && (
                 <IconButton
                   onClick={() => {
                     dispatch(closeSubEntity());
-                    dispatch(closeSubGroup());
+                    dispatch(closeSubUser());
                     dispatch(setIsEdit(false));
                     onClose();
                   }}

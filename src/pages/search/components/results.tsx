@@ -76,6 +76,11 @@ export const Results = ({
         contactsCardProps.handleSelect = (resType: ResultsTypes) =>
           handleCardClick({ ...result, type: resType } as EntitySearchResult);
 
+        contactsCardProps.personalNumber = (result as EntitySearchResult).personalNumber;
+        contactsCardProps.identityCard = (result as EntitySearchResult).identityCard;
+        contactsCardProps.employeeId = (result as EntitySearchResult).employeeId;
+        contactsCardProps.source = (result as EntitySearchResult).source;
+
         return <EntityContactsCard key={result.id} {...contactsCardProps} isHistory={historyHeader} />;
 
       case ResultsTypes.GROUP:

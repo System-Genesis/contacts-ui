@@ -20,7 +20,7 @@ export const redPhoneValidation = (value: string): boolean => !value || value ==
 export const mailValidation = (value: string): boolean =>
   !value || value === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-export const tagsValidation = (value: { name: string; _id: string }[]): boolean => value.length < 14;
+export const tagsValidation = (value: { name: string; _id: string }[]): boolean => value.length < 15;
 
 export const hasChanges = (formData: object, contact) => {
   return Object.keys(formData).some((key) => {
@@ -45,15 +45,29 @@ export const cleanFormData = (formData: object) => {
 };
 
 export const getDefaultTags = (contact: object): string[] => {
-  let tags: string[] = [];
-  if (['חובה', 'קבע', 'עובד צה"ל'].includes(contact?.serviceType ?? '')) tags = [contact?.serviceType ?? ''];
+  // TODO: fix this to  fit true data
 
-  const c = (contact?.identityCard ?? contact.employeeId) && !contact.personalNumber && !contact.serviceType;
+  const dict = { Civilian: 'אזרח', Soldier: 'חייל' };
 
-  if (['8200', 'OneTree', 'Souf'].includes(contact.source))
-    tags = [contact?.serviceType ?? '', c ? 'אזרח' : (contact.entityType ?? '')];
+  let tags = [];
 
-  tags = [c ? 'אזרח' : (contact.entityType ?? '')];
+  console.log({
+    entityType: contact.entityType,
+    serviceType: contact.serviceType,
+    personalNumber: contact.personalNumber,
+    identityCard: contact.identityCard,
+    employeeId: contact.employeeId,
+    source: contact.source,
+  });
 
-  return tags.filter((t) => !!t);
+  if (['חובה', 'קבע', 'עובד צה"ל'].includes(contact?.serviceType)) tags = [contact?.serviceType];
+  else {
+    const c = (contact?.identityCard ?? contact?.employeeId) && !contact?.personalNumber && !contact?.serviceType;
+
+    if (['8200', 'OneTree', 'Souf'].includes(contact?.source))
+      tags = [contact?.serviceType, c ? 'אזרח' : contact?.entityType];
+    else tags = [c ? 'אזרח' : contact?.entityType];
+  }
+
+  return tags.filter((t) => !!t).map((t) => dict[t] ?? t);
 };

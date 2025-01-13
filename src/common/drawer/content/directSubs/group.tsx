@@ -2,7 +2,7 @@ import { Grid, useTheme } from '@mui/material';
 import { GroupSearchResult } from '../../../../lib/types';
 import { ProfileImage } from '../../../profileImage';
 import openSub from '../../../../assets/icons/openSub.svg';
-import { openSubGroup } from '../../../../store/reducers/drawer';
+import { openSubUser } from '../../../../store/reducers/drawer';
 import { useDispatch } from 'react-redux';
 import { SubTitle } from '../../../divs/subTitle';
 import { Title } from '../../../divs/title';
@@ -14,7 +14,7 @@ export const GroupCard = ({ group }: { group: GroupSearchResult }) => {
   return (
     <Grid
       item
-      onClick={() => dispatch(openSubGroup(group))}
+      onClick={() => dispatch(openSubUser(group))}
       sx={{
         borderBottom: `1px solid ${theme.colors.gray}`,
         p: 1,

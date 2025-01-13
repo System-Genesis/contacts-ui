@@ -16,7 +16,6 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
 
   const dispatch = useDispatch();
 
-  const c = (entity.identityCard ?? entity.employeeId) && !entity.personalNumber && !entity.serviceType;
   return (
     <Grid
       item

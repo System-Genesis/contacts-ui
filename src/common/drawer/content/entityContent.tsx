@@ -3,12 +3,15 @@ import { Typography, useTheme, Grid } from '@mui/material';
 import { FieldDiv } from '../../divs/field';
 import { UpperContact } from './upperSection';
 import { StyledDivider, StyledGridInfo, StyledGridSection } from './divider';
-import { EntitySearchResult } from '../../../lib/types';
+import { EntitySearchResult, GroupSearchResult } from '../../../lib/types';
 import { AddPhone } from '../../buttons/addPhone';
 import outlook from '../../../assets/icons/outlook.svg';
 import jabber from '../../../assets/icons/jabber.svg';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
+import { openSubUser } from '../../../store/reducers/drawer';
+import { getUserById } from '../../../services/userService';
+import { UserTypes } from '../../../lib/enums';
 
 export const EntityContentDrawer: React.FC<{
   contact: EntitySearchResult;
@@ -16,6 +19,7 @@ export const EntityContentDrawer: React.FC<{
   setFormData: any;
 }> = ({ contact, setFormData, formData }) => {
   const theme = useTheme();
+  const dispatch = useDispatch();
   const isEdit = useSelector((state: RootState) => state.drawer.isEdit);
 
   const handleHide = (isHidden, field) =>
@@ -30,6 +34,11 @@ export const EntityContentDrawer: React.FC<{
         ...prev,
         [field]: prev[field][index]?.option ? [{ ...prev[field][index], option: '' }] : [''],
       }));
+  };
+
+  const handleHierarchyClick = async (id) => {
+    const user = await getUserById({ id, type: UserTypes.GROUP });
+    dispatch(openSubUser(user as GroupSearchResult));
   };
 
   return (
@@ -53,7 +62,12 @@ export const EntityContentDrawer: React.FC<{
                 {contact.entityType !== 'GoalUser' ? i18next.t(`roleDetails`) : i18next.t(`description`)}
               </Typography>
               <StyledGridInfo container theme={theme}>
-                <FieldDiv fieldLabel={i18next.t('field.hierarchy')} value={contact.hierarchy} />
+                <FieldDiv
+                  fieldLabel={i18next.t('field.hierarchy')}
+                  value={contact.hierarchy}
+                  onClick={() => handleHierarchyClick(contact.directGroup)}
+                  sx={{ cursor: 'pointer' }}
+                />
                 {contact.entityType !== 'GoalUser' && (
                   <FieldDiv fieldLabel={i18next.t('field.jobTitle')} value={contact.jobTitle} />
                 )}

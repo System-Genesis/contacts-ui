@@ -17,7 +17,7 @@ export interface DrawerState {
   isOpen: boolean;
   contact: GroupSearchResult | EntitySearchResult | UserState | undefined;
   subEntity: EntitySearchResult | undefined;
-  prevGroups: GroupSearchResult[];
+  prevUsers: GroupSearchResult[];
   isEdit: boolean;
   validationError: Record<string, { isError: boolean; errorMessage: string }>;
 }
@@ -26,7 +26,7 @@ const initialState: DrawerState = {
   isOpen: false,
   contact: undefined,
   subEntity: undefined,
-  prevGroups: [] as GroupSearchResult[],
+  prevUsers: [] as GroupSearchResult[],
   isEdit: false,
   validationError: {},
 };
@@ -40,7 +40,7 @@ export const drawerSlice = createSlice({
       if (!action.payload) {
         state.contact = undefined;
         state.subEntity = undefined;
-        state.prevGroups = [] as GroupSearchResult[];
+        state.prevUsers = [] as GroupSearchResult[];
       }
     },
     closeSubEntity: (state) => {
@@ -49,18 +49,18 @@ export const drawerSlice = createSlice({
     setDrawerObject: (state, action: PayloadAction<GroupSearchResult | EntitySearchResult | UserState>) => {
       state.contact = action.payload;
       state.subEntity = undefined;
-      state.prevGroups = [] as GroupSearchResult[];
+      state.prevUsers = [] as GroupSearchResult[];
     },
     openSubEntity: (state, action: PayloadAction<EntitySearchResult>) => {
       state.subEntity = action.payload;
     },
-    openSubGroup: (state, action: PayloadAction<GroupSearchResult>) => {
-      state.prevGroups.push(state.contact);
+    openSubUser: (state, action: PayloadAction<GroupSearchResult>) => {
+      state.prevUsers.push(state.contact);
       state.subEntity = undefined;
       state.contact = { ...action.payload, type: ResultsTypes.GROUP };
     },
-    closeSubGroup: (state) => {
-      state.contact = state.prevGroups.pop();
+    closeSubUser: (state) => {
+      state.contact = state.prevUsers.pop();
     },
     setIsEdit: (state, action: PayloadAction<boolean>) => {
       state.isEdit = action.payload;
@@ -94,8 +94,8 @@ export const {
   setIsDrawerOpen,
   setDrawerObject,
   openSubEntity,
-  openSubGroup,
-  closeSubGroup,
+  openSubUser,
+  closeSubUser,
   closeSubEntity,
   setIsEdit,
   validateForm,
