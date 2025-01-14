@@ -11,12 +11,14 @@ export const ContactMenu = ({
   options,
   href,
   disabled = false,
+  onClick = () => ({}),
 }: {
   title: string;
   icon: string;
   options: Option[];
   href: string;
   disabled?: boolean;
+  onClick?: () => void;
 }) => {
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -27,7 +29,12 @@ export const ContactMenu = ({
   if (options?.length === 1)
     return (
       <Tooltip title={disabled ? i18next.t(`disabled`) : title}>
-        <IconButton href={!disabled && `${href}${options[0].option}`} sx={{ p: 0, m: 1 }} target="_blank">
+        <IconButton
+          href={!disabled && `${href}${options[0].option}`}
+          sx={{ p: 0, m: 1 }}
+          target="_blank"
+          onClick={() => onClick()}
+        >
           <img src={icon} width={'22rem'} style={{ filter: disabled ? 'grayscale(100%)' : '' }} />
         </IconButton>
       </Tooltip>
@@ -57,7 +64,10 @@ export const ContactMenu = ({
           <Box>
             <MenuItem
               key={displayText}
-              onClick={() => setAnchorEl(null)}
+              onClick={() => {
+                setAnchorEl(null);
+                onClick();
+              }}
               component="a"
               href={`${href}${option}`}
               target="_blank"

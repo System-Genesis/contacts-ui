@@ -51,6 +51,7 @@ export const UpperContact: React.FC<{
               chats={contact.chats}
               jabberPhones={contact.jabberPhones}
               hiddenFields={hiddenFields}
+              location="drawer"
             />
           )}
         </Grid>

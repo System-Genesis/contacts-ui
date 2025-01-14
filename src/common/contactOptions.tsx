@@ -7,6 +7,7 @@ import i18next from 'i18next';
 import { RootState } from '../store';
 import { useSelector } from 'react-redux';
 import { Option } from '../lib/types';
+import { clickedShortcut } from '../matomo/actions';
 
 export const ContactOptions = ({
   mails,
@@ -14,12 +15,14 @@ export const ContactOptions = ({
   jabberPhones,
   isGroup = false,
   hiddenFields,
+  location,
 }: {
   jabberPhones: Option[];
   chats: Option[];
   mails: Option[];
   isGroup?: boolean;
   hiddenFields: string[];
+  location: 'favorite' | 'drawer' | 'searchRes';
 }) => {
   const config = useSelector((state: RootState) => state.config);
   const currentUser = useSelector((state: RootState) => state.user);
@@ -41,15 +44,30 @@ export const ContactOptions = ({
         minHeight: '2.5rem',
       }}
     >
-      {!isGroup && <ContactMenu title={i18next.t('hiChat')} icon={hiChat} options={chats} href={config.hiChatUrl} />}
+      {!isGroup && (
+        <ContactMenu
+          title={i18next.t('hiChat')}
+          icon={hiChat}
+          options={chats}
+          href={config.hiChatUrl}
+          onClick={() => clickedShortcut('hichat', location)}
+        />
+      )}
       <ContactMenu
         title={i18next.t('jabber')}
         icon={jabber}
         options={jabberPhoneWithPrefix}
         href="sip:"
         disabled={hiddenFields?.includes('jabberPhones')}
+        onClick={() => clickedShortcut('jabber', location)}
       />
-      <ContactMenu title={i18next.t('outlook')} icon={outlook} options={mails} href="mailto:" />
+      <ContactMenu
+        title={i18next.t('outlook')}
+        icon={outlook}
+        options={mails}
+        href="mailto:"
+        onClick={() => clickedShortcut('outlook', location)}
+      />
     </Box>
   );
 };

@@ -157,6 +157,7 @@ export const EntityContactsCard: React.FC<{
             chats={currentUser.id !== id ? chats : []}
             mails={currentUser.id !== id ? mails : []}
             hiddenFields={hiddenFields}
+            location="searchRes"
           />
           <ContactNumbers redPhone={redPhone} mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
         </Grid>

@@ -50,7 +50,7 @@ const Search = () => {
     queryFn: ({ pageParam }) => searchRequest(debouncedSearchTerm, resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
     getNextPageParam: (lastPage, allPages) => (lastPage.length ? allPages.length + 1 : undefined),
     initialPageParam: 1,
-    enabled: debouncedSearchTerm?.length > 2,
+    enabled: debouncedSearchTerm?.length >= 2,
   });
 
   const searchResults = data?.pages.reduce((acc, page) => [...acc, ...page], []) ?? [];

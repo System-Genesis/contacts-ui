@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store';
 import { setSearchTerm } from '../store/reducers/search';
 import { useEffect } from 'react';
+import { searchPerformed } from '../matomo/actions';
 
 export const SearchBar = () => {
   const theme = useTheme();
@@ -24,6 +25,8 @@ export const SearchBar = () => {
     dispatch(setSearchTerm(newSearchTerm));
     if (newSearchTerm) setSearchParams({ query: newSearchTerm });
     else setSearchParams({});
+
+    searchPerformed(newSearchTerm);
   };
 
   const query = searchParams.get('query');

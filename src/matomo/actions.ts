@@ -14,12 +14,27 @@ export const trackEventClick = (Action: 'Click' | 'Search' | 'Error', name: stri
   track(['trackEvent', 'Button', Action, name], value);
 };
 
+export const ErrorEvent = (massage: string, source = '') => {
+  trackEventClick('Error', massage, source);
+  console.log('trackEventClick', 'Error', massage, source);
+};
+
+export const searchPerformed = (searchTerm: string) => {
+  trackEventClick('Search', 'search', searchTerm);
+  console.log('trackEventClick', 'Search', 'search', searchTerm);
+};
+
 export const clickedEdit = (id: string) => {
   trackEventClick('Click', 'Edit', id);
   console.log('trackEventClick', 'Click', 'Edit', id);
 };
 
-export const ErrorEvent = (massage, source = '') => {
-  trackEventClick('Error', massage, source);
-  console.log('trackEventClick', 'Error', massage, source);
+export const clickedShortcut = (type: string, location: 'favorite' | 'drawer' | 'searchRes') => {
+  trackEventClick('Click', `ShortCut-${type}`, location);
+  console.log('trackEventClick', 'Click', 'ShortCut', type, location);
+};
+
+export const searchFilterApplied = (filterCategory: string) => {
+  trackEventClick('Click', `Filter`, filterCategory);
+  console.log('trackEventClick', 'Click', 'Filter', filterCategory);
 };

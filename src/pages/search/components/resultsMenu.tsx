@@ -6,7 +6,7 @@ import EntityIcon from '../../../assets/icons/entity.svg';
 import HierarchyIcon from '../../../assets/icons/hierarchy.svg';
 import GoalUserIcon from '../../../assets/icons/goal-user.svg';
 import TagIcon from '../../../assets/icons/tag.svg';
-
+import { searchFilterApplied } from '../../../matomo/actions';
 import { SelectedSign } from './selectedSign';
 
 const resultsTypeToIcon = {
@@ -29,12 +29,14 @@ const ResultsMenuItem = ({
 }) => {
   const theme = useTheme();
 
-
   return (
     <Box sx={{ display: 'flex', wrap: 'nowrap', overflow: 'hidden' }}>
       <SelectedSign isSelected={selected === type} theme={theme} sx={{ height: '25px', marginLeft: 0.2 }} />
       <Box
-        onClick={() => selected !== type && setSelected(type)}
+        onClick={() => {
+          selected !== type && setSelected(type);
+          searchFilterApplied(type);
+        }}
         sx={{
           display: 'flex',
           justifyContent: 'space-between',

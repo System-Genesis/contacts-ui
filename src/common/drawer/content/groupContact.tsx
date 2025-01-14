@@ -168,7 +168,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
           <DirectSubs
             type="entity"
             isPending={isPending}
-            header="משרתים"
+            header="משרתים ישירים"
             subs={
               data?.entities.sort((a, b) => {
                 const aIncludes = Object.values(a.commanderOf)?.includes(contact.id) ? 1 : 0;

@@ -69,7 +69,10 @@ export const EntityContentDrawer: React.FC<{
                   sx={{ cursor: 'pointer', '&:hover': { color: theme.colors.aquaDark } }}
                 />
                 {contact.entityType !== 'GoalUser' && (
-                  <FieldDiv fieldLabel={i18next.t('field.jobTitle')} value={contact.jobTitle} />
+                  <FieldDiv
+                    fieldLabel={i18next.t('field.jobTitle')}
+                    value={contact.jobTitle !== 'unknown' ? contact.jobTitle : ''}
+                  />
                 )}
               </StyledGridInfo>
               <StyledDivider theme={theme} />

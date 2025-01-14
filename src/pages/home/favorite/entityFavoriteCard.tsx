@@ -120,7 +120,13 @@ export const EntityFavoriteCard = ({
               <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
                 <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
                 {currentUser.id !== id && (
-                  <ContactOptions jabberPhones={jabberPhones} mails={mails} chats={chats} hiddenFields={hiddenFields} />
+                  <ContactOptions
+                    jabberPhones={jabberPhones}
+                    mails={mails}
+                    chats={chats}
+                    hiddenFields={hiddenFields}
+                    location="favorite"
+                  />
                 )}
               </Grid>
             </Grid>
