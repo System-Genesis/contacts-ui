@@ -43,7 +43,7 @@ export const UpperContact: React.FC<{
           >
             <FavoriteButton id={contact.id} type={contact.type} />
             {contact.rank !== i18next.t('unknown') && <Title value={contact.rank} sx={{ minWidth: 0, fontSize: 15 }} />}
-            <Title value={title} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 20 }} />
+            <Title value={title} sx={{ fontWeight: 'bold', minWidth: 0, fontSize: 20, maxWidth: '100%' }} />
           </Grid>
           {currentUser.id !== contact.id && (
             <ContactOptions
@@ -63,8 +63,8 @@ export const UpperContact: React.FC<{
             sx={{
               fontSize: 16,
               borderRadius: '30px',
-              maxWidth: 'none',
               ml: 3,
+              maxWidth: '100%',
             }}
             isPending={isPending}
           />

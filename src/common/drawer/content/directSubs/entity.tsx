@@ -42,11 +42,11 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
             sex={contact.sex}
           />
         </Grid>
-        <Grid item xs={6} sx={{ alignContent: 'center' }}>
+        <Grid item xs={6} sx={{ alignContent: 'center', alignSelf: 'center' }}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 0.2 }}>
             <Grid item sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-              <Title value={entity.fullName} />
-              <SubTitle value={entity.jobTitle} shorten />
+              <Title value={entity.fullName} sx={{ maxWidth: '100px' }} />
+              <SubTitle value={entity.jobTitle} sx={{ maxWidth: '70px' }} />
             </Grid>
 
             {Object.values(entity?.commanderOf)?.includes(contact.id) && (

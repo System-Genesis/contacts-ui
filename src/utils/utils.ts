@@ -54,7 +54,7 @@ export const getDefaultTags = (contact: object): string[] => {
     const c = (contact?.identityCard ?? contact?.employeeId) && !contact?.personalNumber && !contact?.serviceType;
 
     if (contact?.source || ['8200', 'OneTree', 'Souf'].includes(contact?.source))
-      tags = [contact?.serviceType === 'פטורים' ? '' : contact?.serviceType, c ? 'אזרח' : contact?.entityType];
+      tags = [c ? 'אזרח' : contact?.entityType, contact?.serviceType === 'פטורים' ? '' : contact?.serviceType];
     else tags = [c ? 'אזרח' : contact?.entityType];
   }
 

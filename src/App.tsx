@@ -94,7 +94,7 @@ const App = () => {
       clearTimeout(inactivityTimeout);
       config.resetTimeoutActions?.forEach((action) => window.removeEventListener(action, resetTimeout));
     };
-  }, [dispatch, navigate, isOpen, hasMounted, config.resetTimeoutActions, config.resetTimeout]);
+  }, [dispatch, navigate, isOpen]);
 
   if (!currentUser) redirect(`/unauthorized`);
 

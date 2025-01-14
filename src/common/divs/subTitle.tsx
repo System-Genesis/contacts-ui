@@ -7,13 +7,11 @@ export const SubTitle = ({
   value,
   sx = {},
   noToolTip = false,
-  shorten = false,
   isPending = false,
 }: {
   value?: string;
   sx?: object;
   noToolTip?: boolean;
-  shorten?: boolean;
   isPending?: boolean;
 }) => {
   const theme = useTheme();
@@ -48,12 +46,11 @@ export const SubTitle = ({
 
   if (!value || value === 'unknown') return null;
 
-  const val = !shorten || value.length < 15 ? value : value.slice(0, 12) + '...';
   return noToolTip ? (
-    <Typography sx={commonStyles}>{val}</Typography>
+    <Typography sx={commonStyles}>{value}</Typography>
   ) : (
     <Tooltip title={value}>
-      <Typography sx={commonStyles}>{val}</Typography>
+      <Typography sx={commonStyles}>{value}</Typography>
     </Tooltip>
   );
 };

@@ -103,14 +103,12 @@ export const ContactDrawer: React.FC<{
   const onEdit = () => {
     dispatch(setIsEdit(true));
     dispatch(setDrawerObject(contact));
-    console.log('clickedEdit');
     clickedEdit(contact.id);
   };
 
   const onSave = () => {
     dispatch(setIsEdit(false));
     const data = cleanFormData(formData);
-    console.log({ data });
 
     mutation.mutate(data);
 
