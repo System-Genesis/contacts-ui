@@ -65,7 +65,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
                 fieldLabel={i18next.t('field.hierarchy')}
                 value={contact.hierarchy}
                 onClick={() => handleHierarchyClick(contact.directGroup)}
-                sx={{ cursor: 'pointer' }}
+                sx={{ cursor: 'pointer', '&:hover': { color: theme.colors.aquaDark } }}
               />
             </StyledGridInfo>
           </StyledGridSection>
@@ -143,7 +143,11 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
               <FieldDiv
                 field={'otherPhone'}
                 fieldLabel={i18next.t('field.phone')}
-                value={formData.otherPhones?.[0]}
+                value={
+                  isEdit
+                    ? formData.otherPhones?.[0]
+                    : formData.otherPhones?.[0]?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
+                }
                 editable
                 removable
                 onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}

@@ -20,8 +20,6 @@ export const redPhoneValidation = (value: string): boolean => !value || value ==
 export const mailValidation = (value: string): boolean =>
   !value || value === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-export const tagsValidation = (value: { name: string; _id: string }[]): boolean => value.length < 15;
-
 export const hasChanges = (formData: object, contact) => {
   return Object.keys(formData).some((key) => {
     const formValue = formData[key];
@@ -37,7 +35,7 @@ export const hasChanges = (formData: object, contact) => {
 export const cleanFormData = (formData: object) => {
   return Object.entries(formData).reduce((cleanedData, [key, value]) => {
     if (Array.isArray(value)) {
-      const filteredArray = value.filter((v) => v !== '' && v !== undefined);
+      const filteredArray = value.filter((v) => !(v === '' || v === undefined || v.option === ''));
       cleanedData[key] = filteredArray.length ? filteredArray : [];
     } else if (value !== undefined) cleanedData[key] = value;
     return cleanedData;
@@ -47,25 +45,16 @@ export const cleanFormData = (formData: object) => {
 export const getDefaultTags = (contact: object): string[] => {
   // TODO: fix this to  fit true data
 
-  const dict = { Civilian: 'אזרח', Soldier: 'חייל' };
+  const dict = { Civilian: 'אזרח', Soldier: 'חייל', GoalUser: 'תפקידן' };
 
   let tags = [];
-
-  console.log({
-    entityType: contact.entityType,
-    serviceType: contact.serviceType,
-    personalNumber: contact.personalNumber,
-    identityCard: contact.identityCard,
-    employeeId: contact.employeeId,
-    source: contact.source,
-  });
 
   if (['חובה', 'קבע', 'עובד צה"ל'].includes(contact?.serviceType)) tags = [contact?.serviceType];
   else {
     const c = (contact?.identityCard ?? contact?.employeeId) && !contact?.personalNumber && !contact?.serviceType;
 
-    if (['8200', 'OneTree', 'Souf'].includes(contact?.source))
-      tags = [contact?.serviceType, c ? 'אזרח' : contact?.entityType];
+    if (contact?.source || ['8200', 'OneTree', 'Souf'].includes(contact?.source))
+      tags = [contact?.serviceType === 'פטורים' ? '' : contact?.serviceType, c ? 'אזרח' : contact?.entityType];
     else tags = [c ? 'אזרח' : contact?.entityType];
   }
 

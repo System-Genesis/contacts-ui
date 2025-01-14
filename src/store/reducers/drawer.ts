@@ -10,7 +10,6 @@ import {
   mobilePhoneValidation,
   otherPhoneValidation,
   redPhoneValidation,
-  tagsValidation,
 } from '../../utils/utils';
 
 export interface DrawerState {
@@ -75,7 +74,6 @@ export const drawerSlice = createSlice({
         redPhone: redPhoneValidation,
         otherPhone: otherPhoneValidation,
         mail: mailValidation,
-        tags: tagsValidation,
       };
       const validationFn = formValidations[field];
 

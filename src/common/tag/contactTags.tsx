@@ -7,9 +7,6 @@ import { getTags, searchTags } from '../../services/tagService';
 import AddIcon from '@mui/icons-material/Add';
 import { useDebounce } from '@uidotdev/usehooks';
 import add from '../../assets/icons/add.svg';
-import { validateForm } from '../../store/reducers/drawer';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store';
 import { styledScrollY } from '../../css/common';
 
 export const ContactTags = ({
@@ -18,7 +15,6 @@ export const ContactTags = ({
   shrunkSize = -1,
   setFormData,
   sx = {},
-  field = 'tags',
   defaultTags = [],
 }: {
   tags: { name: string; _id?: string }[];
@@ -30,12 +26,11 @@ export const ContactTags = ({
   defaultTags?: string[];
 }) => {
   const theme = useTheme();
-  const dispatch = useDispatch();
   const [search, setSearch] = useState('');
+  const [isError, setIsError] = useState(tags.length >= 15);
   const [debounced] = useDebounce(search, 2000);
   const [selectedTags, setSelectedTags] = useState(tags);
   const [isAutoCompleteOpen, setIsAutoCompleteOpen] = useState(false);
-  const validationError = useSelector((state: RootState) => state.drawer.validationError[field]);
 
   const { data: firstTags } = useQuery({
     queryKey: [getTags.name],
@@ -46,7 +41,7 @@ export const ContactTags = ({
 
   useEffect(() => {
     if (setFormData) setFormData((prev: any) => ({ ...prev, tags: selectedTags }));
-    dispatch(validateForm({ field, value: selectedTags, required: false }));
+    setIsError(selectedTags.length >= 15);
   }, [selectedTags]);
 
   useEffect(() => {
@@ -72,20 +67,16 @@ export const ContactTags = ({
       ? [{ name: search }, ...filteredOptions]
       : filteredOptions;
 
-  if (shrunkSize != -1)
+  if (shrunkSize != -1) {
+    const allTags = [...defaultTags.map((t) => ({ name: t, _id: t })), ...selectedTags];
     return (
       <Box display={'flex'} gap={0.5}>
-        {defaultTags.map((t) => (
-          <TagChip value={t} id={''} key={t} />
-        ))}
-        {selectedTags
-          .slice(0, shrunkSize - defaultTags.length)
-          .map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
-        {selectedTags.length > shrunkSize && (
+        {allTags.slice(0, shrunkSize).map(({ name, _id }) => name && <TagChip value={name} id={_id} key={_id} />)}
+        {allTags.length > shrunkSize && (
           <Chip
-            key={`${selectedTags.length - (shrunkSize - defaultTags.length)}+`}
+            key={`${allTags.length - shrunkSize}+`}
             component={'div'}
-            label={`${selectedTags.length - (shrunkSize - defaultTags.length)}+`}
+            label={`${allTags.length - shrunkSize}+`}
             size="small"
             sx={{
               cursor: 'default',
@@ -98,7 +89,7 @@ export const ContactTags = ({
         )}
       </Box>
     );
-
+  }
   return (
     <Grid container>
       {isEdit && (
@@ -139,14 +130,14 @@ export const ContactTags = ({
           <Autocomplete
             multiple
             id="tags-filled"
-            noOptionsText={'מה מתאר אותך?'}
-            options={displayOptions}
-            open={isAutoCompleteOpen} // Controls dropdown visibility
+            noOptionsText={isError ? i18next.t('validationError.tags') : i18next.t('whatsDescribesYou')}
+            options={isError ? [] : displayOptions}
+            open={isAutoCompleteOpen}
             onClose={() => {
               setIsAutoCompleteOpen(false);
               setSearch('');
             }}
-            filterOptions={(x) => x} // Prevents default filtering
+            filterOptions={(x) => x}
             filterSelectedOptions
             sx={{
               borderRadius: '40px',
@@ -155,27 +146,16 @@ export const ContactTags = ({
               '& .MuiOutlinedInput-root.Mui-focused  .MuiOutlinedInput-notchedOutline': {
                 borderColor: theme.colors.aqua,
               },
-              '& .MuiOutlinedInput-notchedOutline': {
-                borderColor: theme.colors.aqua,
-              },
-              '& .MuiOutlinedInput-root': {
-                borderRadius: '40px',
-                backgroundColor: theme.colors.gray,
-              },
+              '& .MuiOutlinedInput-notchedOutline': { borderColor: theme.colors.aqua },
+              '& .MuiOutlinedInput-root': { borderRadius: '40px', backgroundColor: theme.colors.gray },
 
-              '& .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiOutlinedInput-root': {
-                pr: 0,
-              },
-              '& .MuiAutocomplete-popupIndicator': {
-                display: 'none',
-              },
-              '& .MuiInputBase-input': {
-                height: 0,
-              },
+              '& .MuiAutocomplete-hasPopupIcon.MuiAutocomplete-hasClearIcon .MuiOutlinedInput-root': { pr: 0 },
+              '& .MuiAutocomplete-popupIndicator': { display: 'none' },
+              '& .MuiInputBase-input': { height: 0 },
             }}
             value={selectedTags}
             onChange={(_event, newValue) =>
-              newValue.length === 0 || validationError?.isError ? setSearch('') : setSelectedTags(newValue as [])
+              newValue.length === 0 || isError ? setSearch('') : setSelectedTags(newValue as [])
             }
             getOptionLabel={(option) => option.name}
             renderTags={() => <></>}
@@ -183,13 +163,13 @@ export const ContactTags = ({
               <ListItemButton
                 {...props}
                 style={{ justifyContent: 'space-between' }}
-                disabled={validationError?.isError || selectedTags.map((tag: any) => tag.name).includes(option.name)}
+                disabled={isError || selectedTags.map((tag: any) => tag.name).includes(option.name)}
               >
                 <Typography variant="body2" color="textSecondary">
                   {option._id ? option.name : i18next.t('newTagText') + option.name}{' '}
                 </Typography>
 
-                {!validationError?.isError && !selectedTags.map((tag: any) => tag.name).includes(option.name) && (
+                {!isError && !selectedTags.map((tag: any) => tag.name).includes(option.name) && (
                   <img src={add} width={12} style={{ padding: 0 }} />
                 )}
               </ListItemButton>
@@ -268,19 +248,6 @@ export const ContactTags = ({
           )
           .reverse()}
       </Box>
-
-      {isEdit && (
-        <Typography
-          sx={{
-            minHeight: 22,
-            pt: 0.5,
-            fontSize: 12,
-            color: theme.colors.red,
-          }}
-        >
-          {validationError?.isError ? validationError?.errorMessage : ''}
-        </Typography>
-      )}
     </Grid>
   );
 };

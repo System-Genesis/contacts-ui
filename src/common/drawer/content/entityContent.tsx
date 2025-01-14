@@ -66,7 +66,7 @@ export const EntityContentDrawer: React.FC<{
                   fieldLabel={i18next.t('field.hierarchy')}
                   value={contact.hierarchy}
                   onClick={() => handleHierarchyClick(contact.directGroup)}
-                  sx={{ cursor: 'pointer' }}
+                  sx={{ cursor: 'pointer', '&:hover': { color: theme.colors.aquaDark } }}
                 />
                 {contact.entityType !== 'GoalUser' && (
                   <FieldDiv fieldLabel={i18next.t('field.jobTitle')} value={contact.jobTitle} />
