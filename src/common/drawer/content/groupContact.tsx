@@ -49,7 +49,7 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
         contact={contact}
         setFormData={setFormData}
         title={contact.name}
-        subTitle={data?.entities.length === 1 ? 'איש אחד' : `${data?.entities.length} ${i18next.t('people')}`}
+        // subTitle={data?.entities.length === 1 ? 'איש אחד' : `${data?.entities.length} ${i18next.t('people')}`}
         imageSize="3rem"
         hiddenFields={contact.hiddenFields}
         type="group"
