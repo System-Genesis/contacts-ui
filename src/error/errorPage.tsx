@@ -46,21 +46,40 @@ const ErrorPage = () => {
               fontFamily: 'Rubik',
             }}
           >
-            אופס! שגיאה בלתי צפויה!
+            אופס! משהו השתבש...
           </Typography>
+          <Box>
+            <Typography
+              style={{
+                color: '#383F51',
+                fontSize: 28,
+                fontWeight: '400',
+                fontFamily: 'Rubik',
+              }}
+            >
+              נראה שקרתה תקלה בלתי צפויה.
+            </Typography>
+            <Typography
+              style={{
+                color: '#383F51',
+                fontSize: 28,
+                fontWeight: '400',
+                fontFamily: 'Rubik',
+              }}
+            >
+              אנחנו מצטערים על חוסר הנוחות.
+            </Typography>
+          </Box>
+
           <Button
             sx={{
               color: '#FFF',
-              backgroundColor: '#81C7B7',
+              backgroundColor: '#6e938d',
               borderRadius: '30px',
               fontFamily: 'Rubik',
               fontSize: 20,
               p: '0 1rem',
-              '&:hover': { backgroundColor: '#295C54' },
-              '&.Mui-disabled': {
-                color: '#FFF',
-                backgroundColor: '#BAD1CA',
-              },
+              '&:hover': { backgroundColor: '#445955' },
             }}
             onClick={() => window.location.replace('/')}
           >
