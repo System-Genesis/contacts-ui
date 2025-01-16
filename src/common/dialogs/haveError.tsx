@@ -1,4 +1,4 @@
-import { Box, IconButton, Typography, useTheme } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import ErrorDialog from '../../assets/images/errorDialog.svg';
 import CloseIcon from '../../assets/icons/close.svg';
 import i18next from 'i18next';
@@ -6,6 +6,7 @@ import { CancelButton } from '../buttons/cancel';
 import { SaveButton } from '../buttons/save';
 import {
   ButtonContainer,
+  CloseButton,
   ContentContainer,
   Dialog,
   DialogContainer,
@@ -15,35 +16,34 @@ import {
   SubHeader,
 } from './styledComponents';
 
-export const SaveChangesDialog: React.FC<{
+export const HaveErrorDialog: React.FC<{
   open: boolean;
-  onSave: any;
+  onReturn: any;
   onCancel: any;
-  disabledSave: boolean;
   setOpen: (val) => void;
-}> = ({ open, setOpen, onSave, onCancel, disabledSave }) => {
+}> = ({ open, setOpen, onReturn, onCancel }) => {
   const theme = useTheme();
   return (
     <Dialog open={!!open} onClose={onCancel} theme={theme}>
       <DialogContainer theme={theme}>
         <IconContainer>
-          <IconButton onClick={() => setOpen(false)} sx={{ ml: 2 }}>
-            <img src={CloseIcon} style={{ padding: 0 }} />
-          </IconButton>
+          <CloseButton onClick={() => setOpen(false)} theme={theme}>
+            <img src={CloseIcon} alt="Close" style={{ padding: 0 }} />
+          </CloseButton>
         </IconContainer>
         <ImageContainer>
-          <img src={ErrorDialog} width={'100px'} height={'100px'} />
+          <img src={ErrorDialog} width={'100px'} height={'100px'} alt="Error" />
         </ImageContainer>
-        <ContentContainer>
-          <Header>{i18next.t('dialog.savedChanges')}</Header>
+        <ContentContainer theme={theme}>
+          <Header>{i18next.t('ErrorDialog.header')}</Header>
           <Box>
-            <SubHeader>{i18next.t('dialog.areYouSure')}</SubHeader>
-            <SubHeader>{i18next.t('dialog.afterSave')}</SubHeader>
+            <SubHeader>{i18next.t('ErrorDialog.subHeader')}</SubHeader>
+            <SubHeader>{i18next.t('ErrorDialog.subHeader2')}</SubHeader>
           </Box>
         </ContentContainer>
         <ButtonContainer>
-          <CancelButton value={i18next.t(`cancelChanges`)} onClick={onCancel} />
-          <SaveButton value={i18next.t(`save`)} onClick={onSave} disabled={disabledSave} />
+          <CancelButton value={i18next.t('cancelChanges')} onClick={onCancel} />
+          <SaveButton value={i18next.t('dialog.returnToEdit')} onClick={onReturn} />
         </ButtonContainer>
       </DialogContainer>
     </Dialog>

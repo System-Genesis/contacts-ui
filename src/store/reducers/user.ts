@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface UserState {
+  history: any;
   id: string;
   adfsId: string;
   firstName: string;

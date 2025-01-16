@@ -54,11 +54,6 @@ export const hebrew = {
   hiChat: 'Hi.Chat',
   outlook: 'מייל',
   jabber: 'Jabber',
-  dialog: {
-    savedChanges: 'האם לשמור את השינויים?',
-    areYouSure: 'שמנו לב שביצעת שינויים.',
-    afterSave: 'האם ברצונך לצאת ללא שמירה?',
-  },
   validationError: {
     mobilePhoneEmpty: 'יש למלא טלפון נייד.',
     mobilePhone: 'טלפון נייד מכיל 10 ספרות.',
@@ -69,12 +64,31 @@ export const hebrew = {
     mail: 'יש להזין כתובת אימייל חוקית',
     tags: 'ניתן להזין עד 15 תגיות.',
   },
+  dialog: {
+    savedChanges: 'האם לשמור את השינויים?',
+    areYouSure: 'שמנו לב שביצעת שינויים.',
+    afterSave: 'האם ברצונך לצאת ללא שמירה?',
+    returnToEdit: 'חזרה לעריכה',
+  },
+  ErrorDialog: {
+    header: 'רצית לערוך פרטים?',
+    subHeader: 'שמנו לב שניסית לבצע שינויים אך לא לגמרי סיימת...',
+    subHeader2: 'האם ברצונך להמשיך לערוך?',
+  },
+
   chatBotDialog: {
     wereHereToHelp: 'נתקלת בבעיה? אנחנו כאן לעזור!',
     haveAProblem: 'יש לך שאלה או בעיה טכנית בשימוש במערכת?',
     weWouldLikeToHelp: 'נשמח לסייע!',
     noThankYou: 'לא, תודה',
     openIssue: 'פתיחת תקלה',
+  },
+
+  survey: {
+    header: 'תעזרו לנו לעזור לכם!',
+    header2: 'נשמח למענה למשוב קצרצר🎉',
+    subHeader: 'תודה רבה :)',
+    btn: 'לשאלון',
   },
   newTagText: 'תגית חדשה: ',
   error: {

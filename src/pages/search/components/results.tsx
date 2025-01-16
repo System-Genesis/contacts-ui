@@ -9,6 +9,9 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../../store';
 import { setDrawerObject, setIsDrawerOpen } from '../../../store/reducers/drawer';
+import { useState } from 'react';
+import { SurveyDialog } from '../../../common/dialogs/survey';
+import { setUser } from '../../../store/reducers/user';
 
 export const Results = ({
   type,
@@ -28,14 +31,20 @@ export const Results = ({
   const dispatch = useDispatch();
   const queryClient = useQueryClient();
 
+  const [openSurvey, setOpenSurvey] = useState(false);
+
   const contact = useSelector((state: RootState) => state.drawer.contact!);
+  const currentUser = useSelector((state: RootState) => state.user);
 
   const mutation = useMutation({
     mutationFn: () => {
+      console.log(currentUser.history);
+      if (currentUser.history.length === 2) setOpenSurvey(true);
       return addSearchHistory({ type: contact?.type, id: contact?.id });
     },
 
     onSuccess: () => {
+      dispatch(setUser({ ...currentUser, history: [contact, ...currentUser.history] }));
       queryClient.setQueryData(['history'], () => [contact, ...results.filter((c) => c.id !== contact.id)]);
     },
   });
@@ -101,6 +110,8 @@ export const Results = ({
 
   return (
     <>
+      <SurveyDialog open={openSurvey} setOpen={setOpenSurvey} />
+
       <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 1.5, width: '64vw', m: 1 }}>
         <Box sx={{ m: '1rem 2rem 0.5rem 2rem' }}>
           {searchHeader && <SearchHeader count={count!} type={type!} />}

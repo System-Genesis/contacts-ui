@@ -56,6 +56,7 @@ export const basicTheme: ThemeOptions = {
 
     gray: '#F7F7F7',
     darkGray: '#525252',
+    darkGray2: '#656565',
     lightGray: '#7C7C7C',
     lighterGray: '#EFEFEF',
     otherGray: '#DCDCDC',
@@ -80,6 +81,7 @@ interface ThemeOptions extends ThemeOptionsMui {
     red?: string;
     gray?: string;
     darkGray?: string;
+    darkGray2?: string;
     lightGray?: string;
     lighterGray?: string;
     otherGray?: string;
@@ -105,6 +107,7 @@ declare module '@mui/material/styles' {
       red: string;
       gray: string;
       darkGray: string;
+      darkGray2: string;
       lightGray: string;
       lighterGray: string;
       otherGray: string;

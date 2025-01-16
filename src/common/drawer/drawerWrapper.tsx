@@ -21,6 +21,7 @@ import { setUser, UserState } from '../../store/reducers/user';
 import { SaveChangesDialog } from '../dialogs/saveChanges';
 import { cleanFormData, hasChanges } from '../../utils/utils';
 import { clickedEdit } from '../../matomo/actions';
+import { HaveErrorDialog } from '../dialogs/haveError';
 
 const StyledDrawerWrapper = styled(SwipeableDrawer, {
   shouldForwardProp: (prop) => prop !== 'isSubEntity',
@@ -71,6 +72,7 @@ export const ContactDrawer: React.FC<{
   const currentUser = useSelector((state: RootState) => state.user);
   const [formData, setFormData] = useState({});
   const [saveChangesDialogOpen, setSaveChangesDialogOpen] = useState(false);
+  const [haveErrorDialogOpen, setHaveErrorDialogOpen] = useState(false);
 
   const mutation = useMutation({
     mutationFn: (data) => {
@@ -136,6 +138,17 @@ export const ContactDrawer: React.FC<{
     });
   };
 
+  const onExit = () => {
+    if (isEdit && hasChanges(cleanFormData(formData), contact)) {
+      if (Object.values(validationError).some((error) => error.isError)) setHaveErrorDialogOpen(true);
+      else setSaveChangesDialogOpen(true);
+    } else {
+      onCancel();
+      if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
+      else dispatch(closeSubEntity());
+    }
+  };
+
   return (
     <StyledDrawerWrapper
       isSubEntity={subEntity?.id === contact?.id}
@@ -143,14 +156,7 @@ export const ContactDrawer: React.FC<{
       open={!!contact}
       elevation={1}
       onOpen={() => subEntity?.id !== contact?.id && dispatch(setIsDrawerOpen(true))}
-      onClose={() => {
-        if (isEdit && hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
-        else {
-          onCancel();
-          if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
-          else dispatch(closeSubEntity());
-        }
-      }}
+      onClose={() => onExit()}
       PaperProps={{
         sx: {
           borderRadius: '20px 0px 0px 20px',
@@ -204,17 +210,7 @@ export const ContactDrawer: React.FC<{
                   <img src={EditIcon} style={{ padding: 0 }} />
                 </IconButton>
               )}
-              <IconButton
-                onClick={() => {
-                  if (isEdit && hasChanges(cleanFormData(formData), contact)) setSaveChangesDialogOpen(true);
-                  else {
-                    onCancel();
-                    if (subEntity?.id !== contact?.id) dispatch(setIsDrawerOpen(false));
-                    else dispatch(closeSubEntity());
-                  }
-                }}
-                sx={{ p: 0, m: 1 }}
-              >
+              <IconButton onClick={() => onExit()} sx={{ p: 0, m: 1 }}>
                 <img src={CloseIcon} style={{ padding: 0 }} />
               </IconButton>
             </Grid>
@@ -257,6 +253,15 @@ export const ContactDrawer: React.FC<{
           setSaveChangesDialogOpen(false);
           onSave();
         }}
+      />
+      <HaveErrorDialog
+        open={haveErrorDialogOpen}
+        setOpen={setHaveErrorDialogOpen}
+        onCancel={() => {
+          setHaveErrorDialogOpen(false);
+          onCancel();
+        }}
+        onReturn={() => setHaveErrorDialogOpen(false)}
       />
     </StyledDrawerWrapper>
   );

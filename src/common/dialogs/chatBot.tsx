@@ -1,9 +1,19 @@
-import { Box, Dialog, IconButton, Typography, useTheme } from '@mui/material';
 import ErrorDialog from '../../assets/images/errorDialog.svg';
 import CloseIcon from '../../assets/icons/close.svg';
 import i18next from 'i18next';
 import { CancelButton } from '../buttons/cancel';
 import { SaveButton } from '../buttons/save';
+import { Box, IconButton, useTheme } from '@mui/material';
+import {
+  ButtonContainer,
+  ContentContainer,
+  Dialog,
+  DialogContainer,
+  Header,
+  IconContainer,
+  ImageContainer,
+  SubHeader,
+} from './styledComponents';
 
 export const ChatBotDialog: React.FC<{
   open: boolean;
@@ -13,68 +23,28 @@ export const ChatBotDialog: React.FC<{
   const theme = useTheme();
 
   return (
-    <Dialog
-      open={!!open}
-      onClose={onCancel}
-      sx={{
-        '& .MuiDialog-paper': {
-          width: '385px',
-          height: '415px',
-          margin: 'auto',
-          borderRadius: '20px',
-          pb: 1,
-        },
-      }}
-    >
-      <Box
-        sx={{
-          background: 'linear-gradient(to bottom, #D8EFE8 65%, white 35%)',
-          height: '100%',
-          width: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          p: 2,
-          alignItems: 'center',
-        }}
-      >
-        <Box flex={'10%'} alignSelf={'flex-end'}>
+    <Dialog open={!!open} onClose={onCancel} theme={theme}>
+      <DialogContainer theme={theme}>
+        <IconContainer flex={'10%'} alignSelf={'flex-end'}>
           <IconButton onClick={onCancel} sx={{ ml: 2 }}>
             <img src={CloseIcon} style={{ padding: 0 }} />
           </IconButton>
-        </Box>
-        <Box flex={'50%'} sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+        </IconContainer>
+        <ImageContainer>
           <img src={ErrorDialog} width={'100px'} height={'100px'} />
-        </Box>
-        <Box
-          flex={'40%'}
-          sx={{
-            display: 'flex',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-            flexDirection: 'column',
-            rowGap: theme.spacing(3),
-          }}
-        >
+        </ImageContainer>
+        <ContentContainer>
+          <Header>{i18next.t('chatBotDialog.wereHereToHelp')}</Header>
           <Box>
-            <Typography variant={'body1'} fontSize={20} color={'#223F3B'} fontWeight={'bold'}>
-              {i18next.t('chatBotDialog.wereHereToHelp')}
-            </Typography>
+            <SubHeader>{i18next.t('chatBotDialog.haveAProblem')}</SubHeader>
+            <SubHeader>{i18next.t('chatBotDialog.weWouldLikeToHelp')}</SubHeader>
           </Box>
-          <Box>
-            <Typography fontSize={14} color={'#656565'} textAlign={'center'}>
-              {i18next.t('chatBotDialog.haveAProblem')}
-            </Typography>
-            <Typography fontSize={14} color={'#656565'} textAlign={'center'}>
-              {i18next.t('chatBotDialog.weWouldLikeToHelp')}
-            </Typography>
-          </Box>
-        </Box>
-        <Box flex={'10%'} sx={{ display: 'flex', justifyContent: 'center', columnGap: 2 }}>
+        </ContentContainer>
+        <ButtonContainer>
           <CancelButton value={i18next.t(`chatBotDialog.noThankYou`)} onClick={onCancel} />
           <SaveButton value={i18next.t(`chatBotDialog.openIssue`)} onClick={onSave} disabled={false} />
-        </Box>
-      </Box>
+        </ButtonContainer>
+      </DialogContainer>
     </Dialog>
   );
 };

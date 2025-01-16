@@ -8,6 +8,7 @@ export interface ConfigState {
   resetTimeout: number;
   matomoUrl: string;
   matomoSiteID: number;
+  surveyUrl: string;
 }
 
 const initialState: Partial<ConfigState> = {};
