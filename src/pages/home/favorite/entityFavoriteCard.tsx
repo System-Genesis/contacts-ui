@@ -112,7 +112,7 @@ export const EntityFavoriteCard = ({
             </Grid>
           </Grid>
 
-          {(mails?.length || chats?.length || mobilePhone || jabberPhones) && (
+          {(mails?.length > 0 || chats?.length > 0 || mobilePhone || jabberPhones.length > 0) && (
             <Grid container sx={{ width: '100%', gap: 1, height: '3rem' }}>
               <Divider
                 sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}

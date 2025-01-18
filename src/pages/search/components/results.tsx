@@ -38,7 +38,6 @@ export const Results = ({
 
   const mutation = useMutation({
     mutationFn: () => {
-      console.log(currentUser.history);
       if (currentUser.history.length === 2) setOpenSurvey(true);
       return addSearchHistory({ type: contact?.type, id: contact?.id });
     },

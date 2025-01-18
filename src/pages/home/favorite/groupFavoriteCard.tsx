@@ -96,7 +96,7 @@ export const GroupFavoriteCard = ({
             </Grid>
           </Grid>
 
-          {(mails?.length || chats?.length || redPhone || jabberPhones?.length) && (
+          {(mails?.length > 0 || chats?.length > 0 || redPhone || jabberPhones?.length > 0) && (
             <Grid container sx={{ width: '100%', gap: 1 }}>
               <Divider
                 sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}

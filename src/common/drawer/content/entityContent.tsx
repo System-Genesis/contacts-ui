@@ -32,7 +32,9 @@ export const EntityContentDrawer: React.FC<{
     else
       setFormData((prev) => ({
         ...prev,
-        [field]: prev[field][index]?.option ? [{ ...prev[field][index], option: '' }] : [''],
+        [field]: prev[field][index]?.option
+          ? prev[field].map((item, i) => (i === index ? { ...item, option: '' } : item))
+          : prev[field].filter((_, i) => index !== i),
       }));
   };
 

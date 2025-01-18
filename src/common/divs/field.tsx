@@ -16,9 +16,9 @@ export const FieldDiv = ({
   removable = false,
   isHidden = false,
   required = false,
-  icon = '',
   keyFilter = /\S\s/,
   lengthLimit = 999,
+  icon = '',
   onChange,
   onHide,
   onRemove,
@@ -43,7 +43,7 @@ export const FieldDiv = ({
   onRemove?: () => void;
   onClick?: () => void;
 
-  sx: object;
+  sx?: object;
 }) => {
   const dispatch = useDispatch();
 
@@ -63,12 +63,12 @@ export const FieldDiv = ({
     const isNavigationKey = ['Backspace', 'ArrowLeft', 'ArrowRight', 'Delete'].includes(key);
     const isControlOrCmd = event.ctrlKey || event.metaKey; // Check for Control or Command key
 
-    // Check if key is a number, '*' or a navigation key, or control actions (Ctrl + A, Ctrl + C, Ctrl + V)
     const isValidKey =
       keyFilter.test(key) || isNavigationKey || (isControlOrCmd && ['a', 'c', 'v', 'x'].includes(key.toLowerCase()));
 
     if (!isValidKey) event.preventDefault();
   };
+
   return (
     (value || (isEdit && editable)) && (
       <Box
