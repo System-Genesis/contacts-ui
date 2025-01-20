@@ -23,7 +23,7 @@ export const mailValidation = (value: string): boolean =>
 export const hasChanges = (formData: object, contact) => {
   return Object.keys(formData).some((key) => {
     const formValue = formData[key];
-    const contactValue = contact[key];
+    const contactValue = contact?.[key];
 
     if ((formValue === '' && contactValue === undefined) || (formValue === undefined && contactValue === ''))
       return false;

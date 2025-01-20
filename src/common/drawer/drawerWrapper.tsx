@@ -105,7 +105,7 @@ export const ContactDrawer: React.FC<{
   const onEdit = () => {
     dispatch(setIsEdit(true));
     dispatch(setDrawerObject(contact));
-    clickedEdit(contact.id);
+    clickedEdit(contact?.id);
   };
 
   const onSave = () => {

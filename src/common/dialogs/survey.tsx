@@ -22,6 +22,11 @@ export const SurveyDialog: React.FC<{
 }> = ({ open, setOpen }) => {
   const theme = useTheme();
   const config = useSelector((state: RootState) => state.config);
+
+  const handleClose = (_, reason: 'backdropClick' | 'escapeKeyDown') => {
+    if (reason === 'backdropClick') return;
+    setOpen(false);
+  };
   const handleButtonClick = () => {
     const link = document.createElement('a');
     link.href = config.surveyUrl;
@@ -30,7 +35,7 @@ export const SurveyDialog: React.FC<{
     link.click();
   };
   return (
-    <Dialog open={!!open} onClose={() => setOpen(false)} theme={theme}>
+    <Dialog open={!!open} onClose={handleClose} theme={theme}>
       <DialogContainer theme={theme}>
         <IconContainer flex={'10%'} alignSelf={'flex-end'}>
           <IconButton onClick={() => setOpen(false)} sx={{ ml: 2 }}>
@@ -41,7 +46,7 @@ export const SurveyDialog: React.FC<{
           <img src={icon} width={'100px'} height={'100px'} />
         </ImageContainer>
         <ContentContainer>
-          <Box sx={{ justifyItems: 'center' }}>
+          <Box sx={{ justifyItems: 'center', textAlign: 'center' }}>
             <Header>{i18next.t('survey.header')}</Header>
             <Header>{i18next.t('survey.header2')}</Header>
           </Box>

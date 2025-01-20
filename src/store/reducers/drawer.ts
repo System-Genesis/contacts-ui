@@ -54,9 +54,12 @@ export const drawerSlice = createSlice({
       state.subEntity = action.payload;
     },
     openSubUser: (state, action: PayloadAction<GroupSearchResult>) => {
-      state.prevUsers.push(state.contact);
-      state.subEntity = undefined;
-      state.contact = { ...action.payload, type: ResultsTypes.GROUP };
+      if (action.payload.id === state.contact?.id) state.subEntity = undefined;
+      else {
+        state.prevUsers.push(state.contact);
+        state.subEntity = undefined;
+        state.contact = { ...action.payload, type: ResultsTypes.GROUP };
+      }
     },
     closeSubUser: (state) => {
       state.contact = state.prevUsers.pop();

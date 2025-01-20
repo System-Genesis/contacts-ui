@@ -30,11 +30,11 @@ export const clickedEdit = (id: string) => {
 };
 
 export const clickedShortcut = (type: string, location: 'favorite' | 'drawer' | 'searchRes') => {
-  trackEventClick('Click', `ShortCut-${type}`, location);
+  trackEventClick('Click', `ShortCut-${type}-${location}`, location);
   console.log('trackEventClick', 'Click', 'ShortCut', type, location);
 };
 
 export const searchFilterApplied = (filterCategory: string) => {
-  trackEventClick('Click', `Filter`, filterCategory);
+  trackEventClick('Click', `Filter-${filterCategory}`, filterCategory);
   console.log('trackEventClick', 'Click', 'Filter', filterCategory);
 };

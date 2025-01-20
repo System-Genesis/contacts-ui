@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { ChatBotDialog } from '../../common/dialogs/chatBot';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store';
+import { EinavSupportDialog } from '../../common/dialogs/SupportEinav';
 
 export const ChatBot = () => {
   const theme = useTheme();
@@ -30,7 +31,8 @@ export const ChatBot = () => {
       }}
     >
       <img src={chatBotSrc} alt="Chatbot Icon" />
-      <ChatBotDialog
+      <EinavSupportDialog
+        // <ChatBotDialog
         open={dialogOpen}
         onCancel={(e) => {
           e.stopPropagation();
