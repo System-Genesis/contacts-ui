@@ -94,5 +94,5 @@ export const hebrew = {
   error: {
     config: 'שגיאה בהבאת נתונים.',
   },
-  whatsDiscribesYou: 'מה מתאר אותך?',
+  whatsDescribesYou: 'מה מתאר אותך?',
 };

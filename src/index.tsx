@@ -14,7 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError } from 'axios';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './routes.tsx';
-import ErrorBoundary from './error/errorBoundry.tsx';
 import NotFound from './error/errorPage.tsx';
 import { ErrorEvent } from './matomo/actions.ts';
 
@@ -53,10 +52,8 @@ const Index: React.FC = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <CacheProvider value={cacheRtl}>
-        <ErrorBoundary>
-          <RouterProvider router={router} />
-          <ToastContainer position="bottom-right" toastStyle={{ fontFamily: 'Rubik, sans-serif' }} />
-        </ErrorBoundary>
+        <RouterProvider router={router} />
+        <ToastContainer position="bottom-right" toastStyle={{ fontFamily: 'Rubik, sans-serif' }} />
       </CacheProvider>
       <ReactQueryDevtools buttonPosition="bottom-right" />
     </QueryClientProvider>
