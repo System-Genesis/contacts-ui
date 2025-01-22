@@ -11,6 +11,8 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { getCountsBySearchTermRequest, searchRequest } from '../../services/searchService';
 import { ResultsMenu } from './components/resultsMenu';
 import { mySearchHistory } from '../../services/historyService';
+import Lottie from 'react-lottie';
+import loadingResults from '../../assets/lottie/loadingResults.json';
 const env = import.meta.env;
 
 const FadeBox = styled(Box)({
@@ -27,10 +29,18 @@ const Search = () => {
   const searchTerm = useSelector((state: RootState) => state.search.searchTerm);
   const debouncedSearchTerm = useDebounce(searchTerm, 500);
 
-  const { data: searchHistoryResults } = useQuery({
+  const defaultOptions = {
+    loop: true,
+    autoplay: true,
+    animationData: loadingResults,
+    rendererSettings: {
+      preserveAspectRatio: 'xMidYMid slice',
+    },
+  };
+
+  const { data: searchHistoryResults, isLoading: isHistoryLoading } = useQuery({
     queryKey: ['history'],
     queryFn: mySearchHistory,
-    initialData: [],
     enabled: debouncedSearchTerm.length === 0,
   });
 
@@ -45,7 +55,13 @@ const Search = () => {
     },
     enabled: !!debouncedSearchTerm,
   });
-  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
+  const {
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading: isSearchLoading,
+  } = useInfiniteQuery({
     queryKey: ['search', debouncedSearchTerm, resultsType],
     queryFn: ({ pageParam }) => searchRequest(debouncedSearchTerm, resultsType, pageParam, +env.VITE_BACKEND_PAGE_SIZE),
     getNextPageParam: (lastPage, allPages) => (lastPage.length ? allPages.length + 1 : undefined),
@@ -57,7 +73,7 @@ const Search = () => {
 
   const lastElementRef = useCallback(
     (node: HTMLDivElement) => {
-      if (isLoading) return;
+      if (isSearchLoading) return;
       if (observer.current) observer.current.disconnect();
 
       observer.current = new IntersectionObserver((entries) => {
@@ -66,7 +82,7 @@ const Search = () => {
 
       if (node) observer.current.observe(node);
     },
-    [fetchNextPage, hasNextPage, isFetching, isLoading],
+    [fetchNextPage, hasNextPage, isFetching, isSearchLoading],
   );
 
   return (
@@ -108,8 +124,12 @@ const Search = () => {
             pb: 3,
           }}
         >
-          {searchTerm.length < 2 && !searchResults.length ? (
-            searchHistoryResults.length === 0 ? (
+          {isHistoryLoading || isSearchLoading ? (
+            <Box sx={{ alignSelf: 'center', direction: 'rtl' }}>
+              <Lottie options={defaultOptions} height={500} width={500} />
+            </Box>
+          ) : searchTerm.length < 2 && !searchResults.length ? (
+            !searchHistoryResults?.length ? (
               <FadeBox>
                 <img src={EmptyHistory} style={{ width: '100%' }} />
               </FadeBox>
@@ -121,11 +141,7 @@ const Search = () => {
           ) : (
             <>
               <Fade in={Object.values(counts).every((val) => !val)} timeout={500}>
-                <FadeBox
-                  sx={{
-                    display: Object.values(counts).every((val) => !val) ? 'block' : 'none',
-                  }}
-                >
+                <FadeBox sx={{ display: Object.values(counts).every((val) => !val) ? 'block' : 'none' }}>
                   <img src={EmptyResults} style={{ width: '100%', alignSelf: 'center' }} />
                 </FadeBox>
               </Fade>
