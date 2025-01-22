@@ -125,7 +125,7 @@ const Search = () => {
           }}
         >
           {isHistoryLoading || isSearchLoading ? (
-            <Box sx={{ alignSelf: 'center', direction: 'rtl' }}>
+            <Box sx={{ alignSelf: 'center' }}>
               <Lottie options={defaultOptions} height={500} width={500} />
             </Box>
           ) : searchTerm.length < 2 && !searchResults.length ? (
