@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import animationData from '../assets/lottie/notFound.json';
+import animationData from '../../assets/lottie/notFound.json';
 import Lottie from 'react-lottie';
 
 const ErrorPage = () => {
@@ -13,7 +13,7 @@ const ErrorPage = () => {
   };
 
   return (
-    <Box sx={{ height: '90vh', width: '65vw', justifySelf: 'center', alignContent: 'center' }}>
+    <Box sx={{ height: '95vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
       <Box
         sx={{
           display: 'flex',
@@ -83,7 +83,7 @@ const ErrorPage = () => {
             }}
             onClick={() => window.location.replace('/')}
           >
-            לחץ לחזרה לדף הבית
+            לחיצה לחזרה לדף הבית
           </Button>
         </Box>
       </Box>

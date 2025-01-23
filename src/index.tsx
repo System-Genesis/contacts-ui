@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError } from 'axios';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './routes.tsx';
-import NotFound from './error/errorPage.tsx';
+import NotFound from './pages/error/index.tsx';
 import { ErrorEvent } from './matomo/actions.ts';
 
 const router = createBrowserRouter([
