@@ -46,7 +46,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 0.2 }}>
             <Grid item sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
               <Title value={entity.fullName} sx={{ maxWidth: '110px' }} />
-              <SubTitle value={entity.jobTitle} sx={{ maxWidth: '80px' }} />
+              <SubTitle value={entity.jobTitle} sx={{ maxWidth: '80px' }} noToolTip />
             </Grid>
 
             {Object.values(entity?.commanderOf)?.includes(contact.id) && (

@@ -31,7 +31,7 @@ export const GroupCard = ({ group }: { group: GroupSearchResult }) => {
           <ProfileImage type="group" style={{ width: '2.5rem', height: '2.5rem' }} onClick={() => ({})} />
         </Grid>
         <Title value={group.name} />
-        <SubTitle value={group.entitiesCount} sx={{ borderRadius: '50%' }} />
+        <SubTitle value={group.entitiesCount} sx={{ borderRadius: '50%' }} noToolTip />
       </Grid>
 
       <Grid item xs={2} alignContent={'center'} display={'flex'} justifyContent={'end'}>

@@ -69,7 +69,7 @@ export const UpperContact: React.FC<{
               fontSize: 16,
               borderRadius: '30px',
               ml: 3,
-              maxWidth: '100%',
+              maxWidth: '250px',
             }}
             isPending={isPending}
           />

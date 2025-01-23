@@ -124,7 +124,7 @@ export const EntityContactsCard: React.FC<{
                   <Grid container gap={1} alignItems={'center'}>
                     {rank && rank != i18next.t('unknown') && <Typography>{rank}</Typography>}
                     <Title value={title} sx={{ fontWeight: '600' }} />
-                    <SubTitle value={subTitle ?? ''} sx={{ fontSize: '14', maxWidth: 'fit-content' }} />
+                    <SubTitle value={subTitle ?? ''} sx={{ fontSize: '14', maxWidth: 'fit-content' }} noToolTip />
                   </Grid>
                 </Grid>
 
