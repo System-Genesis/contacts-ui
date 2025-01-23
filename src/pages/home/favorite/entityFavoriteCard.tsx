@@ -22,6 +22,8 @@ export const EntityFavoriteCard = ({
   isSelected,
   sex,
   hiddenFields,
+  personalNumber,
+  identityCard,
 }: {
   id: string;
   fullName: string;
@@ -37,6 +39,8 @@ export const EntityFavoriteCard = ({
   sex: 'זכר' | 'נקבה';
   hiddenFields: string[];
   source: string;
+  personalNumber: string;
+  identityCard: string;
 }) => {
   const theme = useTheme();
   const currentUser = useSelector((state: RootState) => state.user);
@@ -89,7 +93,7 @@ export const EntityFavoriteCard = ({
           >
             <ProfileImage
               type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
-              id={id}
+              identifier={identityCard ?? personalNumber}
               style={{ width: '3.5rem', height: '3.5rem' }}
               sex={sex}
             />

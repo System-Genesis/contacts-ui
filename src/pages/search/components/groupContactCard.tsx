@@ -80,7 +80,7 @@ export const GroupContactsCard: React.FC<{
             alignItems={'center'}
             wrap="nowrap"
           >
-            <ProfileImage type="group" id={id} style={{ width: '4.2rem', height: '4.2rem' }} />
+            <ProfileImage type="group" style={{ width: '4.2rem', height: '4.2rem' }} />
             <Grid item p={1} alignContent={'center'} textAlign={'left'}>
               <Grid
                 container

@@ -27,7 +27,12 @@ export const UpperContact: React.FC<{
     <Grid container sx={{ display: 'flex', flexDirection: 'column' }}>
       <Grid container>
         <Grid item sx={{ height: '4rem', display: 'flex', alignItems: 'flex-end' }}>
-          <ProfileImage type={type} id={contact.id} style={{ width: imageSize, height: imageSize }} sex={contact.sex} />
+          <ProfileImage
+            type={type}
+            identifier={contact.personalNumber ?? contact.identityCard}
+            style={{ width: imageSize, height: imageSize }}
+            sex={contact.sex}
+          />
         </Grid>
 
         <Grid container sx={{ display: 'flex', flexDirection: 'row', width: '100%', flexWrap: 'nowrap' }}>

@@ -7,10 +7,10 @@ const {
   backend: { pic, users },
 } = routes;
 
-const getPicByID = async ({ id }: { id: string }): Promise<string> => {
+const getPicByID = async (identifier: string): Promise<string> => {
   const getFormattedPicture = (image: string) =>
     image.startsWith('/9j/') ? image : Buffer.from(image, 'base64').toString('utf-8');
-  const { data }: { data: string } = await axiosInstance.get(`${pic}/${id}`);
+  const { data }: { data: string } = await axiosInstance.get(`${pic}/${identifier}`);
 
   return `data:image/jpeg;base64,${getFormattedPicture(data)}`;
 };

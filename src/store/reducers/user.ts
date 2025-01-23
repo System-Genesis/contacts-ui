@@ -23,6 +23,8 @@ export interface UserState {
   hiddenFields: string[];
   tags: string[];
   mails: string[];
+  identityCard: string;
+  personalNumber: string;
 }
 
 const initialState: Partial<UserState> = {};

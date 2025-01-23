@@ -36,7 +36,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
       <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Grid item xs={2} alignContent={'center'}>
           <ProfileImage
-            id={entity.id}
+            identifier={entity.personalNumber ?? entity.identityCard}
             type={entity.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
             style={{ width: '2.5rem', height: '2.5rem' }}
             sex={contact.sex}

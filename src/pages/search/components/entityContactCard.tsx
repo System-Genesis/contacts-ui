@@ -104,7 +104,7 @@ export const EntityContactsCard: React.FC<{
           >
             <ProfileImage
               type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
-              id={id}
+              identifier={identityCard ?? personalNumber}
               style={{ width: '4.2rem', height: '4.2rem' }}
               sex={sex}
             />

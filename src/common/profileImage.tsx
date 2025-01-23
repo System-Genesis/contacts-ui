@@ -7,20 +7,21 @@ import { getPicByID } from '../services/userService';
 
 export const ProfileImage = ({
   type,
-  id,
+  identifier = '',
   style = {},
   onClick = () => ({}),
   sex,
 }: {
-  id: string;
+  identifier?: string;
   style?: object;
   type: 'group' | 'goalUser' | 'entity';
   onClick?: () => void;
   sex?: 'זכר' | 'נקבה';
 }) => {
   const { data: pic } = useQuery({
-    queryKey: ['getPicByID', id],
-    queryFn: () => getPicByID({ id }),
+    queryKey: ['getPicByID', identifier],
+    queryFn: () => getPicByID(identifier),
+    enabled: !!identifier,
   });
 
   if (type === 'group') return <img src={HierarchyIcon} style={style} onClick={onClick} />;
