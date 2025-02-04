@@ -31,8 +31,7 @@ export const ChatBot = () => {
       }}
     >
       <img src={chatBotSrc} alt="Chatbot Icon" />
-      <EinavSupportDialog
-        // <ChatBotDialog
+      <ChatBotDialog
         open={dialogOpen}
         onCancel={(e) => {
           e.stopPropagation();
