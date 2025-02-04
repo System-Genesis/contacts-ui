@@ -23,7 +23,7 @@ export const ChatBotDialog: React.FC<{
   const theme = useTheme();
 
   return (
-    <Dialog open={!!open} onClose={onCancel} theme={theme}>
+    <Dialog open={!!open} onClose={() => ({})} theme={theme}>
       <DialogContainer theme={theme}>
         <IconContainer flex={'10%'} alignSelf={'flex-end'}>
           <IconButton onClick={onCancel} sx={{ ml: 2 }}>
