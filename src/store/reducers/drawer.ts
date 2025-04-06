@@ -8,8 +8,6 @@ import {
   jabberPhoneValidation,
   mailValidation,
   mobilePhoneValidation,
-  otherPhoneValidation,
-  redPhoneValidation,
 } from '../../utils/utils';
 
 export interface DrawerState {
@@ -74,8 +72,6 @@ export const drawerSlice = createSlice({
       const formValidations: Record<string, (value) => boolean> = {
         mobilePhone: mobilePhoneValidation,
         jabberPhones: jabberPhoneValidation,
-        redPhone: redPhoneValidation,
-        otherPhone: otherPhoneValidation,
         mail: mailValidation,
       };
       const validationFn = formValidations[field];

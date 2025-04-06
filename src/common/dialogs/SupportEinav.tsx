@@ -21,7 +21,7 @@ export const EinavSupportDialog: React.FC<{
 }> = ({ open, onSave, onCancel }) => {
   const theme = useTheme();
 
-  const handleClose = (reason: 'backdropClick' | 'escapeKeyDown') => {
+  const handleClose = (event: {}, reason: 'backdropClick' | 'escapeKeyDown') => {
     if (reason === 'backdropClick') return;
     onCancel();
   };

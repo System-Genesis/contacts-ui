@@ -121,47 +121,49 @@ export const GroupContactDrawer: React.FC<{ setFormData?: any; formData: any }> 
         contact.otherPhones?.length > 0 ||
         contact.mails?.length > 0 ||
         (contact.jabberPhones?.length > 0 && contact.jabberPhones[0]?.option !== '')) && (
-        <>
-          <StyledGridSection container theme={theme}>
-            <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
-            <StyledGridInfo container theme={theme}>
-              {!isEdit && (
-                <FieldDiv fieldLabel={i18next.t('field.jabberPhone')} value={contact.jabberPhones?.[0]?.option} />
-              )}
-              <FieldDiv
-                field={'redPhone'}
-                fieldLabel={i18next.t('field.redPhone')}
-                value={formData.redPhone?.toString()}
-                editable
-                removable
-                onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
-                onRemove={() => handleRemove({ field: 'redPhone' })}
-                keyFilter={/[0-9*]/}
-                lengthLimit={10}
-              />
+          <>
+            <StyledGridSection container theme={theme}>
+              <Typography variant="body1">{i18next.t('contactDetails')}</Typography>
+              <StyledGridInfo container theme={theme}>
+                {!isEdit && (
+                  <FieldDiv fieldLabel={i18next.t('field.jabberPhone')} value={contact.jabberPhones?.[0]?.option} />
+                )}
+                <FieldDiv
+                  field={'redPhone'}
+                  fieldLabel={i18next.t('field.redPhone')}
+                  value={formData.redPhone?.toString()}
+                  editable
+                  removable
+                  onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+                  onRemove={() => handleRemove({ field: 'redPhone' })}
+                  keyFilter={/[0-9*]/}
+                  lengthLimit={10}
 
-              <FieldDiv
-                field={'otherPhone'}
-                fieldLabel={i18next.t('field.phone')}
-                value={
-                  isEdit
-                    ? formData.otherPhones?.[0]
-                    : formData.otherPhones?.[0]?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
-                }
-                editable
-                removable
-                onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
-                onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
-                keyFilter={/[0-9*]/}
-                lengthLimit={10}
-              />
+                />
 
-              {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]?.option} />}
-            </StyledGridInfo>
-          </StyledGridSection>
-          <StyledDivider theme={theme} />
-        </>
-      )}
+                <FieldDiv
+                  field={'otherPhone'}
+                  fieldLabel={i18next.t('field.phone')}
+                  value={
+                    isEdit
+                      ? formData.otherPhones?.[0]
+                      : formData.otherPhones?.[0]?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
+                  }
+                  editable
+                  removable
+                  onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
+                  onRemove={() => handleRemove({ field: 'otherPhones', index: 0 })}
+                  keyFilter={/[0-9*]/}
+                  lengthLimit={10}
+
+                />
+
+                {!isEdit && <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0]?.option} />}
+              </StyledGridInfo>
+            </StyledGridSection>
+            <StyledDivider theme={theme} />
+          </>
+        )}
 
       {!isEdit && (
         <StyledGridSection container theme={theme} margin={0}>

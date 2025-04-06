@@ -28,7 +28,7 @@ export const GroupCard = ({ group }: { group: GroupSearchResult }) => {
     >
       <Grid container sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
         <Grid item xs={2} alignContent={'center'}>
-          <ProfileImage type="group" id={group.id} style={{ width: '2.5rem', height: '2.5rem' }} onClick={() => ({})} />
+          <ProfileImage type="group" style={{ width: '2.5rem', height: '2.5rem' }} onClick={() => ({})} />
         </Grid>
         <Title value={group.name} />
         <SubTitle value={group.entitiesCount} sx={{ borderRadius: '50%' }} />

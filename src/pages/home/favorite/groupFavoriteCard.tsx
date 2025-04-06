@@ -36,9 +36,7 @@ export const GroupFavoriteCard = ({
       <FavoriteButton
         id={id}
         type={'entity'}
-        imageStyle={{
-          top: '20px',
-        }}
+        imageStyle={{ top: '20px', }}
         iconStyle={{
           right: '-30px',
           bottom: '-20px',
@@ -77,7 +75,7 @@ export const GroupFavoriteCard = ({
             onClick={handleSelect}
             sx={{ height: '70%', justifyContent: 'center', gap: 1.5, cursor: 'pointer' }}
           >
-            <ProfileImage type="group" id={id} style={{ width: '3.5rem', height: '3.5rem' }} />
+            <ProfileImage type="group" style={{ width: '3.5rem', height: '3.5rem' }} />
             <Grid
               container
               sx={{

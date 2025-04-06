@@ -105,14 +105,14 @@ export const EntityContentDrawer: React.FC<{
                   />
                 </>
               ) : (
-                <FieldDiv
-                  fieldLabel={i18next.t('field.employeeId') ?? i18next.t('noData')}
-                  value={contact.employeeId ?? i18next.t('noData')}
-                  hidable
-                  isHidden={formData.hiddenFields?.includes('employeeId')}
-                  onHide={(isHidden) => handleHide(isHidden, 'employeeId')}
-                />
-              )}
+                  <FieldDiv
+                    fieldLabel={i18next.t('field.employeeId') ?? i18next.t('noData')}
+                    value={contact.employeeId ?? i18next.t('noData')}
+                    hidable
+                    isHidden={formData.hiddenFields?.includes('employeeId')}
+                    onHide={(isHidden) => handleHide(isHidden, 'employeeId')}
+                  />
+                )}
 
               {contact.rank && contact.rank !== i18next.t('unknown') && (
                 <FieldDiv fieldLabel={i18next.t('field.rank')} value={contact.rank} />
@@ -188,104 +188,107 @@ export const EntityContentDrawer: React.FC<{
         contact.redPhone ||
         (contact.jabberPhones?.length > 0 && contact.jabberPhones?.[0]?.option !== '') ||
         contact?.otherPhones?.length > 0) && (
-        <StyledGridSection container theme={theme}>
-          <Typography variant="body1">
-            {contact.entityType === 'GoalUser' ? i18next.t(`contactDetails`) : i18next.t(`extraContactDetails`)}
-          </Typography>
-          <StyledGridInfo container theme={theme}>
-            {contact.entityType !== 'GoalUser' && (
+          <StyledGridSection container theme={theme}>
+            <Typography variant="body1">
+              {contact.entityType === 'GoalUser' ? i18next.t(`contactDetails`) : i18next.t(`extraContactDetails`)}
+            </Typography>
+            <StyledGridInfo container theme={theme}>
+              {contact.entityType !== 'GoalUser' && (
+                <FieldDiv
+                  field={'mobilePhone'}
+                  fieldLabel={i18next.t('field.mobilePhone')}
+                  value={
+                    isEdit
+                      ? formData.mobilePhone
+                      : formData.mobilePhone?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
+                  }
+                  required={!!contact.mobilePhone}
+                  hidable
+                  editable
+                  onChange={(event) => setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }))}
+                  isHidden={formData.hiddenFields?.includes('mobilePhone')}
+                  onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
+                  keyFilter={/[0-9]/}
+                  lengthLimit={10}
+                />
+              )}
+              {(contact.entityType !== 'GoalUser' || !isEdit) && (
+                <FieldDiv
+                  field={'jabberPhones'}
+                  fieldLabel={i18next.t('field.jabberPhone')}
+                  value={formData.jabberPhones?.[0]?.option}
+                  required={!!contact.jabberPhones?.[0]?.option}
+                  editable
+                  hidable
+                  onChange={(event) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      jabberPhones: [{ ...prev.jabberPhones?.[0], option: event.target.value }],
+                    }))
+                  }
+                  isHidden={formData.hiddenFields?.includes('jabberPhones')}
+                  onHide={(isHidden) => handleHide(isHidden, 'jabberPhones')}
+                  keyFilter={/[0-9*]/}
+                  lengthLimit={8}
+                />
+              )}
               <FieldDiv
-                field={'mobilePhone'}
-                fieldLabel={i18next.t('field.mobilePhone')}
-                value={
-                  isEdit
-                    ? formData.mobilePhone
-                    : formData.mobilePhone?.replace(/\D/g, '').replace(/(\d{3})(\d{7})/, '$1-$2')
-                }
-                required={!!contact.mobilePhone}
-                hidable
+                field={'redPhone'}
+                fieldLabel={i18next.t('field.redPhone')}
+                value={formData.redPhone?.toString()}
                 editable
-                onChange={(event) => setFormData((prev) => ({ ...prev, mobilePhone: event.target.value }))}
-                isHidden={formData.hiddenFields?.includes('mobilePhone')}
-                onHide={(isHidden) => handleHide(isHidden, 'mobilePhone')}
+                onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
+                isHidden={formData.hiddenFields?.includes('redPhone')}
                 keyFilter={/[0-9]/}
                 lengthLimit={10}
+
               />
-            )}
-            {(contact.entityType !== 'GoalUser' || !isEdit) && (
-              <FieldDiv
-                field={'jabberPhones'}
-                fieldLabel={i18next.t('field.jabberPhone')}
-                value={formData.jabberPhones?.[0]?.option}
-                required={!!contact.jabberPhones?.[0]?.option}
-                editable
-                hidable
-                onChange={(event) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    jabberPhones: [{ ...prev.jabberPhones?.[0], option: event.target.value }],
-                  }))
-                }
-                isHidden={formData.hiddenFields?.includes('jabberPhones')}
-                onHide={(isHidden) => handleHide(isHidden, 'jabberPhones')}
-                keyFilter={/[0-9*]/}
-                lengthLimit={8}
-              />
-            )}
-            <FieldDiv
-              field={'redPhone'}
-              fieldLabel={i18next.t('field.redPhone')}
-              value={formData.redPhone?.toString()}
-              editable
-              onChange={(event) => setFormData((prev) => ({ ...prev, redPhone: event.target.value }))}
-              isHidden={formData.hiddenFields?.includes('redPhone')}
-              keyFilter={/[0-9]/}
-              lengthLimit={10}
-            />
-            {contact.entityType === 'GoalUser' ? (
-              <FieldDiv
-                field={'otherPhone'}
-                fieldLabel={i18next.t('field.phone')}
-                value={formData.otherPhones?.[0]?.toString()}
-                editable
-                onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
-                keyFilter={/[0-9]/}
-                lengthLimit={10}
-              />
-            ) : (
-              <>
-                {formData?.otherPhones?.map((otherPhone, index) => (
-                  <FieldDiv
-                    key={index}
-                    field={'otherPhone'}
-                    fieldLabel={i18next.t('field.otherPhone')}
-                    value={otherPhone}
-                    editable
-                    removable
-                    onChange={(event) =>
-                      setFormData((prev) => ({
-                        ...prev,
-                        otherPhones: formData.otherPhones?.map((c, i) => (i === index ? event.target.value : c)),
-                      }))
-                    }
-                    onRemove={() => handleRemove({ field: 'otherPhones', index })}
-                    keyFilter={/[0-9]/}
-                    lengthLimit={10}
-                  />
-                ))}
-                {isEdit && formData.otherPhones?.length < 3 && (
-                  <AddPhone
-                    onClick={() => setFormData((prev) => ({ ...prev, otherPhones: [...prev.otherPhones, ''] }))}
-                  />
+              {contact.entityType === 'GoalUser' ? (
+                <FieldDiv
+                  field={'otherPhone'}
+                  fieldLabel={i18next.t('field.phone')}
+                  value={formData.otherPhones?.[0]?.toString()}
+                  editable
+                  onChange={(event) => setFormData((prev) => ({ ...prev, otherPhones: [event.target.value] }))}
+                  keyFilter={/[0-9]/}
+                  lengthLimit={10}
+
+                />
+              ) : (
+                  <>
+                    {formData?.otherPhones?.map((otherPhone, index) => (
+                      <FieldDiv
+                        key={index}
+                        field={'otherPhone'}
+                        fieldLabel={i18next.t('field.otherPhone')}
+                        value={otherPhone}
+                        editable
+                        removable
+                        onChange={(event) =>
+                          setFormData((prev) => ({
+                            ...prev,
+                            otherPhones: formData.otherPhones?.map((c, i) => (i === index ? event.target.value : c)),
+                          }))
+                        }
+                        onRemove={() => handleRemove({ field: 'otherPhones', index })}
+                        keyFilter={/[0-9]/}
+                        lengthLimit={10}
+
+                      />
+                    ))}
+                    {isEdit && formData.otherPhones?.length < 3 && (
+                      <AddPhone
+                        onClick={() => setFormData((prev) => ({ ...prev, otherPhones: [...prev.otherPhones, ''] }))}
+                      />
+                    )}
+                  </>
                 )}
-              </>
-            )}
-            {!isEdit && contact.entityType === 'GoalUser' && (
-              <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0].option} />
-            )}
-          </StyledGridInfo>
-        </StyledGridSection>
-      )}
+              {!isEdit && contact.entityType === 'GoalUser' && (
+                <FieldDiv fieldLabel={i18next.t('field.mail')} value={contact.mails?.[0].option} />
+              )}
+            </StyledGridInfo>
+          </StyledGridSection>
+        )}
     </Grid>
   );
 };

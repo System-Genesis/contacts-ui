@@ -15,7 +15,7 @@ export const mobilePhoneValidation = (value: string): boolean => /^\d{10}$/.test
 export const jabberPhoneValidation = (value: string): boolean => /^[\d*]{3,8}$/.test(value);
 
 export const otherPhoneValidation = (value: string): boolean => !value || value === '' || /^\d{10}$/.test(value);
-export const redPhoneValidation = (value: string): boolean => !value || value === '' || /^\d{10}$/.test(value);
+export const redPhoneValidation = (value: string): boolean => !value || value === '' || /^\d{7}$/.test(value);
 
 export const mailValidation = (value: string): boolean =>
   !value || value === '' || /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);

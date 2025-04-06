@@ -14,7 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { AxiosError } from 'axios';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import routes from './routes.tsx';
-import NotFound from './pages/error/index.tsx';
+import NotFound from './error/errorPage.tsx';
 import { ErrorEvent } from './matomo/actions.ts';
 
 const router = createBrowserRouter([
@@ -74,7 +74,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 //   ErrorEvent('Global error caught', `${message} ${source}`);
 // };
 window.onunhandledrejection = (event) => {
-  console.error('Unhandled promise rejection:', event.reason);
   toast.error('אירעה שגיאה, נסה שוב מאוחר יותר.', { theme: 'colored' });
   ErrorEvent('Unhandled promise rejection', event.reason);
 };

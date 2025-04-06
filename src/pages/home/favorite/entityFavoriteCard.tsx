@@ -17,6 +17,8 @@ export const EntityFavoriteCard = ({
   chats,
   jabberPhones,
   mobilePhone,
+  identityCard,
+  personalNumber,
   entityType,
   handleSelect,
   isSelected,
@@ -32,6 +34,8 @@ export const EntityFavoriteCard = ({
   jabberPhones: Option[];
   redPhone: string;
   mobilePhone: string;
+  identityCard: string;
+  personalNumber: string;
   handleSelect: () => void;
   isSelected: boolean;
   sex: 'זכר' | 'נקבה';
@@ -46,9 +50,7 @@ export const EntityFavoriteCard = ({
       <FavoriteButton
         id={id}
         type={'entity'}
-        imageStyle={{
-          top: '20px',
-        }}
+        imageStyle={{ top: '20px', }}
         iconStyle={{
           right: '-30px',
           bottom: '-20px',
@@ -89,7 +91,7 @@ export const EntityFavoriteCard = ({
           >
             <ProfileImage
               type={entityType === 'GoalUser' ? 'goalUser' : 'entity'}
-              id={id}
+              identifier={identityCard ?? personalNumber}
               style={{ width: '3.5rem', height: '3.5rem' }}
               sex={sex}
             />
@@ -113,21 +115,19 @@ export const EntityFavoriteCard = ({
           </Grid>
 
           {(mails?.length > 0 || chats?.length > 0 || mobilePhone || jabberPhones.length > 0) && (
-            <Grid container sx={{ width: '100%', gap: 1, height: '3rem' }}>
+            <Grid container sx={{ width: '100%', gap: 1, height: '3rem', justifyContent: 'center' }}>
               <Divider
                 sx={{ width: '100%', backgroundColor: theme.colors.lighterGray, border: 'none', height: '1px' }}
               />
               <Grid container sx={{ display: 'flex', justifyContent: 'space-between', px: 0.1 }}>
                 <ContactNumbers mobilePhone={mobilePhone} hiddenFields={hiddenFields} />
-                {currentUser.id !== id && (
-                  <ContactOptions
-                    jabberPhones={jabberPhones}
-                    mails={mails}
-                    chats={chats}
-                    hiddenFields={hiddenFields}
-                    location="favorite"
-                  />
-                )}
+                <ContactOptions
+                  jabberPhones={currentUser.id !== id ? jabberPhones : [] as Option[]}
+                  mails={currentUser.id !== id ? mails : [] as Option[]}
+                  chats={currentUser.id !== id ? chats : [] as Option[]}
+                  hiddenFields={currentUser.id !== id ? hiddenFields : []}
+                  location="favorite"
+                />
               </Grid>
             </Grid>
           )}

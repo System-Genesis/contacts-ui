@@ -5,7 +5,6 @@ import { AuthService } from '../services/authService';
 
 const env = import.meta.env;
 
-console.info(env);
 
 const axiosInstance = axios.create({
   withCredentials: true,

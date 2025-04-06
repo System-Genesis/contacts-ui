@@ -52,11 +52,13 @@ const TopBar = () => {
 
         <ProfileImage
           type={currentUser.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
-          id={currentUser.id}
+          identifier={currentUser.identityCard ?? currentUser.personalNumber}
           style={{ width: '2.5rem', height: '2.5rem', cursor: 'pointer' }}
           onClick={() => {
-            dispatch(setIsDrawerOpen(true));
-            dispatch(setDrawerObject(currentUser));
+            if(currentUser){
+              dispatch(setIsDrawerOpen(true));
+              dispatch(setDrawerObject(currentUser));
+            }
           }}
           sex={currentUser.sex}
         />

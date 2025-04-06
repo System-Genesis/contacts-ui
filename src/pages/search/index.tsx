@@ -68,7 +68,6 @@ const Search = () => {
     initialPageParam: 1,
     enabled: debouncedSearchTerm?.length >= 2,
   });
-
   const searchResults = data?.pages.reduce((acc, page) => [...acc, ...page], []) ?? [];
 
   const lastElementRef = useCallback(
@@ -124,7 +123,7 @@ const Search = () => {
             pb: 3,
           }}
         >
-          {isHistoryLoading || isSearchLoading ? (
+          {(isHistoryLoading || isSearchLoading) ? (
             <Box sx={{ alignSelf: 'center' }}>
               <Lottie options={defaultOptions} height={500} width={500} />
             </Box>
@@ -134,33 +133,33 @@ const Search = () => {
                 <img src={EmptyHistory} style={{ width: '100%' }} />
               </FadeBox>
             ) : (
-              <Grid container>
-                <Results results={searchHistoryResults} historyHeader />
-              </Grid>
-            )
+                <Grid container>
+                  <Results results={searchHistoryResults} historyHeader />
+                </Grid>
+              )
           ) : (
-            <>
-              <Fade in={Object.values(counts).every((val) => !val)} timeout={500}>
-                <FadeBox sx={{ display: Object.values(counts).every((val) => !val) ? 'block' : 'none' }}>
-                  <img src={EmptyResults} style={{ width: '100%', alignSelf: 'center' }} />
-                </FadeBox>
-              </Fade>
+                <>
+                  <Fade in={Object.values(counts).every((val) => !val)} timeout={500}>
+                    <FadeBox sx={{ display: Object.values(counts).every((val) => !val) ? 'block' : 'none' }}>
+                      <img src={EmptyResults} style={{ width: '100%', alignSelf: 'center' }} />
+                    </FadeBox>
+                  </Fade>
 
-              <Fade in={Object.values(counts).some((val) => val)} timeout={500}>
-                <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none' }}>
-                  <Grid item xs={9} height={'75vh'} sx={{ justifyContent: 'center' }}>
-                    <Results
-                      type={resultsType}
-                      results={searchResults}
-                      count={counts?.[resultsType] ?? 0}
-                      scrolledElementRef={lastElementRef}
-                      searchHeader
-                    />
-                  </Grid>
-                </FadeBox>
-              </Fade>
-            </>
-          )}
+                  <Fade in={Object.values(counts).some((val) => val)} timeout={500}>
+                    <FadeBox sx={{ display: Object.values(counts).some((val) => val) ? 'block' : 'none' }}>
+                      <Grid item xs={9} height={'75vh'} sx={{ justifyContent: 'center' }}>
+                        <Results
+                          type={resultsType}
+                          results={searchResults}
+                          count={counts?.[resultsType] ?? 0}
+                          scrolledElementRef={lastElementRef}
+                          searchHeader
+                        />
+                      </Grid>
+                    </FadeBox>
+                  </Fade>
+                </>
+              )}
         </Grid>
       </Grid>
     </Grid>

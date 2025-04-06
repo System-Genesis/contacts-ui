@@ -15,6 +15,11 @@ const getPicByID = async ({ id }: { id: string }): Promise<string> => {
   return `data:image/jpeg;base64,${getFormattedPicture(data)}`;
 };
 
+const getPicByIdentifier = async (identifier: string): Promise<string> => {
+  const { data } = await axiosInstance.get(`${pic}Identifier/${identifier}`, { responseType: 'blob' });
+  return URL.createObjectURL(data);
+};
+
 const editUser = async (id: string, data: any) => {
   const { data: resData } = await axiosInstance.patch(`${users}/${id}`, data);
   return resData;
@@ -31,4 +36,4 @@ const getUserById = async ({
   return user;
 };
 
-export { getPicByID, editUser, getUserById };
+export { getPicByID, editUser, getUserById, getPicByIdentifier };

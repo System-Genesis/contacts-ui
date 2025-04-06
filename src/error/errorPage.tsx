@@ -1,5 +1,5 @@
 import { Box, Button, Typography } from '@mui/material';
-import animationData from '../../assets/lottie/notFound.json';
+import animationData from '../assets/lottie/notFound.json';
 import Lottie from 'react-lottie';
 
 const ErrorPage = () => {
@@ -13,13 +13,14 @@ const ErrorPage = () => {
   };
 
   return (
-    <Box sx={{ height: '95vh', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+    <Box sx={{ height: '90vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
       <Box
         sx={{
           display: 'flex',
           alignItems: 'center',
           borderRadius: 15,
           backgroundColor: '#f9f9f9',
+          padding: '0 10rem 0 0'
         }}
       >
         <Box>

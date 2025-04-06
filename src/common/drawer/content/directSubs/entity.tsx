@@ -36,7 +36,7 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
       <Grid container sx={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
         <Grid item xs={2} alignContent={'center'}>
           <ProfileImage
-            id={entity.id}
+            identifier={entity.identityCard ?? entity.personalNumber}
             type={entity.entityType === 'GoalUser' ? 'goalUser' : 'entity'}
             style={{ width: '2.5rem', height: '2.5rem' }}
             sex={contact.sex}
@@ -45,8 +45,8 @@ export const EntityCard = ({ entity }: { entity: EntitySearchResult }) => {
         <Grid item xs={6} sx={{ alignContent: 'center', alignSelf: 'center' }}>
           <Grid container sx={{ display: 'flex', flexDirection: 'row', gap: 0.2 }}>
             <Grid item sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
-              <Title value={entity.fullName} sx={{ maxWidth: '110px' }} />
-              <SubTitle value={entity.jobTitle} sx={{ maxWidth: '80px' }} />
+              <Title value={entity.fullName} sx={{ maxWidth: '100px' }} />
+              <SubTitle value={entity.jobTitle} sx={{ maxWidth: '70px' }} />
             </Grid>
 
             {Object.values(entity?.commanderOf)?.includes(contact.id) && (
